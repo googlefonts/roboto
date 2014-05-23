@@ -29,7 +29,7 @@ def italicizeGlyph(g, angle=10, stemWidth=185):
 def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
     CURVE_CORRECTION_WEIGHT = .03
     CORNER_WEIGHT = 10
-    ga,subsegments = segmentGlyph(glyph,25)
+    ga, subsegments = segmentGlyph(glyph,25)
     va, e  = glyphToMesh(ga)
     n = len(va)
     grad = mapEdges(lambda a,(p,n): normalize(p-a), va, e)
@@ -78,38 +78,6 @@ def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
     # gOut.width += 10
     # return gOut
     return fitGlyph(glyph, gOut, subsegments)
-
-def condenseGlyph(glyph, scale=.8, stemWidth=185):
-    ga, subsegments = segmentGlyph(glyph, 25)
-    va, e  = glyphToMesh(ga)
-    n = len(va)
-    
-    normals = edgeNormals(va,e)
-    cn = va.dot(np.array([[scale, 0],[0,1]]))
-    grad = mapEdges(lambda a,(p,n): normalize(p-a), cn, e)
-    # ograd = mapEdges(lambda a,(p,n): normalize(p-a), va, e)
-    
-    cn[:,0] -= normals[:,0] * stemWidth * .5 * (1 - scale)
-    out = recompose(cn, grad, e, smooth=.5)
-    # out = recompose(out, grad, e, smooth=.1)
-    out = recompose(out, grad, e, smooth=.01)
-    
-    # cornerWeights = mapEdges(lambda a,(p,n): normalize(p-a).dot(normalize(a-n)), grad, e)[:,0].reshape((-1,1))
-    #     smooth = np.ones((n,1)) * .1
-    #     smooth[cornerWeights < .6] = 10
-    #     
-    #     grad2 = quantizeGradient(grad).astype(float)
-    #     grad2 = copyGradDetails(grad, grad2, e, scale=10)
-    #     grad2 = mapEdges(lambda a,e: normalize(a), grad2, e)
-    #     out = recompose(out, grad2, e, smooth=smooth)
-    out[:,0] += 15
-    out[:,1] = va[:,1]
-    # out = recompose(out, grad, e, smooth=.5)
-    gOut = meshToGlyph(out, ga)
-    gOut = fitGlyph(glyph, gOut, subsegments)
-    for i,seg in enumerate(gOut):
-        gOut[i].points[0].y = glyph[i].points[0].y
-    return gOut
 
 
 def transformFLGlyphMembers(g, m, transformAnchors = True):
@@ -265,3 +233,38 @@ def copyMeshDetails(va,vb,e,scale=5,smooth=.01):
     grad = copyGradDetails(gradA, gradB, e, scale)
     grad = mapEdges(lambda a,(p,n): normalize(a), grad, e)
     return recompose(vb, grad, e, smooth=smooth)
+
+
+
+
+def condenseGlyph(glyph, scale=.8, stemWidth=185):
+    ga, subsegments = segmentGlyph(glyph, 25)
+    va, e  = glyphToMesh(ga)
+    n = len(va)
+
+    normals = edgeNormals(va,e)
+    cn = va.dot(np.array([[scale, 0],[0,1]]))
+    grad = mapEdges(lambda a,(p,n): normalize(p-a), cn, e)
+    # ograd = mapEdges(lambda a,(p,n): normalize(p-a), va, e)
+
+    cn[:,0] -= normals[:,0] * stemWidth * .5 * (1 - scale)
+    out = recompose(cn, grad, e, smooth=.5)
+    # out = recompose(out, grad, e, smooth=.1)
+    out = recompose(out, grad, e, smooth=.01)
+
+    # cornerWeights = mapEdges(lambda a,(p,n): normalize(p-a).dot(normalize(a-n)), grad, e)[:,0].reshape((-1,1))
+    #     smooth = np.ones((n,1)) * .1
+    #     smooth[cornerWeights < .6] = 10
+    #     
+    #     grad2 = quantizeGradient(grad).astype(float)
+    #     grad2 = copyGradDetails(grad, grad2, e, scale=10)
+    #     grad2 = mapEdges(lambda a,e: normalize(a), grad2, e)
+    #     out = recompose(out, grad2, e, smooth=smooth)
+    out[:,0] += 15
+    out[:,1] = va[:,1]
+    # out = recompose(out, grad, e, smooth=.5)
+    gOut = meshToGlyph(out, ga)
+    gOut = fitGlyph(glyph, gOut, subsegments)
+    for i,seg in enumerate(gOut):
+        gOut[i].points[0].y = glyph[i].points[0].y
+    return gOut

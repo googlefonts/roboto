@@ -80,6 +80,9 @@ class FontProject:
                 i += 1
                 if i % 10 == 0: print g.name
                 
+                if g.name == "uniFFFD":
+                    continue
+                    
                 # if i < 24:
                 #     continue
                 # if i > 86:

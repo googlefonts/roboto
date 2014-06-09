@@ -1,6 +1,5 @@
-
 import sys
-# BASEDIR="/Users/robertsonc/GoogleDrive/Fonts/Roboto_src"
+
 sys.path.insert(0,"%s/scripts/lib"%BASEDIR)
 
 from robofab.world import RFont

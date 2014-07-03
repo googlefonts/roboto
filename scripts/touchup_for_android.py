@@ -1,11 +1,25 @@
 #!/usr/bin/python
-"""Post-build touch ups for Roboto."""
+"""Post-build changes for Roboto for Android."""
 
+import os
 from os import path
 import sys
 
 from fontTools import ttLib
 from nototools import font_data
+
+
+def output_protruding_glyphs(font, ymin, ymax, file_name):
+   protruding_glyphs = []
+   glyph_dict = font['glyf'].glyphs
+   for glyph_name, glyph in glyph_dict.items():
+       if glyph.numberOfContours == 0:
+           continue
+       if glyph.yMin < ymin or glyph.yMax > ymax:
+           protruding_glyphs.append(glyph_name)
+   if protruding_glyphs:
+       print "Protruding glyphs in %s:" % file_name,
+       print ', '.join(sorted(protruding_glyphs))
 
 
 def drop_lookup(table, lookup_number):
@@ -22,6 +36,7 @@ def drop_lookup(table, lookup_number):
 
 def apply_temporary_fixes(font):
     """Apply some temporary fixes needed for Android."""
+
     # Remove tab, combining keycap, and the arrows from the cmap table
     font_data.delete_from_cmap(font, [0x0009, 0x20E3, 0x2191, 0x2193])
     
@@ -33,8 +48,13 @@ def apply_temporary_fixes(font):
         if table in font:
             del font[table]
 
-    # Fix version to 2.000981
-    version_record = 'Version 2.000981; 2014'
+    # Fix version number from buildnumber.txt
+    from datetime import date
+
+    build_number_txt = path.join(
+        path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
+    build_number = open(build_number_txt).read().strip()
+    version_record = 'Version 2.0%s; %d' % (build_number, date.today().year)
     for record in font['name'].names:
         if record.nameID == 5:
             if record.platformID == 1 and record.platEncID == 0:  # MacRoman
@@ -43,16 +63,20 @@ def apply_temporary_fixes(font):
                 # Windows UCS-2
                 record.string = version_record.encode('UTF-16BE')
             else:
-                assert False 
+                assert False
 
 
 def correct_font(source_font_name, target_font_name):
     """Corrects metrics and other meta information."""
     font = ttLib.TTFont(source_font_name)
+
+    YMAX = 2163
+    YMIN = -555
     
     head = font['head']
-    head.yMax = 2163
-    head.yMin = -555
+    head.yMax = YMAX
+    head.yMin = YMIN
+    output_protruding_glyphs(font, YMIN, YMAX, source_font_name)
     
     hhea = font['hhea']
     hhea.ascent = 1900
@@ -74,9 +98,8 @@ def correct_font(source_font_name, target_font_name):
 
 
 def main(argv):
-    """Correct all fonts specified in the command line."""
-    for font_name in argv[1:]:
-        correct_font(font_name, path.basename(font_name))
+    """Correct the font specified in the command line."""
+    correct_font(argv[1], argv[2])
 
 
 if __name__ == "__main__":

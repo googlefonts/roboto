@@ -26,3 +26,13 @@ mono:
 	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefonts.flw
 	cat "scripts/build-monoV2.py" >> /tmp/makefonts.flw
 	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
+
+android:
+	rm -rf out/android/temp
+	mkdir --parents out/android/temp
+	for f in out/RobotoTTF/*.ttf out/RobotoCondensedTTF/*.ttf; do \
+		temp_location=out/android/temp/$$(basename $$f); \
+		final_location=out/android/$$(basename $$f); \
+		python scripts/touchup_for_android.py $$f $$temp_location; \
+		python $$HOME/noto/nototools/subset.py $$temp_location $$final_location; \
+	done

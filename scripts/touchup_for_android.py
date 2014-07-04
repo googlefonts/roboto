@@ -9,22 +9,9 @@ from fontTools import ttLib
 from nototools import font_data
 
 
-def output_protruding_glyphs(font, ymin, ymax, file_name):
-   protruding_glyphs = []
-   glyph_dict = font['glyf'].glyphs
-   for glyph_name, glyph in glyph_dict.items():
-       if glyph.numberOfContours == 0:
-           continue
-       if glyph.yMin < ymin or glyph.yMax > ymax:
-           protruding_glyphs.append(glyph_name)
-   if protruding_glyphs:
-       print "Protruding glyphs in %s:" % file_name,
-       print ', '.join(sorted(protruding_glyphs))
-
-
 def drop_lookup(table, lookup_number):
     """Drop a lookup from an OpenType table by number.
-    
+
     Actually remove pointers from features to the lookup, which should be less
     intrusive.
     """
@@ -34,19 +21,29 @@ def drop_lookup(table, lookup_number):
             feature.Feature.LookupCount -= 1
 
 
-def apply_temporary_fixes(font):
-    """Apply some temporary fixes needed for Android."""
+def get_font_name(font):
+    """Gets the name of the font from the name table."""
+    return font_data.get_name_records(font)[4]
 
-    # Remove tab, combining keycap, and the arrows from the cmap table
-    font_data.delete_from_cmap(font, [0x0009, 0x20E3, 0x2191, 0x2193])
-    
+
+def apply_temporary_fixes(font):
+    """Apply some temporary fixes."""
+
+    # Make sure macStyle is correct
+    font_name = get_font_name(font)
+    bold = ('Bold' in font_name) or ('Black' in font_name)
+    italic = 'Italic' in font_name
+    font['head'].macStyle = (italic << 1) | bold
+
+    # Mark the font free for installation, embedding, etc.
+    os2 = font['OS/2']
+    os2.fsType = 0
+
+    # Set the font vendor to Google
+    os2.achVendID = 'GOOG'
+
     # Drop the lookup forming the ff ligature
     drop_lookup(font['GSUB'], 5)
-    
-    # Drop tables not useful on Android
-    for table in ['LTSH', 'hdmx', 'VDMX', 'gasp']:
-        if table in font:
-            del font[table]
 
     # Fix version number from buildnumber.txt
     from datetime import date
@@ -54,7 +51,9 @@ def apply_temporary_fixes(font):
     build_number_txt = path.join(
         path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
     build_number = open(build_number_txt).read().strip()
+
     version_record = 'Version 2.0%s; %d' % (build_number, date.today().year)
+
     for record in font['name'].names:
         if record.nameID == 5:
             if record.platformID == 1 and record.platEncID == 0:  # MacRoman
@@ -66,34 +65,28 @@ def apply_temporary_fixes(font):
                 assert False
 
 
-def correct_font(source_font_name, target_font_name):
-    """Corrects metrics and other meta information."""
-    font = ttLib.TTFont(source_font_name)
-
-    YMAX = 2163
-    YMIN = -555
-    
-    head = font['head']
-    head.yMax = YMAX
-    head.yMin = YMIN
-    output_protruding_glyphs(font, YMIN, YMAX, source_font_name)
-    
+def apply_android_specific_fixes(font):
+    """Apply fixes needed for Android."""
+    # Set ascent, descent, and lineGap values to Android K values
     hhea = font['hhea']
     hhea.ascent = 1900
     hhea.descent = -500
     hhea.lineGap = 0
-    
-    basename = path.basename(source_font_name)
-    bold = ('Bold' in basename) or ('Black' in basename)
-    italic = 'Italic' in basename
-    head.macStyle = (italic << 1) | bold
-    
-    os2 = font['OS/2']
-    os2.fsType = 0
-    os2.achVendID = 'GOOG'
-    
+
+    # Remove tab, combining keycap, and the arrows from the cmap table
+    font_data.delete_from_cmap(font, [0x0009, 0x20E3, 0x2191, 0x2193])
+
+    # Drop tables not useful on Android
+    for table in ['LTSH', 'hdmx', 'VDMX', 'gasp']:
+        if table in font:
+            del font[table]
+
+
+def correct_font(source_font_name, target_font_name):
+    """Corrects metrics and other meta information."""
+    font = ttLib.TTFont(source_font_name)
     apply_temporary_fixes(font)
-    
+    apply_android_specific_fixes(font)
     font.save(target_font_name)
 
 

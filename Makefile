@@ -28,11 +28,13 @@ mono:
 	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
 
 android:
-	rm -rf out/android/temp
-	mkdir --parents out/android/temp
-	for f in out/RobotoTTF/*.ttf out/RobotoCondensedTTF/*.ttf; do \
-		temp_location=out/android/temp/$$(basename $$f); \
-		final_location=out/android/$$(basename $$f); \
-		python scripts/touchup_for_android.py $$f $$temp_location; \
-		python $$HOME/noto/nototools/subset.py $$temp_location $$final_location; \
+	mkdir -p out/android
+	for source in out/RobotoTTF/*.ttf out/RobotoCondensedTTF/*.ttf; do \
+	        touched=$$(mktemp); \
+	        subsetted=$$(mktemp); \
+		final=out/android/$$(basename $$source); \
+		python scripts/touchup_for_android.py $$source $$touched; \
+		python $$HOME/noto/nototools/subset.py $$touched $$subsetted; \
+		python scripts/force_yminmax.py $$subsetted $$final; \
+		rm $$touched $$subsetted; \
 	done

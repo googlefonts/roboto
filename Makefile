@@ -38,3 +38,7 @@ android:
 		python scripts/force_yminmax.py $$subsetted $$final; \
 		rm $$touched $$subsetted; \
 	done
+
+glass: out/android/Roboto-Thin.ttf
+	mkdir -p out/glass
+	python scripts/touchup_for_glass.py $< out/glass/Roboto-Thin.ttf

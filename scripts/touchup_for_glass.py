@@ -10,7 +10,7 @@ from nototools import font_data
 
 
 def apply_glass_hacks(font):
-    """Apply glass-specific hacks."""
+    """Apply glass-specific hacks to a fonttools font instance."""
     # Really ugly hack, expecting the proportional digit one to be at
     # glyph01965.
     font_data.add_to_cmap(font, {0xEE00: 'glyph01965'})
@@ -36,16 +36,16 @@ def apply_glass_hacks(font):
                 assert False
 
 
-def correct_font(source_font_name, target_font_name):
-    """Corrects metrics and other meta information."""
+def hack_font(source_font_name, target_font_name):
+    """Hacks the source font and saves it as the target."""
     font = ttLib.TTFont(source_font_name)
     apply_glass_hacks(font)
     font.save(target_font_name)
 
 
 def main(argv):
-    """Correct the font specified in the command line."""
-    correct_font(argv[1], argv[2])
+    """Hack the font specified in the command line."""
+    hack_font(argv[1], argv[2])
 
 
 if __name__ == "__main__":

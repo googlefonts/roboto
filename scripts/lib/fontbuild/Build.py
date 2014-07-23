@@ -102,7 +102,7 @@ class FontProject:
                 
                 if (g.name in self.lessItalic):
                     italicizeGlyph(g, 9, stemWidth=stemWidth)
-                else:
+                elif g.name != ".notdef":
                     italicizeGlyph(g, 10, stemWidth=stemWidth)
                 g.RemoveOverlap()
                 g.width += 10

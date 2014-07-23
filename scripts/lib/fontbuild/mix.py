@@ -228,6 +228,13 @@ class Master:
     def openFont(self, path, overlayPath=None):
         fl.Open(path,True)
         self.ifont = fl.ifont
+        for g in fl.font.glyphs:
+          size = len(g)
+          csize = len(g.components)
+          if (size > 0 and csize > 0):
+            g.Decompose()
+
+        self.ifont = fl.ifont
         self.font = fl.font
         if overlayPath != None:
             fl.Open(overlayPath,True)

@@ -9,8 +9,9 @@ from fontTools import ttLib
 def output_protruding_glyphs(font, ymin, ymax, file_name):
     """Outputs all glyphs going outside the specified vertical range."""
     protruding_glyphs = []
-    glyph_dict = font['glyf'].glyphs
-    for glyph_name, glyph in glyph_dict.items():
+    glyf_table = font['glyf']
+    for glyph_name in glyf_table.keys():
+        glyph = glyf_table[glyph_name]
         if glyph.numberOfContours == 0:
             continue
         if glyph.yMin < ymin or glyph.yMax > ymax:

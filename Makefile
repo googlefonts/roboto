@@ -33,12 +33,17 @@ android:
 	        touched=$$(mktemp); \
 	        subsetted=$$(mktemp); \
 		final=out/android/$$(basename $$source); \
-		python scripts/touchup_for_android.py $$source $$touched; \
-		python $$HOME/noto/nototools/subset.py $$touched $$subsetted; \
-		python scripts/force_yminmax.py $$subsetted $$final; \
+		python scripts/touchup_for_android.py $$source $$touched && \
+		python $$HOME/noto/nototools/subset.py $$touched $$subsetted && \
+		python scripts/force_yminmax.py $$subsetted $$final && \
 		rm $$touched $$subsetted; \
 	done
 
 glass: out/android/Roboto-Thin.ttf
 	mkdir -p out/glass
 	python scripts/touchup_for_glass.py $< out/glass/Roboto-Thin.ttf
+
+test: test-android
+
+test-android:
+	python scripts/run_android_tests.py

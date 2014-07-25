@@ -1,6 +1,7 @@
 #!/usr/bin/python
 """Post-build changes for Roboto for Android."""
 
+import collections
 import os
 from os import path
 import sys
@@ -26,6 +27,23 @@ def get_font_name(font):
     return font_data.get_name_records(font)[4]
 
 
+DIGITS = ['zero', 'one', 'two', 'three', 'four',
+          'five', 'six', 'seven', 'eight', 'nine']
+
+def fix_digit_widths(font):
+    """Change all digit widths in the font to be the same."""
+    hmtx_table = font['hmtx']
+    widths = [hmtx_table[digit][0] for digit in DIGITS]
+    if len(set(widths)) > 1:
+        width_counter = collections.Counter(widths)
+        most_common_width = width_counter.most_common(1)[0][0]
+        print 'Digit widths were %s.' % repr(widths)
+        print 'Setting all glyph widths to %d.' % most_common_width
+        for digit in DIGITS:
+            assert abs(hmtx_table[digit][0] - most_common_width) <= 1
+            hmtx_table[digit][0] = most_common_width
+
+
 def apply_temporary_fixes(font):
     """Apply some temporary fixes."""
 
@@ -44,6 +62,9 @@ def apply_temporary_fixes(font):
 
     # Drop the lookup forming the ff ligature
     drop_lookup(font['GSUB'], 5)
+
+    # Fix the digit widths
+    fix_digit_widths(font)
 
     # Fix version number from buildnumber.txt
     from datetime import date

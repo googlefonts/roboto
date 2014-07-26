@@ -1,0 +1,5 @@
+CFLAGS = -Wall -g `gtk-config --cflags` `libart2-config --cflags`
+LDLIBS = `gtk-config --libs` `libart2-config --libs`
+all:	ppedit_gtk1
+
+ppedit_gtk1:	ppedit_gtk1.o cornu.o bezctx.o bezctx_libart.o bezctx_hittest.o plate.o sexp.o image.o bezctx_ps.o spiro.o

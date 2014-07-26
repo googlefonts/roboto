@@ -14,6 +14,11 @@
 #
 # Contributor: Raph Levien
 
+import os
+import sys
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), os.pardir, 'spiro', 'curves'))
+
 from fontTools import ttLib
 from fontTools.ttLib.tables import _g_l_y_f
 import fromcubic
@@ -22,8 +27,6 @@ import pcorn
 import math
 import md5
 
-import sys
-import os
 
 def lerppt(t, p0, p1):
 	return (p0[0] + t * (p1[0] - p0[0]), p0[1] + t * (p1[1] - p0[1]))
@@ -339,7 +342,8 @@ def gen_segs(glyph):
 def generate(fn):
 	f = ttLib.TTFont(fn)
 	glyf = f['glyf']
-	for name, g in glyf.glyphs.iteritems():
+	for name in glyf.keys():
+		g = glyf[name]
 		print 'generating', name
 		gen_segs(g)
 
@@ -397,7 +401,8 @@ def repack_glyph(glyph):
 def repack(fn, newfn):
 	f = ttLib.TTFont(fn)
 	glyf = f['glyf']
-	for name, g in glyf.glyphs.iteritems():
+	for name in glyf.keys():
+		g = glyf[name]
 		if not g.isComposite():
 			repack_glyph(g)
 	if newfn:

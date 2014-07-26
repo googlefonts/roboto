@@ -1,0 +1,112 @@
+README for ppedit
+
+Raph Levien
+4 May 2007
+
+ppedit is my prototype application for editing curves using my
+curvature-continuous spirals. While I have used this code to draw many
+font outlines, it is very rough around the edges, and is far from a
+polished tool.
+
+
+== License and patent grant ==
+
+All code in this package is released under the terms of the GNU GPL,
+version 2 or later, at your choice.
+
+Further, there is a provisional patent application filed for the
+underlying curve technology. The following patent grant applies to any
+patent which may be issued as a result of that application:
+
+Whereas, Raph Levien (hereinafter "Inventor") has obtained patent
+protection for related technology (hereinafter "Patented Technology"),
+Inventor wishes to aid the the GNU free software project in achieving
+its goals, and Inventor also wishes to increase public awareness of
+Patented Technology, Inventor hereby grants a fully paid up,
+nonexclusive, irrevocable, royalty free license to practice the
+patents listed below ("the Patents") if and only if practiced in
+conjunction with software distributed under the terms of any version
+of the GNU General Public License as published by the Free Software
+Foundation, 59 Temple Place, Suite 330, Boston, MA 02111. Inventor
+reserves all other rights, including without limitation, licensing for
+software not distributed under the GNU General Public License.
+
+== Building ==
+
+The main build supported right now is the Gtk2/cairo one. There's also
+a Mac build and a Gtk1 one, but those aren't guaranteed to work.
+
+1. Make sure you've got ../x3/ in a directory parallel to ppedit. If
+   you've unpacked from a tarball, this should be the case already.
+   From darcs, use: darcs get http://levien.com/garden/x3
+
+2. make
+
+3. The binary is ppedit
+
+== Using ==
+
+The numeric keys 1-6 select the mode. 1 is selection, 2-6 select
+different point modes:
+
+2: Add G4-continuous curve point
+3: Add corner point
+4: Add left-facing one-way point
+5: Add right-facing one-way point
+6: Add G2-continuous curve point
+
+Note: Dave Crossland has a set of alternate keybindings which are
+probably faster.
+
+== Plate files ==
+
+Ctrl-S saves a plate file in a file of the name 'plate'. Additionally,
+a plate file can be given as a command line argument. The file uses
+simple S-expressions, with a one-character code for each point, then
+the X and Y coordinates - 0,0 is top left.
+
+Here's the cap U from Inconsolata, for example:
+
+(plate
+  (v 68 78)
+  (v 159 78)
+  (o 158 92)
+  ([ 148 115)
+  (] 148 552)
+  (o 298 744)
+  ([ 459 549)
+  (v 459 78)
+  (v 536 78)
+  (] 536 547)
+  (o 295 813)
+  ([ 68 551)
+  (z)
+)
+
+v: corner
+o: g4
+c: g2
+[: left-facing one-way
+]: right-facing one-way
+
+== Conversion to PostScript ==
+
+Ctrl-P converts to PostScript, saving '/tmp/foo.ps'. Other utilities
+can convert that representation into FontForge, and also optimize the
+Beziers.
+
+== Stability ==
+
+The spline solver in this release is _not_ numerically robust. When
+you start drawing random points, you'll quickly run into divergence.
+However, "sensible" plates based on real fonts usually converge. Some
+tips:
+
+1. Huge changes of angle are likely to diverge.
+
+2. For the first two or three points, G4 points are likelier to
+   converge than G2's. For longer segments, G2 is more likely.
+
+3. Start on a curve point.
+
+A more numerically robust approach is in the works.

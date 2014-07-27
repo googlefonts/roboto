@@ -27,6 +27,17 @@ mono:
 	cat "scripts/build-monoV2.py" >> /tmp/makefonts.flw
 	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
 
+crunch:
+	mkdir -p out/crunched
+	cd third_party/fontcrunch && \
+	for source in ../../out/RobotoTTF/*.ttf ../../out/RobotoCondensedTTF/*.ttf; do \
+		python fontcrunch.py gen $$source; \
+	done && \
+	$(MAKE) -j24 && \
+	for source in ../../out/RobotoTTF/*.ttf ../../out/RobotoCondensedTTF/*.ttf; do \
+		python fontcrunch.py pack $$source out/crunched/$$(basename $$source) >/dev/null; \
+        done
+
 android:
 	mkdir -p out/android
 	for source in out/RobotoTTF/*.ttf out/RobotoCondensedTTF/*.ttf; do \

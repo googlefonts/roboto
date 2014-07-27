@@ -325,7 +325,7 @@ def seg_fn(segstr):
 		if not os.path.exists(dirname):
 			os.mkdir(dirname)
 		fn = dirname + '/' + fn[2:]
-	fn += '.bz'
+	fn += '.bez'
 	return fn
 
 def gen_segs(glyph):

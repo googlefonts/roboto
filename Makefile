@@ -40,7 +40,7 @@ crunch:
 
 android:
 	mkdir -p out/android
-	for source in out/RobotoTTF/*.ttf out/RobotoCondensedTTF/*.ttf; do \
+	for source in out/crunched/*.ttf; do \
 	        touched=$$(mktemp); \
 	        subsetted=$$(mktemp); \
 		final=out/android/$$(basename $$source); \

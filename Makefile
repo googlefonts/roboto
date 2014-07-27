@@ -35,7 +35,7 @@ crunch:
 	done && \
 	$(MAKE) -j24 && \
 	for source in ../../out/RobotoTTF/*.ttf ../../out/RobotoCondensedTTF/*.ttf; do \
-		python fontcrunch.py pack $$source out/crunched/$$(basename $$source) >/dev/null; \
+		python fontcrunch.py pack $$source ../../out/crunched/$$(basename $$source) >/dev/null; \
         done
 
 android:

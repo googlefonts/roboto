@@ -1,0 +1,47 @@
+# The only information parsed are the second, sixth, and seventh columns,
+# which include the code point range, if the block should be completely
+# supported, and if not, which characters should be included or excluded.
+	Code point range	Total # of graphic characters in Unicode 7.0	 Roboto (v1.200310) coverage        	# of characters to add to Roboto for Unicode 7.0 support	should be fully covered to support LGC?	What characters to cover if full coverage is not necessary
+Basic Latin 	0000..007F	95	95	0	1	
+Latin-1 Supplement 	0080..00FF	96	96	0	1	
+Latin Extended-A 	0100..017F	128	128	0	1	
+Latin Extended-B 	0180..024F	208	17	191	1	
+IPA Extensions 	0250..02AF	96	1	95	1	
+Spacing Modifier Letters 	02B0..02FF	80	11	69	1	
+Combining Diacritical Marks 	0300..036F	112	6	106	1	
+Greek and Coptic 	0370..03FF	135	75	46	0	Everything except 03E2..03EF
+Cyrillic 	0400..04FF	256	255	1	1	
+Cyrillic Supplement 	0500..052F	48	20	28	1	
+Combining Diacritical Marks Extended	1AB0..1AFF	15	0	15	1	
+Phonetic Extensions 	1D00..1D7F	128		128	1	
+Phonetic Extensions Supplement 	1D80..1DBF	64		64	1	
+Combining Diacritical Marks Supplement 	1DC0..1DFF	58		58	1	
+Latin Extended Additional 	1E00..1EFF	256	100	156	1	
+Greek Extended 	1F00..1FFF	233	12	221	1	
+General Punctuation 	2000..206F	111	35	54	0	Everything except 2028..202E, 2060..2064, and 2066..206F
+Superscripts and Subscripts 	2070..209F	42	2	40	1	
+Currency Symbols 	20A0..20CF	29	5	24	1	
+Combining Diacritical Marks for Symbols 	20D0..20FF	33		5	0	20DB, 20DC, 20E3, 20E8, 20F0
+Letterlike Symbols 	2100..214F	80	6	17	0	2100, 2101, 2103, 2105, 2106, 2109, 2113, 2116, 2117, 211E..2123, 2125, 2126, 212A, 212B, 2132, 213B, 214D, 214F
+Number Forms 	2150..218F	58	4	54	1	
+Arrows 	2190..21FF	112		2	0	2191, 2193
+Mathematical Operators 	2200..22FF	256	12	0	0	2202, 2206, 220F, 2211, 2212, 221A, 221E, 222B, 2248, 2260, 2264, 2265
+Miscellaneous Technical 	2300..23FF	44		0	0	
+Control Pictures	2400..243F	39		1	0	2423
+Box Drawing 	2500..257F	128		0	0	
+Block Elements 	2580..259F	32		0	0	
+Geometric Shapes 	25A0..25FF	96	1	0	0	
+Miscellaneous Symbols 	2600..26FF	256		0	0	
+Miscellaneous Mathematical Symbols-A	27C0..27EF	48		10	0	27E6..27EF
+Miscellaneous Symbols and Arrows	2B37..2B5E			8	0	2B4E, 2B4F, 2B5A..2B5F
+Latin Extended-C 	2C60..2C7F	32		32	1	
+Cyrillic Extended-A	2DE0..2DFF	32		32	1	
+Supplemental Punctuation 	2E00..2E7F	69		69	1	
+Cyrillic Extended-B	A640..A69F	95		95	1	
+Modifier Tone Letters 	A700..A71F	32		32	1	
+Latin Extended-D 	A720..A7FF	152		152	1	
+Latin Extended-E	AB30..ABBF	50		50	1	
+Alphabetic Presentation Forms 	FB00..FB4F	58	4	3	0	FB00..FB06
+Combining Half Marks 	FE20..FE2F	14		14	1	
+Specials 	FFF0..FFFF	5	2	0	0	
+Enclosed Alphanumeric Supplement	1F100..1F1FF			2	0	1F16A, 1F16B

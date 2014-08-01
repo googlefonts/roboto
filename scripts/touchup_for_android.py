@@ -8,6 +8,7 @@ import sys
 
 from fontTools import ttLib
 from nototools import font_data
+from nototools import unicode_data
 
 
 def drop_lookup(table, lookup_number):
@@ -44,6 +45,56 @@ def fix_digit_widths(font):
             hmtx_table[digit][0] = most_common_width
 
 
+_MAP_SPACING_TO_COMBINING = {
+    'acute': 'acutecomb',
+    'breve': 'brevenosp',
+    'caron': 'uni030C',
+    'cedilla': 'cedillanosp',
+    'circumflex': 'circumflexnosp',
+    'dieresis': 'dieresisnosp',
+    'dotaccent': 'dotnosp',
+    'grave': 'gravecomb',
+    'hungarumlaut': 'acutedblnosp',
+    'macron': 'macroncomb',
+    'ogonek': 'ogoneknosp',
+    'tilde': 'tildecomb',
+    'ring': 'ringnosp',
+    'tonos': 'acutecomb',
+    'uni02F3': 'ringsubnosp',
+}
+
+def fix_ccmp_lookup(font):
+    """Fixes the broken ccmp lookup."""
+    cmap = font_data.get_cmap(font)
+    reverse_cmap = {name: code for (code, name) in cmap.items()}
+
+    # Where we know the bad 'ccmp' is
+    ccmp_lookup = font['GSUB'].table.LookupList.Lookup[2]
+    assert ccmp_lookup.LookupType == 4
+    assert ccmp_lookup.SubTableCount == 1
+    ligatures = ccmp_lookup.SubTable[0].ligatures
+    for first_char, ligtable in ligatures.iteritems():
+        ligatures_to_delete = []
+        for index, ligature in enumerate(ligtable):
+            assert len(ligature.Component) == 1
+            component = ligature.Component[0]
+            if (component.endswith('comb')
+                or component in ['commaaccent',
+                                 'commaaccentrotate',
+                                 'ringacute']):
+                continue
+            if first_char == 'a' and component == 'uni02BE':
+                ligatures_to_delete.append(index)
+                continue
+            char = reverse_cmap[component]
+            general_category = unicode_data.category(char)
+            if general_category != 'Mn': # not a combining mark
+                ligature.Component[0] = _MAP_SPACING_TO_COMBINING[component]
+        ligatures[first_char] = [
+            ligature for (index, ligature) in enumerate(ligtable)
+            if index not in ligatures_to_delete]
+
+
 def apply_temporary_fixes(font):
     """Apply some temporary fixes."""
 
@@ -62,6 +113,9 @@ def apply_temporary_fixes(font):
 
     # Drop the lookup forming the ff ligature
     drop_lookup(font['GSUB'], 5)
+
+    # Correct the ccmp lookup to use combining marks instead of spacing ones
+    fix_ccmp_lookup(font)
 
     # Fix the digit widths
     fix_digit_widths(font)

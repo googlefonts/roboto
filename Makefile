@@ -54,7 +54,10 @@ glass: out/android/Roboto-Thin.ttf
 	mkdir -p out/glass
 	python scripts/touchup_for_glass.py $< out/glass/Roboto-Thin.ttf
 
-test: test-android
+test: test-android test-coverage
 
 test-android:
 	python scripts/run_android_tests.py
+
+test-coverage:
+	python scripts/coverage_test.py

@@ -67,7 +67,7 @@ def apply_temporary_fixes(font):
     fix_digit_widths(font)
 
     # Add cmap for U+2117 SOUND RECORDING COPYRIGHT
-    font_data.add_to_cmap(font, {0x2117, 'published'})
+    font_data.add_to_cmap(font, {0x2117: 'published'})
 
     # Fix version number from buildnumber.txt
     from datetime import date

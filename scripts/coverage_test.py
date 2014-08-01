@@ -69,7 +69,7 @@ def _defined_characters_in_range(range_str):
     """Given a range string, returns defined Unicode characters in the range."""
     characters = set()
     for code in _range_string_to_set(range_str):
-        if unicode_data.is_defined(code):
+        if unicode_data.is_defined(code) and unicode_data.age(code) is not None:
             characters.add(code)
     return characters
 

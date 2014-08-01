@@ -5,6 +5,8 @@ import glob
 import unittest
 
 from fontTools import ttLib
+from nototools import coverage
+from nototools import font_data
 
 
 def load_fonts():
@@ -43,6 +45,29 @@ class TestDigitWidths(unittest.TestCase):
             hmtx_table = font['hmtx']
             widths = [hmtx_table[digit][0] for digit in self.digits]
             self.assertEqual(len(set(widths)), 1)
+
+
+class TestCharacterCoverage(unittest.TestCase):
+    """Tests character coverage."""
+
+    def setUp(self):
+        self.fonts = load_fonts()
+
+    def test_lack_of_arrows_and_combining_keycap(self):
+        """Tests that arrows and combining keycap are not in the fonts."""
+        for font in self.fonts:
+            charset = coverage.character_set(font)
+            self.assertNotIn(0x20E3, charset)  # COMBINING ENCLOSING KEYCAP
+            self.assertNotIn(0x2191, charset)  # UPWARDS ARROW
+            self.assertNotIn(0x2193, charset)  # DOWNWARDS ARROW
+
+    def test_inclusion_of_sound_recording_copyright(self):
+        """Tests that sound recording copyright symbol is in the fonts."""
+        for font in self.fonts:
+            charset = coverage.character_set(font)
+            self.assertIn(
+                0x2117, charset,  # SOUND RECORDING COPYRIGHT
+                'U+2117 not found in %s.' % font_data.font_name(font))
 
 
 if __name__ == '__main__':

@@ -7,6 +7,9 @@ from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
 from fontbuild.kerning import generateFLKernClassesFromOTString
+from fontbuild.features import CreateFeaFile
+from fontbuild.markFeature import GenerateFeature_mark
+from fontbuild.mkmkFeature import GenerateFeature_mkmk
 import ConfigParser
 import os
 
@@ -33,6 +36,8 @@ class FontProject:
         self.lessItalic = self.config.get("glyphs","lessitalic").split()
         self.deleteList = self.config.get("glyphs","delete").split()
         self.buildnumber = self.loadBuildNumber()
+        
+        self.buldVFBandFEA = False
         
         
     def loadBuildNumber(self):
@@ -137,17 +142,45 @@ class FontProject:
                        build=self.buildnumber)
         cleanCurves(f)
         deleteGlyphs(f,self.deleteList)
+        
         if kern:
+            log(">> Generating kern classes")
             generateFLKernClassesFromOTString(f,self.ot_kerningclasses)
-        log(">> Generating font files")
+            kern = f.MakeKernFeature()
+            kern_exist = False
+            for fea_id in range (len(f.features)):
+              if "kern" == f.features[fea_id].tag:
+                f.features[fea_id] = kern
+                kern_exist = True
+            if (False == kern_exist):
+              f.features.append(kern)
+              
         directoryName = n[0].replace(" ","")
+
+        if self.buldVFBandFEA:
+          log(">> Generating VFB files")  
+          directoryPath = "%s/%s/%sVFB"%(self.basedir,self.builddir,directoryName)        
+          if not os.path.exists(directoryPath):
+            os.makedirs(directoryPath)
+          flName = "%s/%s.vfb"%(directoryPath,f.font_name)
+          fl.GenerateFont(fl.ifont,ftFONTLAB,flName)
+          
+        log(">> Generating font files")
         directoryPath = "%s/%s/%sTTF"%(self.basedir,self.builddir,directoryName)        
         if not os.path.exists(directoryPath):
-            os.makedirs(directoryPath)
+          os.makedirs(directoryPath)
         ttfName = "%s/%s.ttf"%(directoryPath,f.font_name)
         fl.GenerateFont(fl.ifont,ftTRUETYPE,ttfName)
+        
+        if self.buldVFBandFEA:
+          log(">> Generating FEA files")  
+          GenerateFeature_mark(f)
+          GenerateFeature_mkmk(f)
+          feaName = "%s/%s.fea"%(directoryPath,f.font_name)
+          CreateFeaFile(f, feaName)
+        
         f.modified = 0
-        fl.Close(index)
+        #fl.Close(index)
 
 def transformGlyphMembers(g, m):
     g.width = int(g.width * m.a)

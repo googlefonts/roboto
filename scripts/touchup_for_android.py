@@ -151,8 +151,10 @@ def apply_android_specific_fixes(font):
     hhea.descent = -500
     hhea.lineGap = 0
 
-    # Remove tab, combining keycap, and the arrows from the cmap table
-    font_data.delete_from_cmap(font, [0x0009, 0x20E3, 0x2191, 0x2193])
+    # Remove tab, combining keycap, the arrows, and unassigned characters
+    # from the cmap table
+    font_data.delete_from_cmap(font, [
+        0x0009, 0x20E3, 0x2072, 0x2073, 0x208F, 0x2191, 0x2193])
 
     # Drop tables not useful on Android
     for table in ['LTSH', 'hdmx', 'VDMX', 'gasp']:

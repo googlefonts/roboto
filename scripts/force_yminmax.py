@@ -5,8 +5,10 @@ import sys
 
 from fontTools import ttLib
 
+from nototools import font_data
 
-def output_protruding_glyphs(font, ymin, ymax, file_name):
+
+def output_protruding_glyphs(font, ymin, ymax):
     """Outputs all glyphs going outside the specified vertical range."""
     protruding_glyphs = []
     glyf_table = font['glyf']
@@ -17,7 +19,7 @@ def output_protruding_glyphs(font, ymin, ymax, file_name):
         if glyph.yMin < ymin or glyph.yMax > ymax:
             protruding_glyphs.append(glyph_name)
     if protruding_glyphs:
-        print "Protruding glyphs in %s:" % file_name,
+        print "Protruding glyphs in %s:" % font_data.font_name(font),
         print ', '.join(sorted(protruding_glyphs))
 
 
@@ -33,7 +35,7 @@ def main(argv):
     head = font['head']
     head.yMin = YMIN
     head.yMax = YMAX
-    output_protruding_glyphs(font, YMIN, YMAX, source_font_name)
+    output_protruding_glyphs(font, YMIN, YMAX)
 
     font.save(target_font_name)
 

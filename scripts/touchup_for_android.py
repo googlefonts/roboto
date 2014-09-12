@@ -83,6 +83,7 @@ def fix_ccmp_lookup(font):
                                  'commaaccentrotate',
                                  'ringacute']):
                 continue
+            # https://code.google.com/a/google.com/p/roboto/issues/detail?id=54
             if first_char == 'a' and component == 'uni02BE':
                 ligatures_to_delete.append(index)
                 continue
@@ -96,34 +97,42 @@ def fix_ccmp_lookup(font):
 
 
 def apply_temporary_fixes(font):
-    """Apply some temporary fixes."""
-
+    """Apply some temporary fixes.
+    """
     # Make sure macStyle is correct
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=8
     font_name = get_font_name(font)
     bold = ('Bold' in font_name) or ('Black' in font_name)
     italic = 'Italic' in font_name
     font['head'].macStyle = (italic << 1) | bold
 
     # Mark the font free for installation, embedding, etc.
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
     os2 = font['OS/2']
     os2.fsType = 0
 
     # Set the font vendor to Google
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=46
     os2.achVendID = 'GOOG'
 
     # Drop the lookup forming the ff ligature
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=47
     drop_lookup(font['GSUB'], 5)
 
     # Correct the ccmp lookup to use combining marks instead of spacing ones
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=48
     fix_ccmp_lookup(font)
 
     # Fix the digit widths
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=49
     fix_digit_widths(font)
 
     # Add cmap for U+2117 SOUND RECORDING COPYRIGHT
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=44
     font_data.add_to_cmap(font, {0x2117: 'published'})
 
     # Fix version number from buildnumber.txt
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=50
     from datetime import date
 
     build_number_txt = path.join(
@@ -153,6 +162,9 @@ def apply_android_specific_fixes(font):
 
     # Remove tab, combining keycap, the arrows, and unassigned characters
     # from the cmap table
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=51
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=52
+    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=53
     font_data.delete_from_cmap(font, [
         0x0009, 0x20E3, 0x2072, 0x2073, 0x208F, 0x2191, 0x2193])
 

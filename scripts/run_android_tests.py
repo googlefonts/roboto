@@ -16,6 +16,7 @@ def load_fonts():
     """Load all fonts built for Android."""
     all_font_files = glob.glob('out/android/*.ttf')
     all_fonts = [ttLib.TTFont(font) for font in all_font_files]
+    assert len(all_font_files) == 18
     return all_font_files, all_fonts
 
 
@@ -55,6 +56,7 @@ class TestCharacterCoverage(unittest.TestCase):
 
     def setUp(self):
         _, self.fonts = load_fonts()
+        self.LEGACY_PUA = frozenset({0xEE01, 0xEE02, 0xF6C3})
 
     def test_lack_of_arrows_and_combining_keycap(self):
         """Tests that arrows and combining keycap are not in the fonts."""
@@ -72,7 +74,6 @@ class TestCharacterCoverage(unittest.TestCase):
             self.assertNotIn(0x2073, charset)
             self.assertNotIn(0x208F, charset)
 
-
     def test_inclusion_of_sound_recording_copyright(self):
         """Tests that sound recording copyright symbol is in the fonts."""
         for font in self.fonts:
@@ -80,6 +81,22 @@ class TestCharacterCoverage(unittest.TestCase):
             self.assertIn(
                 0x2117, charset,  # SOUND RECORDING COPYRIGHT
                 'U+2117 not found in %s.' % font_data.font_name(font))
+
+    def test_inclusion_of_legacy_pua(self):
+        """Tests that legacy PUA characters remain in the fonts."""
+        for font in self.fonts:
+            charset = coverage.character_set(font)
+            for char in self.LEGACY_PUA:
+                self.assertIn(char, charset)
+
+    def test_non_inclusion_of_other_pua(self):
+        """Tests that there are not other PUA characters except legacy ones."""
+        for font in self.fonts:
+            charset = coverage.character_set(font)
+            pua_chars = {
+                char for char in charset
+                if 0xE000 <= char <= 0xF8FF or 0xF0000 <= char <= 0x10FFFF}
+            self.assertTrue(pua_chars <= self.LEGACY_PUA)
 
 
 class TestSpacingMarks(unittest.TestCase):

@@ -74,14 +74,6 @@ class TestCharacterCoverage(unittest.TestCase):
             self.assertNotIn(0x2073, charset)
             self.assertNotIn(0x208F, charset)
 
-    def test_inclusion_of_sound_recording_copyright(self):
-        """Tests that sound recording copyright symbol is in the fonts."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            self.assertIn(
-                0x2117, charset,  # SOUND RECORDING COPYRIGHT
-                'U+2117 not found in %s.' % font_data.font_name(font))
-
     def test_inclusion_of_legacy_pua(self):
         """Tests that legacy PUA characters remain in the fonts."""
         for font in self.fonts:

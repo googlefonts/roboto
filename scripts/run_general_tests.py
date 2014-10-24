@@ -58,6 +58,14 @@ class TestCharacterCoverage(unittest.TestCase):
     def setUp(self):
         _, self.fonts = load_fonts()
 
+    def test_lack_of_unassigned_chars(self):
+        """Tests that unassigned characters are not in the fonts."""
+        for font in self.fonts:
+            charset = coverage.character_set(font)
+            self.assertNotIn(0x2072, charset)
+            self.assertNotIn(0x2073, charset)
+            self.assertNotIn(0x208F, charset)
+
     def test_inclusion_of_sound_recording_copyright(self):
         """Tests that sound recording copyright symbol is in the fonts."""
         for font in self.fonts:

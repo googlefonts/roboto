@@ -34,23 +34,6 @@ class TestVerticalMetrics(unittest.TestCase):
             self.assertEqual(head_table.yMax, 2163)
 
 
-class TestDigitWidths(unittest.TestCase):
-    """Tests the width of digits."""
-
-    def setUp(self):
-        _, self.fonts = load_fonts()
-        self.digits = [
-            'zero', 'one', 'two', 'three', 'four',
-            'five', 'six', 'seven', 'eight', 'nine']
-
-    def test_digit_widths(self):
-        """Tests all decimal digits to make sure they have the same width."""
-        for font in self.fonts:
-            hmtx_table = font['hmtx']
-            widths = [hmtx_table[digit][0] for digit in self.digits]
-            self.assertEqual(len(set(widths)), 1)
-
-
 class TestCharacterCoverage(unittest.TestCase):
     """Tests character coverage."""
 

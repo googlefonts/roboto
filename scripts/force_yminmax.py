@@ -1,5 +1,5 @@
 #!/usr/bin/python
-"""Post-subset changes for Roboto for Android."""
+"""Post-subset changes for Roboto."""
 
 import sys
 

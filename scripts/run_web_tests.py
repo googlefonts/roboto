@@ -159,12 +159,6 @@ class TestHints(unittest.TestCase):
     def setUp(self):
         _, self.fonts = load_fonts()
 
-        # FIXME: remove as soon as issue 100 is fixed
-        bad_glyphs = ['uniFB01', 'uniFB02', 'uniFB03',
-                      'uniFB04', 'uniFFFC', 'uni048C']
-        self.known_missing_hints = [
-            (g, 'RobotoDraft Light Italic') for g in bad_glyphs]
-
     def test_existance_of_hints(self):
         """Tests all glyphs and makes sure non-composite ones have hints."""
         missing_hints = []
@@ -178,7 +172,7 @@ class TestHints(unittest.TestCase):
                     missing_hints.append(
                         (glyph_name, font_data.font_name(font)))
 
-        self.assertTrue(missing_hints <= self.known_missing_hints)
+        self.assertTrue(missing_hints == [])
 
 
 class TestSpacingMarks(unittest.TestCase):
@@ -228,6 +222,7 @@ class TestSpacingMarks(unittest.TestCase):
                     self.assertEqual(len(advances), 2,
                         'The sequence <%04X, %04X> combines, '
                         'but it should not' % (ord(base_letter), ord(mark)))
+
 
 if __name__ == '__main__':
     unittest.main()

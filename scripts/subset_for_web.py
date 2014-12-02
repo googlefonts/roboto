@@ -54,7 +54,7 @@ SUBSETS = {
         LATIN + CYRILLIC + range(0x0460, 0x0530) + [0x20B4] +
         range(0x2DE0, 0x2E00) + range(0xA640, 0xA6A0)),
     'greek': LATIN + range(0x0384, 0x0400),
-    'greek-ext': LATIN + range(0x0384, 0x0400) + range(0x1F00, 0x2000),
+#    'greek-ext': LATIN + range(0x0384, 0x0400) + range(0x1F00, 0x2000),
     'latin': LATIN,
     'latin-ext': (
         LATIN + range(0x0100, 0x0250) +

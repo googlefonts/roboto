@@ -58,12 +58,11 @@ web:
 	mkdir -p out/web
 	for source in hinted/*.ttf; do \
 		touched=$$(mktemp); \
-		subsetted=$$(mktemp); \
 		final=out/web/$$(basename $$source); \
+		final="$${final/Roboto/RobotoDraft}"; \
 		python scripts/touchup_for_web.py $$source $$touched && \
-		python scripts/subset_for_web.py $$touched $$subsetted && \
-		python scripts/force_yminmax.py $$subsetted $$final && \
-		rm $$touched $$subsetted; \
+		python scripts/subset_for_web.py $$touched $$final && \
+		rm $$touched; \
 	done
 
 test: test-android test-coverage test-general

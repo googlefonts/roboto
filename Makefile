@@ -69,10 +69,12 @@ chromeos:
 	mkdir -p out/chromeos
 	for source in hinted/*.ttf; do \
 		touched=$$(mktemp); \
+		nohints=$$(mktemp); \
 		final=out/chromeos/$$(basename $$source); \
 		python scripts/touchup_for_web.py $$source $$touched Roboto && \
-		python $$HOME/noto/nototools/subset.py $$touched $$final && \
-		rm $$touched; \
+		python $$HOME/noto/nototools/drop_hints.py $$touched $$nohints && \
+		python $$HOME/noto/nototools/subset.py $$nohints $$final && \
+		rm $$touched $$nohints; \
 	done
 
 test: test-android test-coverage test-general

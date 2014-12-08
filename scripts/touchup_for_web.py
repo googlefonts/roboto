@@ -24,7 +24,7 @@ def apply_temporary_fixes(font):
     font_data.set_name_record(font, 5, version_record)
 
 
-def apply_web_specific_fixes(font):
+def apply_web_specific_fixes(font, family_name):
     """Apply fixes needed for web fonts."""
     # Set ascent, descent, and lineGap values to Android K values
     hhea = font['hhea']
@@ -39,7 +39,6 @@ def apply_web_specific_fixes(font):
     os2.usWinAscent = 1946
     os2.usWinDescent = 512
 
-    family_name = 'RobotoDraft'
     subfamily_name = font_data.get_name_records(font)[2].encode('ASCII')
     assert(subfamily_name in
         ['Thin', 'Thin Italic',
@@ -69,17 +68,17 @@ def apply_web_specific_fixes(font):
         font, 6, family_name+'-'+subfamily_name.replace(' ', ''))
 
 
-def correct_font(source_font_name, target_font_name):
+def correct_font(source_font_name, target_font_name, family_name):
     """Corrects metrics and other meta information."""
     font = ttLib.TTFont(source_font_name)
     apply_temporary_fixes(font)
-    apply_web_specific_fixes(font)
+    apply_web_specific_fixes(font, family_name)
     font.save(target_font_name)
 
 
 def main(argv):
     """Correct the font specified in the command line."""
-    correct_font(argv[1], argv[2])
+    correct_font(argv[1], argv[2], argv[3])
 
 
 if __name__ == "__main__":

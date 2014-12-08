@@ -60,8 +60,18 @@ web:
 		touched=$$(mktemp); \
 		final=out/web/$$(basename $$source); \
 		final="$${final/Roboto/RobotoDraft}"; \
-		python scripts/touchup_for_web.py $$source $$touched && \
+		python scripts/touchup_for_web.py $$source $$touched RobotoDraft && \
 		python scripts/subset_for_web.py $$touched $$final && \
+		rm $$touched; \
+	done
+
+chromeos:
+	mkdir -p out/chromeos
+	for source in hinted/*.ttf; do \
+		touched=$$(mktemp); \
+		final=out/chromeos/$$(basename $$source); \
+		python scripts/touchup_for_web.py $$source $$touched Roboto && \
+		python $$HOME/noto/nototools/subset.py $$touched $$final && \
 		rm $$touched; \
 	done
 

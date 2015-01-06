@@ -35,6 +35,25 @@ class TestItalicAngle(unittest.TestCase):
             self.assertEqual(post_table.italicAngle, expected_angle)
 
 
+class TestHeadTable(unittest.TestCase):
+    """Test various things in the head table."""
+
+    def setUp(self):
+        _, self.fonts = load_fonts()
+
+    def test_mac_style(self):
+        """Tests the macStyle of the fonts to be correct.
+
+        Bug: https://code.google.com/a/google.com/p/roboto/issues/detail?id=8
+        """
+        for font in self.fonts:
+            font_name = font_data.font_name(font)
+            bold = ('Bold' in font_name) or ('Black' in font_name)
+            italic = 'Italic' in font_name
+            expected_mac_style = (italic << 1) | bold
+            self.assertEqual(font['head'].macStyle, expected_mac_style)
+
+
 class TestDigitWidths(unittest.TestCase):
     """Tests the width of digits."""
 

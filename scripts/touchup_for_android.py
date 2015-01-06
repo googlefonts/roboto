@@ -99,13 +99,6 @@ def fix_ccmp_lookup(font):
 def apply_temporary_fixes(font):
     """Apply some temporary fixes.
     """
-    # Make sure macStyle is correct
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=8
-    font_name = get_font_name(font)
-    bold = ('Bold' in font_name) or ('Black' in font_name)
-    italic = 'Italic' in font_name
-    font['head'].macStyle = (italic << 1) | bold
-
     # Mark the font free for installation, embedding, etc.
     # https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
     os2 = font['OS/2']

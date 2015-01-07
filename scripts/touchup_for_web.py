@@ -1,27 +1,12 @@
 #!/usr/bin/python
 """Post-build web fonts changes for Roboto."""
 
-import os
-from os import path
 import sys
 
 from fontTools import ttLib
 from nototools import font_data
 
-
-def apply_temporary_fixes(font):
-    """Apply some temporary fixes.
-    """
-    # Fix version number from buildnumber.txt
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=50
-    from datetime import date
-
-    build_number_txt = path.join(
-        path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
-    build_number = open(build_number_txt).read().strip()
-
-    version_record = 'Version 2.%s; %d' % (build_number, date.today().year)
-    font_data.set_name_record(font, 5, version_record)
+import temporary_touchups
 
 
 def apply_web_specific_fixes(font, family_name):
@@ -71,7 +56,7 @@ def apply_web_specific_fixes(font, family_name):
 def correct_font(source_font_name, target_font_name, family_name):
     """Corrects metrics and other meta information."""
     font = ttLib.TTFont(source_font_name)
-    apply_temporary_fixes(font)
+    temporary_touchups.apply_temporary_fixes(font)
     apply_web_specific_fixes(font, family_name)
     font.save(target_font_name)
 

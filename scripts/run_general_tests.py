@@ -8,6 +8,7 @@ from fontTools import ttLib
 from nototools import coverage
 from nototools import font_data
 
+import layout
 
 def load_fonts():
     """Load all major fonts."""
@@ -107,6 +108,19 @@ class TestCharacterCoverage(unittest.TestCase):
             self.assertIn(
                 0x2117, charset,  # SOUND RECORDING COPYRIGHT
                 'U+2117 not found in %s.' % font_data.font_name(font))
+
+
+class TestLigatures(unittest.TestCase):
+    """Tests formation or lack of formation of ligatures."""
+
+    def setUp(self):
+        self.fontfiles, _ = load_fonts()
+
+    def test_lack_of_ff_ligature(self):
+        """Tests that the ff ligature is not formed by default."""
+        for fontfile in self.fontfiles:
+            advances = layout.get_advances('ff', fontfile)
+            self.assertEqual(len(advances), 2)
 
 
 if __name__ == '__main__':

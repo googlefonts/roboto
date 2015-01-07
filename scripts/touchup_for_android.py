@@ -28,22 +28,6 @@ def drop_lookup(table, lookup_number):
 def apply_temporary_fixes(font):
     """Apply some temporary fixes.
     """
-    # Drop the lookup forming the ff ligature
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=47
-    drop_lookup(font['GSUB'], 5)
-
-    # Correct the ccmp lookup to use combining marks instead of spacing ones
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=48
-    fix_ccmp_lookup(font)
-
-    # Fix the digit widths
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=49
-    fix_digit_widths(font)
-
-    # Add cmap for U+2117 SOUND RECORDING COPYRIGHT
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=44
-    font_data.add_to_cmap(font, {0x2117: 'published'})
-
     # Fix version number from buildnumber.txt
     # https://code.google.com/a/google.com/p/roboto/issues/detail?id=50
     from datetime import date

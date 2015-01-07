@@ -82,6 +82,9 @@ test: test-android test-coverage test-general
 test-general:
 	python scripts/run_general_tests.py
 
+test-exhaustive:
+	python scripts/run_exhaustive_tests.py
+
 test-android:
 	python scripts/run_android_tests.py
 

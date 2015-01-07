@@ -2,14 +2,11 @@
 """Test assumptions that Android relies on."""
 
 import glob
-import json
 import unittest
 
 from fontTools import ttLib
 from nototools import coverage
 from nototools import font_data
-from nototools import render
-from nototools import unicode_data
 
 import roboto_data
 

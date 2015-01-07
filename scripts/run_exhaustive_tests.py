@@ -1,15 +1,14 @@
 #!/usr/bin/python
-"""Test general health of the fonts."""
+"""Time-consuming tests for general health of the fonts."""
 
 import glob
-import json
 import unittest
 
 from fontTools import ttLib
 from nototools import coverage
-from nototools import render
 from nototools import unicode_data
 
+import layout
 
 def load_fonts():
     """Load all major fonts."""
@@ -30,24 +29,13 @@ class TestSpacingMarks(unittest.TestCase):
                               if unicode_data.category(char) in ['Lm', 'Sk']]
         self.advance_cache = {}
 
-    def get_advances(self, text, font):
-        """Get a list of horizontal advances for text rendered in a font."""
-        try:
-            return self.advance_cache[(text, font)]
-        except KeyError:
-            hb_output = render.run_harfbuzz_on_text(text, font, '')
-            hb_output = json.loads(hb_output)
-            advances = [glyph['ax'] for glyph in hb_output]
-            self.advance_cache[(text, font)] = advances
-            return advances
-
     def test_individual_spacing_marks(self):
         """Tests that spacing marks are spacing by themselves."""
         for font in self.font_files:
             print 'Testing %s for stand-alone spacing marks...' % font
             for mark in self.marks_to_test:
                 mark = unichr(mark)
-                advances = self.get_advances(mark, font)
+                advances = layout.get_advances(mark, font)
                 assert len(advances) == 1
                 self.assertNotEqual(advances[0], 0)
 
@@ -67,7 +55,7 @@ class TestSpacingMarks(unittest.TestCase):
                         # ligatures
                         continue
                     mark = unichr(mark)
-                    advances = self.get_advances(base_letter + mark, font)
+                    advances = layout.get_advances(base_letter + mark, font)
                     self.assertEqual(len(advances), 2,
                         'The sequence <%04X, %04X> combines, '
                         'but it should not' % (ord(base_letter), ord(mark)))

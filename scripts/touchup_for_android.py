@@ -1,14 +1,10 @@
 #!/usr/bin/python
 """Post-build changes for Roboto for Android."""
 
-import collections
-import os
-from os import path
 import sys
 
 from fontTools import ttLib
 from nototools import font_data
-from nototools import unicode_data
 
 import temporary_touchups
 
@@ -23,30 +19,6 @@ def drop_lookup(table, lookup_number):
         if lookup_number in feature.Feature.LookupListIndex:
             feature.Feature.LookupListIndex.remove(lookup_number)
             feature.Feature.LookupCount -= 1
-
-
-def apply_temporary_fixes(font):
-    """Apply some temporary fixes.
-    """
-    # Fix version number from buildnumber.txt
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=50
-    from datetime import date
-
-    build_number_txt = path.join(
-        path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
-    build_number = open(build_number_txt).read().strip()
-
-    version_record = 'Version 2.0%s; %d' % (build_number, date.today().year)
-
-    for record in font['name'].names:
-        if record.nameID == 5:
-            if record.platformID == 1 and record.platEncID == 0:  # MacRoman
-                record.string = version_record
-            elif record.platformID == 3 and record.platEncID == 1:
-                # Windows UCS-2
-                record.string = version_record.encode('UTF-16BE')
-            else:
-                assert False
 
 
 def apply_android_specific_fixes(font):

@@ -123,5 +123,7 @@ class TestLigatures(unittest.TestCase):
             self.assertEqual(len(advances), 2)
 
 
+# TODO: Add test for version numbers being identical and being 2.version
+
 if __name__ == '__main__':
     unittest.main()

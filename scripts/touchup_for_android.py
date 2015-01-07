@@ -25,87 +25,9 @@ def drop_lookup(table, lookup_number):
             feature.Feature.LookupCount -= 1
 
 
-def get_font_name(font):
-    """Gets the name of the font from the name table."""
-    return font_data.get_name_records(font)[4]
-
-
-DIGITS = ['zero', 'one', 'two', 'three', 'four',
-          'five', 'six', 'seven', 'eight', 'nine']
-
-def fix_digit_widths(font):
-    """Change all digit widths in the font to be the same."""
-    hmtx_table = font['hmtx']
-    widths = [hmtx_table[digit][0] for digit in DIGITS]
-    if len(set(widths)) > 1:
-        width_counter = collections.Counter(widths)
-        most_common_width = width_counter.most_common(1)[0][0]
-        print 'Digit widths were %s.' % repr(widths)
-        print 'Setting all glyph widths to %d.' % most_common_width
-        for digit in DIGITS:
-            assert abs(hmtx_table[digit][0] - most_common_width) <= 1
-            hmtx_table[digit][0] = most_common_width
-
-
-_MAP_SPACING_TO_COMBINING = {
-    'acute': 'acutecomb',
-    'breve': 'brevenosp',
-    'caron': 'uni030C',
-    'cedilla': 'cedillanosp',
-    'circumflex': 'circumflexnosp',
-    'dieresis': 'dieresisnosp',
-    'dotaccent': 'dotnosp',
-    'grave': 'gravecomb',
-    'hungarumlaut': 'acutedblnosp',
-    'macron': 'macroncomb',
-    'ogonek': 'ogoneknosp',
-    'tilde': 'tildecomb',
-    'ring': 'ringnosp',
-    'tonos': 'acutecomb',
-    'uni02F3': 'ringsubnosp',
-}
-
-def fix_ccmp_lookup(font):
-    """Fixes the broken ccmp lookup."""
-    cmap = font_data.get_cmap(font)
-    reverse_cmap = {name: code for (code, name) in cmap.items()}
-
-    # Where we know the bad 'ccmp' is
-    ccmp_lookup = font['GSUB'].table.LookupList.Lookup[2]
-    assert ccmp_lookup.LookupType == 4
-    assert ccmp_lookup.SubTableCount == 1
-    ligatures = ccmp_lookup.SubTable[0].ligatures
-    for first_char, ligtable in ligatures.iteritems():
-        ligatures_to_delete = []
-        for index, ligature in enumerate(ligtable):
-            assert len(ligature.Component) == 1
-            component = ligature.Component[0]
-            if (component.endswith('comb')
-                or component in ['commaaccent',
-                                 'commaaccentrotate',
-                                 'ringacute']):
-                continue
-            # https://code.google.com/a/google.com/p/roboto/issues/detail?id=54
-            if first_char == 'a' and component == 'uni02BE':
-                ligatures_to_delete.append(index)
-                continue
-            char = reverse_cmap[component]
-            general_category = unicode_data.category(char)
-            if general_category != 'Mn': # not a combining mark
-                ligature.Component[0] = _MAP_SPACING_TO_COMBINING[component]
-        ligatures[first_char] = [
-            ligature for (index, ligature) in enumerate(ligtable)
-            if index not in ligatures_to_delete]
-
-
 def apply_temporary_fixes(font):
     """Apply some temporary fixes.
     """
-    # Set the font vendor to Google
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=46
-    os2 = font['OS/2']
-    os2.achVendID = 'GOOG'
-
     # Drop the lookup forming the ff ligature
     # https://code.google.com/a/google.com/p/roboto/issues/detail?id=47
     drop_lookup(font['GSUB'], 5)

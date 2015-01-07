@@ -99,13 +99,9 @@ def fix_ccmp_lookup(font):
 def apply_temporary_fixes(font):
     """Apply some temporary fixes.
     """
-    # Mark the font free for installation, embedding, etc.
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
-    os2 = font['OS/2']
-    os2.fsType = 0
-
     # Set the font vendor to Google
     # https://code.google.com/a/google.com/p/roboto/issues/detail?id=46
+    os2 = font['OS/2']
     os2.achVendID = 'GOOG'
 
     # Drop the lookup forming the ff ligature

@@ -11,6 +11,8 @@ from nototools import font_data
 from nototools import render
 from nototools import unicode_data
 
+import roboto_data
+
 
 def load_fonts():
     """Load all fonts built for Android."""
@@ -18,6 +20,22 @@ def load_fonts():
     all_fonts = [ttLib.TTFont(font) for font in all_font_files]
     assert len(all_font_files) == 18
     return all_font_files, all_fonts
+
+
+class TestMetaInfo(unittest.TestCase):
+    """Test various meta information."""
+
+    def setUp(self):
+        _, self.fonts = load_fonts()
+
+    def test_us_weight(self):
+        "Tests the usWeight of the fonts to be correct."""
+        for font in self.fonts:
+            weight = roboto_data.extract_weight_name(font_data.font_name(font))
+            expected_numeric_weight = roboto_data.WEIGHTS[weight]
+            self.assertEqual(
+                font['OS/2'].usWeightClass,
+                expected_numeric_weight)
 
 
 class TestVerticalMetrics(unittest.TestCase):
@@ -108,6 +126,10 @@ class TestSpacingMarks(unittest.TestCase):
                                 u'\u03D2'):
                 print 'Testing %s combinations' % base_letter
                 for mark in self.marks_to_test:
+                    if mark == 0x02DE:
+                        # Skip rhotic hook, as it's perhaps OK for it to form
+                        # ligatures
+                        continue
                     mark = unichr(mark)
                     advances = self.get_advances(base_letter + mark, font)
                     self.assertEqual(len(advances), 2,

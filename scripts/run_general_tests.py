@@ -35,8 +35,8 @@ class TestItalicAngle(unittest.TestCase):
             self.assertEqual(post_table.italicAngle, expected_angle)
 
 
-class TestHeadTable(unittest.TestCase):
-    """Test various things in the head table."""
+class TestMetaInfo(unittest.TestCase):
+    """Test various meta information."""
 
     def setUp(self):
         _, self.fonts = load_fonts()
@@ -52,6 +52,16 @@ class TestHeadTable(unittest.TestCase):
             italic = 'Italic' in font_name
             expected_mac_style = (italic << 1) | bold
             self.assertEqual(font['head'].macStyle, expected_mac_style)
+
+    def test_fs_type(self):
+        """Tests the fsType of the fonts to be 0.
+
+        fsType of 0 marks the font free for installation, embedding, etc.
+
+        Bug: https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
+        """
+        for font in self.fonts:
+            self.assertEqual(font['OS/2'].fsType, 0)
 
 
 class TestDigitWidths(unittest.TestCase):

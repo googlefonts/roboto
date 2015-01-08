@@ -29,5 +29,5 @@ def apply_temporary_fixes(font):
 
     # Copyright message
     font_data.set_name_record(
-        font, 0, 'Copyright 2014 Google Inc. All Rights Reserved.')
+        font, 0, 'Copyright 2011 Google Inc. All Rights Reserved.')
 

@@ -108,6 +108,7 @@ class TestNames(FontTest):
 
     def setUp(self):
         _, self.fonts = self.loaded_fonts
+        self.condensed_family_name = self.family_name + ' Condensed'
         self.names = []
         for font in self.fonts:
             self.names.append(font_data.get_name_records(font))
@@ -118,6 +119,14 @@ class TestNames(FontTest):
             self.assertEqual(
                 records[0],
                 'Copyright 2011 Google Inc. All Rights Reserved.')
+
+    def test_family_name(self):
+        """Tests the family name."""
+        for records in self.names:
+            self.assertIn(records[1],
+                          [self.family_name, self.condensed_family_name])
+            if 16 in records:
+                self.assertEqual(records[16], records[1])
 
 
 class TestDigitWidths(FontTest):

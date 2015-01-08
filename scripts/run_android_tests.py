@@ -21,6 +21,7 @@ class TestMetaInfo(common_tests.TestMetaInfo):
 
 class TestNames(common_tests.TestNames):
     loaded_fonts = FONTS
+    family_name = 'Roboto'
 
 
 class TestDigitWidths(common_tests.TestDigitWidths):

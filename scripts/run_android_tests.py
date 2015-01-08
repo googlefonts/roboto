@@ -34,6 +34,19 @@ class TestMetaInfo(unittest.TestCase):
                 font['OS/2'].usWeightClass,
                 expected_numeric_weight)
 
+    def test_version_numbers(self):
+        "Tests the two version numbers of the font to be correct."""
+        for font in self.fonts:
+            build_number = roboto_data.get_build_number()
+            expected_version = '2.' + build_number
+            version = font_data.font_version(font)
+            usable_part_of_version = version.split(';')[0]
+            self.assertEqual(usable_part_of_version,
+                             'Version ' + expected_version)
+
+            revision = font_data.printable_font_revision(font, accuracy=5)
+            self.assertEqual(revision, expected_version)
+
 
 class TestVerticalMetrics(unittest.TestCase):
     """Test the vertical metrics of fonts."""

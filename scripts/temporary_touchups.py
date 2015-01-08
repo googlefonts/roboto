@@ -13,13 +13,6 @@ def apply_temporary_fixes(font):
     weight_number = roboto_data.WEIGHTS[weight]
     font['OS/2'].usWeightClass = weight_number
 
-    # Update version and revision numbers from buildnumber.txt
-    build_number = roboto_data.get_build_number()
-    version_number = '2.' + build_number
-    version_record = 'Version %s; %d' % (version_number, date.today().year)
-    font_data.set_name_record(font, 5, version_record)
-    font['head'].fontRevision = float(version_number)
-
     # Set ascent, descent, and lineGap values to Android K values
     hhea = font['hhea']
     hhea.ascent = 1900
@@ -29,4 +22,13 @@ def apply_temporary_fixes(font):
     # Copyright message
     font_data.set_name_record(
         font, 0, 'Copyright 2011 Google Inc. All Rights Reserved.')
+
+
+def update_version_and_revision(font):
+    """Update version and revision numbers from buildnumber.txt."""
+    build_number = roboto_data.get_build_number()
+    version_number = '2.' + build_number
+    version_record = 'Version %s; %d' % (version_number, date.today().year)
+    font_data.set_name_record(font, 5, version_record)
+    font['head'].fontRevision = float(version_number)
 

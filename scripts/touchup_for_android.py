@@ -35,6 +35,7 @@ def correct_font(source_font_name, target_font_name):
     """Corrects metrics and other meta information."""
     font = ttLib.TTFont(source_font_name)
     temporary_touchups.apply_temporary_fixes(font)
+    temporary_touchups.update_version_and_revision(font)
     apply_android_specific_fixes(font)
     font.save(target_font_name)
 

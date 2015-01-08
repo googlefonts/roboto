@@ -23,7 +23,7 @@ def extract_weight_name(font_name):
     """Extracts the weight part of the name from a font name."""
     match = re.search(_ALL_WEIGHTS_RE, font_name)
     if match is None:
-        assert font_name in ['Roboto Italic', 'Roboto Condensed Italic']
+        assert re.match('^Roboto(Draft)?( Condensed)? Italic$', font_name)
         return 'Regular'
     else:
         return match.group(1)

@@ -1,45 +1,27 @@
 #!/usr/bin/python
 """Test assumptions that web fonts rely on."""
 
-import glob
-import json
 import unittest
 
-from fontTools import ttLib
-from nototools import coverage
 from nototools import font_data
-from nototools import render
-from nototools import unicode_data
+
+import common_tests
+
+FONTS = common_tests.load_fonts(
+    ['out/web/*.ttf'],
+    expected_count=18)
+
+class TestCharacterCoverage(common_tests.TestCharacterCoverage):
+    loaded_fonts = FONTS
+    test_inclusion_of_sound_recording_copyright = None
 
 
-def load_fonts():
-    """Load all web fonts."""
-    all_font_files = glob.glob('out/web/*.ttf')
-    all_fonts = [ttLib.TTFont(font) for font in all_font_files]
-    assert len(all_font_files) == 18
-    return all_font_files, all_fonts
+class TestVerticalMetrics(common_tests.TestVerticalMetrics):
+    loaded_fonts = FONTS
 
-
-class TestVerticalMetrics(unittest.TestCase):
-    """Test the vertical metrics of fonts."""
-
-    def setUp(self):
-        _, self.fonts = load_fonts()
-
-    def test_ymin_ymax(self):
-        """Tests yMin and yMax to be equal to the old values."""
+    def test_os2_metrics(self):
+        """Tests OS/2 vertical metrics to be equal to the old values."""
         for font in self.fonts:
-            head_table = font['head']
-            self.assertEqual(head_table.yMin, -555)
-            self.assertEqual(head_table.yMax, 2163)
-
-    def test_other_metrics(self):
-        """Tests other vertical metrics to be equal to the old values."""
-        for font in self.fonts:
-            hhea_table = font['hhea']
-            self.assertEqual(hhea_table.descent, -500)
-            self.assertEqual(hhea_table.ascent, 1900)
-
             os2_table = font['OS/2']
             self.assertEqual(os2_table.sTypoDescender, -512)
             self.assertEqual(os2_table.sTypoAscender, 1536)
@@ -48,29 +30,9 @@ class TestVerticalMetrics(unittest.TestCase):
             self.assertEqual(os2_table.usWinAscent, 1946)
 
 
-class TestCharacterCoverage(unittest.TestCase):
-    """Tests character coverage."""
-
-    def setUp(self):
-        _, self.fonts = load_fonts()
-
-
-class TestNames(unittest.TestCase):
-    """Tests various strings in the name table."""
-
-    def setUp(self):
-        self.family_name = 'RobotoDraft'
-        _, self.fonts = load_fonts()
-        self.names = []
-        for font in self.fonts:
-            self.names.append(font_data.get_name_records(font))
-
-    def test_copyright(self):
-        """Tests the copyright message."""
-        for records in self.names:
-            self.assertEqual(
-                records[0],
-                'Copyright 2014 Google Inc. All Rights Reserved.')
+class TestNames(common_tests.TestNames):
+    loaded_fonts = FONTS
+    family_name = 'RobotoDraft'
 
     def test_family_name(self):
         """Tests the family name."""
@@ -98,7 +60,7 @@ class TestHints(unittest.TestCase):
     """Tests hints."""
 
     def setUp(self):
-        _, self.fonts = load_fonts()
+        _, self.fonts = FONTS
 
     def test_existance_of_hints(self):
         """Tests all glyphs and makes sure non-composite ones have hints."""

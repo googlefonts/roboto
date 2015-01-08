@@ -19,6 +19,10 @@ class TestMetaInfo(common_tests.TestMetaInfo):
     loaded_fonts = FONTS
 
 
+class TestNames(common_tests.TestNames):
+    loaded_fonts = FONTS
+
+
 class TestDigitWidths(common_tests.TestDigitWidths):
     loaded_fonts = FONTS
 

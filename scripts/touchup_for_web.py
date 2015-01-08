@@ -11,12 +11,7 @@ import temporary_touchups
 
 def apply_web_specific_fixes(font, family_name):
     """Apply fixes needed for web fonts."""
-    # Set ascent, descent, and lineGap values to Android K values
-    hhea = font['hhea']
-    hhea.ascent = 1900
-    hhea.descent = -500
-    hhea.lineGap = 0
-
+    # Set OS/2 table values to old values
     os2 = font['OS/2']
     os2.sTypoAscender = 1536
     os2.sTypoDescender = -512

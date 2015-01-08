@@ -34,13 +34,6 @@ class TestNames(common_tests.TestNames):
     loaded_fonts = FONTS
     family_name = 'RobotoDraft'
 
-    def test_family_name(self):
-        """Tests the family name."""
-        for records in self.names:
-            self.assertEqual(records[1], self.family_name)
-            if 16 in records:
-                self.assertEqual(records[16], self.family_name)
-
     def test_unique_identifier_and_full_name(self):
         """Tests the unique identifier and full name."""
         for records in self.names:

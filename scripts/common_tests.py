@@ -103,6 +103,23 @@ class TestMetaInfo(FontTest):
             self.assertEqual(revision, expected_version)
 
 
+class TestNames(FontTest):
+    """Tests various strings in the name table."""
+
+    def setUp(self):
+        _, self.fonts = self.loaded_fonts
+        self.names = []
+        for font in self.fonts:
+            self.names.append(font_data.get_name_records(font))
+
+    def test_copyright(self):
+        """Tests the copyright message."""
+        for records in self.names:
+            self.assertEqual(
+                records[0],
+                'Copyright 2014 Google Inc. All Rights Reserved.')
+
+
 class TestDigitWidths(FontTest):
     """Tests the width of digits."""
 
@@ -188,4 +205,13 @@ class TestVerticalMetrics(FontTest):
             head_table = font['head']
             self.assertEqual(head_table.yMin, -555)
             self.assertEqual(head_table.yMax, 2163)
+
+    def test_hhea_table_metrics(self):
+        """Tests ascent, descent, and lineGap to be equal to Roboto v1 values.
+        """
+        for font in self.fonts:
+            hhea_table = font['hhea']
+            self.assertEqual(hhea_table.descent, -500)
+            self.assertEqual(hhea_table.ascent, 1900)
+            self.assertEqual(hhea_table.lineGap, 0)
 

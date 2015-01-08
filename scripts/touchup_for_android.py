@@ -9,26 +9,8 @@ from nototools import font_data
 import temporary_touchups
 
 
-def drop_lookup(table, lookup_number):
-    """Drop a lookup from an OpenType table by number.
-
-    Actually remove pointers from features to the lookup, which should be less
-    intrusive.
-    """
-    for feature in table.table.FeatureList.FeatureRecord:
-        if lookup_number in feature.Feature.LookupListIndex:
-            feature.Feature.LookupListIndex.remove(lookup_number)
-            feature.Feature.LookupCount -= 1
-
-
 def apply_android_specific_fixes(font):
     """Apply fixes needed for Android."""
-    # Set ascent, descent, and lineGap values to Android K values
-    hhea = font['hhea']
-    hhea.ascent = 1900
-    hhea.descent = -500
-    hhea.lineGap = 0
-
     # Remove tab, combining keycap, and the arrows from the cmap table.
     #
     # Arrows are removed to maximize consistency of arrows, since the rest

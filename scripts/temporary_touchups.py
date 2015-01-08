@@ -21,3 +21,13 @@ def apply_temporary_fixes(font):
     font_data.set_name_record(font, 5, version_record)
     font['head'].fontRevision = float(version_number)
 
+    # Set ascent, descent, and lineGap values to Android K values
+    hhea = font['hhea']
+    hhea.ascent = 1900
+    hhea.descent = -500
+    hhea.lineGap = 0
+
+    # Copyright message
+    font_data.set_name_record(
+        font, 0, 'Copyright 2014 Google Inc. All Rights Reserved.')
+

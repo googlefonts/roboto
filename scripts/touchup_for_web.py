@@ -33,11 +33,6 @@ def apply_web_specific_fixes(font, family_name):
          'Bold', 'Bold Italic',
          'Black', 'Black Italic'])
     full_name = family_name + ' ' + subfamily_name
-    year = '2014'
-
-    # Copyright message
-    font_data.set_name_record(
-        font, 0, 'Copyright %s Google Inc. All Rights Reserved.' % year)
 
     # Family name
     font_data.set_name_record(font, 1, family_name)

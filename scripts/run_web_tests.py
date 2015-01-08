@@ -11,23 +11,8 @@ FONTS = common_tests.load_fonts(
     ['out/web/*.ttf'],
     expected_count=18)
 
-class TestCharacterCoverage(common_tests.TestCharacterCoverage):
+class TestItalicAngle(common_tests.TestItalicAngle):
     loaded_fonts = FONTS
-    test_inclusion_of_sound_recording_copyright = None
-
-
-class TestVerticalMetrics(common_tests.TestVerticalMetrics):
-    loaded_fonts = FONTS
-
-    def test_os2_metrics(self):
-        """Tests OS/2 vertical metrics to be equal to the old values."""
-        for font in self.fonts:
-            os2_table = font['OS/2']
-            self.assertEqual(os2_table.sTypoDescender, -512)
-            self.assertEqual(os2_table.sTypoAscender, 1536)
-            self.assertEqual(os2_table.sTypoLineGap, 102)
-            self.assertEqual(os2_table.usWinDescent, 512)
-            self.assertEqual(os2_table.usWinAscent, 1946)
 
 
 class TestMetaInfo(common_tests.TestMetaInfo):
@@ -54,6 +39,33 @@ class TestNames(common_tests.TestNames):
         for records in self.names:
             expected_name = records[1] + '-' + records[2].replace(' ', '')
             self.assertEqual(records[6], expected_name)
+
+
+class TestDigitWidths(common_tests.TestDigitWidths):
+    loaded_fonts = FONTS
+
+
+class TestCharacterCoverage(common_tests.TestCharacterCoverage):
+    loaded_fonts = FONTS
+    test_inclusion_of_sound_recording_copyright = None
+
+
+class TestVerticalMetrics(common_tests.TestVerticalMetrics):
+    loaded_fonts = FONTS
+
+    def test_os2_metrics(self):
+        """Tests OS/2 vertical metrics to be equal to the old values."""
+        for font in self.fonts:
+            os2_table = font['OS/2']
+            self.assertEqual(os2_table.sTypoDescender, -512)
+            self.assertEqual(os2_table.sTypoAscender, 1536)
+            self.assertEqual(os2_table.sTypoLineGap, 102)
+            self.assertEqual(os2_table.usWinDescent, 512)
+            self.assertEqual(os2_table.usWinAscent, 1946)
+
+
+class TestLigatures(common_tests.TestLigatures):
+    loaded_fonts = FONTS
 
 
 class TestHints(unittest.TestCase):

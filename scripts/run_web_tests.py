@@ -30,6 +30,13 @@ class TestVerticalMetrics(common_tests.TestVerticalMetrics):
             self.assertEqual(os2_table.usWinAscent, 1946)
 
 
+class TestMetaInfo(common_tests.TestMetaInfo):
+    loaded_fonts = FONTS
+    # Since different font files are hinted at different times, the actual
+    # outlines differ slightly. So we are keeping the version numbers as a hint.
+    test_version_numbers = None
+
+
 class TestNames(common_tests.TestNames):
     loaded_fonts = FONTS
     family_name = 'RobotoDraft'

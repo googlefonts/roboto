@@ -16,7 +16,7 @@ def load_fonts():
     """Load all web fonts."""
     all_font_files = glob.glob('out/web/*.ttf')
     all_fonts = [ttLib.TTFont(font) for font in all_font_files]
-    assert len(all_font_files) == 12
+    assert len(all_font_files) == 18
     return all_font_files, all_fonts
 
 

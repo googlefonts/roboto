@@ -117,7 +117,7 @@ class TestNames(FontTest):
         for records in self.names:
             self.assertEqual(
                 records[0],
-                'Copyright 2014 Google Inc. All Rights Reserved.')
+                'Copyright 2011 Google Inc. All Rights Reserved.')
 
 
 class TestDigitWidths(FontTest):

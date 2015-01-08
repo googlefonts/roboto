@@ -1,4 +1,3 @@
-#!/usr/bin/python
 """Post-build changes for Roboto for Android."""
 
 import os

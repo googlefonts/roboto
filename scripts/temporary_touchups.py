@@ -1,4 +1,3 @@
-#!/usr/bin/python
 """Temporary post-build changes for Roboto."""
 
 from datetime import date

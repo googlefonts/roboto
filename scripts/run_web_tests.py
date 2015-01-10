@@ -24,7 +24,7 @@ class TestMetaInfo(common_tests.TestMetaInfo):
 
 class TestNames(common_tests.TestNames):
     loaded_fonts = FONTS
-    family_name = 'RobotoDraft'
+    family_name = 'Roboto'
 
     def test_unique_identifier_and_full_name(self):
         """Tests the unique identifier and full name."""

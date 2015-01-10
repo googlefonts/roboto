@@ -59,8 +59,7 @@ web:
 	for source in hinted/*.ttf; do \
 		touched=$$(mktemp); \
 		final=out/web/$$(basename $$source); \
-		final="$${final/Roboto/RobotoDraft}"; \
-		python scripts/touchup_for_web.py $$source $$touched RobotoDraft && \
+		python scripts/touchup_for_web.py $$source $$touched Roboto && \
 		python scripts/subset_for_web.py $$touched $$final && \
 		rm $$touched; \
 	done

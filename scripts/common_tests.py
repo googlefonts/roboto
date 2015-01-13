@@ -145,6 +145,11 @@ class TestNames(FontTest):
             if 16 in records:
                 self.assertEqual(records[16], records[1])
 
+    def test_postscript_name_for_spaces(self):
+        """Tests that there are no spaces in PostScript names."""
+        for records in self.names:
+            self.assertFalse(' ' in records[6])
+
 
 class TestDigitWidths(FontTest):
     """Tests the width of digits."""

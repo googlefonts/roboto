@@ -37,7 +37,7 @@ class TestNames(common_tests.TestNames):
     def test_postscript_name(self):
         """Tests the postscript name."""
         for records in self.names:
-            expected_name = records[1] + '-' + records[2].replace(' ', '')
+            expected_name = (records[1] + '-' + records[2]).replace(' ', '')
             self.assertEqual(records[6], expected_name)
 
 

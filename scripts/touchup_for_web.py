@@ -27,6 +27,9 @@ def apply_web_specific_fixes(font, family_name):
          'Medium', 'Medium Italic',
          'Bold', 'Bold Italic',
          'Black', 'Black Italic'])
+
+    if 'Condensed' in font_data.get_name_records(font)[1]:
+        family_name += ' Condensed'
     full_name = family_name + ' ' + subfamily_name
 
     # Family name
@@ -40,7 +43,7 @@ def apply_web_specific_fixes(font, family_name):
 
     # PostScript name
     font_data.set_name_record(
-        font, 6, family_name+'-'+subfamily_name.replace(' ', ''))
+        font, 6, (family_name+'-'+subfamily_name).replace(' ', ''))
 
 
 def correct_font(source_font_name, target_font_name, family_name):

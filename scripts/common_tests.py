@@ -1,14 +1,31 @@
 """Common tests for different targets."""
 
 import glob
+import sys
 import unittest
 
 from fontTools import ttLib
 from nototools import coverage
 from nototools import font_data
 
+sys.path.append('./third_party/freetype-py')
+import freetype
+
 import layout
 import roboto_data
+
+
+def get_rendered_char_height(font_filename, font_size, char, target='mono'):
+    if target == 'mono':
+        render_params = freetype.FT_LOAD_TARGET_MONO
+    elif target == 'lcd':
+        render_params = freetype.FT_LOAD_TARGET_LCD
+    render_params |= freetype.FT_LOAD_RENDER
+
+    face = freetype.Face(font_filename)
+    face.set_char_size(font_size*64)
+    face.load_char(char, render_params)
+    return face.glyph.bitmap.rows
 
 
 def load_fonts(patterns, expected_count=None):

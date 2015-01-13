@@ -72,7 +72,7 @@ class TestHints(unittest.TestCase):
     """Tests hints."""
 
     def setUp(self):
-        _, self.fonts = FONTS
+        self.fontfiles, self.fonts = FONTS
 
     def test_existance_of_hints(self):
         """Tests all glyphs and makes sure non-composite ones have hints."""
@@ -88,6 +88,16 @@ class TestHints(unittest.TestCase):
                         (glyph_name, font_data.font_name(font)))
 
         self.assertTrue(missing_hints == [])
+
+    def test_height_of_lowercase_o(self):
+        """Tests the height of the lowercase o in low resolutions."""
+        for fontfile in self.fontfiles:
+            for size in range(8, 30):  # Kind of arbitrary
+                o_height = common_tests.get_rendered_char_height(
+                    fontfile, size, 'o')
+                n_height = common_tests.get_rendered_char_height(
+                    fontfile, size, 'n')
+                self.assertEqual(o_height, n_height)
 
 
 if __name__ == '__main__':

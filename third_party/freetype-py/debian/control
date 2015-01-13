@@ -1,0 +1,16 @@
+Source: freetype-py
+Maintainer: Nicolas P. Rougier <Nicolas.Rougier@inria.fr>
+Section: python
+Priority: optional
+Build-Depends: python-all (>= 2.6.6-3), debhelper (>= 9)
+Standards-Version: 3.9.5
+
+Package: python-freetype-py
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, libfreetype6
+Description: Freetype python bindings
+ Freetype python provides bindings for the FreeType library. Only the
+ high-level API is bound.
+ .
+ Documentation available at:
+ http://freetype-py.readthedocs.org/en/latest/

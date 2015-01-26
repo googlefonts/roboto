@@ -177,8 +177,9 @@ def setNames(f,names,foundry="",version="1.0",build="0000"):
     i = InstanceNames(names)
     i.setFLNames(f)
 
-def setNamesRF(f,names,foundry=""):
+
+def setNamesRF(f, names, foundry="", version="1.0"):
     InstanceNames.foundry = foundry
     i = InstanceNames(names)
-    i.setRFNames(f)
-    
+    version, versionMinor = [int(num) for num in version.split(".")]
+    i.setRFNames(f, version=version, versionMinor=versionMinor)

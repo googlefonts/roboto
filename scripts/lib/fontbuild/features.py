@@ -1,5 +1,4 @@
 import string
-from FL import *
 
 def CreateFeaFile(font, path):
 	fea_text = font.ot_classes

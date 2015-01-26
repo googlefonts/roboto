@@ -1,5 +1,4 @@
 import re
-from FL import *
 
 def markKernClassesLR(f):
     for i in range(len(f.classes)):

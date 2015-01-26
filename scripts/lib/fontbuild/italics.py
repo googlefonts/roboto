@@ -1,16 +1,14 @@
 from fontTools.misc.transform import Transform
-from robofab.world import CurrentFont
 from robofab.world import RFont
 from time import clock
 import numpy as np
 import math
 from alignpoints import alignCorners
 
-def italicizeGlyph(g, angle=10, stemWidth=185):
-    f = CurrentFont()
+def italicizeGlyph(f, g, angle=10, stemWidth=185):
     glyph = f[g.name]
-    slope = np.tanh([math.pi * angle / 180])
-    
+    slope = np.tanh([math.pi * angle / 180])[0]
+
     # determine how far on the x axis the glyph should slide
     # to compensate for the slant. -600 is a magic number
     # that assumes a 2048 unit em square

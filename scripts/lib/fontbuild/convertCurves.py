@@ -9,7 +9,6 @@ exactly two off curve points.
 import numpy
 from numpy import array,cross,dot
 from fontTools.misc import bezierTools
-from FL import *
     
 def calcIntersect(a,b,c,d):
     numpy.seterr(all='raise')

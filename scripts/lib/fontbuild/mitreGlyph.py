@@ -6,7 +6,6 @@ maxAngle :  Maximum angle in radians at which nodes will be mitred. The default 
 
 """
 
-from FL import *
 import math
 
 def getContours(g):
@@ -115,7 +114,3 @@ def mitreGlyph(g,mitreSize,maxAngle):
     if needsMitring:
         g.Clear()
         g.Insert(nodes)
-    
-fl.SetUndo()
-mitreGlyph(fl.glyph,8.,.9)
-fl.UpdateGlyph()

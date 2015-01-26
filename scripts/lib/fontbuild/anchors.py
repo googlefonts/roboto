@@ -1,18 +1,10 @@
-#import numpy as np
-from FL import *
+def getGlyph(gname, font):
+    return font[gname] if font.has_key(gname) else None
 
 
-def getGlyph(gname,font):
-    index = font.FindGlyph(gname)
-    if index != -1:
-        return font.glyphs[index]
-    else:
-        return None
-
-def getComponentByName(f,g,componentName):
-    componentIndex = f.FindGlyph(componentName)
+def getComponentByName(f, g, componentName):
     for c in g.components:
-        if c.index == componentIndex:
+        if c.baseGlyph == componentName:
             return c
 
 def getAnchorByName(g,anchorName):
@@ -31,10 +23,9 @@ def alignComponentToAnchor(f,glyphName,baseName,accentName,anchorName):
     a2 = getAnchorByName(accent,"_" + anchorName)
     if a1 == None or a2 == None:
         return
-    offset = a1.p - a2.p
-    c = getComponentByName(f,g,accentName)
-    c.deltas[0].x = offset.x
-    c.deltas[0].y = offset.y
+    offset = (a1.x - a2.x, a1.y - a2.y)
+    c = getComponentByName(f, g, accentName)
+    c.offset = offset
 
 def alignComponentsToAnchors(f,glyphName,baseName,accentNames):
     for a in accentNames:

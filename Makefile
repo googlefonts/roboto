@@ -7,9 +7,9 @@ sans:
 	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
 
 v2:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefontsB.flw
-	cat "scripts/build-v2.py" >> /tmp/makefontsB.flw
-	open -nWa "$(FONTLAB)" /tmp/makefontsB.flw
+	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefontsB.py
+	cat "scripts/build-v2.py" >> /tmp/makefontsB.py
+	python /tmp/makefontsB.py
 
 
 slab:

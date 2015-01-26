@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="dtopbar" format="1">
+  <advance width="1153"/>
+  <unicode hex="018C"/>
+  <outline>
+    <contour>
+      <point x="928" y="1536" type="line" name="hr00"/>
+      <point x="247" y="1536" type="line"/>
+      <point x="247" y="1345" type="line"/>
+      <point x="928" y="1345" type="line"/>
+    </contour>
+    <component base="d"/>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.939</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  <key>com.adobe.type.autohint</key>
+  <data>
+  <hintSetList>
+    <hintset pointTag="hr00">
+      <hstem pos="1345" width="191" />
+    </hintset>
+  </hintSetList>
+  </data>
+  </dict>
+  </lib>
+</glyph>

@@ -1,6 +1,5 @@
-from FL import *
 from fontbuild.mix import Mix,Master,narrowFLGlyph
-from fontbuild.instanceNames import setNames
+from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
 from fontbuild.convertCurves import glyphCurvesToQuadratic
 from fontbuild.mitreGlyph import mitreGlyph
@@ -10,6 +9,9 @@ from fontbuild.kerning import generateFLKernClassesFromOTString
 from fontbuild.features import CreateFeaFile
 from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
+from fontbuild.decomposeGlyph import decomposeGlyph
+from fontbuild.removeGlyphOverlap import removeGlyphOverlap
+from fontbuild.sortGlyphs import sortGlyphsByUnicode
 import ConfigParser
 import os
 
@@ -67,13 +69,10 @@ class FontProject:
         if isinstance( mix, Mix):
             f = mix.generateFont(self.basefont)
         else:
-            f = Font(mix)
-        fl.Add(f)
-        index = fl.ifont
-        fl.CallCommand(33239) # Sort glyphs by unicode
+            f = mix
+        sortGlyphsByUnicode(f)
         if italic == True:
             log(">> Italicizing")
-            fl.UpdateFont(fl.ifont)
             tweakAmmount = .085
             narrowAmmount = .93
             if names.find("Thin") != -1:
@@ -81,7 +80,7 @@ class FontProject:
             if names.find("Condensed") != -1:
                 narrowAmmount = .96
             i = 0
-            for g in f.glyphs:
+            for g in f:
                 i += 1
                 if i % 10 == 0: print g.name
                 
@@ -101,61 +100,58 @@ class FontProject:
                 #                     narrowFLGlyph(g,self.thinfont.getGlyph(g.name),factor=narrowAmmount)
                 
                 if g.name != "eight" or g.name != "Q":
-                    g.RemoveOverlap()
-                    
+                    removeGlyphOverlap(g)
+
                     # not sure why FontLab sometimes refuses, seems to work if called twice
-                
-                if (g.name in self.lessItalic):
-                    italicizeGlyph(g, 9, stemWidth=stemWidth)
+
+                if g.name in self.lessItalic:
+                    italicizeGlyph(f, g, 9, stemWidth=stemWidth)
                 elif g.name != ".notdef":
-                    italicizeGlyph(g, 10, stemWidth=stemWidth)
-                g.RemoveOverlap()
+                    italicizeGlyph(f, g, 10, stemWidth=stemWidth)
+                removeGlyphOverlap(g)
                 g.width += 10
-                fl.UpdateGlyph(i-1)
-            
+
         if swapSuffixes != None:
             for swap in swapSuffixes:
-                swapList = [g.name for g in f.glyphs if g.name.endswith(swap)]
+                swapList = [g.name for g in f if g.name.endswith(swap)]
                 for gname in swapList:
                     print gname
                     swapGlyphs(f, gname.replace(swap,""), gname)
         for gname in self.predecompose:
-            g = f[f.FindGlyph(gname)]
-            if g != None:
-                g.Decompose()
+            if f.has_key(gname):
+                decomposeGlyph(f[gname])
 
         log(">> Generating glyphs")
         generateGlyphs(f, self.diacriticList)
         log(">> Copying features")
         f.ot_classes = self.ot_classes
-        copyFeatures(self.basefont,f)
-        fl.UpdateFont(index)
+        copyFeatures(self.basefont, f)
         log(">> Decomposing")
         for gname in self.decompose:
-            g = f[f.FindGlyph(gname)]
-            if g != None:
-                g.Decompose()
-                g.Decompose()
+            if f.has_key(gname):
+                decomposeGlyph(f[gname])
+                decomposeGlyph(f[gname])
 
-        setNames(f, n, foundry=self.config.get('main','foundry'), 
-                       version=self.config.get('main','version'), 
-                       build=self.buildnumber)
+        setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
+                         version=self.config.get('main', 'version'))
         cleanCurves(f)
-        deleteGlyphs(f,self.deleteList)
-        
-        if kern:
-            log(">> Generating kern classes")
-            generateFLKernClassesFromOTString(f,self.ot_kerningclasses)
-            kern = f.MakeKernFeature()
-            kern_exist = False
-            for fea_id in range (len(f.features)):
-              if "kern" == f.features[fea_id].tag:
-                f.features[fea_id] = kern
-                kern_exist = True
-            if (False == kern_exist):
-              f.features.append(kern)
-              
-        directoryName = n[0].replace(" ","")
+        deleteGlyphs(f, self.deleteList)
+
+#        if kern:
+#            log(">> Generating kern classes")
+#            generateFLKernClassesFromOTString(f, self.ot_kerningclasses)
+#            kern = f.MakeKernFeature()
+#            kern_exist = False
+#            for fea_id in range (len(f.features)):
+#              if "kern" == f.features[fea_id].tag:
+#                f.features[fea_id] = kern
+#                kern_exist = True
+#            if False == kern_exist:
+#              f.features.append(kern)
+
+        directoryName = n[0].replace(" ", "")
+        fontName = "%s-%s" % (f.info.familyName.replace(" ", ""),
+                              f.info.styleName.replace(" ", ""))
 
         if self.buldVFBandFEA:
           log(">> Generating VFB files")  
@@ -169,18 +165,16 @@ class FontProject:
         directoryPath = "%s/%s/%sTTF"%(self.basedir,self.builddir,directoryName)        
         if not os.path.exists(directoryPath):
           os.makedirs(directoryPath)
-        ttfName = "%s/%s.ttf"%(directoryPath,f.font_name)
-        fl.GenerateFont(fl.ifont,ftTRUETYPE,ttfName)
-        
+        ufoName = "%s/%s.ufo" % (directoryPath, fontName)
+        f.save(ufoName)
+
         if self.buldVFBandFEA:
           log(">> Generating FEA files")  
           GenerateFeature_mark(f)
           GenerateFeature_mkmk(f)
           feaName = "%s/%s.fea"%(directoryPath,f.font_name)
           CreateFeaFile(f, feaName)
-        
-        f.modified = 0
-        #fl.Close(index)
+
 
 def transformGlyphMembers(g, m):
     g.width = int(g.width * m.a)
@@ -204,21 +198,22 @@ def transformGlyphMembers(g, m):
 
 def swapGlyphs(f,gName1,gName2):
     try:
-        g1 = f.glyphs[f.FindGlyph(gName1)]
-        g2 = f.glyphs[f.FindGlyph(gName2)]
-    except IndexError:
-        log("swapGlyphs failed for %s %s"%(gName1, gName2))
+        g1 = f[gName1]
+        g2 = f[gName2]
+    except KeyError:
+        log("swapGlyphs failed for %s %s" % (gName1, gName2))
         return
-    g3 = Glyph(g1)
-    
-    g1.Clear()
-    g1.Insert(g2)
-    g1.SetMetrics(g2.GetMetrics())
-    
-    g2.Clear()
-    g2.Insert(g3)
-    g2.SetMetrics(g3.GetMetrics())
-    
+    g3 = g1.copy()
+
+    g1.clear()
+    g1.appendGlyph(g2)
+    g1.width = g2.width
+
+    g2.clear()
+    g2.appendGlyph(g3)
+    g2.width = g3.width
+
+
 def log(msg):
     print msg
 
@@ -226,12 +221,8 @@ def log(msg):
 #     f.ot_classes = ot_classes
 
 def copyFeatures(f1, f2):
-    for ft in f1.features:
-        t = Feature(ft.tag, ft.value)
-        f2.features.append(t)
-    #f2.ot_classes = f1.ot_classes
-    f2.classes = []
-    f2.classes = f1.classes
+    f2.features.text = f2.features.text
+
 
 def generateGlyphs(f, glyphNames):
     log(">> Generating diacritics")
@@ -242,9 +233,8 @@ def generateGlyphs(f, glyphNames):
 
 def cleanCurves(f):
     log(">> Removing overlaps")
-    for g in f.glyphs:
-        g.UnselectAll()
-        g.RemoveOverlap()
+    for g in f:
+        removeGlyphOverlap(g)
 
     log(">> Mitring sharp corners")
     # for g in f.glyphs:
@@ -253,11 +243,9 @@ def cleanCurves(f):
     log(">> Converting curves to quadratic")
     # for g in f.glyphs:
     #     glyphCurvesToQuadratic(g)
-    
-def deleteGlyphs(f,deleteList):
-    fl.Unselect()
+
+
+def deleteGlyphs(f, deleteList):
     for name in deleteList:
-        glyphIndex = f.FindGlyph(name)
-        if glyphIndex != -1:
-            del f.glyphs[glyphIndex]
-    fl.UpdateFont()
+        if f.has_key(name):
+            f.removeGlyph(name)

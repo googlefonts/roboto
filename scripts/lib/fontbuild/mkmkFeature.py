@@ -1,5 +1,3 @@
-from FL import *
-
 def CreateAccNameList(font, acc_anchor_name):
 	lst = []
 	for g in font.glyphs:

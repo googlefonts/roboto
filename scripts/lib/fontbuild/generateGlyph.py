@@ -17,18 +17,15 @@ def parseComposite(composite):
 
 
 def generateGlyph(f,gname):
-    if gname.find("_") != -1:
-
-        #TODO(jamesgk@google.com) handle underscores
-        return
-
-        generateString = gname
-        g = f.generateGlyph(generateString)
-        if f.FindGlyph(g.name) == -1:
-            f.glyphs.append(g)
-        return g
+    glyphName, baseName, accentNames, offset = parseComposite(gname)
+    if baseName.find("_") != -1:
+        g = f.newGlyph(glyphName)
+        lastWidth = 0
+        for componentName in baseName.split("_"):
+            g.appendComponent(componentName, (lastWidth, 0))
+            lastWidth = f[componentName].width
+            g.width += lastWidth
     else: 
-        glyphName, baseName, accentNames, offset = parseComposite(gname)
         if not f.has_key(glyphName):
             try:
                 f.compileGlyph(glyphName, baseName, accentNames)

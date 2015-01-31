@@ -1,3 +1,4 @@
+from robofab.world import OpenFont
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
@@ -11,6 +12,7 @@ from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
 from fontbuild.removeGlyphOverlap import removeGlyphOverlap
+from fontbuild.saveOTF import saveOTF
 from fontbuild.sortGlyphs import sortGlyphsByUnicode
 import ConfigParser
 import os
@@ -39,7 +41,10 @@ class FontProject:
         self.deleteList = self.config.get("glyphs","delete").split()
         self.buildnumber = self.loadBuildNumber()
         
-        self.buldVFBandFEA = False
+        self.buildOTF = False
+        self.checkOTFOutlines = False
+        self.autohintOTF = False
+        self.buildFEA = False
         
         
     def loadBuildNumber(self):
@@ -153,22 +158,25 @@ class FontProject:
         fontName = "%s-%s" % (f.info.familyName.replace(" ", ""),
                               f.info.styleName.replace(" ", ""))
 
-        if self.buldVFBandFEA:
-          log(">> Generating VFB files")  
-          directoryPath = "%s/%s/%sVFB"%(self.basedir,self.builddir,directoryName)        
-          if not os.path.exists(directoryPath):
-            os.makedirs(directoryPath)
-          flName = "%s/%s.vfb"%(directoryPath,f.font_name)
-          fl.GenerateFont(fl.ifont,ftFONTLAB,flName)
-          
         log(">> Generating font files")
-        directoryPath = "%s/%s/%sTTF"%(self.basedir,self.builddir,directoryName)        
+        directoryPath = "%s/%s/%sUFO"%(self.basedir,self.builddir,directoryName)
         if not os.path.exists(directoryPath):
           os.makedirs(directoryPath)
         ufoName = "%s/%s.ufo" % (directoryPath, fontName)
         f.save(ufoName)
 
-        if self.buldVFBandFEA:
+        if self.buildOTF:
+            log(">> Generating OTF file")
+            newFont = OpenFont(ufoName)
+            directoryPath = "%s/%s/%sOTF" % (self.basedir, self.builddir,
+                                             directoryName)
+            if not os.path.exists(directoryPath):
+              os.makedirs(directoryPath)
+            otfName = "%s/%s.otf" % (directoryPath, fontName)
+            saveOTF(newFont, otfName, checkOutlines=self.checkOTFOutlines,
+                    autohint=self.autohintOTF)
+
+        if self.buildFEA:
           log(">> Generating FEA files")  
           GenerateFeature_mark(f)
           GenerateFeature_mkmk(f)
@@ -232,6 +240,7 @@ def generateGlyphs(f, glyphNames):
         generateGlyph(f, glyphName)
 
 def cleanCurves(f):
+    #TODO(jamesgk) remove calls to removeGlyphOverlap if we decide to use AFDKO
     log(">> Removing overlaps")
     for g in f:
         removeGlyphOverlap(g)

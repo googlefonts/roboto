@@ -60,8 +60,11 @@ proj.incrementBuildNumber()
 # FAMILYNAME = "Roboto2"
 FAMILYNAME = "Roboto"
 
+proj.buildOTF = True
 '''
-proj.buldVFBandFEA = True
+proj.checkOTFOutlines = True
+proj.autohintOTF = True
+proj.buildFEA = True
 '''
 proj.generateFont(th.font,"%s/Thin/Regular/Th"%FAMILYNAME)
 proj.generateFont(Mix([th,rg], 0.45),"%s/Light/Regular/Lt"%FAMILYNAME)

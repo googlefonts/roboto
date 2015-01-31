@@ -1,8 +1,11 @@
+#TODO(jamesgk@google.com) detect undefined glyphs (2D67, 2D68)
 @_A_L_ =[A  Aacute uni1EB6 Abreve uni04D0 uni1EAE uni1EB0 uni1EB2 uni1EB4 uni1EAC Acircumflex uni1EA4 uni1EA6 uni1EA8 uni1EAA Adieresis uni04D2 uni1EA0 Agrave uni1EA2 Amacron Aogonek Aring Aringacute Atilde Alphatonos uni1E00 uni0410 Lambda Alpha Delta uni0466 uniA732 uni01DE uni01E0 uni0200 uni0202 uni1F08 uni1F09 uni1F0A uni1F0B uni1F0C uni1F0D uni1F0E uni1F0F uni1F88 uni1F89 uni1F8A uni1F8B uni1F8C uni1F8D uni1F8E uni1F8F uni1FB8 uni1FB9 uni1FBA uni1FBB uni1FBC uniA658 Acaron uniA656 uni0226 uni0245 ];
 @_A_R_ =[A  Aacute uni1EB6 Abreve uni04D0 uni1EAE uni1EB0 uni1EB2 uni1EB4 uni1EAC Acircumflex uni1EA4 uni1EA6 uni1EA8 uni1EAA Adieresis uni04D2 uni1EA0 Agrave uni1EA2 Amacron Aogonek Aring Aringacute Atilde Alphatonos uni1E00 uni0410 Lambda Alpha Delta uni0466 uniA732 uniA734 uniA738 uniA73A uniA73C uni01DE uni01E0 uni0200 uni0202 uni1FB8 uni1FB9 uni1FBC uniA658 Acaron uni0226 uni0245 ];
 @_B_L_ =[B  Beta uni0412 uniA796 uni1E02 uni1E04 uni1E06 uni0243 ];
-@_H_R_ =[H  B D E F I K L M N P R Beta uni0412 Eacute Ebreve uni04D6 Ecaron uni1EC6 Ecircumflex uni1EBE uni1EC0 uni1EC2 uni1EC4 Edieresis uni0401 Edotaccent uni1EB8 Egrave Thorn uni0400 uni1EBA Emacron Eogonek uni1EBC Epsilontonos Epsilon Lacute Lcommaaccent Lcaron Ldot Kappa uni041A uni040C Kcommaaccent uni049E uni049A Iota uni0406 uni04C0 uni04CF Eta uni041D Iacute Ibreve Icircumflex Idieresis Iotadieresis uni0407 Idotaccent uni1ECA Igrave uni1EC8 Imacron Iogonek Itilde Iotatonos Hcircumflex uni04C9 uni04A2 Etatonos uni1E3E uni04CD Mu uni041C Nacute Ncaron Ncommaaccent Ntilde Nu Rho uni0420 Gamma uni0403 uni0492 uni04F6 uni0413 uni0516 uni0522 uni2C6E uni2C64 uni042B uni042C uni0426 uni0428 uni0429 uni2C69 uniA652 uniA653 uniA656 uniA68E uniA696 uniA782 uniA784 Iota1 LJ Lj NJ Nj Icaron Kcaron uni01F1 uni01F2 uni01F8 uni0204 uni0206 uni0208 uni020A uni0210 uni0212 uni021E uni0228 uni03F7 uni03FA uni0524 uni0526 uni1E02 uni1E04 uni1E06 uni1E0C uni1E0E uni1E10 uni1E12 uni1E14 uni1E16 uni1E18 uni1E1A uni1E1C uni1E1E uni1E22 uni1E24 uni1E26 uni1E2A uni1E2C uni1E2E uni1E30 uni1E32 uni1E34 uni1E36 uni1E38 uni1E3A uni1E3C uni1E40 uni1E42 uni1E44 uni1E46 uni1E48 uni1E4A uni1E54 uni1E56 uni1E58 uni1E5A uni1E5C uni1E5E uni1FCC uni2D67 uniA790 Btopbar uni01C4 uni01C5 uniA726 uniA666 uni0376 ];
-@_H_L_ =[H  Hcircumflex uni04C9 uni04A2 Etatonos Eta uni041D Iacute Ibreve Icircumflex Idieresis Iotadieresis uni0407 Idotaccent uni1ECA Igrave uni1EC8 Imacron Iogonek Itilde Iotatonos I Iota uni0406 uni04C0 uni04CF uni1E3E uni04CD M Mu uni041C Nacute Ncaron Ncommaaccent Ntilde N Nu uni040F uni0418 uni041B uni0426 uni0428 uni0528 uni2C6E uni042B uni0429 uni0427 uniA660 Iota1 Icaron uni01F8 uni0208 uni020A uni021E uni03FA uni0524 uni1E22 uni1E24 uni1E26 uni1E2A uni1E2C uni1E2E uni1E40 uni1E42 uni1E44 uni1E46 uni1E48 uni1E4A uni1F28 uni1F29 uni1F2A uni1F2B uni1F2C uni1F2D uni1F2E uni1F2F uni1F98 uni1F99 uni1F9A uni1F9B uni1F9C uni1F9D uni1F9E uni1F9F uni1FCA uni1FCB uni1FCC uni2D67 uniA790 Dtopbar Eturn mcapturn Nhook OI uniA7AA uni0376 ];
+#@_H_R_ =[H  B D E F I K L M N P R Beta uni0412 Eacute Ebreve uni04D6 Ecaron uni1EC6 Ecircumflex uni1EBE uni1EC0 uni1EC2 uni1EC4 Edieresis uni0401 Edotaccent uni1EB8 Egrave Thorn uni0400 uni1EBA Emacron Eogonek uni1EBC Epsilontonos Epsilon Lacute Lcommaaccent Lcaron Ldot Kappa uni041A uni040C Kcommaaccent uni049E uni049A Iota uni0406 uni04C0 uni04CF Eta uni041D Iacute Ibreve Icircumflex Idieresis Iotadieresis uni0407 Idotaccent uni1ECA Igrave uni1EC8 Imacron Iogonek Itilde Iotatonos Hcircumflex uni04C9 uni04A2 Etatonos uni1E3E uni04CD Mu uni041C Nacute Ncaron Ncommaaccent Ntilde Nu Rho uni0420 Gamma uni0403 uni0492 uni04F6 uni0413 uni0516 uni0522 uni2C6E uni2C64 uni042B uni042C uni0426 uni0428 uni0429 uni2C69 uniA652 uniA653 uniA656 uniA68E uniA696 uniA782 uniA784 Iota1 LJ Lj NJ Nj Icaron Kcaron uni01F1 uni01F2 uni01F8 uni0204 uni0206 uni0208 uni020A uni0210 uni0212 uni021E uni0228 uni03F7 uni03FA uni0524 uni0526 uni1E02 uni1E04 uni1E06 uni1E0C uni1E0E uni1E10 uni1E12 uni1E14 uni1E16 uni1E18 uni1E1A uni1E1C uni1E1E uni1E22 uni1E24 uni1E26 uni1E2A uni1E2C uni1E2E uni1E30 uni1E32 uni1E34 uni1E36 uni1E38 uni1E3A uni1E3C uni1E40 uni1E42 uni1E44 uni1E46 uni1E48 uni1E4A uni1E54 uni1E56 uni1E58 uni1E5A uni1E5C uni1E5E uni1FCC uni2D67 uniA790 Btopbar uni01C4 uni01C5 uniA726 uniA666 uni0376 ];
+#@_H_L_ =[H  Hcircumflex uni04C9 uni04A2 Etatonos Eta uni041D Iacute Ibreve Icircumflex Idieresis Iotadieresis uni0407 Idotaccent uni1ECA Igrave uni1EC8 Imacron Iogonek Itilde Iotatonos I Iota uni0406 uni04C0 uni04CF uni1E3E uni04CD M Mu uni041C Nacute Ncaron Ncommaaccent Ntilde N Nu uni040F uni0418 uni041B uni0426 uni0428 uni0528 uni2C6E uni042B uni0429 uni0427 uniA660 Iota1 Icaron uni01F8 uni0208 uni020A uni021E uni03FA uni0524 uni1E22 uni1E24 uni1E26 uni1E2A uni1E2C uni1E2E uni1E40 uni1E42 uni1E44 uni1E46 uni1E48 uni1E4A uni1F28 uni1F29 uni1F2A uni1F2B uni1F2C uni1F2D uni1F2E uni1F2F uni1F98 uni1F99 uni1F9A uni1F9B uni1F9C uni1F9D uni1F9E uni1F9F uni1FCA uni1FCB uni1FCC uni2D67 uniA790 Dtopbar Eturn mcapturn Nhook OI uniA7AA uni0376 ];
+@_H_R_ =[H  B D E F I K L M N P R Beta uni0412 Eacute Ebreve uni04D6 Ecaron uni1EC6 Ecircumflex uni1EBE uni1EC0 uni1EC2 uni1EC4 Edieresis uni0401 Edotaccent uni1EB8 Egrave Thorn uni0400 uni1EBA Emacron Eogonek uni1EBC Epsilontonos Epsilon Lacute Lcommaaccent Lcaron Ldot Kappa uni041A uni040C Kcommaaccent uni049E uni049A Iota uni0406 uni04C0 uni04CF Eta uni041D Iacute Ibreve Icircumflex Idieresis Iotadieresis uni0407 Idotaccent uni1ECA Igrave uni1EC8 Imacron Iogonek Itilde Iotatonos Hcircumflex uni04C9 uni04A2 Etatonos uni1E3E uni04CD Mu uni041C Nacute Ncaron Ncommaaccent Ntilde Nu Rho uni0420 Gamma uni0403 uni0492 uni04F6 uni0413 uni0516 uni0522 uni2C6E uni2C64 uni042B uni042C uni0426 uni0428 uni0429 uni2C69 uniA652 uniA653 uniA656 uniA68E uniA696 uniA782 uniA784 Iota1 LJ Lj NJ Nj Icaron Kcaron uni01F1 uni01F2 uni01F8 uni0204 uni0206 uni0208 uni020A uni0210 uni0212 uni021E uni0228 uni03F7 uni03FA uni0524 uni0526 uni1E02 uni1E04 uni1E06 uni1E0C uni1E0E uni1E10 uni1E12 uni1E14 uni1E16 uni1E18 uni1E1A uni1E1C uni1E1E uni1E22 uni1E24 uni1E26 uni1E2A uni1E2C uni1E2E uni1E30 uni1E32 uni1E34 uni1E36 uni1E38 uni1E3A uni1E3C uni1E40 uni1E42 uni1E44 uni1E46 uni1E48 uni1E4A uni1E54 uni1E56 uni1E58 uni1E5A uni1E5C uni1E5E uni1FCC uniA790 Btopbar uni01C4 uni01C5 uniA726 uniA666 uni0376 ];
+@_H_L_ =[H  Hcircumflex uni04C9 uni04A2 Etatonos Eta uni041D Iacute Ibreve Icircumflex Idieresis Iotadieresis uni0407 Idotaccent uni1ECA Igrave uni1EC8 Imacron Iogonek Itilde Iotatonos I Iota uni0406 uni04C0 uni04CF uni1E3E uni04CD M Mu uni041C Nacute Ncaron Ncommaaccent Ntilde N Nu uni040F uni0418 uni041B uni0426 uni0428 uni0528 uni2C6E uni042B uni0429 uni0427 uniA660 Iota1 Icaron uni01F8 uni0208 uni020A uni021E uni03FA uni0524 uni1E22 uni1E24 uni1E26 uni1E2A uni1E2C uni1E2E uni1E40 uni1E42 uni1E44 uni1E46 uni1E48 uni1E4A uni1F28 uni1F29 uni1F2A uni1F2B uni1F2C uni1F2D uni1F2E uni1F2F uni1F98 uni1F99 uni1F9A uni1F9B uni1F9C uni1F9D uni1F9E uni1F9F uni1FCA uni1FCB uni1FCC uniA790 Dtopbar Eturn mcapturn Nhook OI uniA7AA uni0376 ];
 @_O_R_ =[O  O.ss06 C.ss06 G.ss06 Q.ss06 C Cacute Ccaron Ccedilla Ccircumflex uni04AA uni010A uni0421 OE G Gbreve Gcircumflex Gcommaaccent uni0120 Oacute Obreve uni1ED8 Ocircumflex uni1ED0 uni1ED2 uni1ED4 uni1ED6 Odieresis uni04E6 uni1ECC Ograve uni1ECE Ohungarumlaut Omacron Otilde Omicrontonos Omicron Q Theta uni041E uni0478 Ohorn uni1EDA uni1EE2 uni1EDC uni1EDE uni1EE0 Oslash Oslashacute uni0404 uni0460 uni0472 uni04E8 uni04EA uni047A uni047C uni047E uni0480 uni04A8 uni050C Chook Ghook Obar uni024A OI uni03D8 Stigma uni03FE uni2C6D uniA64C uniA654 uniA668 uniA66A uniA66C uniA698 uniA69A uniA74C uniA74E uniA756 uniA758 uniA7AC Ocaron Oogonek uni01EC uni020C uni020E uni022A uni022C uni022E uni0230 uni051A uni1E08 uni1E20 uni1E4C uni1E4E uni1E50 uni1E52 ];
 @_O_L_ =[O  O.ss06 D.ss06 D Dcaron Dcroat Eth Oacute Obreve uni1ED8 Ocircumflex uni1ED0 uni1ED2 uni1ED4 uni1ED6 uni1F4D Odieresis uni04E6 uni1ECC Ograve uni1ECE Ohungarumlaut Omacron Otilde Omicrontonos Omicron Theta uni041E Oopen Dbar1 Dhook Schwa Obar uni03D8 uni03FD uni03FF uni04D8 uni2C70 uniA64C uniA668 uniA66A uniA66C uniA698 uniA69A uniA734 uniA73E uniA74E Ocaron Oogonek uni01EC uni020C uni020E uni022A uni022C uni022E uni0230 uni1E0A uni1E0C uni1E0E uni1E10 uni1E12 uni1E4C uni1E4E uni1E50 uni1E52 uni1F48 uni1F49 uni1F4A uni1F4B uni1F4C uni1FF8 uni1FF9 ];
 @_C_L_ =[C  C.ss06 Cacute Ccaron Ccedilla Ccircumflex uni04AA uni010A uni0421 uni03FE uniA792 uni03F9 uni1E08 ];
@@ -37,9 +40,11 @@
 @_c_R_ =[c  ccedilla cacute ccircumflex uni010B ccaron uni04AB oe d dcaron uni0501 e egrave eacute ecircumflex edieresis uni04D9 emacron ebreve edotaccent eogonek ecaron sigma1 uni0435 uni0451 uni0450 uni04D7 uni04DB uni1EB9 uni1EBB uni1EBD uni1EBF uni1EC1 uni1EC3 uni1EC5 uni1EC7 g gcircumflex gbreve uni0121 gcommaaccent q alpha alphatonos sigma uni0444 uni0441 uni0454 uni047D uni04A9 uni0502 uni0503 uni04E9 ohorn uni1EDB uni1EDD uni1EDF uni1EE3 uni0479 uni0481 uni050D chook stigma uni03F5 uni2C78 uniA794 uni0205 uni0207 uni03F2 uni1E09 uni1E0B uni1E0D uni1E0F uni1E11 uni1E13 uni1E15 uni1E17 uni1E19 uni1E1B uni1E1D uni1E21 uni1F00 uni1F01 uni1F02 uni1F03 uni1F04 uni1F05 uni1F06 uni1F07 uni1F80 uni1F81 uni1F82 uni1F83 uni1F84 uni1F85 uni1F86 uni1F87 uni1FB0 uni1FB1 uni1FB2 uni1FB3 uni1FB4 uni1FB6 uni1FB7 uniA771 uniAB36 uniA757 uniA759 uni01C6 gbar uni0221 uni024B uni051B gcaron eturn uni01F3 uni037C ];
 @_b_L_ =[b  p uni0440 rho thorn uni044D uni04ED uni048F uni0444 bbar btopbar tonesix uni0238 uni0239 rho1 uni03F6 uni03FC uniA751 uniA753 uniA755 uniA765 uniA767 uniA797 uni03F8 uni1E03 uni1E05 uni1E07 uni1E55 uni1E57 uni1FE4 uni1FE5 uni037B uni037D ];
 @_e_L_ =[e  egrave eacute ecircumflex edieresis uni04D9 emacron ebreve edotaccent eogonek ecaron uni0435 uni0451 uni0450 uni04D7 uni04DB uni1EB9 uni1EBB uni1EBD uni1EBF uni1EC1 uni1EC3 uni1EC5 uni1EC7 uni0519 aemacron uni1E15 uni1E17 uni1E19 uni1E1B uni1E1D ];
-@_l_R_ =[l  h k khook uni1E29 uni2C6A uniA695 uniA743 kcaron uni021F uni0527 uni1E23 uni1E25 uni1E27 uni1E2B uni1E31 uni1E33 uni1E35 uni1E3B uni1E3D uni1E96 lj uni2D68 uniA727 ];
+#@_l_R_ =[l  h k khook uni1E29 uni2C6A uniA695 uniA743 kcaron uni021F uni0527 uni1E23 uni1E25 uni1E27 uni1E2B uni1E31 uni1E33 uni1E35 uni1E3B uni1E3D uni1E96 lj uni2D68 uniA727 ];
+@_l_R_ =[l  h k khook uni1E29 uni2C6A uniA695 uniA743 kcaron uni021F uni0527 uni1E23 uni1E25 uni1E27 uni1E2B uni1E31 uni1E33 uni1E35 uni1E3B uni1E3D uni1E96 lj uniA727 ];
 @_n_R_ =[n  nacute uni0448 uni0446 uni0440 uni04A5 uni04A3 uni04E3 uni049B uni04E5 uni04FB uni04C8 uni043D uni043F uni043A uni043C ntilde uni045C uni0449 uni045A uni045D etatonos uni0453 uni048B uni0438 uni0439 ncaron uni04CE uni04F9 uni04CA uni0433 napostrophe m uni1E3F p eta ncommaaccent uni044E uni04F7 uni044C uni0235 uni0377 uni0523 uni051F uniA667 uniA773 uniA774 uniAB3A uniAB3B uniAB3C uniAB51 uni019E nj uni01F9 uni1E41 uni1E43 uni1E45 uni1E47 uni1E49 uni1E4B uniA68F uniA657 uniA697 ];
-@_n_L_ =[n  napostrophe nacute h m uni1E3F ntilde eta ncommaaccent hcircumflex ncaron uni04BB etatonos uniA783 uni01F9 uni1E41 uni1E43 uni1E45 uni1E47 uni1E49 uni1E4B uni1E23 uni1E25 uni1E27 uni1E2B uni2D68 uniA695 uniA727 uni1F20 uni1F21 uni1F22 uni1F23 uni1F24 uni1F25 uni1F26 uni1F27 uni1FC2 uni1FC3 uni1FC4 uni1FC6 uni1FC7 uni1F74 uni1F75 ];
+#@_n_L_ =[n  napostrophe nacute h m uni1E3F ntilde eta ncommaaccent hcircumflex ncaron uni04BB etatonos uniA783 uni01F9 uni1E41 uni1E43 uni1E45 uni1E47 uni1E49 uni1E4B uni1E23 uni1E25 uni1E27 uni1E2B uni2D68 uniA695 uniA727 uni1F20 uni1F21 uni1F22 uni1F23 uni1F24 uni1F25 uni1F26 uni1F27 uni1FC2 uni1FC3 uni1FC4 uni1FC6 uni1FC7 uni1F74 uni1F75 ];
+@_n_L_ =[n  napostrophe nacute h m uni1E3F ntilde eta ncommaaccent hcircumflex ncaron uni04BB etatonos uniA783 uni01F9 uni1E41 uni1E43 uni1E45 uni1E47 uni1E49 uni1E4B uni1E23 uni1E25 uni1E27 uni1E2B uniA695 uniA727 uni1F20 uni1F21 uni1F22 uni1F23 uni1F24 uni1F25 uni1F26 uni1F27 uni1FC2 uni1FC3 uni1FC4 uni1FC6 uni1FC7 uni1F74 uni1F75 ];
 @_o_L_ =[o  ograve ocircumflex uni1ED3 uni1ED1 uni1ED7 uni1ED5 obreve uni1ED9 uni04E7 uni1ECF uni1ECD uni043E uni0473 otilde omicrontonos odieresis ohungarumlaut omicron uni1EE1 omacron oacute uni04EB uni03D9 uni2C7A uniA669 uniA66B uniA66D uniA699 uniA74F ocaron oogonek uni01ED uni020D uni020F uni022B uni022D uni022F uni0231 obar uni1E4D uni1E4F uni1E51 uni1E53 uni1F40 uni1F41 uni1F42 uni1F43 uni1F44 uni1F45 uni1F78 uni1F79 ];
 @_o_R_ =[o  ograve ocircumflex uni1ED3 uni1ED1 uni1ED7 uni1ED5 obreve uni1ED9 uni04E7 uni1ECF uni1ECD uni043E uni0473 otilde omicrontonos odieresis ohungarumlaut omicron uni1EE1 omacron oacute uni04EB uni03D9 uni2C7A uniA655 uniA669 uniA66B uniA66D uniA699 uniA74D uniA74F ocaron oogonek uni01ED uni020D uni020F uni022B uni022D uni022F uni0231 obar uni1E4D uni1E4F uni1E51 uni1E53 uni1F40 uni1F41 uni1F42 uni1F43 uni1F44 uni1F45 uni1F78 uni1F79 ];
 @_v_L_ =[v  ycircumflex gamma uni04AF uni0475 uni0477 uni04EF ydieresis uni0443 uni04F3 uni1EF5 uni04F1 uni1EF9 yacute y uni1EF7 nu ygrave uni045E uni2C74 uniA739 uniA73B uniA73D uniA75F uni0233 uni1E7D uni1E7F uni1E8F uni1E99 ];
@@ -138,6 +143,52 @@ languagesystem grek dflt;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 feature cpsp {
   pos @UC_ROMAN <36 0 72 0>;
   pos @UC_SET1 <36 0 72 0>;
@@ -147,8 +198,7 @@ feature cpsp {
 feature c2sc {
   sub @UC_ROMAN by @SC_ROMAN;
   sub @UC_SET1 by @SC_SET1;
-  #sub Idotaccent by Idotaccent.smcp;
-  sub germandbls by germandbls.smcp;
+  sub germandbls by Germandbls.smcp;
 } c2sc;
 
 
@@ -170,28 +220,72 @@ feature mkmk {
 
 feature ccmp {
 
-  lookup smcp01 {
-  sub i' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni0069.ccmp;
-  sub j' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni0069.ccmp;
-  sub iogonek' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni012F.ccmp;
-  sub uni0249' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni0249.ccmp;
-  sub ibar' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni0268.ccmp;
-  sub jcrosstail' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni029D.ccmp;
-  sub jsuper' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni02B2.ccmp;
-  sub uni03F3' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni03F3.ccmp;
-  sub uni0456' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni0456.ccmp;
-  sub uni0458' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni0458.ccmp;
-  sub uni1D62' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni1D62.ccmp;
-  sub uni1D96' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni1D96.ccmp;
-  sub uni1DA4' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni1DA4.ccmp;
-  sub uni1DA8' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni1DA8.ccmp;
-  sub uni1E2D' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni1E2D.ccmp;
-  sub uni1ECB' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni1ECB.ccmp;
-  sub uni2071' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni2071.ccmp;
-  sub uni2C7C' [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb ] by uni2C7C.ccmp;
-  } smcp01;
+  lookup ccmp01 {
+  sub schwa uni02DE by schwahook;
+  sub epsilon1rev uni02DE by epsilon1revhook;
+  
+  sub aturn uni02DE by aturn_uni02DE;
+  sub iota1 uni02DE by iota1_uni02DE;
+  sub oopen uni02DE by oopen_uni02DE;
+  sub ascript uni02DE by ascript_uni02DE;
+  sub o uni02DE by o_uni02DE;
+  sub a uni02DE by a_uni02DE;
+  sub ascriptturn uni02DE by ascriptturn_uni02DE;
+  sub epsilon1revclosed uni02DE by epsilon1revclosed_uni02DE;
+  
+  sub lmidtilde uni1ABE by lmidtilde_uni1ABE;
+  sub dcroat uni1ABE by dcroat_uni1ABE;
+  sub eng uni1ABE by eng_uni1ABE;
+  sub gbar uni1ABE by gbar_uni1ABE;
+  sub bbar uni1ABE by bbar_uni1ABE;
+  sub rrthook uni1ABE by rrthook_uni1ABE;
+  
+  sub tildecomb uni1ABB by tildecomb_uni1ABB;
+  sub tildecomb uni1ABC by tildecomb_uni1ABC;
+  sub macroncomb uni1ABB by macroncomb_uni1ABB;
+  sub dieresisnosp uni1ABB by dieresisnosp_uni1ABB;
+  sub uni030C uni1ABB by uni030C_uni1ABB;
+  sub iotasubnosp uni1ABD by iotasubnosp_uni1ABD;
+  sub dotdblsubnosp uni1ABD by dotdblsubnosp_uni1ABD;
+  sub dotbelow uni1ABD by dotbelow_uni1ABD;
+  sub ringsubnosp uni1ABD by ringsubnosp_uni1ABD;
+  sub linevertsubnosp uni1ABD by linevertsubnosp_uni1ABD;
+  sub breveinvsubnosp uni1ABD by breveinvsubnosp_uni1ABD;
+  sub tildesubnosp uni1ABD by tildesubnosp_uni1ABD;
+  sub uni1AB9 uni1ABD by uni1AB9_uni1ABD;
+  sub uni1ABA uni1ABD by uni1ABA_uni1ABD;  
+  sub uni1AB8 uni1ABD by uni1AB8_uni1ABD;
+ 
+  } ccmp01;
 
-  lookup smcp02 {
+#TODO(jamesgk@google.com) detect undefined glyph classes (ccmp_acc)
+#  lookup ccmp02 {
+#  sub i' @ccmp_acc by uni0069.ccmp;
+#  sub j' @ccmp_acc by uni006A.ccmp;
+#  sub iogonek' @ccmp_acc by uni012F.ccmp;
+#  sub uni0249' @ccmp_acc by uni0249.ccmp;
+#  sub ibar' @ccmp_acc by uni0268.ccmp;
+#  sub jcrosstail' @ccmp_acc by uni029D.ccmp;
+#  sub jsuper' @ccmp_acc by uni02B2.ccmp;
+#  sub uni03F3' @ccmp_acc by uni03F3.ccmp;
+#  sub uni0456' @ccmp_acc by uni0456.ccmp;
+#  sub uni0458' @ccmp_acc by uni0458.ccmp;
+#  sub uni1D62' @ccmp_acc by uni1D62.ccmp;
+#  sub uni1D96' @ccmp_acc by uni1D96.ccmp;
+#  sub uni1DA4' @ccmp_acc by uni1DA4.ccmp;
+#  sub uni1DA8' @ccmp_acc by uni1DA8.ccmp;
+#  sub uni1E2D' @ccmp_acc by uni1E2D.ccmp;
+#  sub uni1ECB' @ccmp_acc by uni1ECB.ccmp;
+#  sub uni2071' @ccmp_acc by uni2071.ccmp;
+#  sub uni2C7C' @ccmp_acc by uni2C7C.ccmp;
+#  } ccmp02;
+
+  lookup ccmp03 {
+  
+  sub d uni030C by dcaron;
+  sub l uni030C by lcaron;
+  sub t uni030C by tcaron;  
+  
   sub A gravecomb by Agrave;
   sub A acutecomb by Aacute;
   sub A circumflexnosp by Acircumflex;
@@ -371,8 +465,6 @@ feature ccmp {
   sub Y gravecomb by Ygrave;
   sub y gravecomb by ygrave;
   sub uni0237 uni030C by uni01F0;
-  sub A uni02F3 by uni1E00;
-  sub a uni02F3 by uni1E01;
   sub A dotbelow by uni1EA0;
   sub a dotbelow by uni1EA1;
   sub A hook by uni1EA2;
@@ -664,8 +756,151 @@ feature ccmp {
   sub longs dotnosp by uni1E9B;
   sub A ringsubnosp by uni1E00;
   sub a ringsubnosp by uni1E01;
-  } smcp02;
+  } ccmp03;
   
+  lookup ccmp04 {
+  sub uni02E9 uni02E7 uni02E6 by uni02E9_uni02E7_uni02E6;
+  sub uni02E5 uni02E7 uni02E8 by uni02E5_uni02E7_uni02E8;
+  sub uni02E5 uni02E7 uni02E9 by uni02E5_uni02E7_uni02E9;
+  sub uni02E9 uni02E5 uni02E5 by uni02E9_uni02E5_uni02E5;
+  sub uni02E5 uni02E7 uni02E6 by uni02E5_uni02E7_uni02E6;
+  sub uni02E5 uni02E7 uni02E7 by uni02E5_uni02E7_uni02E7;
+  sub uni02E5 uni02E7 uni02E5 by uni02E5_uni02E7_uni02E5;
+  sub uni02E5 uni02E9 uni02E8 by uni02E5_uni02E9_uni02E8;
+  sub uni02E9 uni02E7 uni02E5 by uni02E9_uni02E7_uni02E5;
+  sub uni02E6 uni02E9 uni02E7 by uni02E6_uni02E9_uni02E7;
+  sub uni02E6 uni02E9 uni02E6 by uni02E6_uni02E9_uni02E6;
+  sub uni02E6 uni02E9 uni02E5 by uni02E6_uni02E9_uni02E5;
+  sub uni02E6 uni02E9 uni02E9 by uni02E6_uni02E9_uni02E9;
+  sub uni02E6 uni02E9 uni02E8 by uni02E6_uni02E9_uni02E8;
+  sub uni02E7 uni02E5 uni02E6 by uni02E7_uni02E5_uni02E6;
+  sub uni02E7 uni02E5 uni02E7 by uni02E7_uni02E5_uni02E7;
+  sub uni02E7 uni02E5 uni02E5 by uni02E7_uni02E5_uni02E5;
+  sub uni02E7 uni02E5 uni02E8 by uni02E7_uni02E5_uni02E8;
+  sub uni02E7 uni02E5 uni02E9 by uni02E7_uni02E5_uni02E9;
+  sub uni02E5 uni02E9 uni02E6 by uni02E5_uni02E9_uni02E6;
+  sub uni02E5 uni02E9 uni02E7 by uni02E5_uni02E9_uni02E7;
+  sub uni02E9 uni02E7 uni02E8 by uni02E9_uni02E7_uni02E8;
+  sub uni02E9 uni02E7 uni02E9 by uni02E9_uni02E7_uni02E9;
+  sub uni02E9 uni02E6 uni02E5 by uni02E9_uni02E6_uni02E5;
+  sub uni02E5 uni02E9 uni02E5 by uni02E5_uni02E9_uni02E5;
+  sub uni02E6 uni02E5 uni02E9 by uni02E6_uni02E5_uni02E9;
+  sub uni02E6 uni02E5 uni02E8 by uni02E6_uni02E5_uni02E8;
+  sub uni02E6 uni02E7 uni02E5 by uni02E6_uni02E7_uni02E5;
+  sub uni02E7 uni02E9 uni02E8 by uni02E7_uni02E9_uni02E8;
+  sub uni02E6 uni02E7 uni02E7 by uni02E6_uni02E7_uni02E7;
+  sub uni02E6 uni02E7 uni02E6 by uni02E6_uni02E7_uni02E6;
+  sub uni02E6 uni02E7 uni02E9 by uni02E6_uni02E7_uni02E9;
+  sub uni02E6 uni02E7 uni02E8 by uni02E6_uni02E7_uni02E8;
+  sub uni02E6 uni02E5 uni02E7 by uni02E6_uni02E5_uni02E7;
+  sub uni02E6 uni02E5 uni02E6 by uni02E6_uni02E5_uni02E6;
+  sub uni02E6 uni02E5 uni02E5 by uni02E6_uni02E5_uni02E5;
+  sub uni02E5 uni02E7 by uni02E5_uni02E7;
+  sub uni02E5 uni02E6 by uni02E5_uni02E6;
+  sub uni02E7 uni02E7 uni02E9 by uni02E7_uni02E7_uni02E9;
+  sub uni02E5 uni02E9 by uni02E5_uni02E9;
+  sub uni02E5 uni02E8 by uni02E5_uni02E8;
+  sub uni02E8 uni02E7 uni02E7 by uni02E8_uni02E7_uni02E7;
+  sub uni02E8 uni02E7 uni02E6 by uni02E8_uni02E7_uni02E6;
+  sub uni02E8 uni02E7 uni02E5 by uni02E8_uni02E7_uni02E5;
+  sub uni02E8 uni02E5 uni02E9 by uni02E8_uni02E5_uni02E9;
+  sub uni02E6 uni02E6 uni02E5 by uni02E6_uni02E6_uni02E5;
+  sub uni02E6 uni02E6 uni02E7 by uni02E6_uni02E6_uni02E7;
+  sub uni02E6 uni02E6 uni02E8 by uni02E6_uni02E6_uni02E8;
+  sub uni02E6 uni02E6 uni02E9 by uni02E6_uni02E6_uni02E9;
+  sub uni02E8 uni02E5 uni02E7 by uni02E8_uni02E5_uni02E7;
+  sub uni02E8 uni02E5 uni02E6 by uni02E8_uni02E5_uni02E6;
+  sub uni02E8 uni02E7 uni02E9 by uni02E8_uni02E7_uni02E9;
+  sub uni02E5 uni02E9 uni02E9 by uni02E5_uni02E9_uni02E9;
+  sub uni02E5 uni02E5 uni02E8 by uni02E5_uni02E5_uni02E8;
+  sub uni02E5 uni02E5 uni02E9 by uni02E5_uni02E5_uni02E9;
+  sub uni02E5 uni02E5 uni02E6 by uni02E5_uni02E5_uni02E6;
+  sub uni02E5 uni02E5 uni02E7 by uni02E5_uni02E5_uni02E7;
+  sub uni02E5 uni02E6 uni02E7 by uni02E5_uni02E6_uni02E7;
+  sub uni02E5 uni02E6 uni02E6 by uni02E5_uni02E6_uni02E6;
+  sub uni02E5 uni02E6 uni02E5 by uni02E5_uni02E6_uni02E5;
+  sub uni02E9 uni02E6 uni02E8 by uni02E9_uni02E6_uni02E8;
+  sub uni02E9 uni02E6 uni02E7 by uni02E9_uni02E6_uni02E7;
+  sub uni02E9 uni02E6 uni02E6 by uni02E9_uni02E6_uni02E6;
+  sub uni02E5 uni02E6 uni02E9 by uni02E5_uni02E6_uni02E9;
+  sub uni02E5 uni02E6 uni02E8 by uni02E5_uni02E6_uni02E8;
+  sub uni02E8 uni02E6 by uni02E8_uni02E6;
+  sub uni02E8 uni02E7 by uni02E8_uni02E7;
+  sub uni02E8 uni02E5 by uni02E8_uni02E5;
+  sub uni02E8 uni02E9 by uni02E8_uni02E9;
+  sub uni02E8 uni02E8 uni02E5 by uni02E8_uni02E8_uni02E5;
+  sub uni02E8 uni02E6 uni02E8 by uni02E8_uni02E6_uni02E8;
+  sub uni02E8 uni02E6 uni02E9 by uni02E8_uni02E6_uni02E9;
+  sub uni02E8 uni02E6 uni02E6 by uni02E8_uni02E6_uni02E6;
+  sub uni02E8 uni02E6 uni02E7 by uni02E8_uni02E6_uni02E7;
+  sub uni02E8 uni02E6 uni02E5 by uni02E8_uni02E6_uni02E5;
+  sub uni02E7 uni02E8 uni02E7 by uni02E7_uni02E8_uni02E7;
+  sub uni02E9 uni02E7 uni02E7 by uni02E9_uni02E7_uni02E7;
+  sub uni02E7 uni02E8 uni02E5 by uni02E7_uni02E8_uni02E5;
+  sub uni02E9 uni02E5 uni02E7 by uni02E9_uni02E5_uni02E7;
+  sub uni02E9 uni02E5 uni02E8 by uni02E9_uni02E5_uni02E8;
+  sub uni02E9 uni02E5 uni02E9 by uni02E9_uni02E5_uni02E9;
+  sub uni02E7 uni02E8 uni02E9 by uni02E7_uni02E8_uni02E9;
+  sub uni02E7 uni02E8 uni02E8 by uni02E7_uni02E8_uni02E8;
+  sub uni02E8 uni02E5 uni02E8 by uni02E8_uni02E5_uni02E8;
+  sub uni02E8 uni02E5 uni02E5 by uni02E8_uni02E5_uni02E5;
+  sub uni02E7 uni02E9 by uni02E7_uni02E9;
+  sub uni02E7 uni02E8 by uni02E7_uni02E8;
+  sub uni02E8 uni02E9 uni02E7 by uni02E8_uni02E9_uni02E7;
+  sub uni02E8 uni02E9 uni02E6 by uni02E8_uni02E9_uni02E6;
+  sub uni02E7 uni02E5 by uni02E7_uni02E5;
+  sub uni02E8 uni02E9 uni02E8 by uni02E8_uni02E9_uni02E8;
+  sub uni02E9 uni02E5 uni02E6 by uni02E9_uni02E5_uni02E6;
+  sub uni02E7 uni02E6 by uni02E7_uni02E6;
+  sub uni02E8 uni02E8 uni02E7 by uni02E8_uni02E8_uni02E7;
+  sub uni02E8 uni02E7 uni02E8 by uni02E8_uni02E7_uni02E8;
+  sub uni02E7 uni02E7 uni02E8 by uni02E7_uni02E7_uni02E8;
+  sub uni02E7 uni02E7 uni02E5 by uni02E7_uni02E7_uni02E5;
+  sub uni02E7 uni02E7 uni02E6 by uni02E7_uni02E7_uni02E6;
+  sub uni02E7 uni02E9 uni02E9 by uni02E7_uni02E9_uni02E9;
+  sub uni02E7 uni02E9 uni02E6 by uni02E7_uni02E9_uni02E6;
+  sub uni02E7 uni02E9 uni02E7 by uni02E7_uni02E9_uni02E7;
+  sub uni02E7 uni02E9 uni02E5 by uni02E7_uni02E9_uni02E5;
+  sub uni02E7 uni02E8 uni02E6 by uni02E7_uni02E8_uni02E6;
+  sub uni02E8 uni02E8 uni02E9 by uni02E8_uni02E8_uni02E9;
+  sub uni02E5 uni02E8 uni02E5 by uni02E5_uni02E8_uni02E5;
+  sub uni02E5 uni02E8 uni02E7 by uni02E5_uni02E8_uni02E7;
+  sub uni02E5 uni02E8 uni02E6 by uni02E5_uni02E8_uni02E6;
+  sub uni02E6 uni02E8 uni02E8 by uni02E6_uni02E8_uni02E8;
+  sub uni02E6 uni02E8 uni02E9 by uni02E6_uni02E8_uni02E9;
+  sub uni02E6 uni02E8 uni02E6 by uni02E6_uni02E8_uni02E6;
+  sub uni02E6 uni02E8 uni02E7 by uni02E6_uni02E8_uni02E7;
+  sub uni02E6 uni02E8 uni02E5 by uni02E6_uni02E8_uni02E5;
+  sub uni02E5 uni02E8 uni02E9 by uni02E5_uni02E8_uni02E9;
+  sub uni02E5 uni02E8 uni02E8 by uni02E5_uni02E8_uni02E8;
+  sub uni02E9 uni02E8 by uni02E9_uni02E8;
+  sub uni02E8 uni02E9 uni02E5 by uni02E8_uni02E9_uni02E5;
+  sub uni02E9 uni02E7 by uni02E9_uni02E7;
+  sub uni02E9 uni02E6 by uni02E9_uni02E6;
+  sub uni02E9 uni02E5 by uni02E9_uni02E5;
+  sub uni02E9 uni02E8 uni02E9 by uni02E9_uni02E8_uni02E9;
+  sub uni02E9 uni02E8 uni02E8 by uni02E9_uni02E8_uni02E8;
+  sub uni02E9 uni02E8 uni02E5 by uni02E9_uni02E8_uni02E5;
+  sub uni02E9 uni02E8 uni02E7 by uni02E9_uni02E8_uni02E7;
+  sub uni02E9 uni02E8 uni02E6 by uni02E9_uni02E8_uni02E6;
+  sub uni02E8 uni02E9 uni02E9 by uni02E8_uni02E9_uni02E9;
+  sub uni02E9 uni02E6 uni02E9 by uni02E9_uni02E6_uni02E9;
+  sub uni02E9 uni02E9 uni02E8 by uni02E9_uni02E9_uni02E8;
+  sub uni02E7 uni02E6 uni02E5 by uni02E7_uni02E6_uni02E5;
+  sub uni02E7 uni02E6 uni02E7 by uni02E7_uni02E6_uni02E7;
+  sub uni02E7 uni02E6 uni02E6 by uni02E7_uni02E6_uni02E6;
+  sub uni02E7 uni02E6 uni02E9 by uni02E7_uni02E6_uni02E9;
+  sub uni02E7 uni02E6 uni02E8 by uni02E7_uni02E6_uni02E8;
+  sub uni02E9 uni02E9 uni02E5 by uni02E9_uni02E9_uni02E5;
+  sub uni02E9 uni02E9 uni02E6 by uni02E9_uni02E9_uni02E6;
+  sub uni02E9 uni02E9 uni02E7 by uni02E9_uni02E9_uni02E7;
+  sub uni02E6 uni02E8 by uni02E6_uni02E8;
+  sub uni02E6 uni02E9 by uni02E6_uni02E9;
+  sub uni02E8 uni02E8 uni02E6 by uni02E8_uni02E8_uni02E6;
+  sub uni02E6 uni02E5 by uni02E6_uni02E5;
+  sub uni02E6 uni02E7 by uni02E6_uni02E7;
+  } ccmp04;
+ 
 } ccmp;
 
 
@@ -675,8 +910,9 @@ feature locl {
   sub [Scedilla scedilla] by [uni0218 uni0219];
  language ROM  exclude_dflt; # Romanian
   sub [Scedilla scedilla] by [uni0218 uni0219];
- language NAV  exclude_dflt; # Navajo
-  sub [ Aogonek aogonek Eogonek eogonek Oogonek oogonek ] by [ Aogonek.NAV aogonek.NAV Eogonek.NAV eogonek.NAV Oogonek.NAV oogonek.NAV ];
+#TODO(jamesgk@google.com) detect undefined glyphs (*.NAV)
+# language NAV  exclude_dflt; # Navajo
+#  sub [ Aogonek aogonek Eogonek eogonek Oogonek oogonek ] by [ Aogonek.NAV aogonek.NAV Eogonek.NAV eogonek.NAV Oogonek.NAV oogonek.NAV ];
 } locl;
 
 
@@ -706,9 +942,10 @@ feature liga {
 } liga;
 
 
-feature unic {
-  sub @unicase_l by @unicase_r ;
-} unic;
+#TODO(jamesgk@google.com) detect undefined glyph classes (unicase_*)
+#feature unic {
+#  sub @unicase_l by @unicase_r ;
+#} unic;
 
 
 feature salt {
@@ -802,6 +1039,87 @@ feature dnom {
 feature numr {
   sub @frac1 by @frac2;
 } numr;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

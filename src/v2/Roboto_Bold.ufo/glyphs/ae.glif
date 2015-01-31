@@ -85,6 +85,9 @@
     <contour>
       <point x="1730" y="1600" type="move" name="top_dd"/>
     </contour>
+    <contour>
+      <point x="1730" y="1291" type="move" name="top0315"/>
+    </contour>
   </outline>
   <lib>
   <dict>
@@ -95,24 +98,40 @@
     <real>0.6</real>
     <real>1</real>
   </array>
+  <key>com.typemytype.robofont.guides</key>
+  <array>
+    <dict>
+      <key>angle</key>
+      <real>0</real>
+      <key>isGlobal</key>
+      <false/>
+      <key>magnetic</key>
+      <integer>5</integer>
+      <key>x</key>
+      <real>0</real>
+      <key>y</key>
+      <real>834</real>
+    </dict>
+  </array>
   <key>com.adobe.type.autohint</key>
   <data>
-  <hintSetList>
-    <hintset pointTag="hr01">
-      <hstem pos="-21" width="271" />
-      <hstem pos="447" width="214" />
-      <hstem pos="832" width="270" />
-      <vstem pos="871" width="196" />
-      <vstem pos="1432" width="322" />
-    </hintset>
-    <hintset pointTag="hr02">
-      <hstem pos="-21" width="271" />
-      <hstem pos="447" width="214" />
-      <hstem pos="832" width="270" />
-      <vstem pos="744" width="323" />
-      <vstem pos="1432" width="322" />
-    </hintset>
-  </hintSetList>
+ICA8aGludFNldExpc3Q+CiAgICA8aGludHNldCBw
+b2ludFRhZz0iaHIwMSI+CiAgICAgIDxoc3RlbSBw
+b3M9Ii0yMSIgd2lkdGg9IjI3MSIgLz4KICAgICAg
+PGhzdGVtIHBvcz0iNDQ3IiB3aWR0aD0iMjE0IiAv
+PgogICAgICA8aHN0ZW0gcG9zPSI4MzIiIHdpZHRo
+PSIyNzAiIC8+CiAgICAgIDx2c3RlbSBwb3M9Ijg3
+MSIgd2lkdGg9IjE5NiIgLz4KICAgICAgPHZzdGVt
+IHBvcz0iMTQzMiIgd2lkdGg9IjMyMiIgLz4KICAg
+IDwvaGludHNldD4KICAgIDxoaW50c2V0IHBvaW50
+VGFnPSJocjAyIj4KICAgICAgPGhzdGVtIHBvcz0i
+LTIxIiB3aWR0aD0iMjcxIiAvPgogICAgICA8aHN0
+ZW0gcG9zPSI0NDciIHdpZHRoPSIyMTQiIC8+CiAg
+ICAgIDxoc3RlbSBwb3M9IjgzMiIgd2lkdGg9IjI3
+MCIgLz4KICAgICAgPHZzdGVtIHBvcz0iNzQ0IiB3
+aWR0aD0iMzIzIiAvPgogICAgICA8dnN0ZW0gcG9z
+PSIxNDMyIiB3aWR0aD0iMzIyIiAvPgogICAgPC9o
+aW50c2V0PgogIDwvaGludFNldExpc3Q+Cg==
   </data>
   </dict>
   </lib>

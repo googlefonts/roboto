@@ -21,14 +21,23 @@
       <point x="939" y="856" type="curve" smooth="yes"/>
       <point x="939" y="736" type="line"/>
     </contour>
+    <contour>
+      <point x="609" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="609" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1271" y="1290" type="move" name="top0315"/>
+    </contour>
     <component base="Gsmallcap" xOffset="-20"/>
   </outline>
   <lib>
   <dict>
   <key>com.typemytype.robofont.mark</key>
   <array>
-    <real>0.939</real>
     <real>1</real>
+    <real>0.779</real>
     <real>0.6</real>
     <real>1</real>
   </array>

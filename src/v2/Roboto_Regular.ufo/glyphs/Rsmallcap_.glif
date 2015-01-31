@@ -31,13 +31,22 @@
       <point x="829" y="1082"/>
       <point x="565" y="1082" type="curve" smooth="yes"/>
     </contour>
+    <contour>
+      <point x="522" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="522" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1131" y="1290" type="move" name="top0315"/>
+    </contour>
   </outline>
   <lib>
   <dict>
   <key>com.typemytype.robofont.mark</key>
   <array>
-    <real>0.939</real>
     <real>1</real>
+    <real>0.779</real>
     <real>0.6</real>
     <real>1</real>
   </array>

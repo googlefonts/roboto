@@ -33,6 +33,12 @@
       <point x="-683" y="1459"/>
       <point x="-755" y="1395"/>
     </contour>
+    <contour>
+      <point x="-576" y="1250" type="move" name="_marktop"/>
+    </contour>
+    <contour>
+      <point x="-576" y="1900" type="move" name="mkmktop"/>
+    </contour>
   </outline>
   <lib>
   <dict>
@@ -42,6 +48,21 @@
     <real>0.6</real>
     <real>1</real>
     <real>1</real>
+  </array>
+  <key>com.typemytype.robofont.guides</key>
+  <array>
+    <dict>
+      <key>angle</key>
+      <real>90</real>
+      <key>isGlobal</key>
+      <false/>
+      <key>magnetic</key>
+      <integer>5</integer>
+      <key>x</key>
+      <real>459</real>
+      <key>y</key>
+      <real>0</real>
+    </dict>
   </array>
   </dict>
   </lib>

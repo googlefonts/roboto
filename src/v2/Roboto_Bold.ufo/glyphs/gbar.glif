@@ -21,9 +21,9 @@
       <point x="246" y="-225" type="curve"/>
       <point x="129" y="-415" type="line"/>
       <point x="261" y="-525"/>
-      <point x="392" y="-555"/>
-      <point x="533" y="-555" type="curve" smooth="yes"/>
-      <point x="856" y="-555"/>
+      <point x="395" y="-553"/>
+      <point x="533" y="-553" type="curve" smooth="yes"/>
+      <point x="856" y="-553"/>
       <point x="1074" y="-387"/>
       <point x="1074" y="-87" type="curve" smooth="yes"/>
       <point x="1074" y="1082" type="line"/>
@@ -66,6 +66,15 @@
     <contour>
       <point x="554" y="-487" type="move" name="bottom"/>
     </contour>
+    <contour>
+      <point x="596" y="-128" type="move" name="cross"/>
+    </contour>
+    <contour>
+      <point x="554" y="-487" type="move" name="markbottom"/>
+    </contour>
+    <contour>
+      <point x="1176" y="1290" type="move" name="top0315"/>
+    </contour>
   </outline>
   <lib>
   <dict>
@@ -78,11 +87,10 @@
   </array>
   <key>com.adobe.type.autohint</key>
   <data>
-  <hintSetList>
-    <hintset pointTag="hr00">
-      <hstem pos="-196" width="141" />
-    </hintset>
-  </hintSetList>
+ICA8aGludFNldExpc3Q+CiAgICA8aGludHNldCBw
+b2ludFRhZz0iaHIwMCI+CiAgICAgIDxoc3RlbSBw
+b3M9Ii0xOTYiIHdpZHRoPSIxNDEiIC8+CiAgICA8
+L2hpbnRzZXQ+CiAgPC9oaW50U2V0TGlzdD4K
   </data>
   </dict>
   </lib>

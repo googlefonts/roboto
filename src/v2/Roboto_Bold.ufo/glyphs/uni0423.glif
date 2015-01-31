@@ -32,6 +32,9 @@
     <contour>
       <point x="677" y="1600" type="move" name="top"/>
     </contour>
+    <contour>
+      <point x="1295" y="1600" type="move" name="top0315"/>
+    </contour>
   </outline>
   <lib>
   <dict>
@@ -42,15 +45,42 @@
     <real>1</real>
     <real>1</real>
   </array>
+  <key>com.typemytype.robofont.guides</key>
+  <array>
+    <dict>
+      <key>angle</key>
+      <real>0</real>
+      <key>isGlobal</key>
+      <false/>
+      <key>magnetic</key>
+      <integer>5</integer>
+      <key>x</key>
+      <real>0</real>
+      <key>y</key>
+      <real>901</real>
+    </dict>
+    <dict>
+      <key>angle</key>
+      <real>0</real>
+      <key>isGlobal</key>
+      <false/>
+      <key>magnetic</key>
+      <integer>5</integer>
+      <key>x</key>
+      <real>0</real>
+      <key>y</key>
+      <real>555</real>
+    </dict>
+  </array>
   <key>com.adobe.type.autohint</key>
   <data>
-  <hintSetList>
-    <hintset pointTag="hr00">
-      <hstem pos="-62" width="268" />
-      <hstem pos="396" width="-21" />
-      <hstem pos="1456" width="-20" />
-    </hintset>
-  </hintSetList>
+ICA8aGludFNldExpc3Q+CiAgICA8aGludHNldCBw
+b2ludFRhZz0iaHIwMCI+CiAgICAgIDxoc3RlbSBw
+b3M9Ii02MiIgd2lkdGg9IjI2OCIgLz4KICAgICAg
+PGhzdGVtIHBvcz0iMzk2IiB3aWR0aD0iLTIxIiAv
+PgogICAgICA8aHN0ZW0gcG9zPSIxNDU2IiB3aWR0
+aD0iLTIwIiAvPgogICAgPC9oaW50c2V0PgogIDwv
+aGludFNldExpc3Q+Cg==
   </data>
   </dict>
   </lib>

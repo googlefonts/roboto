@@ -22,9 +22,8 @@ def generateGlyph(f,gname):
         g = f.newGlyph(glyphName)
         lastWidth = 0
         for componentName in baseName.split("_"):
-            g.appendComponent(componentName, (lastWidth, 0))
-            lastWidth = f[componentName].width
-            g.width += lastWidth
+            g.appendComponent(componentName, (g.width, 0))
+            g.width += f[componentName].width
     else: 
         if not f.has_key(glyphName):
             try:

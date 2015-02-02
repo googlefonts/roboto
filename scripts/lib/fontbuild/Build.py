@@ -135,7 +135,6 @@ class FontProject:
         for gname in self.decompose:
             if f.has_key(gname):
                 decomposeGlyph(f[gname])
-                decomposeGlyph(f[gname])
 
         setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
                          version=self.config.get('main', 'version'))

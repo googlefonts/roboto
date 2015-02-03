@@ -12,6 +12,7 @@ class FFont:
         self.glyphs = {}
         self.hstems = []
         self.vstems = []
+        self.kerning = {}
         if isinstance(f,FFont):
             #self.glyphs = [g.copy() for g in f.glyphs]
             for key,g in f.glyphs.iteritems():
@@ -26,6 +27,8 @@ class FFont:
             self.glyphs[g.name] = FGlyph(g)
         self.hstems = [s for s in f.info.postscriptStemSnapH]
         self.vstems = [s for s in f.info.postscriptStemSnapV]
+        self.kerning = f.kerning.asDict()
+
 
     def copyToFont(self, f):
         for g in f:
@@ -36,6 +39,8 @@ class FFont:
                 print "Copy to glyph failed for" + g.name
         f.info.postscriptStemSnapH = self.hstems
         f.info.postscriptStemSnapV = self.vstems
+        for pair in self.kerning:
+            f.kerning[pair] = self.kerning[pair]
 
     def getGlyph(self, gname):
         try:
@@ -64,7 +69,6 @@ class FGlyph:
         self.contours = []
         self.width = 0.
         self.components = []
-#        self.kerning = []
         self.anchors = []
         if g != None:
             self.copyFromGlyph(g)
@@ -94,9 +98,6 @@ class FGlyph:
                 valuesX.append(g[i].points[j].x)
                 valuesY.append(g[i].points[j].y)
 
-#        for k in g.kerning:
-#            self.kerning.append(KerningPair(k))
-
         self.dataX = array(valuesX)
         self.dataY = array(valuesY)
         
@@ -108,13 +109,10 @@ class FGlyph:
                 g.components[i].scale[1] = self._derefY(self.components[i][1] + 0)
                 g.components[i].offset[0] = self._derefX(self.components[i][0] + 1)
                 g.components[i].offset[1] = self._derefY(self.components[i][1] + 1)
-#        g.kerning = []
         if len(g.anchors) == len(self.anchors):
             for i in range(len(self.anchors)):
                 g.anchors[i].x = self._derefX( self.anchors[i][0])
                 g.anchors[i].y = self._derefY( self.anchors[i][1])
-#        for k in self.kerning:
-#            g.kerning.append(KerningPair(k))
         for i in range(len(g)) :
             for j in range (len(g[i].points)):
                 g[i].points[j].x = self._derefX(self.contours[i][j][0])
@@ -174,7 +172,6 @@ class FGlyph:
         
         gF.dataX += (g.dataX - gF.dataX) * v.x
         gF.dataY += (g.dataY - gF.dataY) * v.y
-#        gF.kerning = interpolateKerns(self, g, v)
         return gF
     
     def copy(self):
@@ -182,7 +179,6 @@ class FGlyph:
         ng.contours = list(self.contours)
         ng.width = self.width
         ng.components = list(self.components)
-#        ng.kerning = list(self.kerning)
         ng.anchors = list(self.anchors)
         ng.dataX = self.dataX.copy()
         ng.dataY = self.dataY.copy()
@@ -266,6 +262,7 @@ class Mix:
         ffont = FFont(self.masters[0].ffont)
         for key,g in ffont.glyphs.iteritems():
             ffont.glyphs[key] = self.mixGlyphs(key)
+        ffont.kerning = self.mixKerns()
         return ffont
     
     def generateFont(self, baseFont):
@@ -281,6 +278,7 @@ class Mix:
                     gF.copyToGlyph(g)
                 except:
                     "Nodes incompatible"
+        newFont.kerning.update(self.mixKerns() or {})
         return newFont
     
     def mixGlyphs(self,gname):
@@ -291,6 +289,17 @@ class Mix:
             print "mixglyph failed for %s" %(gname)
             if gA != None:
                 return gA.copy()
+
+    def getKerning(self, master):
+        if isinstance(master.font, Mix):
+            return master.font.mixKerns()
+        return master.ffont.kerning
+
+    def mixKerns(self):
+        masters = self.masters
+        kA, kB = self.getKerning(masters[0]), self.getKerning(masters[-1])
+        return interpolateKerns(kA, kB, self.v)
+
 
 def narrowFLGlyph(g, gThin, factor=.75):
     gF = FGlyph(g)
@@ -310,19 +319,13 @@ def interpolate(a,b,v,e=0):
     le = a+(b-a)*v   # linear easing
     return le + (qe-le) * e
     
-def interpolateKerns(gA,gB,v):
-    kerns = []
-    for kA in gA.kerning:
-        key = kA.key
-        matchedKern = None
-        for kB in gA.kerning:
-            if key == kB.key:
-                matchedKern = kB
-                break
+def interpolateKerns(kA, kB, v):
+    kerns = {}
+    for pair in kA.keys():
+        matchedKern = kB.get(pair)
         # if matchedkern == None:
         #     matchedkern = Kern(kA)
         #     matchedkern.value = 0
         if matchedKern != None:
-            kernValue = interpolate(kA.value, matchedKern.value, v.x)
-            kerns.append(KerningPair(kA.key,kernValue))
+            kerns[pair] = interpolate(kA[pair], matchedKern, v.x)
     return kerns

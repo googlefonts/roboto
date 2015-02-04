@@ -7,7 +7,7 @@ from alignpoints import alignCorners
 
 def italicizeGlyph(f, g, angle=10, stemWidth=185):
     glyph = f[g.name]
-    slope = np.tanh([math.pi * angle / 180])[0]
+    slope = np.tanh(math.pi * angle / 180)
 
     # determine how far on the x axis the glyph should slide
     # to compensate for the slant. -600 is a magic number

@@ -9,11 +9,6 @@ from ufo2fdk.outlineOTF import OutlineOTFCompiler
 def saveOTF(font, destFile, checkOutlines=False, autohint=False):
     """Save a RoboFab font as an OTF binary using ufo2fdk."""
 
-    # according to the AGL spec, names of glyphs outside the BMP must have
-    # prefix "u" and not "uni": http://sourceforge.net/adobe/aglfn/aglspec
-    for glyph in font:
-        glyph.name = re.sub(r"uni([\dA-F]{5,})", r"u\1", glyph.name)
-
     compiler = OTFCompiler(partsCompilerClass=_PartsCompilerBlankGlyphOrder,
                            outlineCompilerClass=_OutlineCompilerFormat12)
     reports = compiler.compile(font, destFile, checkOutlines=checkOutlines,
@@ -23,6 +18,35 @@ def saveOTF(font, destFile, checkOutlines=False, autohint=False):
     if autohint:
         print reports["autohint"]
     print reports["makeotf"]
+
+
+def conformToAGL(font, glyphList):
+    """Ensure a font's glyph names conform to the AGL specification.
+
+    The spec is described at http://sourceforge.net/adobe/aglfn/aglspec.
+    This function only checks for some Roboto-specific problems.
+    """
+
+    ligaNameChanges = {}
+    for glyph in font:
+        if glyph.name in glyphList:
+            continue
+
+        # ligature names cannot contain underscores between components
+        if re.match("([a-z]_)+[a-z]", glyph.name):
+            ligaName = glyph.name.replace("_", "")
+            if ligaName in glyphList:
+                ligaNameChanges[glyph.name] = ligaName
+                glyph.name = ligaName
+                continue
+
+        # names of glyphs outside the BMP must have prefix "u" and not "uni"
+        glyph.name = re.sub(r"^uni([\dA-F]{5,})$", r"u\1", glyph.name)
+
+    # references to altered ligature names must be updated in the font features
+    #TODO(jamesgk) use a more robust system for parsing through RFont features
+    for oldName, newName in ligaNameChanges.iteritems():
+        font.features.text = font.features.text.replace(oldName, newName)
 
 
 class _PartsCompilerBlankGlyphOrder(MakeOTFPartsCompiler):

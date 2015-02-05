@@ -20,7 +20,6 @@ def generateGlyph(f,gname):
     glyphName, baseName, accentNames, offset = parseComposite(gname)
     if baseName.find("_") != -1:
         g = f.newGlyph(glyphName)
-        lastWidth = 0
         for componentName in baseName.split("_"):
             g.appendComponent(componentName, (g.width, 0))
             g.width += f[componentName].width

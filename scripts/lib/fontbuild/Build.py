@@ -12,7 +12,7 @@ from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
 from fontbuild.removeGlyphOverlap import removeGlyphOverlap
-from fontbuild.saveOTF import saveOTF
+from fontbuild.saveOTF import saveOTF, conformToAGL
 from fontbuild.sortGlyphs import sortGlyphsByUnicode
 import ConfigParser
 import os
@@ -33,6 +33,8 @@ class FontProject:
         self.ot_classes = open(self.basedir + "/" + self.config.get("res","ot_classesfile")).read()
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
         self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
+        adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
+        self.adobeGlyphList = set([line.split(";")[0] for line in adobeGlyphList if not line.startswith("#")])
         
         self.builddir = "out"
         self.decompose = self.config.get("glyphs","decompose").split()
@@ -141,17 +143,18 @@ class FontProject:
         cleanCurves(f)
         deleteGlyphs(f, self.deleteList)
 
-#        if kern:
-#            log(">> Generating kern classes")
-#            generateFLKernClassesFromOTString(f, self.ot_kerningclasses)
-#            kern = f.MakeKernFeature()
-#            kern_exist = False
-#            for fea_id in range (len(f.features)):
-#              if "kern" == f.features[fea_id].tag:
-#                f.features[fea_id] = kern
-#                kern_exist = True
-#            if False == kern_exist:
-#              f.features.append(kern)
+        #TODO(jamesgk) create a system for generating RFont features and classes
+        #if kern:
+        #    log(">> Generating kern classes")
+        #    generateFLKernClassesFromOTString(f, self.ot_kerningclasses)
+        #    kern = f.MakeKernFeature()
+        #    kern_exist = False
+        #    for fea_id in range (len(f.features)):
+        #      if "kern" == f.features[fea_id].tag:
+        #        f.features[fea_id] = kern
+        #        kern_exist = True
+        #    if False == kern_exist:
+        #      f.features.append(kern)
 
         directoryName = n[0].replace(" ", "")
         fontName = "%s-%s" % (f.info.familyName.replace(" ", ""),
@@ -167,6 +170,7 @@ class FontProject:
         if self.buildOTF:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
+            conformToAGL(newFont, self.adobeGlyphList)
             directoryPath = "%s/%s/%sOTF" % (self.basedir, self.builddir,
                                              directoryName)
             if not os.path.exists(directoryPath):

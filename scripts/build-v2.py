@@ -52,20 +52,17 @@ def condenseFont(f, scale=.8, stemWidth=185):
 
 
 proj = FontProject(rg.font, BASEDIR, "res/roboto.cfg", th.ffont)
-'''
-proj.incrementBuildNumber()
-'''
+#proj.incrementBuildNumber()
 
 # FAMILYNAME = "Roboto 2 DRAFT"
 # FAMILYNAME = "Roboto2"
 FAMILYNAME = "Roboto"
 
 proj.buildOTF = True
-'''
-proj.checkOTFOutlines = True
-proj.autohintOTF = True
-proj.buildFEA = True
-'''
+#proj.checkOTFOutlines = True
+#proj.autohintOTF = True
+#proj.buildFEA = True
+
 proj.generateFont(th.font,"%s/Thin/Regular/Th"%FAMILYNAME)
 proj.generateFont(Mix([th,rg], 0.45),"%s/Light/Regular/Lt"%FAMILYNAME)
 proj.generateFont(Mix([th,rg], RPoint(0.90, 0.92)),"%s/Regular/Regular/Rg"%FAMILYNAME)

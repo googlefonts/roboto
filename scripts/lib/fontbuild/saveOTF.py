@@ -9,7 +9,7 @@ from ufo2fdk.outlineOTF import OutlineOTFCompiler
 def saveOTF(font, destFile, checkOutlines=False, autohint=False):
     """Save a RoboFab font as an OTF binary using ufo2fdk."""
 
-    compiler = OTFCompiler(partsCompilerClass=_PartsCompilerBlankGlyphOrder,
+    compiler = OTFCompiler(partsCompilerClass=_PartsCompilerCustomGlyphOrder,
                            outlineCompilerClass=_OutlineCompilerFormat12)
     reports = compiler.compile(font, destFile, checkOutlines=checkOutlines,
                                autohint=autohint)
@@ -49,21 +49,19 @@ def conformToAGL(font, glyphList):
         font.features.text = font.features.text.replace(oldName, newName)
 
 
-class _PartsCompilerBlankGlyphOrder(MakeOTFPartsCompiler):
-    """Child class of parts compiler which produces a blank glyph order file.
-
-    This seems necessary for now because AFDKO's makeotf function produces
-    Roboto OTFs without ASCII mappings when called with ufo2fdk's default glyph
-    order file.
-    """
+class _PartsCompilerCustomGlyphOrder(MakeOTFPartsCompiler):
+    """OTF parts compiler that produces a custom glyph order file."""
 
     def setupFile_glyphOrder(self, path):
+        # just create a blank file -- this seems necessary for now because
+        # AFDKO's makeotf function produces Roboto OTFs without ASCII mappings
+        # when called with ufo2fdk's default glyph order file
         f = open(path, "w")
         f.close()
 
 
 class _OutlineCompilerFormat12(OutlineOTFCompiler):
-    """Child class of outline compiler to work with format 12 cmaps."""
+    """OTF outline compiler to work with format 12 cmaps."""
 
     def setupTable_cmap(self):
         """Set up cmap exactly like ufo2fdk, switching format 4 for 12."""

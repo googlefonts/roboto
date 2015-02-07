@@ -7,7 +7,7 @@ from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
 from fontbuild.kerning import generateFLKernClassesFromOTString
-from fontbuild.features import CreateFeaFile
+from fontbuild.features import CreateFeaFile, validateFeatureFile
 from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
@@ -133,6 +133,7 @@ class FontProject:
         log(">> Copying features")
         f.ot_classes = self.ot_classes
         copyFeatures(self.basefont, f)
+        validateFeatureFile(f)
         log(">> Decomposing")
         for gname in self.decompose:
             if f.has_key(gname):

@@ -32,7 +32,9 @@ def conformToAGL(font, glyphList):
         if glyph.name in glyphList:
             continue
 
-        # ligature names cannot contain underscores between components
+        # if a ligature name (without underscores) is in the AGL, remove the
+        # underscores so AFDKO will keep the glyph in the font during conversion
+        #TODO(jamesgk) figure out why AFDKO throws out names with underscores
         if re.match("([a-z]_)+[a-z]", glyph.name):
             ligaName = glyph.name.replace("_", "")
             if ligaName in glyphList:
@@ -56,6 +58,7 @@ class _PartsCompilerCustomGlyphOrder(MakeOTFPartsCompiler):
         # just create a blank file -- this seems necessary for now because
         # AFDKO's makeotf function produces Roboto OTFs without ASCII mappings
         # when called with ufo2fdk's default glyph order file
+        #TODO(jamesgk) figure out why this is necessary
         f = open(path, "w")
         f.close()
 

@@ -8,7 +8,7 @@ def GetAliaseName(gname):
 
 def CreateAccNameList(font, acc_anchor_name):
 	lst = []
-	for g in font.glyphs:
+	for g in font:
 		for anchor in g.anchors:
 			if acc_anchor_name == anchor.name:
 				lst.append(g.name)
@@ -16,7 +16,7 @@ def CreateAccNameList(font, acc_anchor_name):
 
 def CreateAccGlyphList(font, acc_list, acc_anchor_name):
 	g_list = []
-	for g in font.glyphs:
+	for g in font:
 		if g.name in acc_list:
 			for anchor in g.anchors:
 				if acc_anchor_name == anchor.name:
@@ -27,7 +27,7 @@ def CreateAccGlyphList(font, acc_list, acc_anchor_name):
 
 def CreateGlyphList(font, acc_list, anchor_name):
 	g_list = []
-	for g in font.glyphs:
+	for g in font:
 		if g.name in acc_list:
 			continue
 		for anchor in g.anchors:
@@ -77,15 +77,8 @@ def GenerateFeature_mark(font):
   base_mark_list = CreateGlyphList(font, accent_name_list, anchor_name)
   text += Create_mark_lookup(accent_mark_list, base_mark_list, "mark2", "@MC_bottom")
 
-
   text += "} mark;\n"
-  mark = Feature("mark", text)
 
-  not_exist = True
-  for n in range(len(font.features)):
-    if ('mark' == font.features[n].tag):
-      font.features[n] = mark
-      not_exist = False
-
-  if (not_exist):
-    font.features.append(mark)
+  if "mark" not in font.features.tags:
+    font.features.tags.append("mark")
+  font.features.values["mark"] = text

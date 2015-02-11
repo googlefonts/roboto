@@ -1,6 +1,6 @@
 def CreateAccNameList(font, acc_anchor_name):
 	lst = []
-	for g in font.glyphs:
+	for g in font:
 		for anchor in g.anchors:
 			if acc_anchor_name == anchor.name:
 				lst.append(g.name)
@@ -8,7 +8,7 @@ def CreateAccNameList(font, acc_anchor_name):
 
 def CreateAccGlyphList(font, acc_list, acc_anchor_name):
 	g_list = []
-	for g in font.glyphs:
+	for g in font:
 		if g.name in acc_list:
 			for anchor in g.anchors:
 				if acc_anchor_name == anchor.name:
@@ -19,7 +19,7 @@ def CreateAccGlyphList(font, acc_list, acc_anchor_name):
 
 def CreateGlyphList(font, acc_list, anchor_name):
 	g_list = []
-	for g in font.glyphs:
+	for g in font:
 		for anchor in g.anchors:
 			if anchor_name == anchor.name:
 				g_list.append([g.name, anchor.x, anchor.y])
@@ -55,13 +55,7 @@ def GenerateFeature_mkmk(font):
   text += Create_mkmk1(accent_mark_list, base_mark_list, "mkmk1")
 
   text += "} mkmk;\n"
-  mkmk = Feature("mkmk", text)
 
-  not_exist = True
-  for n in range(len(font.features)):
-    if ('mkmk' == font.features[n].tag):
-      font.features[n] = mkmk
-      not_exist = False
-
-  if (not_exist):
-    font.features.append(mkmk)
+  if "mkmk" not in font.features.tags:
+    font.features.tags.append("mkmk")
+  font.features.values["mkmk"] = text

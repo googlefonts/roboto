@@ -1,75 +1,110 @@
+"""Functions for parsing and validating RoboFab RFont feature files."""
+
+
 import re
 
 
-className = re.compile(r"@[\w\.]+")
-classVal = re.compile(r"\[(\s*(?:[\w\.-]+\s*)+)\]")
-classDef = re.compile(
-    r"(%s)\s*?=\s*?%s;" % (className.pattern, classVal.pattern))
-featureDef = re.compile(
-    r"(feature (?P<tag>[A-Za-z]{4}) \{.*?\} (?P=tag);\n)", re.DOTALL)
-comment = re.compile(r"\s*#.*")
+# feature file syntax rules from:
+# http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html
+_glyphNameChars = r"[A-Za-z_][\w.]"
+_glyphName = r"%s{,30}" % _glyphNameChars
+_className = re.compile(r"@%s{,29}" % _glyphNameChars)
+_classValToken = (
+    r"(?:%s|%s(?:\s*-\s*%s)?)" % (_className.pattern, _glyphName, _glyphName))
+_classVal = re.compile(
+    r"\[(\s*%s(?:\s+%s)*)\s*\]" % (_classValToken, _classValToken))
+_classDef = re.compile(
+    r"(%s)\s*=\s*%s;" % (_className.pattern, _classVal.pattern))
+_featureDef = re.compile(
+    r"(feature\s+(?P<tag>[A-Za-z]{4})\s+\{.*?\}\s+(?P=tag)\s*;\s*?\n)",
+    re.DOTALL)
+_systemDef = re.compile(r"languagesystem\s+([A-Za-z]+)\s+([A-Za-z]+)\s*;")
+_comment = re.compile(r"\s*#.*")
 
 
-def validateFeatureFile(font):
-    """Remove invalid features and glyph/class references from an RFont."""
+def readFeatureFile(font, text):
+    """Incorporate valid definitions from feature text into font."""
 
-    classes, text = validateGlyphClasses(font, font.features.text)
-    for feature, name in featureDef.findall(text):
-        remove = False
-        for reference in className.findall(feature):
-            if reference not in classes:
-                print ("Undefined glyph class %s referenced in feature "
-                       "definition %s (removed)." % (reference, name))
-                remove = True
-        for references in classVal.findall(feature):
-            for reference in references.split():
-                if "-" not in reference and not font.has_key(reference):
-                    print ("Undefined glyph %s referenced in feature "
-                           "definition %s (removed)." % (reference, name))
-                    remove = True
-        if remove:
-            text = text.replace(feature, "")
-    font.features.text = text
+    readGlyphClasses(font, text)
+    lines = [l for l in re.split(r"[\r\n]+", text) if not _comment.match(l)]
+    text = "\n".join(lines)
 
-
-def validateGlyphClasses(font, text):
-    """Parse glyph classes from feature text, removing invalid references."""
-
-    classes = set()
-    validLines = []
-    for line in [l for l in re.split(r"[\r\n]+", text) if not comment.match(l)]:
-        match = classDef.match(line)
-        if match:
-            name, references = match.groups()
-            classes.add(name)
-
-            validRefs = []
-            for reference in references.split():
-                if reference.startswith("@") and reference not in classes:
-                    print ("Undefined glyph class %s referenced in glyph class "
-                           "definition %s (removed)." % (reference, name))
-                elif "-" not in reference and not font.has_key(reference):
-                    print ("Undefined glyph %s referenced in glyph class "
-                           "definition %s (removed)." % (reference, name))
-                else:
-                    validRefs.append(reference)
-
-            line = "%s = [%s];" % (name, " ".join(validRefs))
-        validLines.append(line)
-
-    return classes, "\n".join(validLines)
+    errorMsg = "feature definition %s (definition removed)"
+    if not hasattr(font.features, "tags"):
+        font.features.tags = []
+        font.features.values = {}
+    for value, tag in _featureDef.findall(text):
+        valid = True
+        for reference in _className.findall(value):
+            valid = valid and _isValidReference(errorMsg % tag, reference, font)
+        for referenceList in _classVal.findall(value):
+            for ref in referenceList.split():
+                valid = valid and _isValidReference(errorMsg % tag, ref, font)
+        if valid:
+            font.features.tags.append(tag)
+            font.features.values[tag] = value
 
 
-def CreateFeaFile(font, path):
-	fea_text = font.ot_classes
-	for cls in font.classes:
-		text = "@" + cls + "];\n"
-		text = string.replace(text, ":", "= [")
-		text = string.replace(text, "\'", "")
-		fea_text += text	
-	for fea in font.features:
-		fea_text += fea.value
-	fea_text = string.replace(fea_text, "\r\n", "\n")	
-	fout = open(path, "w")
-	fout.write(fea_text)
-	fout.close()
+def readGlyphClasses(font, text, update=True):
+    """Incorporate valid glyph classes from feature text into font."""
+
+    lines = [l for l in re.split(r"[\r\n]+", text) if not _comment.match(l)]
+    text = "\n".join(lines)
+
+    errorMsg = "glyph class definition %s (reference removed)"
+    if not hasattr(font, "classNames"):
+        font.classNames = []
+        font.classVals = {}
+    for name, value in _classDef.findall(text):
+        if name in font.classNames:
+            if not update:
+                continue
+            font.classNames.remove(name)
+        validRefs = []
+        for reference in value.split():
+            if _isValidReference(errorMsg % name, reference, font):
+                validRefs.append(reference)
+        value = " ".join(validRefs)
+        font.classNames.append(name)
+        font.classVals[name] = value
+
+    if not hasattr(font, "languageSystems"):
+        font.languageSystems = []
+    for system in _systemDef.findall(text):
+        if system not in font.languageSystems:
+            font.languageSystems.append(system)
+
+
+def _isValidReference(referencer, ref, font):
+    """Check if a reference is valid for a font."""
+
+    if ref.startswith("@"):
+        if not font.classVals.has_key(ref):
+            print "Undefined class %s referenced in %s." % (ref, referencer)
+            return False
+    else:
+        for r in ref.split("-"):
+            if r and not font.has_key(r):
+                print "Undefined glyph %s referenced in %s." %  (r, referencer)
+                return False
+    return True
+
+
+def generateFeatureFile(font):
+    """Populate a font's feature file text from its classes and features."""
+
+    classes = "\n".join(
+        ["%s = [%s];" % (n, font.classVals[n]) for n in font.classNames])
+    systems = "\n".join(
+        ["languagesystem %s %s;" % (s[0], s[1]) for s in font.languageSystems])
+    features = "\n".join([font.features.values[t] for t in font.features.tags])
+    font.features.text = "\n\n".join([classes, systems, features])
+
+
+def writeFeatureFile(font, path):
+    """Write the font's features to an external file."""
+
+    generateFeatureFile(font)
+    fout = open(path, "w")
+    fout.write(font.features.text)
+    fout.close()

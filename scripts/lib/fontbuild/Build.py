@@ -6,8 +6,7 @@ from fontbuild.convertCurves import glyphCurvesToQuadratic
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
-from fontbuild.kerning import generateFLKernClassesFromOTString
-from fontbuild.features import CreateFeaFile, validateFeatureFile
+from fontbuild.features import *
 from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
@@ -131,9 +130,8 @@ class FontProject:
         log(">> Generating glyphs")
         generateGlyphs(f, self.diacriticList)
         log(">> Copying features")
-        f.ot_classes = self.ot_classes
-        copyFeatures(self.basefont, f)
-        validateFeatureFile(f)
+        readGlyphClasses(f, self.ot_classes)
+        readFeatureFile(f, self.basefont.features.text)
         log(">> Decomposing")
         for gname in self.decompose:
             if f.has_key(gname):
@@ -144,24 +142,16 @@ class FontProject:
         cleanCurves(f)
         deleteGlyphs(f, self.deleteList)
 
-        #TODO(jamesgk) create a system for generating RFont features and classes
-        #if kern:
-        #    log(">> Generating kern classes")
-        #    generateFLKernClassesFromOTString(f, self.ot_kerningclasses)
-        #    kern = f.MakeKernFeature()
-        #    kern_exist = False
-        #    for fea_id in range (len(f.features)):
-        #      if "kern" == f.features[fea_id].tag:
-        #        f.features[fea_id] = kern
-        #        kern_exist = True
-        #    if False == kern_exist:
-        #      f.features.append(kern)
+        if kern:
+            log(">> Generating kern classes")
+            readGlyphClasses(f, self.ot_kerningclasses, update=False)
 
         directoryName = n[0].replace(" ", "")
         fontName = "%s-%s" % (f.info.familyName.replace(" ", ""),
                               f.info.styleName.replace(" ", ""))
 
         log(">> Generating font files")
+        generateFeatureFile(f)
         directoryPath = "%s/%s/%sUFO"%(self.basedir,self.builddir,directoryName)
         if not os.path.exists(directoryPath):
           os.makedirs(directoryPath)
@@ -184,8 +174,8 @@ class FontProject:
           log(">> Generating FEA files")  
           GenerateFeature_mark(f)
           GenerateFeature_mkmk(f)
-          feaName = "%s/%s.fea"%(directoryPath,f.font_name)
-          CreateFeaFile(f, feaName)
+          feaName = "%s/%s.fea"%(directoryPath,fontName)
+          writeFeatureFile(f, feaName)
 
 
 def transformGlyphMembers(g, m):
@@ -228,12 +218,6 @@ def swapGlyphs(f,gName1,gName2):
 
 def log(msg):
     print msg
-
-# def addOTFeatures(f):
-#     f.ot_classes = ot_classes
-
-def copyFeatures(f1, f2):
-    f2.features.text = f2.features.text
 
 
 def generateGlyphs(f, glyphNames):

@@ -6,7 +6,7 @@ from fontbuild.convertCurves import glyphCurvesToQuadratic
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
-from fontbuild.features import *
+from fontbuild.features import generateFeatureFile, readFeatureFile, readGlyphClasses, writeFeatureFile
 from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph

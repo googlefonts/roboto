@@ -12,9 +12,9 @@ _className = re.compile(r"@%s{,29}" % _glyphNameChars)
 _classValToken = (
     r"(?:%s|%s(?:\s*-\s*%s)?)" % (_className.pattern, _glyphName, _glyphName))
 _classVal = re.compile(
-    r"\[(\s*%s(?:\s+%s)*)\s*\]" % (_classValToken, _classValToken))
+    r"\[\s*(%s(?:\s+%s)*)\s*\]" % (_classValToken, _classValToken))
 _classDef = re.compile(
-    r"(%s)\s*=\s*%s;" % (_className.pattern, _classVal.pattern))
+    r"(%s)\s*=\s*%s\s*;" % (_className.pattern, _classVal.pattern))
 _featureDef = re.compile(
     r"(feature\s+(?P<tag>[A-Za-z]{4})\s+\{.*?\}\s+(?P=tag)\s*;\s*?\n)",
     re.DOTALL)
@@ -26,8 +26,7 @@ def readFeatureFile(font, text):
     """Incorporate valid definitions from feature text into font."""
 
     readGlyphClasses(font, text)
-    lines = [l for l in re.split(r"[\r\n]+", text) if not _comment.match(l)]
-    text = "\n".join(lines)
+    text = "\n".join([l for l in text.splitlines() if not _comment.match(l)])
 
     errorMsg = "feature definition %s (definition removed)"
     if not hasattr(font.features, "tags"):
@@ -48,8 +47,7 @@ def readFeatureFile(font, text):
 def readGlyphClasses(font, text, update=True):
     """Incorporate valid glyph classes from feature text into font."""
 
-    lines = [l for l in re.split(r"[\r\n]+", text) if not _comment.match(l)]
-    text = "\n".join(lines)
+    text = "\n".join([l for l in text.splitlines() if not _comment.match(l)])
 
     errorMsg = "glyph class definition %s (reference removed)"
     if not hasattr(font, "classNames"):

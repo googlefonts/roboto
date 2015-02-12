@@ -45,6 +45,7 @@ class FontProject:
         self.buildOTF = False
         self.checkOTFOutlines = False
         self.autohintOTF = False
+        self.buildTTF = False
         self.buildFEA = False
         
         
@@ -66,6 +67,13 @@ class FontProject:
         else:
             raise Exception("Empty build number")
     
+    def generateOutputPath(self, font, ext):
+        family = font.info.familyName.replace(" ", "")
+        style = font.info.styleName.replace(" ", "")
+        path = "%s/%s/%s%s" % (self.basedir, self.builddir, family, ext.upper())
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return "%s/%s-%s.%s" % (path, family, style, ext.lower())
     
     def generateFont(self, mix, names, italic=False, swapSuffixes=None, stemWidth=185, kern=True):
         
@@ -146,36 +154,31 @@ class FontProject:
             log(">> Generating kern classes")
             readGlyphClasses(f, self.ot_kerningclasses, update=False)
 
-        directoryName = n[0].replace(" ", "")
-        fontName = "%s-%s" % (f.info.familyName.replace(" ", ""),
-                              f.info.styleName.replace(" ", ""))
-
         log(">> Generating font files")
         generateFeatureFile(f)
-        directoryPath = "%s/%s/%sUFO"%(self.basedir,self.builddir,directoryName)
-        if not os.path.exists(directoryPath):
-          os.makedirs(directoryPath)
-        ufoName = "%s/%s.ufo" % (directoryPath, fontName)
+        ufoName = self.generateOutputPath(f, "ufo")
         f.save(ufoName)
 
         if self.buildOTF:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
             conformToAGL(newFont, self.adobeGlyphList)
-            directoryPath = "%s/%s/%sOTF" % (self.basedir, self.builddir,
-                                             directoryName)
-            if not os.path.exists(directoryPath):
-              os.makedirs(directoryPath)
-            otfName = "%s/%s.otf" % (directoryPath, fontName)
+            otfName = self.generateOutputPath(f, "otf")
             saveOTF(newFont, otfName, checkOutlines=self.checkOTFOutlines,
                     autohint=self.autohintOTF)
+
+            if self.buildTTF:
+                log(">> Generating TTF file")
+                import fontforge
+                ttfName = self.generateOutputPath(f, "ttf")
+                otFont = fontforge.open(otfName)
+                otFont.generate(ttfName)
 
         if self.buildFEA:
           log(">> Generating FEA files")  
           GenerateFeature_mark(f)
           GenerateFeature_mkmk(f)
-          feaName = "%s/%s.fea"%(directoryPath,fontName)
-          writeFeatureFile(f, feaName)
+          writeFeatureFile(f, self.generateOutputPath(f, "fea"))
 
 
 def transformGlyphMembers(g, m):

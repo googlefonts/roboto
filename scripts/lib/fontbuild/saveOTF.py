@@ -6,15 +6,12 @@ from ufo2fdk.makeotfParts import MakeOTFPartsCompiler
 from ufo2fdk.outlineOTF import OutlineOTFCompiler
 
 
-def saveOTF(font, destFile, checkOutlines=False, autohint=False):
+def saveOTF(font, destFile, autohint=False):
     """Save a RoboFab font as an OTF binary using ufo2fdk."""
 
     compiler = OTFCompiler(partsCompilerClass=_PartsCompilerCustomGlyphOrder,
                            outlineCompilerClass=_OutlineCompilerFormat12)
-    reports = compiler.compile(font, destFile, checkOutlines=checkOutlines,
-                               autohint=autohint)
-    if checkOutlines:
-        print reports["checkOutlines"]
+    reports = compiler.compile(font, destFile, autohint=autohint)
     if autohint:
         print reports["autohint"]
     print reports["makeotf"]

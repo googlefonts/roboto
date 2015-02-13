@@ -164,15 +164,20 @@ class FontProject:
             newFont = OpenFont(ufoName)
             conformToAGL(newFont, self.adobeGlyphList)
             otfName = self.generateOutputPath(f, "otf")
-            saveOTF(newFont, otfName, checkOutlines=self.checkOTFOutlines,
-                    autohint=self.autohintOTF)
+            saveOTF(newFont, otfName, autohint=self.autohintOTF)
 
-            if self.buildTTF:
-                log(">> Generating TTF file")
+            if self.checkOTFOutlines or self.buildTTF:
                 import fontforge
-                ttfName = self.generateOutputPath(f, "ttf")
                 otFont = fontforge.open(otfName)
-                otFont.generate(ttfName)
+
+                if self.checkOTFOutlines:
+                    for glyphName in otFont:
+                        otFont[glyphName].removeOverlap()
+                    otFont.generate(otfName)
+
+                if self.buildTTF:
+                    log(">> Generating TTF file")
+                    otFont.generate(self.generateOutputPath(f, "ttf"))
 
         if self.buildFEA:
           log(">> Generating FEA files")  

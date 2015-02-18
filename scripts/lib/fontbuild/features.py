@@ -100,6 +100,34 @@ def _isValidRef(referencer, ref, font):
     return True
 
 
+def replaceFeatureFileReferences(font, replace):
+    """Replace references according to a given mapping of old names to new."""
+
+    lines = font.features.text.splitlines()
+    for i, line in enumerate(lines):
+
+        # check for reference in class definitions
+        if _classDef.match(line):
+            name, value = _classDef.match(line).groups()
+            value = " ".join([replace.get(n, n) for n in value.split()])
+            lines[i]= "%s = [%s];" % (name, value)
+
+        # check in substitution rules
+        elif _subRule.match(line):
+            indentation, subbed, sub = _subRule.match(line).groups()
+            subbed = " ".join([replace.get(n, n) for n in subbed.split()])
+            sub = " ".join([replace.get(n, n) for n in sub.split()])
+
+            # put brackets around tokens if they were there before
+            if re.match(r"\s*sub(stitute)?\s+\[.+\]\s+by", line):
+                subbed = "[%s]" % subbed
+            if re.match(r"\s*sub(stitute)?.+by\s+\[.+\]\s*;", line):
+                sub = "[%s]" % sub
+            lines[i] = "%ssub %s by %s;" % (indentation, subbed, sub)
+
+    font.features.text = "\n".join(lines)
+
+
 def generateFeatureFile(font):
     """Populate a font's feature file text from its classes and features."""
 

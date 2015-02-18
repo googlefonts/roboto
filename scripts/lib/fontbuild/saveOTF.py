@@ -1,9 +1,12 @@
 import re
+
 from fontTools.ttLib import newTable
 from fontTools.ttLib.tables._c_m_a_p import cmap_format_12
 from ufo2fdk import OTFCompiler
 from ufo2fdk.makeotfParts import MakeOTFPartsCompiler
 from ufo2fdk.outlineOTF import OutlineOTFCompiler
+
+from fontbuild.features import replaceFeatureFileReferences
 
 
 def saveOTF(font, destFile, autohint=False):
@@ -24,28 +27,35 @@ def conformToAGL(font, glyphList):
     This function only checks for some Roboto-specific problems.
     """
 
-    ligaNameChanges = {}
+    nameChanges = {}
     for glyph in font:
-        if glyph.name in glyphList:
+        name_components = glyph.name.split(".")
+        name = name_components.pop(0)
+        ext = ("." + name_components[0]) if name_components else ""
+        if name in glyphList:
             continue
 
         # if a ligature name (without underscores) is in the AGL, remove the
         # underscores so AFDKO will keep the glyph in the font during conversion
         #TODO(jamesgk) figure out why AFDKO throws out names with underscores
-        if re.match("([a-z]_)+[a-z]", glyph.name):
-            ligaName = glyph.name.replace("_", "")
+        if re.match("([a-z]_)+[a-z]", name):
+            ligaName = name.replace("_", "") + ext
             if ligaName in glyphList:
-                ligaNameChanges[glyph.name] = ligaName
-                glyph.name = ligaName
+                nameChanges[glyph.name] = ligaName
                 continue
 
-        # names of glyphs outside the BMP must have prefix "u" and not "uni"
-        glyph.name = re.sub(r"^uni([\dA-F]{5,})$", r"u\1", glyph.name)
+        # use the glyph's unicode value as its name, if possible
+        if not re.match(r"u(ni)?[\dA-F]+", glyph.name) and glyph.unicode:
+            uvName = ("uni%04X" % glyph.unicode) + ext
+            nameChanges[glyph.name] = uvName
 
-    # references to altered ligature names must be updated in the font features
-    #TODO(jamesgk) use a more robust system for parsing through RFont features
-    for oldName, newName in ligaNameChanges.iteritems():
-        font.features.text = font.features.text.replace(oldName, newName)
+        # names of glyphs outside the BMP must have prefix "u" and not "uni"
+        if re.match(r"uni[\dA-F]{5,}", glyph.name):
+            nameChanges[glyph.name] = re.sub("^uni", "u", glyph.name)
+
+    for oldName, newName in nameChanges.items():
+        font[oldName].name = newName
+    replaceFeatureFileReferences(font, nameChanges)
 
 
 class _PartsCompilerCustomGlyphOrder(MakeOTFPartsCompiler):

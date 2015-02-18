@@ -16,8 +16,14 @@ _classVal = re.compile(
 _classDef = re.compile(
     r"(%s)\s*=\s*%s\s*;" % (_className.pattern, _classVal.pattern))
 _featureDef = re.compile(
-    r"(feature\s+(?P<tag>[A-Za-z]{4})\s+\{.*?\}\s+(?P=tag)\s*;\s*?\n)",
+    r"(feature\s+(?P<tag>[A-Za-z]{4})\s+\{.*?\}\s+(?P=tag)\s*;)",
     re.DOTALL)
+_subRuleToken = r"(?:%s|%s)'?" % (_glyphName, _className.pattern)
+_subRuleTokenList =  (
+    r"\[?\s*(%s(?:\s+%s)*)\s*\]?" % (_subRuleToken, _subRuleToken))
+_subRule = re.compile(
+    r"(\s*)sub(?:stitute)?\s+%s\s+by\s+%s\s*;" %
+    (_subRuleTokenList, _subRuleTokenList))
 _systemDef = re.compile(r"languagesystem\s+([A-Za-z]+)\s+([A-Za-z]+)\s*;")
 _comment = re.compile(r"\s*#.*")
 
@@ -28,20 +34,28 @@ def readFeatureFile(font, text):
     readGlyphClasses(font, text)
     text = "\n".join([l for l in text.splitlines() if not _comment.match(l)])
 
-    errorMsg = "feature definition %s (definition removed)"
+    # filter out substitution rules with invalid references
+    errorMsg = "feature definition %s (substitution rule removed)"
     if not hasattr(font.features, "tags"):
         font.features.tags = []
         font.features.values = {}
     for value, tag in _featureDef.findall(text):
-        valid = True
-        for reference in _className.findall(value):
-            valid = valid and _isValidReference(errorMsg % tag, reference, font)
-        for referenceList in _classVal.findall(value):
-            for ref in referenceList.split():
-                valid = valid and _isValidReference(errorMsg % tag, ref, font)
-        if valid:
-            font.features.tags.append(tag)
-            font.features.values[tag] = value
+        lines = value.splitlines()
+        for i in range(len(lines)):
+            if _subRule.match(lines[i]):
+                indentation, subbed, sub = _subRule.match(lines[i]).groups()
+                refs = subbed.split() + sub.split()
+                invalid = None
+                for ref in refs:
+                    if ref[-1] == "'":
+                        ref = ref[:-1]
+                    if not invalid and not _isValidRef(errorMsg % tag, ref, font):
+                        invalid = ref
+                if invalid:
+                    lines[i] = ("%s; # substitution rule removed for invalid "
+                                "reference %s" % (indentation, invalid))
+        font.features.tags.append(tag)
+        font.features.values[tag] = "\n".join(lines)
 
 
 def readGlyphClasses(font, text, update=True):
@@ -49,6 +63,7 @@ def readGlyphClasses(font, text, update=True):
 
     text = "\n".join([l for l in text.splitlines() if not _comment.match(l)])
 
+    # filter out invalid references from glyph class definitions
     errorMsg = "glyph class definition %s (reference removed)"
     if not hasattr(font, "classNames"):
         font.classNames = []
@@ -58,13 +73,10 @@ def readGlyphClasses(font, text, update=True):
             if not update:
                 continue
             font.classNames.remove(name)
-        validRefs = []
-        for reference in value.split():
-            if _isValidReference(errorMsg % name, reference, font):
-                validRefs.append(reference)
-        value = " ".join(validRefs)
+        refs = value.split()
+        refs = [r for r in refs if _isValidRef(errorMsg % name, r, font)]
         font.classNames.append(name)
-        font.classVals[name] = value
+        font.classVals[name] = " ".join(refs)
 
     if not hasattr(font, "languageSystems"):
         font.languageSystems = []
@@ -73,7 +85,7 @@ def readGlyphClasses(font, text, update=True):
             font.languageSystems.append(system)
 
 
-def _isValidReference(referencer, ref, font):
+def _isValidRef(referencer, ref, font):
     """Check if a reference is valid for a font."""
 
     if ref.startswith("@"):
@@ -95,8 +107,8 @@ def generateFeatureFile(font):
         ["%s = [%s];" % (n, font.classVals[n]) for n in font.classNames])
     systems = "\n".join(
         ["languagesystem %s %s;" % (s[0], s[1]) for s in font.languageSystems])
-    features = "\n".join([font.features.values[t] for t in font.features.tags])
-    font.features.text = "\n\n".join([classes, systems, features])
+    fea = "\n\n".join([font.features.values[t] for t in font.features.tags])
+    font.features.text = "\n\n".join([classes, systems, fea])
 
 
 def writeFeatureFile(font, path):

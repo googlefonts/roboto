@@ -12,7 +12,6 @@ from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
 from fontbuild.removeGlyphOverlap import removeGlyphOverlap
 from fontbuild.saveOTF import saveOTF, conformToAGL
-from fontbuild.sortGlyphs import sortGlyphsByUnicode
 import ConfigParser
 import os
 
@@ -84,7 +83,6 @@ class FontProject:
             f = mix.generateFont(self.basefont)
         else:
             f = mix
-        sortGlyphsByUnicode(f)
         if italic == True:
             log(">> Italicizing")
             tweakAmmount = .085

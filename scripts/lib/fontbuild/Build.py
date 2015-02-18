@@ -33,7 +33,7 @@ class FontProject:
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
         self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
         adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
-        self.adobeGlyphList = set([line.split(";")[0] for line in adobeGlyphList if not line.startswith("#")])
+        self.adobeGlyphList = set([line.split(";")[1] for line in adobeGlyphList if not line.startswith("#")])
         
         self.builddir = "out"
         self.decompose = self.config.get("glyphs","decompose").split()

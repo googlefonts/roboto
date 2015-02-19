@@ -240,7 +240,7 @@ def cleanCurves(f):
         removeGlyphOverlap(g)
 
     log(">> Mitring sharp corners")
-    # for g in f.glyphs:
+    # for g in f:
     #     mitreGlyph(g, 3., .7)
     
     log(">> Converting curves to quadratic")

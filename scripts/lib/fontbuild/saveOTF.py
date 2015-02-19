@@ -29,7 +29,7 @@ def conformToAGL(font, glyphList):
 
     nameChanges = {}
     for glyph in font:
-        name_components = glyph.name.split(".")
+        name_components = glyph.name.split(".", 1)
         name = name_components.pop(0)
         ext = ("." + name_components[0]) if name_components else ""
         if name in glyphList:

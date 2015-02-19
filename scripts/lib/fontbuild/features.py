@@ -42,18 +42,20 @@ def readFeatureFile(font, text):
     for value, tag in _featureDef.findall(text):
         lines = value.splitlines()
         for i in range(len(lines)):
-            if _subRule.match(lines[i]):
-                indentation, subbed, sub = _subRule.match(lines[i]).groups()
-                refs = subbed.split() + sub.split()
-                invalid = None
-                for ref in refs:
-                    if ref[-1] == "'":
-                        ref = ref[:-1]
-                    if not invalid and not _isValidRef(errorMsg % tag, ref, font):
-                        invalid = ref
-                if invalid:
-                    lines[i] = ("%s; # substitution rule removed for invalid "
-                                "reference %s" % (indentation, invalid))
+            match = _subRule.match(lines[i])
+            if not match:
+                continue
+            indentation, subbed, sub = match.groups()
+            refs = subbed.split() + sub.split()
+            invalid = None
+            for ref in refs:
+                if ref[-1] == "'":
+                    ref = ref[:-1]
+                if not invalid and not _isValidRef(errorMsg % tag, ref, font):
+                    invalid = ref
+            if invalid:
+                lines[i] = ("%s; # substitution rule removed for invalid "
+                            "reference %s" % (indentation, invalid))
         font.features.tags.append(tag)
         font.features.values[tag] = "\n".join(lines)
 
@@ -100,21 +102,36 @@ def _isValidRef(referencer, ref, font):
     return True
 
 
+def _matchLine(line):
+    """Try to match a line against some feature file language patterns."""
+
+    match = _classDef.match(line)
+    if match:
+        return match, "classDef"
+    match = _subRule.match(line)
+    if match:
+        return match, "subRule"
+    return None, ""
+
+
 def replaceFeatureFileReferences(font, replace):
     """Replace references according to a given mapping of old names to new."""
 
     lines = font.features.text.splitlines()
     for i, line in enumerate(lines):
+        match, flag = _matchLine(line)
+        if not match:
+            continue
 
         # check for reference in class definitions
-        if _classDef.match(line):
-            name, value = _classDef.match(line).groups()
+        if flag == "classDef":
+            name, value = match.groups()
             value = " ".join([replace.get(n, n) for n in value.split()])
             lines[i]= "%s = [%s];" % (name, value)
 
         # check in substitution rules
-        elif _subRule.match(line):
-            indentation, subbed, sub = _subRule.match(line).groups()
+        elif flag == "subRule":
+            indentation, subbed, sub = match.groups()
             subbed = " ".join([replace.get(n, n) for n in subbed.split()])
             sub = " ".join([replace.get(n, n) for n in sub.split()])
 

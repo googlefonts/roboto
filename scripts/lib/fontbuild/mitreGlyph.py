@@ -1,7 +1,7 @@
 """Mitre Glyph: 
 
 mitreSize : Length of the segment created by the mitre. The default is 4.
-maxAngle :  Maximum angle in radians at which nodes will be mitred. The default is .9 (about 50 degrees).
+maxAngle :  Maximum angle in radians at which segments will be mitred. The default is .9 (about 50 degrees).
             Works for both inside and outside angles
 
 """
@@ -14,21 +14,13 @@ def getTangents(contours):
     for c in contours:
         clen = len(c)
         for i in range(clen):
-            n = c[i]
-            p = RPoint(n.points[-1].x, n.points[-1].y)
-            nn = c[(i + 1) % clen]
-            pn = c[(clen + i - 1) % clen]
-            if nn.type == 'curve':
-                np = RPoint(nn.points[1].x,nn.points[1].y)
-            else:
-                np = RPoint(nn.points[-1].x,nn.points[-1].y)
-            if n.type == 'curve':
-                pp = RPoint(n.points[2].x,n.points[2].y)
-            else:
-                pp = RPoint(pn.points[-1].x,pn.points[-1].y)
-            nVect = RPoint(-p.x + np.x, -p.y + np.y)
-            pVect = RPoint(-p.x + pp.x, -p.y + pp.y)
-            tmap.append((pVect,nVect))
+            s = c[i]
+            p = s.points[-1]
+            ns = c[(i + 1) % clen]
+            ps = c[(clen + i - 1) % clen]
+            np = ns.points[1] if ns.type == 'curve' else ns.points[-1]
+            pp = s.points[2] if s.type == 'curve' else ps.points[-1]
+            tmap.append((pp - p, np - p))
     return tmap    
 
 def normalizeVector(p):
@@ -80,29 +72,28 @@ def mitreGlyph(g,mitreSize,maxAngle):
         return
     
     tangents = getTangents(g.contours)
-    nid = -1
+    sid = -1
     for c in g.contours:
-        nodes = []
+        segments = []
         needsMitring = False
-        for n in c:
-            nid += 1
-            v1, v2 = tangents[nid]
-            off = getMitreOffset(n,v1,v2,mitreSize,maxAngle)
-            n1 = n.copy()
+        for s in c:
+            sid += 1
+            v1, v2 = tangents[sid]
+            off = getMitreOffset(s,v1,v2,mitreSize,maxAngle)
+            s1 = s.copy()
             if off != None:
                 offset1, offset2 = off
-                n2 = RSegment('line', [(n.points[-1].x + offset2.x,
-                                        n.points[-1].y + offset2.y)])
-                n1.points[0].x += offset1.x
-                n1.points[0].y += offset1.y
-                nodes.append(n1)
-                nodes.append(n2)
+                p2 = s.points[-1] + offset2
+                s2 = RSegment('line', [(p2.x, p2.y)])
+                s1.points[0] += offset1
+                segments.append(s1)
+                segments.append(s2)
                 needsMitring = True
             else:
-                nodes.append(n1)
+                segments.append(s1)
         if needsMitring:
             while len(c):
                 c.removeSegment(0)
-            for n in nodes:
+            for s in segments:
                 c.appendSegment(
-                    n.type, [(p.x, p.y) for p in n.points], n.smooth)
+                    s.type, [(p.x, p.y) for p in s.points], s.smooth)

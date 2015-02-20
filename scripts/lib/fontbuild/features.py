@@ -8,17 +8,15 @@ import re
 # http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html
 _glyphNameChars = r"[A-Za-z_][\w.]"
 _glyphName = r"%s{,30}" % _glyphNameChars
-_className = re.compile(r"@%s{,29}" % _glyphNameChars)
+_className = r"@%s{,29}" % _glyphNameChars
 _classValToken = (
-    r"(?:%s|%s(?:\s*-\s*%s)?)" % (_className.pattern, _glyphName, _glyphName))
-_classVal = re.compile(
-    r"\[\s*(%s(?:\s+%s)*)\s*\]" % (_classValToken, _classValToken))
-_classDef = re.compile(
-    r"(%s)\s*=\s*%s\s*;" % (_className.pattern, _classVal.pattern))
+    r"(?:%s|%s(?:\s*-\s*%s)?)" % (_className, _glyphName, _glyphName))
+_classVal = r"\[\s*(%s(?:\s+%s)*)\s*\]" % (_classValToken, _classValToken)
+_classDef = re.compile(r"(%s)\s*=\s*%s\s*;" % (_className, _classVal))
 _featureDef = re.compile(
     r"(feature\s+(?P<tag>[A-Za-z]{4})\s+\{.*?\}\s+(?P=tag)\s*;)",
     re.DOTALL)
-_subRuleToken = r"(?:%s|%s)'?" % (_glyphName, _className.pattern)
+_subRuleToken = r"(?:%s|%s)'?" % (_glyphName, _className)
 _subRuleTokenList =  (
     r"\[?\s*(%s(?:\s+%s)*)\s*\]?" % (_subRuleToken, _subRuleToken))
 _subRule = re.compile(
@@ -100,49 +98,6 @@ def _isValidRef(referencer, ref, font):
                 print "Undefined glyph %s referenced in %s." %  (r, referencer)
                 return False
     return True
-
-
-def _matchLine(line):
-    """Try to match a line against some feature file language patterns."""
-
-    match = _classDef.match(line)
-    if match:
-        return match, "classDef"
-    match = _subRule.match(line)
-    if match:
-        return match, "subRule"
-    return None, ""
-
-
-def replaceFeatureFileReferences(font, replace):
-    """Replace references according to a given mapping of old names to new."""
-
-    lines = font.features.text.splitlines()
-    for i, line in enumerate(lines):
-        match, flag = _matchLine(line)
-        if not match:
-            continue
-
-        # check for reference in class definitions
-        if flag == "classDef":
-            name, value = match.groups()
-            value = " ".join([replace.get(n, n) for n in value.split()])
-            lines[i]= "%s = [%s];" % (name, value)
-
-        # check in substitution rules
-        elif flag == "subRule":
-            indentation, subbed, sub = match.groups()
-            subbed = " ".join([replace.get(n, n) for n in subbed.split()])
-            sub = " ".join([replace.get(n, n) for n in sub.split()])
-
-            # put brackets around tokens if they were there before
-            if re.match(r"\s*sub(stitute)?\s+\[.+\]\s+by", line):
-                subbed = "[%s]" % subbed
-            if re.match(r"\s*sub(stitute)?.+by\s+\[.+\]\s*;", line):
-                sub = "[%s]" % sub
-            lines[i] = "%ssub %s by %s;" % (indentation, subbed, sub)
-
-    font.features.text = "\n".join(lines)
 
 
 def generateFeatureFile(font):

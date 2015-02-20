@@ -8,6 +8,7 @@ maxAngle :  Maximum angle in radians at which segments will be mitred. The defau
 
 import math
 from robofab.objects.objectsRF import RPoint, RSegment
+from fontbuild.convertCurves import replaceSegments
 
 def getTangents(contours):
     tmap = []
@@ -92,8 +93,4 @@ def mitreGlyph(g,mitreSize,maxAngle):
             else:
                 segments.append(s1)
         if needsMitring:
-            while len(c):
-                c.removeSegment(0)
-            for s in segments:
-                c.appendSegment(
-                    s.type, [(p.x, p.y) for p in s.points], s.smooth)
+            replaceSegments(c, segments)

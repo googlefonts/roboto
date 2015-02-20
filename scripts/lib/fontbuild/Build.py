@@ -11,7 +11,7 @@ from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
 from fontbuild.removeGlyphOverlap import removeGlyphOverlap
-from fontbuild.saveOTF import saveOTF, conformToAGL
+from fontbuild.saveOTF import saveOTF
 import ConfigParser
 import os
 
@@ -160,7 +160,6 @@ class FontProject:
         if self.buildOTF:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
-            conformToAGL(newFont, self.adobeGlyphList)
             otfName = self.generateOutputPath(f, "otf")
             saveOTF(newFont, otfName, autohint=self.autohintOTF)
 

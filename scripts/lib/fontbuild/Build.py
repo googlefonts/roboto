@@ -244,7 +244,7 @@ def cleanCurves(f):
     #     mitreGlyph(g, 3., .7)
     
     log(">> Converting curves to quadratic")
-    # for g in f.glyphs:
+    # for g in f:
     #     glyphCurvesToQuadratic(g)
 
 

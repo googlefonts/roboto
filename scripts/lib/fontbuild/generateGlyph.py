@@ -16,13 +16,15 @@ def parseComposite(composite):
     return (glyphName, baseName, accentNames, offset)
 
 
-def generateGlyph(f,gname):
+def generateGlyph(f,gname,glyphList={}):
     glyphName, baseName, accentNames, offset = parseComposite(gname)
+
     if baseName.find("_") != -1:
         g = f.newGlyph(glyphName)
         for componentName in baseName.split("_"):
             g.appendComponent(componentName, (g.width, 0))
             g.width += f[componentName].width
+
     else: 
         if not f.has_key(glyphName):
             try:
@@ -40,3 +42,7 @@ def generateGlyph(f,gname):
         else:
             print ("Existing glyph '%s' found in font, ignoring composition "
                 "rule '%s'" % (glyphName, gname))
+
+    # try to ensure every glyph has a unicode value -- used by FDK to make OTFs
+    if glyphName in glyphList:
+        f[glyphName].unicode = int(glyphList[glyphName], 16)

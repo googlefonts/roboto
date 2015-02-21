@@ -32,9 +32,16 @@ class FontProject:
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
         self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
         adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
-        self.adobeGlyphList = set([line.split(";")[1] for line in adobeGlyphList if not line.startswith("#")])
+        self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
         
-        self.builddir = "out"
+        # map exceptional glyph names in Roboto to names in the AGL
+        roboNames = (
+            ('Obar', 'Ocenteredtilde'), ('obar', 'obarred'),
+            ('eturn', 'eturned'), ('Iota1', 'Iotaafrican'))
+        for roboName, aglName in roboNames:
+            self.adobeGlyphList[roboName] = self.adobeGlyphList[aglName]
+
+        self.builddir = "out/v2"
         self.decompose = self.config.get("glyphs","decompose").split()
         self.predecompose = self.config.get("glyphs","predecompose").split()
         self.lessItalic = self.config.get("glyphs","lessitalic").split()
@@ -134,7 +141,7 @@ class FontProject:
                 decomposeGlyph(f[gname])
 
         log(">> Generating glyphs")
-        generateGlyphs(f, self.diacriticList)
+        generateGlyphs(f, self.diacriticList, self.adobeGlyphList)
         log(">> Copying features")
         readGlyphClasses(f, self.ot_classes)
         readFeatureFile(f, self.basefont.features.text)
@@ -225,12 +232,12 @@ def log(msg):
     print msg
 
 
-def generateGlyphs(f, glyphNames):
+def generateGlyphs(f, glyphNames, glyphList={}):
     log(">> Generating diacritics")
     glyphnames = [gname for gname in glyphNames if not gname.startswith("#") and gname != ""]
     
     for glyphName in glyphNames:
-        generateGlyph(f, glyphName)
+        generateGlyph(f, glyphName, glyphList)
 
 def cleanCurves(f):
     #TODO(jamesgk) remove calls to removeGlyphOverlap if we decide to use AFDKO

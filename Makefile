@@ -11,13 +11,6 @@ v2:
 	cat "scripts/build-v2.py" >> /tmp/makefontsB.py
 	python /tmp/makefontsB.py
 
-
-v2condensed:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefontsB.py
-	cat "scripts/build-v2-condensed.py" >> /tmp/makefontsB.py
-	python /tmp/makefontsB.py
-
-
 slab:
 	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefonts.flw
 	cat "scripts/build-slab.py" >> /tmp/makefonts.flw

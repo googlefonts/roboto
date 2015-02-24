@@ -89,7 +89,7 @@ class FontProject:
         if isinstance( mix, Mix):
             f = mix.generateFont(self.basefont)
         else:
-            f = mix
+            f = mix.copy()
         if italic == True:
             log(">> Italicizing")
             tweakAmmount = .085

@@ -23,8 +23,8 @@ from nototools import unicode_data
 
 def load_fonts():
     """Load all fonts built for Android."""
-    all_fonts = (glob.glob('out/RobotoTTF/*.ttf')
-                 + glob.glob('out/RobotoCondensedTTF/*.ttf'))
+    all_fonts = (glob.glob('out/v2/RobotoTTF/*.ttf')
+                 + glob.glob('out/v2/RobotoCondensedTTF/*.ttf'))
     all_fonts = [ttLib.TTFont(font) for font in all_fonts]
     return all_fonts
 

@@ -135,7 +135,7 @@ class FontProject:
                 swapList = [g.name for g in f if g.name.endswith(swap)]
                 for gname in swapList:
                     print gname
-                    swapGlyphs(f, gname.replace(swap,""), gname)
+                    swapContours(f, gname.replace(swap,""), gname)
         for gname in self.predecompose:
             if f.has_key(gname):
                 decomposeGlyph(f[gname])
@@ -210,7 +210,7 @@ def transformGlyphMembers(g, m):
         s.Transform(m)
         #c.scale = s
 
-def swapGlyphs(f,gName1,gName2):
+def swapContours(f,gName1,gName2):
     try:
         g1 = f[gName1]
         g2 = f[gName2]
@@ -219,12 +219,16 @@ def swapGlyphs(f,gName1,gName2):
         return
     g3 = g1.copy()
 
-    g1.clear()
-    g1.appendGlyph(g2)
+    while g1.contours:
+        g1.removeContour(0)
+    for contour in g2.contours:
+        g1.appendContour(contour)
     g1.width = g2.width
 
-    g2.clear()
-    g2.appendGlyph(g3)
+    while g2.contours:
+        g2.removeContour(0)
+    for contour in g3.contours:
+        g2.appendContour(contour)
     g2.width = g3.width
 
 

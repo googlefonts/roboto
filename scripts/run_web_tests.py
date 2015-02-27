@@ -8,7 +8,7 @@ from nototools import font_data
 import common_tests
 
 FONTS = common_tests.load_fonts(
-    ['out/web/*.ttf'],
+    ['out/v2/web/*.ttf'],
     expected_count=18)
 
 class TestItalicAngle(common_tests.TestItalicAngle):

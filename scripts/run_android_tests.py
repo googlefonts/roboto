@@ -8,7 +8,7 @@ from nototools import coverage
 import common_tests
 
 FONTS = common_tests.load_fonts(
-    ['out/android/*.ttf'],
+    ['out/v2/android/*.ttf'],
     expected_count=18)
 
 class TestItalicAngle(common_tests.TestItalicAngle):

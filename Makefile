@@ -1,5 +1,5 @@
 
-all: sans slab mono
+all: v2
 
 sans:
 	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefonts.flw

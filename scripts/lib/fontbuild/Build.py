@@ -175,6 +175,7 @@ class FontProject:
                 otFont = fontforge.open(otfName)
 
                 if self.checkOTFOutlines:
+                    log(">> Removing overlaps")
                     for glyphName in otFont:
                         otFont[glyphName].removeOverlap()
                     otFont.generate(otfName)
@@ -244,18 +245,19 @@ def generateGlyphs(f, glyphNames, glyphList={}):
         generateGlyph(f, glyphName, glyphList)
 
 def cleanCurves(f):
-    #TODO(jamesgk) remove calls to removeGlyphOverlap if we decide to use AFDKO
-    log(">> Removing overlaps")
-    for g in f:
-        removeGlyphOverlap(g)
+    #TODO(jamesgk) remove calls to removeGlyphOverlap if we use FDK or FontForge
+    # log(">> Removing overlaps")
+    # for g in f:
+    #     removeGlyphOverlap(g)
 
-    log(">> Mitring sharp corners")
+    # log(">> Mitring sharp corners")
     # for g in f:
     #     mitreGlyph(g, 3., .7)
     
-    log(">> Converting curves to quadratic")
+    # log(">> Converting curves to quadratic")
     # for g in f:
     #     glyphCurvesToQuadratic(g)
+    pass
 
 
 def deleteGlyphs(f, deleteList):

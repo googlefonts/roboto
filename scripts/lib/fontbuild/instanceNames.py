@@ -62,6 +62,8 @@ class InstanceNames:
             f.info.openTypeNamePreferredSubfamilyName = self.longstyle 
         
         f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
+        if self.italic:
+            f.info.italicAngle = -12.0
         
     
     def setFLNames(self,flFont):

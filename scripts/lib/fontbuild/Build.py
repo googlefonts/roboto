@@ -11,7 +11,6 @@ from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
 from fontbuild.removeGlyphOverlap import removeGlyphOverlap
-from fontbuild.saveOTF import saveOTF
 import ConfigParser
 import os
 
@@ -264,3 +263,25 @@ def deleteGlyphs(f, deleteList):
     for name in deleteList:
         if f.has_key(name):
             f.removeGlyph(name)
+
+
+def saveOTF(font, destFile, autohint=False):
+    """Save a RoboFab font as an OTF binary using ufo2fdk."""
+
+    from ufo2fdk import OTFCompiler
+
+    # glyphs with multiple unicode values must be split up, due to FontTool's
+    # use of a name -> UV dictionary during cmap compilation
+    for glyph in font:
+        if len(glyph.unicodes) > 1:
+            newUV = glyph.unicodes.pop()
+            newGlyph = font.newGlyph("uni%04X" % newUV)
+            newGlyph.appendComponent(glyph.name)
+            newGlyph.unicode = newUV
+            newGlyph.width = glyph.width
+
+    compiler = OTFCompiler()
+    reports = compiler.compile(font, destFile, autohint=autohint)
+    if autohint:
+        print reports["autohint"]
+    print reports["makeotf"]

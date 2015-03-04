@@ -6,7 +6,7 @@ from fontbuild.convertCurves import glyphCurvesToQuadratic
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
-from fontbuild.features import generateFeatureFile, readFeatureFile, readGlyphClasses, writeFeatureFile
+from fontbuild.features import readFeatureFile, writeFeatureFile
 from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
@@ -142,8 +142,7 @@ class FontProject:
         log(">> Generating glyphs")
         generateGlyphs(f, self.diacriticList, self.adobeGlyphList)
         log(">> Copying features")
-        readGlyphClasses(f, self.ot_classes)
-        readFeatureFile(f, self.basefont.features.text)
+        readFeatureFile(f, self.ot_classes + self.basefont.features.text)
         log(">> Decomposing")
         for gname in self.decompose:
             if f.has_key(gname):
@@ -156,10 +155,9 @@ class FontProject:
 
         if kern:
             log(">> Generating kern classes")
-            readGlyphClasses(f, self.ot_kerningclasses, update=False)
+            readFeatureFile(f, self.ot_kerningclasses)
 
         log(">> Generating font files")
-        generateFeatureFile(f)
         ufoName = self.generateOutputPath(f, "ufo")
         f.save(ufoName)
 

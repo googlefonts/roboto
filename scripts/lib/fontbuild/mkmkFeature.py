@@ -1,3 +1,6 @@
+from fontbuild.features import updateFeature
+
+
 def CreateAccNameList(font, acc_anchor_name):
 	lst = []
 	for g in font:
@@ -56,6 +59,4 @@ def GenerateFeature_mkmk(font):
 
   text += "} mkmk;\n"
 
-  if "mkmk" not in font.features.tags:
-    font.features.tags.append("mkmk")
-  font.features.values["mkmk"] = text
+  updateFeature(font, "mkmk", text)

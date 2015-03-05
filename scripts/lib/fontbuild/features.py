@@ -150,6 +150,23 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
             super(FilterFeatureWriter, self).languageSystem(langTag, scriptTag)
 
 
+def compileFeatureRE(name):
+    """Compiles a feature-matching regex using feaTool's template."""
+    featureRE = list(parser.featureContentRE)
+    featureRE.insert(2, name)
+    featureRE.insert(6, name)
+    return re.compile("".join(featureRE))
+
+
+def updateFeature(font, name, value):
+    """Add a feature definition, or replace existing one."""
+    featureRE = compileFeatureRE(name)
+    if featureRE.search(font.features.text):
+        font.features.text = featureRE.sub(value, font.features.text)
+    else:
+        font.features.text += "\n" + value
+
+
 def readFeatureFile(font, text):
     """Incorporate valid definitions from feature text into font."""
     writer = FilterFeatureWriter(set(font.keys()))

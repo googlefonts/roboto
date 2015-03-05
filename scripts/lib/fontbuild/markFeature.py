@@ -1,3 +1,6 @@
+from fontbuild.features import updateFeature
+
+
 aliases = [["uni0430", "a"], ["uni0435", "e"], ["uni0440", "p"], ["uni0441", "c"], ["uni0445", "x"], ["uni0455", "s"], ["uni0456", "i"], ["uni0471", "psi"]]
 
 def GetAliaseName(gname):
@@ -79,6 +82,4 @@ def GenerateFeature_mark(font):
 
   text += "} mark;\n"
 
-  if "mark" not in font.features.tags:
-    font.features.tags.append("mark")
-  font.features.values["mark"] = text
+  updateFeature(font, "mark", text)

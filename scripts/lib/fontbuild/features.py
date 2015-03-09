@@ -151,7 +151,10 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
 
 
 def compileFeatureRE(name):
-    """Compiles a feature-matching regex using feaTool's template."""
+    """Compiles a feature-matching regex."""
+
+    # this is the pattern used internally by feaTools:
+    # https://github.com/typesupply/feaTools/blob/master/Lib/feaTools/parser.py
     featureRE = list(parser.featureContentRE)
     featureRE.insert(2, name)
     featureRE.insert(6, name)

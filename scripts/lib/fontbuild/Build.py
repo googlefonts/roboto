@@ -48,7 +48,6 @@ class FontProject:
         self.buildnumber = self.loadBuildNumber()
         
         self.buildOTF = False
-        self.checkOTFOutlines = False
         self.autohintOTF = False
         self.buildTTF = False
         self.buildFEA = False
@@ -167,19 +166,11 @@ class FontProject:
             otfName = self.generateOutputPath(f, "otf")
             saveOTF(newFont, otfName, autohint=self.autohintOTF)
 
-            if self.checkOTFOutlines or self.buildTTF:
+            if self.buildTTF:
+                log(">> Generating TTF file")
                 import fontforge
                 otFont = fontforge.open(otfName)
-
-                if self.checkOTFOutlines:
-                    log(">> Removing overlaps")
-                    for glyphName in otFont:
-                        otFont[glyphName].removeOverlap()
-                    otFont.generate(otfName)
-
-                if self.buildTTF:
-                    log(">> Generating TTF file")
-                    otFont.generate(self.generateOutputPath(f, "ttf"))
+                otFont.generate(self.generateOutputPath(f, "ttf"))
 
         if self.buildFEA:
           log(">> Generating FEA files")  
@@ -242,10 +233,9 @@ def generateGlyphs(f, glyphNames, glyphList={}):
         generateGlyph(f, glyphName, glyphList)
 
 def cleanCurves(f):
-    #TODO(jamesgk) remove calls to removeGlyphOverlap if we use FDK or FontForge
-    # log(">> Removing overlaps")
-    # for g in f:
-    #     removeGlyphOverlap(g)
+    log(">> Removing overlaps")
+    for g in f:
+        removeGlyphOverlap(g)
 
     # log(">> Mitring sharp corners")
     # for g in f:
@@ -254,7 +244,6 @@ def cleanCurves(f):
     # log(">> Converting curves to quadratic")
     # for g in f:
     #     glyphCurvesToQuadratic(g)
-    pass
 
 
 def deleteGlyphs(f, deleteList):

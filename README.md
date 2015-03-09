@@ -1,4 +1,7 @@
 # Setup
+The Roboto build toolchain depends on:
+- FontTools (https://github.com/behdad/fonttools)
+- RoboFab (https://github.com/robofab-developers/robofab)
 
 ### OTF Generation
 OTF generation depends on:

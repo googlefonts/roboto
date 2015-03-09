@@ -1,3 +1,4 @@
+from booleanOperations import BooleanOperationManager
 from robofab.world import OpenFont
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 from fontbuild.instanceNames import setNamesRF
@@ -10,7 +11,6 @@ from fontbuild.features import readFeatureFile, writeFeatureFile
 from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
-from fontbuild.removeGlyphOverlap import removeGlyphOverlap
 import ConfigParser
 import os
 
@@ -250,6 +250,15 @@ def deleteGlyphs(f, deleteList):
     for name in deleteList:
         if f.has_key(name):
             f.removeGlyph(name)
+
+
+def removeGlyphOverlap(glyph):
+    """Remove overlaps in contours from a glyph."""
+    #TODO(jamesgk) verify overlaps exist first, as per library's recommendation
+    manager = BooleanOperationManager()
+    contours = glyph.contours
+    glyph.clearContours()
+    manager.union(contours, glyph.getPointPen())
 
 
 def saveOTF(font, destFile, autohint=False):

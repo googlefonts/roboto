@@ -61,7 +61,6 @@ proj = FontProject(rg.font, BASEDIR, "res/roboto.cfg", th.ffont)
 FAMILYNAME = "Roboto"
 
 proj.buildOTF = True
-#proj.checkOTFOutlines = True
 #proj.autohintOTF = True
 proj.buildTTF = True
 proj.buildFEA = True

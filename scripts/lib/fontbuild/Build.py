@@ -157,6 +157,8 @@ class FontProject:
             readFeatureFile(f, self.ot_kerningclasses)
 
         log(">> Generating font files")
+        GenerateFeature_mark(f)
+        GenerateFeature_mkmk(f)
         ufoName = self.generateOutputPath(f, "ufo")
         f.save(ufoName)
 
@@ -171,12 +173,6 @@ class FontProject:
                 import fontforge
                 otFont = fontforge.open(otfName)
                 otFont.generate(self.generateOutputPath(f, "ttf"))
-
-        if self.buildFEA:
-          log(">> Generating FEA files")  
-          GenerateFeature_mark(f)
-          GenerateFeature_mkmk(f)
-          writeFeatureFile(f, self.generateOutputPath(f, "fea"))
 
 
 def transformGlyphMembers(g, m):

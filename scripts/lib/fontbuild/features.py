@@ -39,9 +39,10 @@ parser.subType1And4RE = re.compile(
         "\s*;"                 # ;
         )
 
-# don't be greedy when matching feature/lookup content (may be duplicates)
+# don't be greedy when matching feature/lookup/table content (may be duplicates)
 parser.featureContentRE[3] = parser.featureContentRE[3].replace('*', '*?')
 parser.lookupContentRE[3] = parser.lookupContentRE[3].replace('*', '*?')
+parser.tableContentRE[3] = parser.tableContentRE[3].replace('*', '*?')
 
 
 class FilterFeatureWriter(FDKSyntaxFeatureWriter):
@@ -52,6 +53,7 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
         self.refs = refs
         self.featureNames = set()
         self.lookupNames = set()
+        self.tableNames = set()
         self.languageSystems = set()
         super(FilterFeatureWriter, self).__init__(
             name=name, isFeature=isFeature)
@@ -148,6 +150,15 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
         if system not in self.languageSystems:
             self.languageSystems.add(system)
             super(FilterFeatureWriter, self).languageSystem(langTag, scriptTag)
+
+    def table(self, name, data):
+        """Adds a table only once."""
+        if name in self.tableNames:
+            return
+        self.tableNames.add(name)
+        self._instructions.append("table %s {" % name)
+        self._instructions.extend(["  %s %s;" % line for line in data])
+        self._instructions.append("} %s;" % name)
 
 
 def compileFeatureRE(name):

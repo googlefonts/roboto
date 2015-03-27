@@ -2,6 +2,7 @@
 The Roboto build toolchain depends on:
 - FontTools (https://github.com/behdad/fonttools)
 - RoboFab (https://github.com/robofab-developers/robofab)
+- An expanded version of Tal Leming's feaTools (https://github.com/jamesgk/feaTools/tree/expanded)
 Overlap removal depends on the "booleanOperations" (https://github.com/typemytype/booleanOperations) library, which is included in `scripts/lib/`. You may need to replace its `pyclipper.so` with `pyclipper-MAC.so` or `pyclipper-LINUX.so`, depending on your platform, or compile the cpp wrapper yourself according to the instructions found on GitHub.
 
 ### OTF Generation

@@ -26,7 +26,7 @@ parser.classContentRE = re.compile(
 parser.sequenceInlineClassRE = re.compile(
         "\["                   # [
         "([\w\d\s_.@']+)"      # content
-        "\]"                   # ]
+        "\]'?"                 # ], optional contextual marking
         )
 
 # allow apostrophes in the target and replacement of a substitution
@@ -76,8 +76,19 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
         """Use this class for nested expressions e.g. in feature definitions."""
         return FilterFeatureWriter(self.refs, name, isFeature)
 
+    def _flattenRefs(self, refs):
+        """Flatten a list of references."""
+        flatRefs = []
+        for ref in refs:
+            if type(ref) == list:
+                flatRefs.extend(self._flattenRefs(ref))
+            elif ref != "'":  # ignore contextual class markings
+                flatRefs.append(ref)
+        return flatRefs
+
     def _checkRefs(self, refs, errorMsg):
         """Check a list of references found in a sub or pos rule."""
+        refs = self._flattenRefs(refs)
         for ref in refs:
             # trailing apostrophes should be ignored
             if ref[-1] == "'":
@@ -105,14 +116,12 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
 
     def gsubType1(self, target, replacement):
         """Check a sub rule with one-to-one replacement."""
-        if type(target) == str:
-            target, replacement = [target], [replacement]
-        if self._checkRefs(target + replacement, self.subErr):
+        if self._checkRefs([target, replacement], self.subErr):
             super(FilterFeatureWriter, self).gsubType1(target, replacement)
 
     def gsubType4(self, target, replacement):
         """Check a sub rule with many-to-one replacement."""
-        if self._checkRefs(target + [replacement], self.subErr):
+        if self._checkRefs([target, replacement], self.subErr):
             super(FilterFeatureWriter, self).gsubType4(target, replacement)
 
     def gposType1(self, target, value):

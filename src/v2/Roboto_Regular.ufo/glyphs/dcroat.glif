@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<glyph name="dcroat_uni1ABE" format="1">
+<glyph name="dcroat" format="1">
   <advance width="1235"/>
+  <unicode hex="0111"/>
   <outline>
     <contour>
       <point x="815" y="210" type="line"/>
@@ -48,42 +49,7 @@
       <point x="1206" y="1229" type="line"/>
     </contour>
     <contour>
-      <point x="494" y="1118" type="curve"/>
-      <point x="504" y="1189" type="line"/>
-      <point x="471" y="1208"/>
-      <point x="432" y="1238"/>
-      <point x="432" y="1306" type="curve" smooth="yes"/>
-      <point x="432" y="1373"/>
-      <point x="471" y="1409"/>
-      <point x="504" y="1427" type="curve"/>
-      <point x="494" y="1501" type="line"/>
-      <point x="433" y="1483"/>
-      <point x="331" y="1418"/>
-      <point x="331" y="1306" type="curve" smooth="yes"/>
-      <point x="331" y="1197"/>
-      <point x="433" y="1135"/>
-    </contour>
-    <contour>
-      <point x="1264" y="1118" type="line"/>
-      <point x="1325" y="1135"/>
-      <point x="1427" y="1197"/>
-      <point x="1427" y="1306" type="curve" smooth="yes"/>
-      <point x="1427" y="1418"/>
-      <point x="1325" y="1483"/>
-      <point x="1264" y="1501" type="curve"/>
-      <point x="1254" y="1427" type="line"/>
-      <point x="1287" y="1409"/>
-      <point x="1326" y="1376"/>
-      <point x="1326" y="1306" type="curve" smooth="yes"/>
-      <point x="1326" y="1237"/>
-      <point x="1287" y="1208"/>
-      <point x="1254" y="1189" type="curve"/>
-    </contour>
-    <contour>
       <point x="1116" y="1536" type="move" name="caron"/>
-    </contour>
-    <contour>
-      <point x="881" y="1306" type="move" name="cross"/>
     </contour>
     <contour>
       <point x="619" y="0" type="move" name="bottom"/>
@@ -102,6 +68,9 @@
     </contour>
     <contour>
       <point x="1235" y="1611" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="885" y="1310" type="move" name="parenthesses.w2"/>
     </contour>
   </outline>
   <lib>

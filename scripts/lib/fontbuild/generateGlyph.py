@@ -16,6 +16,43 @@ def parseComposite(composite):
     return (glyphName, baseName, accentNames, offset)
 
 
+def copyMarkAnchors(f, g, srcname, width):
+    anchors = f[srcname].anchors
+    for anchor in anchors:
+        if "top_dd" == anchor.name:
+            anchor1 = Anchor(anchor)
+            anchor1.x += width
+            g.anchors.append(anchor1)
+        if "bottom_dd" == anchor.name:
+            anchor1 = Anchor(anchor)
+            anchor1.x += width
+            g.anchors.append(anchor1)
+        if "top0315" == anchor.name:
+            anchor1 = Anchor(anchor)
+            anchor1.x += width
+            g.anchors.append(anchor1)
+        if "top" == anchor.name:
+            if g.unicode == None:
+                continue
+            if g.unicode > 0x02B0:
+                continue
+            parenttop_present = 0
+            for anc in g.anchors:
+                if anc.name == "parent_top":
+                    parenttop_present = 1
+            if parenttop_present:
+                continue
+            anchor1 = Anchor(anchor)
+            anchor1.name = "parent_top"
+#            anchor1.x += width
+            g.anchors.append(anchor1)
+
+ #       if "rhotichook" == anchor.name:
+ #           anchor1 = Anchor(anchor)
+ #           anchor1.x += width
+ #           g.anchors.append(anchor1)
+
+
 def generateGlyph(f,gname,glyphList={}):
     glyphName, baseName, accentNames, offset = parseComposite(gname)
 
@@ -34,11 +71,12 @@ def generateGlyph(f,gname,glyphList={}):
                     "anchor not found in glyph '%s'" % (gname, e, baseName))
                 return
             g = f[glyphName]
-            if len(accentNames) > 0:
-                alignComponentsToAnchors(f, glyphName, baseName, accentNames)
+            copyMarkAnchors(f, g, baseName, offset[1] + offset[0])
             if offset[0] != 0 or offset[1] != 0:
                 g.width += offset[1] + offset[0]
                 g.move((offset[0], 0))
+            if len(accentNames) > 0:
+                alignComponentsToAnchors(f, glyphName, baseName, accentNames)
         else:
             print ("Existing glyph '%s' found in font, ignoring composition "
                 "rule '%s'" % (glyphName, gname))

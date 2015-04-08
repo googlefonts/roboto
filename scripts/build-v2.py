@@ -49,7 +49,8 @@ def condenseFont(font, scale=.8, stemWidth=185):
         m = Transform(xscale, 0, 0, 1, 20, 0)
         g.transform(m)
         transformFLGlyphMembers(g,m,transformAnchors=False)
-        g.width += 40
+        if g.width != 0:
+            g.width += 40
     return f
 
 
@@ -75,7 +76,7 @@ proj.generateFont(Mix([rg,bd], RPoint(1.125, 1.0)),"%s/Black/Bold/Bk"%FAMILYNAME
 proj.generateFont(th.font,"%s/Thin Italic/Italic/Th"%FAMILYNAME, italic=True, stemWidth=80)
 proj.generateFont(Mix([th,rg], 0.45),"%s/Light Italic/Italic/Lt"%FAMILYNAME, italic=True, stemWidth=120)
 proj.generateFont(Mix([th,rg], RPoint(0.90, 0.92)),"%s/Italic/Italic/Rg"%FAMILYNAME, italic=True, stemWidth=185)
-proj.generateFont(Mix([rg,bd], 0.35),"%s/Medium Italic/Bold Italic/Lt"%FAMILYNAME, italic=True, stemWidth=230)
+proj.generateFont(Mix([rg,bd], 0.35),"%s/Medium Italic/Italic/Lt"%FAMILYNAME, italic=True, stemWidth=230)
 proj.generateFont(Mix([rg,bd], RPoint(0.73, 0.73)),"%s/Bold Italic/Bold Italic/Rg"%FAMILYNAME, italic=True, stemWidth=290)
 proj.generateFont(Mix([rg,bd], RPoint(1.125, 1.0)),"%s/Black Italic/Bold Italic/Bk"%FAMILYNAME, italic=True, stemWidth=290)
 

@@ -17,7 +17,7 @@ class InstanceNames:
     def __init__(self,names):
         if type(names) == type(" "):
             names = names.split("/")
-            
+        #print names            
         self.longfamily =      names[0]
         self.longstyle =       names[1]
         self.shortstyle =      names[2]
@@ -84,21 +84,29 @@ class InstanceNames:
         flFont.weight =           self.weight 
         flFont.weight_code =      self._getWeightCode(self.weight) 
         flFont.width =            self.width
+        if len(self.italic):
+            flFont.italic_angle = -12
 
         fn = flFont.fontnames
         fn.clean()
-        fn.append(NameRecord(0,1,0,0,     "Font data copyright %s %s" %(self.foundry, self.year) ))
-        fn.append(NameRecord(0,3,1,1033,  "Font data copyright %s %s" %(self.foundry, self.year) ))
+        #fn.append(NameRecord(0,1,0,0,     "Font data copyright %s %s" %(self.foundry, self.year) ))
+        #fn.append(NameRecord(0,3,1,1033,  "Font data copyright %s %s" %(self.foundry, self.year) ))
+        fn.append(NameRecord(0,1,0,0,     "Copyright %s %s Inc. All Rights Reserved." %(self.year, self.foundry) ))
+        fn.append(NameRecord(0,3,1,1033,  "Copyright %s %s Inc. All Rights Reserved." %(self.year, self.foundry) ))
         fn.append(NameRecord(1,1,0,0,     self.longfamily ))
         fn.append(NameRecord(1,3,1,1033,  self.shortfamily ))
         fn.append(NameRecord(2,1,0,0,     self.longstyle ))
         fn.append(NameRecord(2,3,1,1033,  self.longstyle ))
-        fn.append(NameRecord(3,1,0,0,     "%s:%s:%s" %(self.foundry, self.longfamily, self.year) ))
-        fn.append(NameRecord(3,3,1,1033,  "%s:%s:%s" %(self.foundry, self.longfamily, self.year) ))
+        #fn.append(NameRecord(3,1,0,0,     "%s:%s:%s" %(self.foundry, self.longfamily, self.year) ))
+        #fn.append(NameRecord(3,3,1,1033,  "%s:%s:%s" %(self.foundry, self.longfamily, self.year) ))
+        fn.append(NameRecord(3,1,0,0,     "%s:%s:%s" %(self.foundry, self.fullname, self.year) ))
+        fn.append(NameRecord(3,3,1,1033,  "%s:%s:%s" %(self.foundry, self.fullname, self.year) ))        
         fn.append(NameRecord(4,1,0,0,     self.fullname ))
         fn.append(NameRecord(4,3,1,1033,  self.fullname ))
-        fn.append(NameRecord(5,1,0,0,     "Version %s%s; %s" %(self.version, self.build, self.year) ))
-        fn.append(NameRecord(5,3,1,1033,  "Version %s%s; %s" %(self.version, self.build, self.year) ))
+        #fn.append(NameRecord(5,1,0,0,     "Version %s%s; %s" %(self.version, self.build, self.year) ))
+        #fn.append(NameRecord(5,3,1,1033,  "Version %s%s; %s" %(self.version, self.build, self.year) ))
+        fn.append(NameRecord(5,1,0,0,     "Version %s; %s" %(self.version, self.year) ))
+        fn.append(NameRecord(5,3,1,1033,  "Version %s; %s" %(self.version, self.year) ))
         fn.append(NameRecord(6,1,0,0,     self.postscript ))
         fn.append(NameRecord(6,3,1,1033,  self.postscript ))
         fn.append(NameRecord(7,1,0,0,     "%s is a trademark of %s." %(self.longfamily, self.foundry) ))
@@ -131,7 +139,7 @@ class InstanceNames:
         return self._getSubstyle(r"Italic|Oblique|Obliq")
 
     def _getWeight(self):
-        w = self._getSubstyle(r"Extrabold|Superbold|Super|Fat|Bold|Semibold|Demibold|Medium|Light|Thin")
+        w = self._getSubstyle(r"Extrabold|Superbold|Super|Fat|Black|Bold|Semibold|Demibold|Medium|Light|Thin")
         if w == "":
             w = "Regular"
         return w
@@ -143,6 +151,7 @@ class InstanceNames:
         return w
     
     def _getStyleCode(self):
+        #print "shortstyle:", self.shortstyle
         styleCode = 0
         if self.shortstyle == "Bold":
             styleCode = 32
@@ -166,7 +175,7 @@ class InstanceNames:
         elif weight == "Semibold":
             return 600
         elif weight == "Black":
-            return 800
+            return 900
         elif weight == "Fat":
             return 900
 

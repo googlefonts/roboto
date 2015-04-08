@@ -29,7 +29,7 @@ class FontProject:
         self.diacriticList = [line.strip() for line in diacriticList if not line.startswith("#")]
         self.ot_classes = open(self.basedir + "/" + self.config.get("res","ot_classesfile")).read()
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
-        self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
+        #self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
         adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
         self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
         
@@ -126,7 +126,8 @@ class FontProject:
                 elif g.name != ".notdef":
                     italicizeGlyph(f, g, 10, stemWidth=stemWidth)
                 removeGlyphOverlap(g)
-                g.width += 10
+                if g.width != 0:
+                    g.width += 10
 
         if swapSuffixes != None:
             for swap in swapSuffixes:

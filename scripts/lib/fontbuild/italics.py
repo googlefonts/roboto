@@ -6,6 +6,8 @@ import math
 from alignpoints import alignCorners
 
 def italicizeGlyph(f, g, angle=10, stemWidth=185):
+    unic = g.unicode #save unicode
+
     glyph = f[g.name]
     slope = np.tanh(math.pi * angle / 180)
 
@@ -22,6 +24,9 @@ def italicizeGlyph(f, g, angle=10, stemWidth=185):
         f.insertGlyph(g2, g.name)
         
     transformFLGlyphMembers(f[g.name], m)
+
+    if unic > 0xFFFF: #restore unicode
+        g.unicode = unic
 
 
 def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):

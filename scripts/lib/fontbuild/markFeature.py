@@ -93,6 +93,12 @@ def GenerateFeature_mark(font):
 	classname = "@MC_" + anchor_name
 
 	accent_name_list = CreateAccNameList(font, acc_anchor_name, comb_accent_only)
+	if not accent_name_list:
+		print (
+			'No glyph found with anchor "%s", skipping mark lookup for %s.' %
+			(acc_anchor_name, classname))
+		continue
+
 	accent_mark_list = CreateAccGlyphList(font, accent_name_list, acc_anchor_name)
 	base_mark_list = CreateGlyphList(font, accent_name_list, anchor_name)
 	text += Create_mark_lookup(accent_mark_list, base_mark_list, lookupname, classname, expand_to_composits)

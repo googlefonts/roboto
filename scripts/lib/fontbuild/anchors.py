@@ -18,30 +18,21 @@ def moveMarkAnchors(f, g, anchorName, accentName, dx, dy):
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmktop_acc" == anchor.name:
-                anchor2 = Anchor()
-                #print anchor.x, dx, anchor.y, dy
-                anchor2.name = "top"
-                anchor2.x = anchor.x + int(dx)
-                anchor2.y = anchor.y + int(dy)
-                g.anchors.append(anchor2)
+                g.appendAnchor("top", (anchor.x + int(dx), anchor.y + int(dy)))
  
     elif "bottom"==anchorName:
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmkbottom_acc" == anchor.name:
-                for n in range(len(g.anchors)):
-                    if g.anchors[n].name == "bottom":
-                        del g.anchors[n]
+                for anchor in g.anchors:
+                    if anchor.name == "bottom":
+                        g.removeAnchor(anchor)
                         break
-                anchor2 = Anchor()
-                #print anchor.x, dx, anchor.y, dy
-                anchor2.name = "bottom"
-                anchor2.x = anchor.x + int(dx)
-                anchor2.y = anchor.y + int(dy)
+                x = anchor.x + int(dx)
                 for anc in anchors:
                     if "top" == anc.name:
-                        anchor2.x = anc.x + int(dx)
-                g.anchors.append(anchor2)
+                        x = anc.x + int(dx)
+                g.appendAnchor("bottom", (x, anchor.y + int(dy)))
 
 
 def alignComponentToAnchor(f,glyphName,baseName,accentName,anchorName):
@@ -57,7 +48,7 @@ def alignComponentToAnchor(f,glyphName,baseName,accentName,anchorName):
     offset = (a1.x - a2.x, a1.y - a2.y)
     c = getComponentByName(f, g, accentName)
     c.offset = offset
-    moveMarkAnchors(f, g, anchorName, accentName, offset.x, offset.y)
+    moveMarkAnchors(f, g, anchorName, accentName, offset[0], offset[1])
 
 
 def alignComponentsToAnchors(f,glyphName,baseName,accentNames):

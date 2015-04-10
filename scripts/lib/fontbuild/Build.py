@@ -30,6 +30,7 @@ class FontProject:
         self.ot_classes = open(self.basedir + "/" + self.config.get("res","ot_classesfile")).read()
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
         #self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
+        self.ot_kerningfeatures = self.basedir + "/" + self.config.get("res","ot_kerningfeaturesdir")
         adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
         self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
         
@@ -156,6 +157,14 @@ class FontProject:
         if kern:
             log(">> Generating kern classes")
             readFeatureFile(f, self.ot_kerningclasses)
+            weight = f.info.styleName.split()[0]
+            if weight in ["Light", "Italic"]:
+                weight = "Regular"
+            elif weight in ["Medium", "Black"]:
+                weight = "Bold"
+            feature_path = os.path.join(
+                self.ot_kerningfeatures, "Roboto-%s.fea" % weight)
+            readFeatureFile(f, open(feature_path).read(), prepend=False)
 
         log(">> Generating font files")
         GenerateFeature_mark(f)

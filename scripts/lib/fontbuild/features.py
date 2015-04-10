@@ -125,16 +125,19 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
             super(FilterFeatureWriter, self).gsubType4(target, replacement)
 
     def gposType1(self, target, value):
-        """Check a positioning rule."""
+        """Check a single positioning rule."""
         if self._checkRefs([target], self.posErr):
             super(FilterFeatureWriter, self).gposType1(target, value)
+
+    def gposType2(self, target, value, needEnum=False):
+        """Check a pair positioning rule."""
+        if self._checkRefs(target, self.posErr):
+            super(FilterFeatureWriter, self).gposType2(target, value, needEnum)
 
     # these rules may contain references, but they aren't present in Roboto
     def gsubType3(self, target, replacement):
         raise NotImplementedError
     def gsubType6(self, precedingContext, target, trailingContext, replacement):
-        raise NotImplementedError
-    def gposType2(self, target, value):
         raise NotImplementedError
 
     def feature(self, name):

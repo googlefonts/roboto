@@ -71,14 +71,14 @@ class FontProject:
             versionFile.close()
         else:
             raise Exception("Empty build number")
-    
+
     def generateOutputPath(self, font, ext):
         family = font.info.familyName.replace(" ", "")
         style = font.info.styleName.replace(" ", "")
-        path = "%s/%s/%s%s" % (self.basedir, self.builddir, family, ext.upper())
+        path = os.path.join(self.basedir, self.builddir, family + ext.upper())
         if not os.path.exists(path):
             os.makedirs(path)
-        return "%s/%s-%s.%s" % (path, family, style, ext.lower())
+        return os.path.join(path, "%s-%s.%s" % (family, style, ext))
     
     def generateFont(self, mix, names, italic=False, swapSuffixes=None, stemWidth=185, kern=True):
         

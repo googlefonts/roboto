@@ -46,15 +46,15 @@ def Create_mark_lookup(accent_g_list, base_g_list, lookupname, acc_class, lookAl
 	txt = "lookup " + lookupname + " {\n"
 	
 	for acc in accent_g_list:
-		txt += "  markClass " + acc[0] + " <anchor " + `acc[1]` + " " + `acc[2]` + "> " + acc_class +";\n"	
+		txt += "  markClass " + acc[0] + " <anchor " + `int(acc[1])` + " " + `int(acc[2])` + "> " + acc_class +";\n"	
 	
 	for base in base_g_list:
-		txt += "  pos base " + base[0] + " <anchor " + `base[1]` + " " + `base[2]` + "> mark " + acc_class + ";\n"
+		txt += "  pos base " + base[0] + " <anchor " + `int(base[1])` + " " + `int(base[2])` + "> mark " + acc_class + ";\n"
 		if (lookAliases):
 			base2 = GetAliaseName(base[0])
 			if (None == base2):
 				continue
-			txt += "  pos base " + base2 + " <anchor " + `base[1]` + " " + `base[2]` + "> mark " + acc_class + ";\n"	
+			txt += "  pos base " + base2 + " <anchor " + `int(base[1])` + " " + `int(base[2])` + "> mark " + acc_class + ";\n"	
 
 	txt += "} " + lookupname + ";\n"
 	

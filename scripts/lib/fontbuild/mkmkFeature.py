@@ -33,10 +33,10 @@ def Create_mkmk1(accent_g_list, base_g_list, lookupname, acc_class):
 	txt = "lookup " + lookupname + " {\n"
 	#acc_class = "@MC_mkmk"
 	for acc in accent_g_list:
-		txt += "  markClass " + acc[0] + " <anchor " + `acc[1]` + " " + `acc[2]` + "> " + acc_class +";\n"
+		txt += "  markClass " + acc[0] + " <anchor " + `int(acc[1])` + " " + `int(acc[2])` + "> " + acc_class +";\n"
 	
 	for base in base_g_list:
-		txt += "  pos mark " + base[0] + " <anchor " + `base[1]` + " " + `base[2]` + "> mark " + acc_class + ";\n"
+		txt += "  pos mark " + base[0] + " <anchor " + `int(base[1])` + " " + `int(base[2])` + "> mark " + acc_class + ";\n"
 	
 	txt += "} " + lookupname + ";\n"
 	

@@ -193,10 +193,14 @@ def updateFeature(font, name, value):
         font.features.text += "\n" + value
 
 
-def readFeatureFile(font, text):
+def readFeatureFile(font, text, prepend=True):
     """Incorporate valid definitions from feature text into font."""
     writer = FilterFeatureWriter(set(font.keys()))
-    parser.parseFeatures(writer, text + font.features.text)
+    if prepend:
+        text += font.features.text
+    else:
+        text = font.features.text + text
+    parser.parseFeatures(writer, text)
     font.features.text = writer.write()
 
 

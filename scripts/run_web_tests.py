@@ -1,4 +1,19 @@
 #!/usr/bin/python
+#
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """Test assumptions that web fonts rely on."""
 
 import unittest
@@ -8,7 +23,7 @@ from nototools import font_data
 import common_tests
 
 FONTS = common_tests.load_fonts(
-    ['out/v2/web/*.ttf'],
+    ['out/web/*.ttf'],
     expected_count=18)
 
 class TestItalicAngle(common_tests.TestItalicAngle):

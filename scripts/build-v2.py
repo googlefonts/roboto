@@ -79,7 +79,6 @@ FAMILYNAME = "Roboto"
 proj.buildOTF = True
 #proj.autohintOTF = True
 proj.buildTTF = True
-proj.buildFEA = True
 
 proj.generateFont(th.font,"%s/Thin/Regular/Th"%FAMILYNAME)
 proj.generateFont(Mix([th,rg], 0.45),"%s/Light/Regular/Lt"%FAMILYNAME)

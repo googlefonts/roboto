@@ -56,7 +56,7 @@ class FontProject:
         for roboName, aglName in roboNames:
             self.adobeGlyphList[roboName] = self.adobeGlyphList[aglName]
 
-        self.builddir = "out/v2"
+        self.builddir = "out"
         self.decompose = self.config.get("glyphs","decompose").split()
         self.predecompose = self.config.get("glyphs","predecompose").split()
         self.lessItalic = self.config.get("glyphs","lessitalic").split()

@@ -15,3 +15,7 @@ The AFDKO from GitHub can be time consuming to setup. It is easier to just use t
 TTF generation depends on:
 - FontForge (https://github.com/fontforge/fontforge)
 Whose Python interface should be availabe on Ubuntu by default via `apt-get install fontforge` and `apt-get install python-fontforge`.
+
+# Testing
+Test scripts (specifically, code in common-tests.py) depend on:
+- https://github.com/rougier/freetype-py

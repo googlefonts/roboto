@@ -22,7 +22,6 @@ from fontTools import ttLib
 from nototools import coverage
 from nototools import font_data
 
-sys.path.append('./third_party/freetype-py')
 import freetype
 
 import layout

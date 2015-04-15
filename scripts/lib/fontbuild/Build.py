@@ -22,6 +22,7 @@ from fontbuild.convertCurves import glyphCurvesToQuadratic
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
+from fontbuild.kerning import makeKernFeature
 from fontbuild.features import readFeatureFile, writeFeatureFile
 from fontbuild.markFeature import GenerateFeature_mark
 from fontbuild.mkmkFeature import GenerateFeature_mkmk
@@ -45,7 +46,6 @@ class FontProject:
         self.ot_classes = open(self.basedir + "/" + self.config.get("res","ot_classesfile")).read()
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
         #self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
-        self.ot_kerningfeatures = self.basedir + "/" + self.config.get("res","ot_kerningfeaturesdir")
         adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
         self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
         
@@ -171,14 +171,7 @@ class FontProject:
         if kern:
             log(">> Generating kern classes")
             readFeatureFile(f, self.ot_kerningclasses)
-            weight = f.info.styleName.split()[0]
-            if weight in ["Light", "Italic"]:
-                weight = "Regular"
-            elif weight in ["Medium", "Black"]:
-                weight = "Bold"
-            feature_path = os.path.join(
-                self.ot_kerningfeatures, "Roboto-%s.fea" % weight)
-            readFeatureFile(f, open(feature_path).read(), prepend=False)
+            makeKernFeature(f, self.ot_kerningclasses)
 
         log(">> Generating font files")
         GenerateFeature_mark(f)

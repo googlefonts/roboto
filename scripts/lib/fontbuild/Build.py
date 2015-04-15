@@ -66,7 +66,6 @@ class FontProject:
         self.buildOTF = False
         self.autohintOTF = False
         self.buildTTF = False
-        self.buildFEA = False
         
         
     def loadBuildNumber(self):

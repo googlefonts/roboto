@@ -21,7 +21,7 @@ import unittest
 import common_tests
 
 FONTS = common_tests.load_fonts(
-    ['out/v2/RobotoTTF/*.ttf', 'out/v2/RobotoCondensedTTF/*.ttf'],
+    ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
     expected_count=18)
 
 class TestItalicAngle(common_tests.TestItalicAngle):

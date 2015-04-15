@@ -27,8 +27,8 @@ import layout
 
 def load_fonts():
     """Load all major fonts."""
-    all_font_files = (glob.glob('out/v2/RobotoTTF/*.ttf')
-                      + glob.glob('out/v2/RobotoCondensedTTF/*.ttf'))
+    all_font_files = (glob.glob('out/RobotoTTF/*.ttf')
+                      + glob.glob('out/RobotoCondensedTTF/*.ttf'))
     all_fonts = [ttLib.TTFont(font) for font in all_font_files]
     assert len(all_font_files) == 18
     return all_font_files, all_fonts

@@ -91,20 +91,19 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
         """Use this class for nested expressions e.g. in feature definitions."""
         return FilterFeatureWriter(self.refs, name, isFeature)
 
-    def _flattenRefs(self, refs):
+    def _flattenRefs(self, refs, flatRefs):
         """Flatten a list of references."""
-        flatRefs = []
         for ref in refs:
             if type(ref) == list:
-                flatRefs.extend(self._flattenRefs(ref))
+                self._flattenRefs(ref, flatRefs)
             elif ref != "'":  # ignore contextual class markings
                 flatRefs.append(ref)
-        return flatRefs
 
     def _checkRefs(self, refs, errorMsg):
         """Check a list of references found in a sub or pos rule."""
-        refs = self._flattenRefs(refs)
-        for ref in refs:
+        flatRefs = []
+        self._flattenRefs(refs, flatRefs)
+        for ref in flatRefs:
             # trailing apostrophes should be ignored
             if ref[-1] == "'":
                 ref = ref[:-1]

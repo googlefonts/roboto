@@ -49,7 +49,6 @@ class KernFeatureWriter(AbstractFeatureWriter):
 
             # collect rules with left class and right glyph
             for pair, val in self.kerning.getLeft(leftKey):
-                if pair == ('O', 'A.smcp'): print pair, val
                 leftClassKerning[leftName, pair[1]] = self.kerning[pair]
                 self.kerning.remove(pair)
 

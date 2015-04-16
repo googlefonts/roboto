@@ -293,6 +293,7 @@ class Mix:
                     gF.copyToGlyph(g)
                 except:
                     "Nodes incompatible"
+        newFont.kerning.clear()
         newFont.kerning.update(self.mixKerns() or {})
         return newFont
     

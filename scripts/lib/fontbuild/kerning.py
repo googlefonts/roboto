@@ -70,7 +70,7 @@ class KernFeatureWriter(AbstractFeatureWriter):
         lines.append("} kern;")
         return linesep.join(lines)
 
-    def _writeKerning(self, kerning, linesep, enum=""):
+    def _writeKerning(self, kerning, linesep, enum=False):
         """Write kerning rules for a mapping of pairs to values."""
 
         lines = []

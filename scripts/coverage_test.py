@@ -132,6 +132,10 @@ def main():
                                  full_coverage_required,
                                  exceptions))
 
+    # Skip Unicode 8.0 characters
+    required_set = {ch for ch in required_set
+                    if float(unicode_data.age(ch)) <= 7.0}
+
     # Skip ASCII and C1 controls
     required_set -= set(range(0, 0x20) + range(0x7F, 0xA0))
 

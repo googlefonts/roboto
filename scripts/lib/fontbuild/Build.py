@@ -183,7 +183,8 @@ class FontProject:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
             otfName = self.generateOutputPath(f, "otf")
-            if saveOTF(newFont, otfName, autohint=self.autohintOTF) and self.buildTTF:
+            builtSuccessfully = saveOTF(newFont, otfName, autohint=self.autohintOTF)
+            if builtSuccessfully and self.buildTTF:
                 log(">> Generating TTF file")
                 import fontforge
                 otFont = fontforge.open(otfName)

@@ -29,6 +29,7 @@ from fontbuild.mkmkFeature import GenerateFeature_mkmk
 from fontbuild.decomposeGlyph import decomposeGlyph
 import ConfigParser
 import os
+import sys
 
 
 class FontProject:
@@ -184,7 +185,10 @@ class FontProject:
             newFont = OpenFont(ufoName)
             otfName = self.generateOutputPath(f, "otf")
             builtSuccessfully = saveOTF(newFont, otfName, autohint=self.autohintOTF)
-            if builtSuccessfully and self.buildTTF:
+            if not builtSuccessfully:
+                sys.exit(1)
+
+            if self.buildTTF:
                 log(">> Generating TTF file")
                 import fontforge
                 otFont = fontforge.open(otfName)

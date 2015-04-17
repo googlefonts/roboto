@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Post-build changes for Roboto for Android."""
+"""General module for Roboto-specific data and methods."""
 
 import os
 from os import path

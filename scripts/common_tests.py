@@ -15,7 +15,6 @@
 """Common tests for different targets."""
 
 import glob
-import sys
 import unittest
 
 from fontTools import ttLib

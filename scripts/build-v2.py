@@ -17,11 +17,14 @@ import sys
 
 sys.path.insert(0, "%s/scripts/lib" % BASEDIR)
 
-from robofab.objects.objectsRF import RPoint
 from fontTools.misc.transform import Transform
+from robofab.objects.objectsRF import RPoint
+
 from fontbuild.Build import FontProject
-from fontbuild.mix import Mix, Master
-from fontbuild.italics import condenseGlyph, transformFLGlyphMembers
+from fontbuild.italics import condenseGlyph
+from fontbuild.italics import transformFLGlyphMembers
+from fontbuild.mix import Master
+from fontbuild.mix import Mix
 
 # Masters
 

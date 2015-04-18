@@ -13,9 +13,8 @@
 # limitations under the License.
 
 
+import os
 import sys
-
-sys.path.insert(0, "%s/scripts/lib" % BASEDIR)
 
 from fontTools.misc.transform import Transform
 from robofab.objects.objectsRF import RPoint
@@ -25,6 +24,10 @@ from fontbuild.italics import condenseGlyph
 from fontbuild.italics import transformFLGlyphMembers
 from fontbuild.mix import Master
 from fontbuild.mix import Mix
+
+# The root of the Roboto tree
+BASEDIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), os.pardir))
 
 # Masters
 

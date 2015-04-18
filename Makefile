@@ -15,9 +15,7 @@
 all: v2
 
 v2:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefontsB.py
-	cat "scripts/build-v2.py" >> /tmp/makefontsB.py
-	python /tmp/makefontsB.py
+	PYTHONPATH=$(PYTHONPATH):$(CURDIR)/scripts/lib python scripts/build-v2.py
 
 crunch:
 	mkdir -p out/crunched

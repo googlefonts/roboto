@@ -108,9 +108,9 @@ cd ..
 ```
 
 In either case, use whatever install scripts and directory
-(`FinishInstall`[`OSX`|`Linux`|`Windows.cmd`],
-`BuildAll`[`.sh`|`Linux.sh`|`.cmd`],
-`FDK/Tools/`[`osx`|`linux`|`win`]) are appropriate for your platform (more
+(`FinishInstall[OSX|Linux|Windows.cmd]`,
+`BuildAll[.sh|Linux.sh|.cmd]`,
+`FDK/Tools/[osx|linux|win]`) are appropriate for your platform (more
 detailed information can be found in `FDK/Read_Me_First.html`).
 
 ##### For post-production:

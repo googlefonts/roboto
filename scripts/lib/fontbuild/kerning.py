@@ -29,6 +29,7 @@ class KernFeatureWriter(AbstractFeatureWriter):
         self.kerning = font.kerning
         self.leftClasses = []
         self.rightClasses = []
+        self.classSizes = {}
 
     def write(self, linesep="\n"):
         """Write kern feature."""
@@ -60,12 +61,11 @@ class KernFeatureWriter(AbstractFeatureWriter):
                 self.kerning.remove(pair)
 
         # write the feature
+        self.ruleCount = 0
         lines = ["feature kern {"]
         lines.append(self._writeKerning(self.kerning, linesep))
         lines.append(self._writeKerning(leftClassKerning, linesep, True))
-        lines.append("    subtable;")
         lines.append(self._writeKerning(rightClassKerning, linesep, True))
-        lines.append("    subtable;")
         lines.append(self._writeKerning(classPairKerning, linesep))
         lines.append("} kern;")
         return linesep.join(lines)
@@ -78,6 +78,13 @@ class KernFeatureWriter(AbstractFeatureWriter):
         pairs = kerning.items()
         pairs.sort()
         for (left, right), val in pairs:
+            rulesAdded = (
+                self.classSizes.get(left, 1) * self.classSizes.get(right, 1)
+                if enum else 1)
+            self.ruleCount += rulesAdded
+            if self.ruleCount > 2048:
+                lines.append("    subtable;")
+                self.ruleCount = rulesAdded
             lines.append("    %spos %s %s %d;" % (enum, left, right, val))
         return linesep.join(lines)
 
@@ -91,6 +98,7 @@ class KernFeatureWriter(AbstractFeatureWriter):
             self.leftClasses.append(info)
         elif name.endswith("_R"):
             self.rightClasses.append(info)
+        self.classSizes[name] = len(contents)
 
 
 def makeKernFeature(font, text):

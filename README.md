@@ -63,6 +63,7 @@ sudo python setup.py install
 cd ../robofab
 sudo python setup.py install
 cd ../feaTools
+git checkout expanded
 sudo python setup.py install
 cd ../Cython-0.22
 sudo python setup.py install

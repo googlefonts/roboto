@@ -2,14 +2,14 @@
 
 #### Create a clean directory for roboto:
 
-```
+```bash
 mkdir -p $HOME/roboto-src
 cd $HOME/roboto-src
 ```
 
 #### Download the code and dependencies:
 
-```
+```bash
 git clone https://github.com/google/roboto.git
 git clone https://github.com/behdad/fonttools.git
 git clone https://github.com/robofab-developers/robofab.git
@@ -22,13 +22,13 @@ the current directory.
 
 ##### For OTF generation:
 
-```
+```bash
 git clone https://github.com/typesupply/ufo2fdk.git
 ```
 
 To build the FDK yourself:
 
-```
+```bash
 git clone https://github.com/adobe-type-tools/afdko.git
 ```
 
@@ -42,13 +42,13 @@ current directory.
 
 ##### For TTF generation, on Ubuntu:
 
-```
+```bash
 sudo apt-get install fontforge python-fontforge
 ```
 
 ##### For post-production:
 
-```
+```bash
 git clone https://code.google.com/p/noto/
 git clone https://github.com/rougier/freetype-py.git
 ```
@@ -57,7 +57,7 @@ download the latest tarball release of HarfBuzz [here](http://www.freedesktop.or
 
 #### Install dependencies:
 
-```
+```bash
 cd fonttools
 sudo python setup.py install
 cd ../robofab
@@ -76,7 +76,7 @@ cd ..
 
 ##### For OTF generation:
 
-```
+```bash
 cd ufo2fdk
 sudo python setup.py install
 cd ..
@@ -84,14 +84,8 @@ cd ..
 
 If building the FDK yourself, follow the instructions in `afdko/FDK/FDK Build Notes.txt`:
 
-```
+```bash
 cd Python-2.7
-
-# -- TODO necessary? --
-mv Modules/Setup.dist Modules/Setup
-# edit Modules/Setup to enable zlib, and readlines for osx and windows
-# --
-
 ./configure --prefix=AFDKOPythonBuild
 make install
 mv AFDKOPythonBuild ../afdko/FDK/Tools/osx/Python
@@ -106,7 +100,7 @@ cd ../..
 
 Otherwise:
 
-```
+```bash
 cd FDK
 ./FinishInstallOSX
 cd ..
@@ -120,7 +114,7 @@ detailed information can be found in `FDK/Read_Me_First.html`).
 
 ##### For post-production:
 
-```
+```bash
 cd harfbuzz
 ./configure
 make
@@ -134,7 +128,7 @@ cd ..
 
 #### Running the toolchain:
 
-```
+```bash
 cd roboto
 make
 ```

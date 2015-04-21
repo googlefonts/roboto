@@ -15,6 +15,7 @@
 
 from numpy import array, append
 import copy
+import json
 from robofab.objects.objectsRF import RPoint
 from robofab.world import OpenFont
 from decomposeGlyph import decomposeGlyph
@@ -214,12 +215,13 @@ class FGlyph:
 
 class Master:
 
-    def __init__(self, font=None, v=0, kernlist=None, overlay=None):
+    def __init__(self, font=None, v=0, kernlist=None, overlay=None,
+                 anchorPath=None):
         if isinstance(font, FFont):
             self.font = None
             self.ffont = font
         elif isinstance(font,str):
-            self.openFont(font,overlay)
+            self.openFont(font,overlay, anchorPath)
         elif isinstance(font,Mix):
             self.font = font
         else:
@@ -238,7 +240,7 @@ class Master:
                             and not k[0] == ""]
             #TODO implement class based kerning / external kerning file
     
-    def openFont(self, path, overlayPath=None):
+    def openFont(self, path, overlayPath=None, anchorPath=None):
         self.font = OpenFont(path)
         for g in self.font:
           size = len(g)
@@ -251,6 +253,16 @@ class Master:
             font = self.font
             for overlayGlyph in overlayFont:
                 font.insertGlyph(overlayGlyph)
+
+        if anchorPath:
+            for glyphName, anchors in json.loads(open(anchorPath).read()):
+                if not self.font.has_key(glyphName):
+                    continue
+                glyph = self.font[glyphName]
+                if glyph.anchors:
+                    continue
+                for name, x, y in anchors:
+                    glyph.appendAnchor(str(name), (x, y))
 
         self.ffont = FFont(self.font)
 

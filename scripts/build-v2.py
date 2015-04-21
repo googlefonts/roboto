@@ -31,9 +31,12 @@ BASEDIR = os.path.abspath(
 
 # Masters
 
-rg = Master("%s/src/v2/Roboto_Regular.ufo" % BASEDIR)
-bd = Master("%s/src/v2/Roboto_Bold.ufo" % BASEDIR)
-th = Master("%s/src/v2/Roboto_Thin.ufo" % BASEDIR)
+rg = Master("%s/src/v2/Roboto_Regular.ufo" % BASEDIR,
+            anchorPath="%s/res/anchors_regular.txt" % BASEDIR)
+bd = Master("%s/src/v2/Roboto_Bold.ufo" % BASEDIR,
+            anchorPath="%s/res/anchors_bold.txt" % BASEDIR)
+th = Master("%s/src/v2/Roboto_Thin.ufo" % BASEDIR,
+            anchorPath="%s/res/anchors_thin.txt" % BASEDIR)
 
 # build condensed masters
 

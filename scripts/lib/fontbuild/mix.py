@@ -255,13 +255,14 @@ class Master:
                 font.insertGlyph(overlayGlyph)
 
         if anchorPath:
-            for glyphName, anchors in json.loads(open(anchorPath).read()):
+            anchorData = json.loads(open(anchorPath).read())
+            for glyphName, anchors in anchorData.items():
                 if not self.font.has_key(glyphName):
                     continue
                 glyph = self.font[glyphName]
                 if glyph.anchors:
                     continue
-                for name, x, y in anchors:
+                for name, (x, y) in anchors.items():
                     glyph.appendAnchor(str(name), (x, y))
 
         self.ffont = FFont(self.font)

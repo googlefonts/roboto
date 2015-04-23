@@ -254,14 +254,26 @@ class Master:
             for overlayGlyph in overlayFont:
                 font.insertGlyph(overlayGlyph)
 
+        # work around a bug with vfb2ufo in which anchors are dropped from
+        # glyphs containing components and no contours. "anchorPath" should
+        # point to the output of src/v2/get_dropped_anchors.py
         if anchorPath:
-            anchorData = json.loads(open(anchorPath).read())
+            anchorData = json.load(open(anchorPath))
             for glyphName, anchors in anchorData.items():
-                if not self.font.has_key(glyphName):
+
+                # another bug: some entire glyphs are dropped during conversion.
+                # example: gbar_uni1ABE
+                try:
+                    glyph = self.font[glyphName]
+                except KeyError:
                     continue
-                glyph = self.font[glyphName]
+
+                # another bug: some glyphs are decomposed during conversion, in
+                # which case they unexpectedly don't drop anchors.
+                # examples: uni04BA, Gbar (partially decomposed)
                 if glyph.anchors:
                     continue
+
                 for name, (x, y) in anchors.items():
                     glyph.appendAnchor(str(name), (x, y))
 

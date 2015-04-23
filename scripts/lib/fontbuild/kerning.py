@@ -43,21 +43,22 @@ class KernFeatureWriter(AbstractFeatureWriter):
             for rightName, rightContents in self.rightClasses:
                 rightKey = rightContents[0]
                 pair = leftKey, rightKey
-                if not self.kerning.has_key(pair):
+                val = self.kerning[pair]
+                if val is None:
                     continue
-                classPairKerning[leftName, rightName] = self.kerning[pair]
+                classPairKerning[leftName, rightName] = val
                 self.kerning.remove(pair)
 
             # collect rules with left class and right glyph
             for pair, val in self.kerning.getLeft(leftKey):
-                leftClassKerning[leftName, pair[1]] = self.kerning[pair]
+                leftClassKerning[leftName, pair[1]] = val
                 self.kerning.remove(pair)
 
         # collect rules with left glyph and right class
         for rightName, rightContents in self.rightClasses:
             rightKey = rightContents[0]
             for pair, val in self.kerning.getRight(rightKey):
-                rightClassKerning[pair[0], rightName] = self.kerning[pair]
+                rightClassKerning[pair[0], rightName] = val
                 self.kerning.remove(pair)
 
         # write the feature
@@ -78,9 +79,11 @@ class KernFeatureWriter(AbstractFeatureWriter):
         pairs = kerning.items()
         pairs.sort()
         for (left, right), val in pairs:
-            rulesAdded = (
-                self.classSizes.get(left, 1) * self.classSizes.get(right, 1)
-                if enum else 1)
+            if enum:
+                rulesAdded = (self.classSizes.get(left, 1) *
+                              self.classSizes.get(right, 1))
+            else:
+                rulesAdded = 1
             self.ruleCount += rulesAdded
             if self.ruleCount > 2048:
                 lines.append("    subtable;")

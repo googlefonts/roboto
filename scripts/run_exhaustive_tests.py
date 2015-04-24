@@ -102,8 +102,8 @@ class TestSoftDottedChars(unittest.TestCase):
                 print 'Testing %s combinations' % base_letter.encode('UTF-8')
                 for mark in self.marks_to_test:
                     mark = unichr(mark)
-                    letter_only = layout.get_advances(base_letter, font)
-                    combination = layout.get_advances(base_letter + mark, font)
+                    letter_only = layout.get_shapes(base_letter, font)
+                    combination = layout.get_shapes(base_letter + mark, font)
                     self.assertNotEqual(combination[0], letter_only[0],
                         "The sequence <%04X, %04X> doesn't lose its dot, "
                         "but it should" % (ord(base_letter), ord(mark)))

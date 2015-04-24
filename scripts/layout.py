@@ -32,3 +32,16 @@ def get_advances(text, font):
     _advance_cache[(text, font)] = advances
     return advances
 
+_shape_cache = {}
+def get_shapes(text, font):
+    """Get a list of shaped glyphs for text rendered in a font."""
+    try:
+        return _shape_cache[(text, font)]
+    except KeyError:
+        pass
+
+    hb_output = render.run_harfbuzz_on_text(text, font, None)
+    hb_output = json.loads(hb_output)
+    shapes = [glyph['g'] for glyph in hb_output]
+    _shape_cache[(text, font)] = shapes
+    return shapes

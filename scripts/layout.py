@@ -33,7 +33,7 @@ def get_advances(text, font):
     return advances
 
 _shape_cache = {}
-def get_shapes(text, font):
+def get_glyphs(text, font):
     """Get a list of shaped glyphs for text rendered in a font."""
     try:
         return _shape_cache[(text, font)]

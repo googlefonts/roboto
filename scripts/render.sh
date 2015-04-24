@@ -16,33 +16,35 @@
 
 HARFBUZZ=$HOME/harfbuzz
 
+FONTDIR=$(dirname "${BASH_SOURCE[0]}")/../hinted
+
 input_file=$1
 
 function render {
  cat $input_file | $HARFBUZZ/util/hb-view --font-file=$1 --output-format=png --output-file=$2.png
 }
 
-render ../hinted/Roboto-Thin.ttf 100
-render ../hinted/Roboto-Light.ttf 300
-render ../hinted/Roboto-Regular.ttf 400
-render ../hinted/Roboto-Medium.ttf 500
-render ../hinted/Roboto-Bold.ttf 700
-render ../hinted/Roboto-Black.ttf 900
+render $FONTDIR/Roboto-Thin.ttf 100
+render $FONTDIR/Roboto-Light.ttf 300
+render $FONTDIR/Roboto-Regular.ttf 400
+render $FONTDIR/Roboto-Medium.ttf 500
+render $FONTDIR/Roboto-Bold.ttf 700
+render $FONTDIR/Roboto-Black.ttf 900
 
-render ../hinted/Roboto-ThinItalic.ttf i100
-render ../hinted/Roboto-LightItalic.ttf i300
-render ../hinted/Roboto-Italic.ttf i400
-render ../hinted/Roboto-MediumItalic.ttf i500
-render ../hinted/Roboto-BoldItalic.ttf i700
-render ../hinted/Roboto-BlackItalic.ttf i900
+render $FONTDIR/Roboto-ThinItalic.ttf i100
+render $FONTDIR/Roboto-LightItalic.ttf i300
+render $FONTDIR/Roboto-Italic.ttf i400
+render $FONTDIR/Roboto-MediumItalic.ttf i500
+render $FONTDIR/Roboto-BoldItalic.ttf i700
+render $FONTDIR/Roboto-BlackItalic.ttf i900
 
-render ../hinted/RobotoCondensed-Light.ttf c300
-render ../hinted/RobotoCondensed-Regular.ttf c400
-render ../hinted/RobotoCondensed-Bold.ttf c700
+render $FONTDIR/RobotoCondensed-Light.ttf c300
+render $FONTDIR/RobotoCondensed-Regular.ttf c400
+render $FONTDIR/RobotoCondensed-Bold.ttf c700
 
-render ../hinted/RobotoCondensed-LightItalic.ttf ci300
-render ../hinted/RobotoCondensed-Italic.ttf ci400
-render ../hinted/RobotoCondensed-BoldItalic.ttf ci700
+render $FONTDIR/RobotoCondensed-LightItalic.ttf ci300
+render $FONTDIR/RobotoCondensed-Italic.ttf ci400
+render $FONTDIR/RobotoCondensed-BoldItalic.ttf ci700
 
 eog *.png
 

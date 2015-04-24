@@ -60,7 +60,7 @@ git clone https://github.com/rougier/freetype-py.git
 
 download the latest tarball release of HarfBuzz
 [here](http://www.freedesktop.org/wiki/Software/HarfBuzz/) and extract it into
-the **home** directory as $HOME/harfbuzz (alternatively, you can download the
+the **home** directory as `$HOME/harfbuzz` (alternatively, you can download the
 latest source from GitHub via
 `git clone https://github.com/behdad/harfbuzz.git`).
 
@@ -85,7 +85,7 @@ sudo python setup.py install
 cd ..
 ```
 
-Or set $PYTHONPATH locally before running `make`:
+Or set `$PYTHONPATH` locally before running `make`:
 
 ```bash
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/fonttools/Lib"

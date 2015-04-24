@@ -13,12 +13,17 @@ cd $HOME/roboto-src
 git clone https://github.com/google/roboto.git
 git clone https://github.com/behdad/fonttools.git
 git clone https://github.com/robofab-developers/robofab.git
-git clone https://github.com/jamesgk/feaTools.git
+git clone -b expanded https://github.com/jamesgk/feaTools.git
 git clone https://github.com/typemytype/booleanOperations.git
 ```
 
 download [Cython](http://cython.org/#download) and extract it into
-the current directory.
+the current directory. On Ubuntu, Cython can also be downloaded and installed
+via:
+
+```bash
+sudo apt-get install cython
+```
 
 ##### For OTF generation:
 
@@ -53,9 +58,15 @@ git clone https://code.google.com/p/noto/
 git clone https://github.com/rougier/freetype-py.git
 ```
 
-download the latest tarball release of HarfBuzz [here](http://www.freedesktop.org/wiki/Software/HarfBuzz/) and extract it into the current directory.
+download the latest tarball release of HarfBuzz
+[here](http://www.freedesktop.org/wiki/Software/HarfBuzz/) and extract it into
+the **home** directory as $HOME/harfbuzz (alternatively, you can download the
+latest source from GitHub via
+`git clone https://github.com/behdad/harfbuzz.git`).
 
 #### Install dependencies:
+
+You can install the necessary modules at the sytem level:
 
 ```bash
 cd fonttools
@@ -63,7 +74,6 @@ sudo python setup.py install
 cd ../robofab
 sudo python setup.py install
 cd ../feaTools
-git checkout expanded
 sudo python setup.py install
 cd ../Cython-0.22
 sudo python setup.py install
@@ -75,12 +85,27 @@ sudo python setup.py install
 cd ..
 ```
 
+Or set $PYTHONPATH locally before running `make`:
+
+```bash
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/fonttools/Lib"
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/robofab/Lib"
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/feaTools/Lib"
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/booleanOperations/Lib"
+```
+
 ##### For OTF generation:
 
 ```bash
 cd ufo2fdk
 sudo python setup.py install
 cd ..
+```
+
+Or:
+
+```bash
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/ufo2fdk/Lib"
 ```
 
 If building the FDK yourself, follow the instructions in `afdko/FDK/FDK Build Notes.txt`:
@@ -116,15 +141,28 @@ detailed information can be found in `FDK/Read_Me_First.html`).
 ##### For post-production:
 
 ```bash
-cd harfbuzz
+cd $HOME/harfbuzz
 ./configure
 make
 sudo make install
-cd ../noto
+cd $HOME/roboto-src/
+```
+
+Install python modules to system:
+
+```bash
+cd noto
 sudo python setup.py install
 cd ../freetype-py
 sudo python setup.py install
 cd ..
+```
+
+Or:
+
+```bash
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/noto"
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/freetype-py"
 ```
 
 #### Running the toolchain:

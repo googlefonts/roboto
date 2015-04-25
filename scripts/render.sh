@@ -16,7 +16,7 @@
 
 HARFBUZZ=$HOME/harfbuzz
 
-FONTDIR=$(dirname "${BASH_SOURCE[0]}")/../hinted
+FONTDIR=$(dirname $0)/../hinted
 
 input_file=$1
 

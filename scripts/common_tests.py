@@ -1,3 +1,5 @@
+# coding=UTF-8
+#
 # Copyright 2015 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -167,7 +169,7 @@ class TestDigitWidths(FontTest):
     """Tests the width of digits."""
 
     def setUp(self):
-        _, self.fonts = self.loaded_fonts
+        self.font_files, self.fonts = self.loaded_fonts
         self.digits = [
             'zero', 'one', 'two', 'three', 'four',
             'five', 'six', 'seven', 'eight', 'nine']
@@ -178,6 +180,17 @@ class TestDigitWidths(FontTest):
             hmtx_table = font['hmtx']
             widths = [hmtx_table[digit][0] for digit in self.digits]
             self.assertEqual(len(set(widths)), 1)
+
+    def test_superscript_digits(self):
+        """Tests that 'numr' features maps digits to Unicode superscripts."""
+        ascii_digits = '0123456789'
+        superscript_digits = u'⁰¹²³⁴⁵⁶⁷⁸⁹'
+        for font_file in self.font_files:
+            numr_glyphs = layout.get_advances(
+                ascii_digits, font_file, '--features=numr')
+            superscript_glyphs = layout.get_advances(
+                superscript_digits, font_file)
+            self.assertEqual(superscript_glyphs, numr_glyphs)
 
 
 class TestCharacterCoverage(FontTest):

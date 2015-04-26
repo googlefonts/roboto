@@ -18,35 +18,41 @@ import json
 
 from nototools import render
 
-def _run_harfbuzz(text, font, language):
+def _run_harfbuzz(text, font, language, extra_parameters=None):
     """Run harfbuzz on some text and return the shaped list."""
-    hb_output = render.run_harfbuzz_on_text(text, font, language)
+    try:
+        # if extra_parameters is a string, split it into a list
+        extra_parameters = extra_parameters.split(' ')
+    except AttributeError:
+        pass
+    hb_output = render.run_harfbuzz_on_text(
+        text, font, language, extra_parameters)
     return json.loads(hb_output)
 
 
 _advance_cache = {}
-def get_advances(text, font):
+def get_advances(text, font, extra_parameters=None):
     """Get a list of horizontal advances for text rendered in a font."""
     try:
-        return _advance_cache[(text, font)]
+        return _advance_cache[(text, font, extra_parameters)]
     except KeyError:
         pass
 
-    hb_output = _run_harfbuzz(text, font, None)
+    hb_output = _run_harfbuzz(text, font, None, extra_parameters)
     advances = [glyph['ax'] for glyph in hb_output]
-    _advance_cache[(text, font)] = advances
+    _advance_cache[(text, font, extra_parameters)] = advances
     return advances
 
 
 _shape_cache = {}
-def get_glyphs(text, font):
+def get_glyphs(text, font, extra_parameters=None):
     """Get a list of shaped glyphs for text rendered in a font."""
     try:
-        return _shape_cache[(text, font)]
+        return _shape_cache[(text, font, extra_parameters)]
     except KeyError:
         pass
 
-    hb_output = _run_harfbuzz(text, font, None)
+    hb_output = _run_harfbuzz(text, font, None, extra_parameters)
     shapes = [glyph['g'] for glyph in hb_output]
-    _shape_cache[(text, font)] = shapes
+    _shape_cache[(text, font, extra_parameters)] = shapes
     return shapes

@@ -76,5 +76,38 @@ class TestSpacingMarks(unittest.TestCase):
                         'but it should not' % (ord(base_letter), ord(mark)))
 
 
+class TestSoftDottedChars(unittest.TestCase):
+    """Tests that soft-dotted characters lose their dots."""
+
+    def setUp(self):
+        self.font_files, _ = load_fonts()
+        charset = coverage.character_set(self.font_files[0])
+        self.marks_to_test = [char for char in charset
+                              if unicode_data.combining(char) == 230]
+        self.advance_cache = {}
+
+    def test_combinations(self):
+        """Tests that soft-dotted characters lose their dots when combined."""
+
+        return  # FIXME: Test is currently disabled, since the fonts fail it
+
+        for font in self.font_files:
+            print 'Testing %s for soft-dotted combinations...' % font
+
+            # TODO: replace the following list with actual derivation based on
+            # Unicode's soft-dotted property
+            for base_letter in (u'ij\u012F\u0249\u0268\u029D\u02B2\u03F3\u0456'
+                                u'\u0458\u1D62\u1D96\u1DA4\u1DA8\u1E2D\u1ECB'
+                                u'\u2071\u2C7C'):
+                print 'Testing %s combinations' % base_letter.encode('UTF-8')
+                for mark in self.marks_to_test:
+                    mark = unichr(mark)
+                    letter_only = layout.get_glyphs(base_letter, font)
+                    combination = layout.get_glyphs(base_letter + mark, font)
+                    self.assertNotEqual(combination[0], letter_only[0],
+                        "The sequence <%04X, %04X> doesn't lose its dot, "
+                        "but it should" % (ord(base_letter), ord(mark)))
+
+
 if __name__ == '__main__':
     unittest.main()

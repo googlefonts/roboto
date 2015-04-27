@@ -264,7 +264,7 @@ class TestFeatures(FontTest):
     def test_smcp_coverage(self):
         """Tests that smcp is supported for our required set."""
         with open('res/smcp_requirements.txt') as smcp_reqs_file:
-            smcp_reqs_lis = []
+            smcp_reqs_list = []
             for line in smcp_reqs_file.readlines():
                 line = line[:line.index(' #')]
                 smcp_reqs_list.append(unichr(int(line, 16)))

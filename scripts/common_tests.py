@@ -245,6 +245,15 @@ class TestLigatures(FontTest):
             advances = layout.get_advances('ff', fontfile)
             self.assertEqual(len(advances), 2)
 
+    def test_st_ligatures(self):
+        """Tests that st ligatures are formed by dlig."""
+        for fontfile in self.fontfiles:
+            for combination in [u'st', u'ſt']:
+                normal = layout.get_glyphs(combination, fontfile)
+                ligated = layout.get_glyphs(
+                    combination, fontfile, '--features=dlig')
+                self.assertTrue(len(normal) == 2 and len(ligated) == 1)
+
 
 class TestVerticalMetrics(FontTest):
     """Test the vertical metrics of fonts."""

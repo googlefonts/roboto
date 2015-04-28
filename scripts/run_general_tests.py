@@ -46,6 +46,10 @@ class TestLigatures(common_tests.TestLigatures):
     loaded_fonts = FONTS
 
 
+class TestFeatures(common_tests.TestFeatures):
+    loaded_fonts = FONTS
+
+
 if __name__ == '__main__':
     unittest.main()
 

@@ -52,7 +52,7 @@ def main():
         # write the data as json
         outpath = os.path.join(path, "res", "anchors_%s.json" % weight)
         with open(outpath, "w") as outfile:
-            json.dump(fontData, outfile, sort_keys=True, indent=4,
+            json.dump(fontData, outfile, sort_keys=True, indent=2,
                       separators=(',', ': '))
             print "Wrote " + outpath
     print "Done"

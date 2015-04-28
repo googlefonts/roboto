@@ -255,6 +255,33 @@ class TestLigatures(FontTest):
                 self.assertTrue(len(normal) == 2 and len(ligated) == 1)
 
 
+class TestFeatures(FontTest):
+    """Tests typographic features."""
+
+    def setUp(self):
+        self.fontfiles, _ = self.loaded_fonts
+
+    def test_smcp_coverage(self):
+        """Tests that smcp is supported for our required set."""
+        with open('res/smcp_requirements.txt') as smcp_reqs_file:
+            smcp_reqs_list = []
+            for line in smcp_reqs_file.readlines():
+                line = line[:line.index(' #')]
+                smcp_reqs_list.append(unichr(int(line, 16)))
+
+        for fontfile in self.fontfiles:
+            chars_with_no_smcp = []
+            for char in smcp_reqs_list:
+                normal = layout.get_glyphs(char, fontfile)
+                smcp = layout.get_glyphs(char, fontfile, '--features=smcp')
+                if normal == smcp:
+                    chars_with_no_smcp.append(char)
+            self.assertEqual(
+                chars_with_no_smcp, [],
+                ("smcp feature is not applied to '%s'" %
+                    u''.join(chars_with_no_smcp).encode('UTF-8')))
+
+
 class TestVerticalMetrics(FontTest):
     """Test the vertical metrics of fonts."""
 

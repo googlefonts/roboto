@@ -15,6 +15,7 @@
 
 from numpy import array, append
 import copy
+import json
 from robofab.objects.objectsRF import RPoint
 from robofab.world import OpenFont
 from decomposeGlyph import decomposeGlyph
@@ -214,12 +215,13 @@ class FGlyph:
 
 class Master:
 
-    def __init__(self, font=None, v=0, kernlist=None, overlay=None):
+    def __init__(self, font=None, v=0, kernlist=None, overlay=None,
+                 anchorPath=None):
         if isinstance(font, FFont):
             self.font = None
             self.ffont = font
         elif isinstance(font,str):
-            self.openFont(font,overlay)
+            self.openFont(font,overlay, anchorPath)
         elif isinstance(font,Mix):
             self.font = font
         else:
@@ -238,7 +240,7 @@ class Master:
                             and not k[0] == ""]
             #TODO implement class based kerning / external kerning file
     
-    def openFont(self, path, overlayPath=None):
+    def openFont(self, path, overlayPath=None, anchorPath=None):
         self.font = OpenFont(path)
         for g in self.font:
           size = len(g)
@@ -251,6 +253,29 @@ class Master:
             font = self.font
             for overlayGlyph in overlayFont:
                 font.insertGlyph(overlayGlyph)
+
+        # work around a bug with vfb2ufo in which anchors are dropped from
+        # glyphs containing components and no contours. "anchorPath" should
+        # point to the output of src/v2/get_dropped_anchors.py
+        if anchorPath:
+            anchorData = json.load(open(anchorPath))
+            for glyphName, anchors in anchorData.items():
+
+                # another bug: some entire glyphs are dropped during conversion.
+                # example: gbar_uni1ABE
+                try:
+                    glyph = self.font[glyphName]
+                except KeyError:
+                    continue
+
+                # another bug: some glyphs are decomposed during conversion, in
+                # which case they unexpectedly don't drop anchors.
+                # examples: uni04BA, Gbar (partially decomposed)
+                if glyph.anchors:
+                    continue
+
+                for name, (x, y) in anchors.items():
+                    glyph.appendAnchor(str(name), (x, y))
 
         self.ffont = FFont(self.font)
 

@@ -29,6 +29,7 @@ class KernFeatureWriter(AbstractFeatureWriter):
         self.kerning = font.kerning
         self.leftClasses = []
         self.rightClasses = []
+        self.classSizes = {}
 
     def write(self, linesep="\n"):
         """Write kern feature."""
@@ -42,30 +43,30 @@ class KernFeatureWriter(AbstractFeatureWriter):
             for rightName, rightContents in self.rightClasses:
                 rightKey = rightContents[0]
                 pair = leftKey, rightKey
-                if not self.kerning.has_key(pair):
+                kerningVal = self.kerning[pair]
+                if kerningVal is None:
                     continue
-                classPairKerning[leftName, rightName] = self.kerning[pair]
+                classPairKerning[leftName, rightName] = kerningVal
                 self.kerning.remove(pair)
 
             # collect rules with left class and right glyph
-            for pair, val in self.kerning.getLeft(leftKey):
-                leftClassKerning[leftName, pair[1]] = self.kerning[pair]
+            for pair, kerningVal in self.kerning.getLeft(leftKey):
+                leftClassKerning[leftName, pair[1]] = kerningVal
                 self.kerning.remove(pair)
 
         # collect rules with left glyph and right class
         for rightName, rightContents in self.rightClasses:
             rightKey = rightContents[0]
-            for pair, val in self.kerning.getRight(rightKey):
-                rightClassKerning[pair[0], rightName] = self.kerning[pair]
+            for pair, kerningVal in self.kerning.getRight(rightKey):
+                rightClassKerning[pair[0], rightName] = kerningVal
                 self.kerning.remove(pair)
 
         # write the feature
+        self.ruleCount = 0
         lines = ["feature kern {"]
         lines.append(self._writeKerning(self.kerning, linesep))
         lines.append(self._writeKerning(leftClassKerning, linesep, True))
-        lines.append("    subtable;")
         lines.append(self._writeKerning(rightClassKerning, linesep, True))
-        lines.append("    subtable;")
         lines.append(self._writeKerning(classPairKerning, linesep))
         lines.append("} kern;")
         return linesep.join(lines)
@@ -78,6 +79,15 @@ class KernFeatureWriter(AbstractFeatureWriter):
         pairs = kerning.items()
         pairs.sort()
         for (left, right), val in pairs:
+            if enum:
+                rulesAdded = (self.classSizes.get(left, 1) *
+                              self.classSizes.get(right, 1))
+            else:
+                rulesAdded = 1
+            self.ruleCount += rulesAdded
+            if self.ruleCount > 2048:
+                lines.append("    subtable;")
+                self.ruleCount = rulesAdded
             lines.append("    %spos %s %s %d;" % (enum, left, right, val))
         return linesep.join(lines)
 
@@ -91,6 +101,7 @@ class KernFeatureWriter(AbstractFeatureWriter):
             self.leftClasses.append(info)
         elif name.endswith("_R"):
             self.rightClasses.append(info)
+        self.classSizes[name] = len(contents)
 
 
 def makeKernFeature(font, text):

@@ -17,3 +17,9 @@ wine [path-to-vfb2ufo]/exe/vfb2ufo.exe [roboto]/src/v2/Roboto_Bold.vfb
 
 The converter should work both ways, so it is possible to convert altered UFOs
 back into VFBs which can be opened in FontLab.
+
+**Note:** There is currently an issue when converting via vfb2ufo, in which
+some anchors are dropped from glyphs. For now it is also necessary to run the
+script `get_dropped_anchors.py` through FontLab after updating the VFBs, in
+order to extract these dropped anchors into an external resource which is then
+re-incorporated into the masters during the build.

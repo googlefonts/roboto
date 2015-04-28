@@ -43,22 +43,22 @@ class KernFeatureWriter(AbstractFeatureWriter):
             for rightName, rightContents in self.rightClasses:
                 rightKey = rightContents[0]
                 pair = leftKey, rightKey
-                val = self.kerning[pair]
-                if val is None:
+                kerningVal = self.kerning[pair]
+                if kerningVal is None:
                     continue
-                classPairKerning[leftName, rightName] = val
+                classPairKerning[leftName, rightName] = kerningVal
                 self.kerning.remove(pair)
 
             # collect rules with left class and right glyph
-            for pair, val in self.kerning.getLeft(leftKey):
-                leftClassKerning[leftName, pair[1]] = val
+            for pair, kerningVal in self.kerning.getLeft(leftKey):
+                leftClassKerning[leftName, pair[1]] = kerningVal
                 self.kerning.remove(pair)
 
         # collect rules with left glyph and right class
         for rightName, rightContents in self.rightClasses:
             rightKey = rightContents[0]
-            for pair, val in self.kerning.getRight(rightKey):
-                rightClassKerning[pair[0], rightName] = val
+            for pair, kerningVal in self.kerning.getRight(rightKey):
+                rightClassKerning[pair[0], rightName] = kerningVal
                 self.kerning.remove(pair)
 
         # write the feature

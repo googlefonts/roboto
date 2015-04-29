@@ -40,42 +40,6 @@ def read_charlist(filename):
             charlist.append(char)
         return charlist
 
-LATIN = (
-    range(0x0020, 0x007F) + range(0x00A0, 0x0100) +
-    [0x0131, 0x0152, 0x0153, 0x02C6, 0x02DA, 0x02DC, 0x2013, 0x2014, 0x2018,
-     0x2019, 0x201A, 0x201C, 0x201D, 0x201E, 0x2022, 0x2039, 0x203A, 0x2044,
-     0x2074, 0x20AC, 0x2212, 0x2215])
-
-CYRILLIC = (
-    range(0x0400, 0x0460) +
-    [0x0490, 0x0491, 0x04B0, 0x04B1, 0x20BD, 0x2116])
-
-SUBSETS = {
-    'cyrillic': LATIN + CYRILLIC,
-    'cyrillic-ext': (
-        LATIN + CYRILLIC + range(0x0460, 0x0530) + [0x20B4] +
-        range(0x2DE0, 0x2E00) + range(0xA640, 0xA6A0)),
-    'greek': LATIN + range(0x0370, 0x0400),
-    'greek-ext': LATIN + range(0x0384, 0x0400) + range(0x1F00, 0x2000),
-    'latin': LATIN,
-    'latin-ext': (
-        LATIN + range(0x0100, 0x0370) +
-        [0x02BC, 0x0300, 0x0301, 0x0303, 0x030F] +
-        range(0x1D00, 0x1F00) +
-        [0x2026] +
-        range(0x2070, 0x20D0) +
-        range(0x2C60, 0x2C80) +
-        range(0xA700, 0xA800)),
-    'menu': [ord(c) for c in u' ()DEKNQRabcfgoprtuvĸ΄ΕάαεηικλνКаилрцốữ'],
-    'vietnamese': (
-        LATIN +
-        [0x0102, 0x0103, 0x0110, 0x0111, 0x0128, 0x0129, 0x0168, 0x0169,
-         0x01A0, 0x01A1, 0x01AF, 0x01B0, 0x02D8, 0x0309, 0x0323] +
-        range(0x1EA0, 0x1EFA) + [0x20AB]),
-}
-
-SUBSETS = {k: frozenset(v) for k, v in SUBSETS.iteritems()}
-
 
 def main(argv):
     """Subset the first argument to second, dropping unused parts of the font.
@@ -95,12 +59,6 @@ def main(argv):
         source_filename, target_filename,
         include=charlist,
         options={'layout_features': features_to_keep})
-
-    for suffix in SUBSETS.keys():
-        subset_filename = target_filename.replace('ttf', suffix)
-        subset.subset_font(
-            target_filename, subset_filename,
-            include=SUBSETS[suffix])
 
 
 if __name__ == '__main__':

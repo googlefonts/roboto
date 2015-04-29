@@ -13,7 +13,7 @@ cd $HOME/roboto-src
 git clone https://github.com/google/roboto.git
 git clone https://github.com/behdad/fonttools.git
 git clone https://github.com/robofab-developers/robofab.git
-git clone -b expanded https://github.com/jamesgk/feaTools.git
+git clone https://github.com/typesupply/feaTools.git
 git clone https://github.com/typemytype/booleanOperations.git
 ```
 
@@ -178,8 +178,7 @@ The Roboto build toolchain depends on:
 - FontTools (https://github.com/behdad/fonttools)
 - RoboFab (https://github.com/robofab-developers/robofab)
 - NumPy and SciPy (http://www.numpy.org/)
-- An expanded version of Tal Leming's feaTools
-  (https://github.com/jamesgk/feaTools/tree/expanded), for feature handling.
+- feaTools (https://github.com/typesupply/feaTools.git), for feature handling.
 - BooleanOperations (https://github.com/typemytype/booleanOperations), for
   glyph overlap removal.
   - (requires Cython to install: http://cython.org/)

@@ -21,7 +21,7 @@ FONTDIR=$(dirname $0)/../hinted
 input_file=$1
 
 function render {
- cat $input_file | $HARFBUZZ/util/hb-view --font-file=$1 --output-format=png --output-file=$2.png
+ cat $input_file | $HARFBUZZ/util/hb-view --font-file=$1 --output-format=png --output-file=$2.png --font-size=200
 }
 
 render $FONTDIR/Roboto-Thin.ttf 100

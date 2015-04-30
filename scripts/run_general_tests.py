@@ -21,7 +21,7 @@ import unittest
 import common_tests
 
 FONTS = common_tests.load_fonts(
-    ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
+    ['hinted/*.ttf'],
     expected_count=18)
 
 class TestItalicAngle(common_tests.TestItalicAngle):
@@ -49,6 +49,11 @@ class TestLigatures(common_tests.TestLigatures):
 class TestFeatures(common_tests.TestFeatures):
     loaded_fonts = FONTS
 
+
+class TestVerticalMetrics(common_tests.TestVerticalMetrics):
+    loaded_fonts = FONTS
+    test_ymin_ymax = None
+    test_hhea_table_metrics = None
 
 if __name__ == '__main__':
     unittest.main()

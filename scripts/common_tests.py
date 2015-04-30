@@ -282,11 +282,14 @@ class TestFeatures(FontTest):
                     u''.join(chars_with_no_smcp).encode('UTF-8')))
 
 
+EXPECTED_YMIN = -555
+EXPECTED_YMAX = 2163
+
 class TestVerticalMetrics(FontTest):
     """Test the vertical metrics of fonts."""
 
     def setUp(self):
-        _, self.fonts = self.loaded_fonts
+        self.font_files, self.fonts = self.loaded_fonts
 
     def test_ymin_ymax(self):
         """Tests yMin and yMax to be equal to Roboto v1 values.
@@ -295,8 +298,25 @@ class TestVerticalMetrics(FontTest):
         """
         for font in self.fonts:
             head_table = font['head']
-            self.assertEqual(head_table.yMin, -555)
-            self.assertEqual(head_table.yMax, 2163)
+            self.assertEqual(head_table.yMin, EXPECTED_YMIN)
+            self.assertEqual(head_table.yMax, EXPECTED_YMAX)
+
+    def test_glyphs_ymin_ymax(self):
+        """Tests yMin and yMax of all glyphs to not go outside the range."""
+        for font_file, font in zip(self.font_files, self.fonts):
+            glyf_table = font['glyf']
+            for glyph_name in glyf_table.glyphOrder:
+                try:
+                    y_min = glyf_table[glyph_name].yMin
+                    y_max = glyf_table[glyph_name].yMax
+                except AttributeError:
+                    continue
+
+                self.assertTrue(
+                    EXPECTED_YMIN <= y_min and y_max <= EXPECTED_YMAX,
+                    ('The vertical metrics for glyph %s in %s exceed the '
+                     'acceptable range: yMin=%d, yMax=%d' % (
+                         glyph_name, font_file, y_min, y_max)))
 
     def test_hhea_table_metrics(self):
         """Tests ascent, descent, and lineGap to be equal to Roboto v1 values.

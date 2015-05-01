@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+import re
 from anchors import alignComponentsToAnchors
 
 
@@ -93,3 +94,7 @@ def setUnicodeValue(glyph, glyphList):
 
     if glyph.name in glyphList:
         glyph.unicode = int(glyphList[glyph.name], 16)
+    else:
+        uvNameMatch = re.match("uni([\dA-F]{4})$", glyph.name)
+        if uvNameMatch:
+            glyph.unicode = int(uvNameMatch.group(1), 16)

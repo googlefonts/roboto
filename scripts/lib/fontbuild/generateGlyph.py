@@ -65,6 +65,7 @@ def generateGlyph(f,gname,glyphList={}):
         for componentName in baseName.split("_"):
             g.appendComponent(componentName, (g.width, 0))
             g.width += f[componentName].width
+            setUnicodeValue(g, glyphList)
 
     else: 
         if not f.has_key(glyphName):
@@ -75,6 +76,7 @@ def generateGlyph(f,gname,glyphList={}):
                     "anchor not found in glyph '%s'" % (gname, e, baseName))
                 return
             g = f[glyphName]
+            setUnicodeValue(g, glyphList)
             copyMarkAnchors(f, g, baseName, offset[1] + offset[0])
             if offset[0] != 0 or offset[1] != 0:
                 g.width += offset[1] + offset[0]
@@ -85,6 +87,9 @@ def generateGlyph(f,gname,glyphList={}):
             print ("Existing glyph '%s' found in font, ignoring composition "
                 "rule '%s'" % (glyphName, gname))
 
-    # try to ensure every glyph has a unicode value -- used by FDK to make OTFs
-    if glyphName in glyphList:
-        f[glyphName].unicode = int(glyphList[glyphName], 16)
+
+def setUnicodeValue(glyph, glyphList):
+    """Try to ensure glyph has a unicode value -- used by FDK to make OTFs."""
+
+    if glyph.name in glyphList:
+        glyph.unicode = int(glyphList[glyph.name], 16)

@@ -58,13 +58,6 @@ def copyMarkAnchors(f, g, srcname, width):
  #           g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
 
 
-def shiftGlyphMembers(g, x):
-    for contour in g.contours:
-        contour.move((x, 0))
-    for component in g.components:
-        component.move((x, 0))
-
-
 def generateGlyph(f,gname,glyphList={}):
     glyphName, baseName, accentNames, offset = parseComposite(gname)
 
@@ -88,7 +81,7 @@ def generateGlyph(f,gname,glyphList={}):
             copyMarkAnchors(f, g, baseName, offset[1] + offset[0])
             if offset[0] != 0 or offset[1] != 0:
                 g.width += offset[1] + offset[0]
-                shiftGlyphMembers(g, offset[0])
+                g.move((offset[0], 0), anchors=False)
             if len(accentNames) > 0:
                 alignComponentsToAnchors(f, glyphName, baseName, accentNames)
         else:

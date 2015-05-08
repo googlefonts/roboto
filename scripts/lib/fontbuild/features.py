@@ -19,47 +19,6 @@ from feaTools import parser
 from feaTools.writers.fdkSyntaxWriter import FDKSyntaxFeatureWriter
 
 
-# fix some regular expressions used by feaTools
-# we may want to push these fixes upstream
-# allow dashes in glyph class content, for glyph ranges
-parser.classDefinitionRE = re.compile(
-        "([\s;\{\}]|^)"        # whitepace, ; {, } or start of line
-        "@"                    # @
-        "([\w\d_.]+)"          # name
-        "\s*=\s*"              #  = 
-        "\["                   # [
-        "([\w\d\s\-_.@]+)"     # content
-        "\]"                   # ]
-        "\s*;"                 # ;
-        , re.M
-        )
-parser.classContentRE = re.compile(
-        "([\w\d\-_.@]+)"
-        )
-
-# allow apostrophes in feature/lookup content
-parser.sequenceInlineClassRE = re.compile(
-        "\["                   # [
-        "([\w\d\s_.@']+)"      # content
-        "\]'?"                 # ], optional contextual marking
-        )
-
-# allow apostrophes in the target and replacement of a substitution
-parser.subType1And4RE = re.compile(
-        "([\s;\{\}]|^)"        # whitepace, ; {, } or start of line
-        "substitute|sub\s+"    # sub
-        "([\w\d\s_.@\[\]']+)"  # target
-        "\s+by\s+"             #  by
-        "([\w\d\s_.@\[\]']+)"  # replacement
-        "\s*;"                 # ;
-        )
-
-# don't be greedy when matching feature/lookup/table content (may be duplicates)
-parser.featureContentRE[3] = parser.featureContentRE[3].replace('*', '*?')
-parser.lookupContentRE[3] = parser.lookupContentRE[3].replace('*', '*?')
-parser.tableContentRE[3] = parser.tableContentRE[3].replace('*', '*?')
-
-
 class FilterFeatureWriter(FDKSyntaxFeatureWriter):
     """Feature writer to detect invalid references and duplicate definitions."""
 
@@ -138,6 +97,13 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
         if self._checkRefs([target, replacement], self.subErr):
             super(FilterFeatureWriter, self).gsubType4(target, replacement)
 
+    def gsubType6(self, precedingContext, target, trailingContext, replacement):
+        """Check a sub rule with contextual replacement."""
+        refs = [precedingContext, target, trailingContext, replacement]
+        if self._checkRefs(refs, self.subErr):
+            super(FilterFeatureWriter, self).gsubType6(
+                precedingContext, target, trailingContext, replacement)
+
     def gposType1(self, target, value):
         """Check a single positioning rule."""
         if self._checkRefs([target], self.posErr):
@@ -150,8 +116,6 @@ class FilterFeatureWriter(FDKSyntaxFeatureWriter):
 
     # these rules may contain references, but they aren't present in Roboto
     def gsubType3(self, target, replacement):
-        raise NotImplementedError
-    def gsubType6(self, precedingContext, target, trailingContext, replacement):
         raise NotImplementedError
 
     def feature(self, name):

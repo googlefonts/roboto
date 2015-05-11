@@ -260,20 +260,7 @@ class Master:
         if anchorPath:
             anchorData = json.load(open(anchorPath))
             for glyphName, anchors in anchorData.items():
-
-                # another bug: some entire glyphs are dropped during conversion.
-                # example: gbar_uni1ABE
-                try:
-                    glyph = self.font[glyphName]
-                except KeyError:
-                    continue
-
-                # another bug: some glyphs are decomposed during conversion, in
-                # which case they unexpectedly don't drop anchors.
-                # examples: uni04BA, Gbar (partially decomposed)
-                if glyph.anchors:
-                    continue
-
+                glyph = self.font[glyphName]
                 for name, (x, y) in anchors.items():
                     glyph.appendAnchor(str(name), (x, y))
 

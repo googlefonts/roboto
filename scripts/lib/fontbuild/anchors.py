@@ -39,9 +39,9 @@ def moveMarkAnchors(f, g, anchorName, accentName, dx, dy):
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmkbottom_acc" == anchor.name:
-                for anchor in g.anchors:
-                    if anchor.name == "bottom":
-                        g.removeAnchor(anchor)
+                for anc in g.anchors:
+                    if anc.name == "bottom":
+                        g.removeAnchor(anc)
                         break
                 x = anchor.x + int(dx)
                 for anc in anchors:

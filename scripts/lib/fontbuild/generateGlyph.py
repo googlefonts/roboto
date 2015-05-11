@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+import re
 from anchors import alignComponentsToAnchors
 
 
@@ -65,6 +66,7 @@ def generateGlyph(f,gname,glyphList={}):
         for componentName in baseName.split("_"):
             g.appendComponent(componentName, (g.width, 0))
             g.width += f[componentName].width
+            setUnicodeValue(g, glyphList)
 
     else: 
         if not f.has_key(glyphName):
@@ -75,16 +77,24 @@ def generateGlyph(f,gname,glyphList={}):
                     "anchor not found in glyph '%s'" % (gname, e, baseName))
                 return
             g = f[glyphName]
+            setUnicodeValue(g, glyphList)
             copyMarkAnchors(f, g, baseName, offset[1] + offset[0])
             if offset[0] != 0 or offset[1] != 0:
                 g.width += offset[1] + offset[0]
-                g.move((offset[0], 0))
+                g.move((offset[0], 0), anchors=False)
             if len(accentNames) > 0:
                 alignComponentsToAnchors(f, glyphName, baseName, accentNames)
         else:
             print ("Existing glyph '%s' found in font, ignoring composition "
                 "rule '%s'" % (glyphName, gname))
 
-    # try to ensure every glyph has a unicode value -- used by FDK to make OTFs
-    if glyphName in glyphList:
-        f[glyphName].unicode = int(glyphList[glyphName], 16)
+
+def setUnicodeValue(glyph, glyphList):
+    """Try to ensure glyph has a unicode value -- used by FDK to make OTFs."""
+
+    if glyph.name in glyphList:
+        glyph.unicode = int(glyphList[glyph.name], 16)
+    else:
+        uvNameMatch = re.match("uni([\dA-F]{4})$", glyph.name)
+        if uvNameMatch:
+            glyph.unicode = int(uvNameMatch.group(1), 16)

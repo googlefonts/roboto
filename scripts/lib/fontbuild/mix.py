@@ -35,6 +35,7 @@ class FFont:
                 self.glyphs[key] = g.copy()
             self.hstems = list(f.hstems)
             self.vstems = list(f.vstems)
+            self.kerning = dict(f.kerning)
         elif f != None:
             self.copyFromFont(f)
 

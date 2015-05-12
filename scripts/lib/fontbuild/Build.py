@@ -131,17 +131,11 @@ class FontProject:
                 # print g.name
                 # if self.thinfont != None:
                 #                     narrowFLGlyph(g,self.thinfont.getGlyph(g.name),factor=narrowAmmount)
-                
-                if g.name != "eight" or g.name != "Q":
-                    removeGlyphOverlap(g)
-
-                    # not sure why FontLab sometimes refuses, seems to work if called twice
 
                 if g.name in self.lessItalic:
                     italicizeGlyph(f, g, 9, stemWidth=stemWidth)
                 elif g.name != ".notdef":
                     italicizeGlyph(f, g, 10, stemWidth=stemWidth)
-                removeGlyphOverlap(g)
                 if g.width != 0:
                     g.width += 10
 

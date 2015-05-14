@@ -122,10 +122,10 @@ class FGlyph:
         g.width = self._derefX(self.width)
         if len(g.components) == len(self.components):
             for i in range(len(self.components)):
-                g.components[i].scale[0] = self._derefX(self.components[i][0] + 0)
-                g.components[i].scale[1] = self._derefY(self.components[i][1] + 0)
-                g.components[i].offset[0] = self._derefX(self.components[i][0] + 1)
-                g.components[i].offset[1] = self._derefY(self.components[i][1] + 1)
+                g.components[i].scale = (self._derefX(self.components[i][0] + 0),
+                                         self._derefY(self.components[i][1] + 0))
+                g.components[i].offset = (self._derefX(self.components[i][0] + 1),
+                                          self._derefY(self.components[i][1] + 1))
         if len(g.anchors) == len(self.anchors):
             for i in range(len(self.anchors)):
                 g.anchors[i].x = self._derefX( self.anchors[i][0])
@@ -301,11 +301,7 @@ class Mix:
             if gF == None:
                 g.mark = True
             else:
-                # FIX THIS #print gF.name, g.name, len(gF.nodes),len(g.nodes),len(gF.components),len(g.components)
-                try:
-                    gF.copyToGlyph(g)
-                except:
-                    "Nodes incompatible"
+                gF.copyToGlyph(g)
         newFont.kerning.clear()
         newFont.kerning.update(self.mixKerns() or {})
         return newFont

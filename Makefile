@@ -40,6 +40,22 @@ android:
 		rm $$touched $$subsetted; \
 	done
 
+# TODO: remove this build target once we are comfortable with the quality of
+# the new toolchain
+android-from-hinted:
+	mkdir -p out/android
+	for source in hinted/*.ttf; do \
+	        unhinted=$$(mktemp); \
+		touched=$$(mktemp); \
+		subsetted=$$(mktemp); \
+		final=out/android/$$(basename $$source); \
+		python $$HOME/noto/nototools/drop_hints.py $$source $$unhinted && \
+		python scripts/touchup_for_android.py $$unhinted $$touched && \
+		python $$HOME/noto/nototools/subset.py $$touched $$subsetted && \
+		python scripts/force_yminmax.py $$subsetted $$final && \
+		rm $$touched $$subsetted; \
+	done
+
 web:
 	mkdir -p out/web
 	for source in hinted/*.ttf; do \

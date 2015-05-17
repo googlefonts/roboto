@@ -154,7 +154,7 @@ def apply_temporary_fixes(font):
         path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
     build_number = open(build_number_txt).read().strip()
 
-    version_record = 'Version 2.0%s; %d' % (build_number, date.today().year)
+    version_record = 'Version 2.%s; %d' % (build_number, date.today().year)
 
     for record in font['name'].names:
         if record.nameID == 5:

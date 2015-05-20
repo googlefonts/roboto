@@ -154,7 +154,7 @@ def apply_temporary_fixes(font):
         path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
     build_number = open(build_number_txt).read().strip()
 
-    version_record = 'Version 2.0%s; %d' % (build_number, date.today().year)
+    version_record = 'Version 2.%s; %d' % (build_number, date.today().year)
 
     for record in font['name'].names:
         if record.nameID == 5:
@@ -175,13 +175,13 @@ def apply_android_specific_fixes(font):
     hhea.descent = -500
     hhea.lineGap = 0
 
-    # Remove tab, combining keycap, the arrows, and unassigned characters
-    # from the cmap table
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=51
+    # Remove combining keycap and the arrows from the cmap table:
     # https://code.google.com/a/google.com/p/roboto/issues/detail?id=52
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=53
     font_data.delete_from_cmap(font, [
-        0x0009, 0x20E3, 0x2072, 0x2073, 0x208F, 0x2191, 0x2193])
+        0x20E3, # COMBINING ENCLOSING KEYCAP
+        0x2191, # UPWARDS ARROW
+        0x2193, # DOWNWARDS ARROW
+        ])
 
     # Drop tables not useful on Android
     for table in ['LTSH', 'hdmx', 'VDMX', 'gasp']:

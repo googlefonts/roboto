@@ -10,7 +10,7 @@ be published in Unicode 8.0.
 
 The fonts are currently available in eighteen different styles.
 
-# Setup
+## Setup
 
 #### Create a clean directory for roboto:
 

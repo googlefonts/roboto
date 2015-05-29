@@ -225,3 +225,14 @@ e.g. for testing output) depend on:
   (https://code.google.com/p/noto/)
   - (Noto subsequently depends on HarfBuzz: https://github.com/behdad/harfbuzz)
 - freetype-py (https://github.com/rougier/freetype-py)
+
+## Docker Container
+You can use Docker to compile the font.
+
+Example:
+
+`docker run -v <source-dir>:/app/src -it huslage/roboto-build`
+
+This will compile the font and place it in the normal places in your source directory.
+
+There is a `Dockerfile` in this repository if you wish to build your own container image.

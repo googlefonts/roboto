@@ -179,6 +179,13 @@ PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/noto"
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/freetype-py"
 ```
 
+On Ubuntu (or other distributions of GNU/Linux, using the appropriate package
+manager), make sure eog is installed:
+
+```bash
+sudo apt-get install eog
+```
+
 #### Running the toolchain:
 
 ```bash
@@ -225,3 +232,4 @@ e.g. for testing output) depend on:
   (https://code.google.com/p/noto/)
   - (Noto subsequently depends on HarfBuzz: https://github.com/behdad/harfbuzz)
 - freetype-py (https://github.com/rougier/freetype-py)
+- eog (https://wiki.gnome.org/Apps/EyeOfGnome)

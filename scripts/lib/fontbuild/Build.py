@@ -14,6 +14,7 @@
 
 
 from booleanOperations import BooleanOperationManager
+from fontTools.ttLib import TTFont
 from robofab.world import OpenFont
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 from fontbuild.instanceNames import setNamesRF
@@ -183,10 +184,11 @@ class FontProject:
                 sys.exit(1)
 
             if self.buildTTF:
+                log(">> Converting curves to quadratic")
+                for glyph in newFont:
+                    glyphCurvesToQuadratic(glyph)
                 log(">> Generating TTF file")
-                import fontforge
-                otFont = fontforge.open(otfName)
-                otFont.generate(self.generateOutputPath(f, "ttf"))
+                saveTTF(newFont, self.generateOutputPath(f, "ttf"), otfName)
 
 
 def transformGlyphMembers(g, m):
@@ -250,10 +252,6 @@ def cleanCurves(f):
     # log(">> Mitring sharp corners")
     # for g in f:
     #     mitreGlyph(g, 3., .7)
-    
-    # log(">> Converting curves to quadratic")
-    # for g in f:
-    #     glyphCurvesToQuadratic(g)
 
 
 def deleteGlyphs(f, deleteList):
@@ -298,3 +296,23 @@ def saveOTF(font, destFile, autohint=False):
     successMsg = ("makeotfexe [NOTE] Wrote new font file '%s'." %
                   os.path.basename(destFile))
     return successMsg in reports["makeotf"]
+
+
+def saveTTF(font, destFile, feaSrcFile):
+    """Save a RoboFab font as a TTF binary.
+
+    Copies features tables from the OTF binary referred to by feaSrcFile.
+    """
+
+    from fontbuild.outlineTTF import OutlineTTFCompiler
+
+    tmpFile = destFile + ".tmp"
+    compiler = OutlineTTFCompiler(font, tmpFile)
+    compiler.compile()
+
+    ttf = TTFont(tmpFile)
+    feaSrc = TTFont(feaSrcFile)
+    ttf['GPOS'] = feaSrc['GPOS']
+    ttf['GSUB'] = feaSrc['GSUB']
+    ttf.save(destFile)
+    os.remove(tmpFile)

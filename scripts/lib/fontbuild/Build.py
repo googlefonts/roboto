@@ -66,7 +66,6 @@ class FontProject:
         self.buildnumber = self.loadBuildNumber()
         
         self.buildOTF = False
-        self.autohintOTF = False
         self.buildTTF = False
         
         
@@ -179,7 +178,7 @@ class FontProject:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
             otfName = self.generateOutputPath(f, "otf")
-            builtSuccessfully = saveOTF(newFont, otfName, autohint=self.autohintOTF)
+            builtSuccessfully = saveOTF(newFont, otfName)
             if not builtSuccessfully:
                 sys.exit(1)
 
@@ -269,7 +268,7 @@ def removeGlyphOverlap(glyph):
     manager.union(contours, glyph.getPointPen())
 
 
-def saveOTF(font, destFile, autohint=False):
+def saveOTF(font, destFile):
     """Save a RoboFab font as an OTF binary using ufo2fdk.
 
     Returns True on success, False otherwise.
@@ -288,9 +287,8 @@ def saveOTF(font, destFile, autohint=False):
             newGlyph.width = glyph.width
 
     compiler = OTFCompiler()
-    reports = compiler.compile(font, destFile, autohint=autohint)
-    if autohint:
-        print reports["autohint"]
+    reports = compiler.compile(font, destFile, autohint=True, releaseMode=True)
+    print reports["autohint"]
     print reports["makeotf"]
 
     successMsg = ("makeotfexe [NOTE] Wrote new font file '%s'." %

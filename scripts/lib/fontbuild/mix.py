@@ -203,10 +203,10 @@ class FGlyph:
         return ng
     
     def _derefX(self,id):
-        return int(round(self.dataX[id]))
+        return self.dataX[id]
     
     def _derefY(self,id):
-        return int(round(self.dataY[id]))
+        return self.dataY[id]
     
     def addDiff(self,gB,gC):
         newGlyph = self + (gB - gC)

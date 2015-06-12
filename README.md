@@ -39,7 +39,7 @@ via:
 sudo apt-get install cython
 ```
 
-##### For OTF generation:
+##### For OTF/TTF generation:
 
 ```bash
 git clone https://github.com/typesupply/ufo2fdk.git
@@ -58,12 +58,6 @@ directory.
 If you're not building the FDK yourself, download the pre-built version
 [here](http://www.adobe.com/devnet/opentype/afdko.html) and unzip it into the
 current directory.
-
-##### For TTF generation, on Ubuntu:
-
-```bash
-sudo apt-get install fontforge python-fontforge
-```
 
 ##### For post-production:
 
@@ -204,7 +198,7 @@ The Roboto build toolchain depends on:
   glyph overlap removal.
   - (requires Cython to install: http://cython.org/)
 
-## OTF Generation
+## OTF/TTF Generation
 OTF generation depends on:
 
 - ufo2fdk (https://github.com/typesupply/ufo2fdk)
@@ -215,14 +209,6 @@ The AFDKO from GitHub can be time consuming to setup. It is easier to just use
 the variety which includes closed-source tools
 (http://www.adobe.com/devnet/opentype/afdko.html), though these closed-source
 portions are not used to build Roboto.
-
-## TTF Generation
-TTF generation depends on:
-
-- FontForge (https://github.com/fontforge/fontforge)
-
-Whose Python interface should be availabe on Ubuntu by default via `apt-get
-install fontforge python-fontforge`.
 
 ## Post-Production
 Post-production scripts (most of the code outside of the `fontbuild` directory,

@@ -77,6 +77,8 @@ class OutlineTTFCompiler(OutlineOTFCompiler):
         name.names = []
         for ids in [(1, 0, 0x0), (3, 1, 0x409)]:
             for nameId in nameIds:
+                if not nameVals[nameId]:
+                    continue
                 rec = NameRecord()
                 rec.platformID, rec.platEncID, rec.langID = ids
                 rec.nameID = int(nameId)

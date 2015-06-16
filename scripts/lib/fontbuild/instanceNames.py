@@ -76,6 +76,7 @@ class InstanceNames:
             f.info.openTypeNamePreferredSubfamilyName = self.longstyle 
         
         f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
+        f.info.postscriptFontName = f.info.macintoshFONDName.replace(" ", "-")
         if self.italic:
             f.info.italicAngle = -12.0
         

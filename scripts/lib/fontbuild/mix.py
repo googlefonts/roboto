@@ -46,6 +46,7 @@ class FFont:
     
     def addDiff(self,b,c):
         newFont = FFont(self)
+        
         for key,g in newFont.glyphs.iteritems():
             gB = b.getGlyph(key)
             gC = c.getGlyph(key)
@@ -53,6 +54,7 @@ class FFont:
                 newFont.glyphs[key] = g.addDiff(gB,gC)
             except:
                 print "Add diff failed for '%s'" %key
+
         return newFont
 
 class FGlyph:
@@ -250,6 +252,8 @@ class Master:
                     kernlist = [KerningPair(k) for k in oldGlyph.kerning]
                     font.glyphs[glyphIndex] = Glyph(overlayGlyph)
                     font.glyphs[glyphIndex].kerning = kernlist
+                    if 0 == overlayGlyph:
+                        font.glyphs[glyphIndex].width = 0
                 else:
                     font.glyphs.append(overlayGlyph)
             fl.UpdateFont(ifont)

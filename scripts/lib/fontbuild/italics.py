@@ -7,8 +7,11 @@ import math
 from alignpoints import alignCorners
 
 def italicizeGlyph(g, angle=10, stemWidth=185):
+    unic = g.unicode #save unicode
+    
     f = CurrentFont()
     glyph = f[g.name]
+        
     slope = np.tanh([math.pi * angle / 180])
     
     # determine how far on the x axis the glyph should slide
@@ -21,10 +24,12 @@ def italicizeGlyph(g, angle=10, stemWidth=185):
     
     if len(glyph) > 0:
         g2 = italicize(f[g.name], angle, xoffset=xoffset, stemWidth=stemWidth)
-        f.insertGlyph(g2, g.name)
-        
-    transformFLGlyphMembers(f[g.name], m)
+        f.insertGlyph(g2, g.name)        
 
+    transformFLGlyphMembers(f[g.name], m)
+    
+    if unic > 0xFFFF: #restore unicode
+        g.unicode = unic
 
 def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
     CURVE_CORRECTION_WEIGHT = .03

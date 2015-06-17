@@ -28,13 +28,14 @@ class FontProject:
         self.diacriticList = [line.strip() for line in diacriticList if not line.startswith("#")]
         self.ot_classes = open(self.basedir + "/" + self.config.get("res","ot_classesfile")).read()
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
-        self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
+        #self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
         
         self.builddir = "out"
         self.decompose = self.config.get("glyphs","decompose").split()
         self.predecompose = self.config.get("glyphs","predecompose").split()
         self.lessItalic = self.config.get("glyphs","lessitalic").split()
         self.deleteList = self.config.get("glyphs","delete").split()
+        self.noItalic = self.config.get("glyphs","noitalic").split()
         self.buildnumber = self.loadBuildNumber()
         
         self.buldVFBandFEA = False
@@ -82,6 +83,7 @@ class FontProject:
                 narrowAmmount = .96
             i = 0
             for g in f.glyphs:
+                
                 i += 1
                 if i % 10 == 0: print g.name
                 
@@ -104,14 +106,21 @@ class FontProject:
                     g.RemoveOverlap()
                     
                     # not sure why FontLab sometimes refuses, seems to work if called twice
-                
+
+                    
                 if (g.name in self.lessItalic):
                     italicizeGlyph(g, 9, stemWidth=stemWidth)
-                elif g.name != ".notdef":
+                elif False == (g.name in self.noItalic):
                     italicizeGlyph(g, 10, stemWidth=stemWidth)
+                #elif g.name != ".notdef":
+                #    italicizeGlyph(g, 10, stemWidth=stemWidth)
+                  
                 g.RemoveOverlap()
-                g.width += 10
-                fl.UpdateGlyph(i-1)
+            
+                if g.width != 0:
+                    g.width += 10
+                    
+                fl.UpdateGlyph(i-1)             
             
         if swapSuffixes != None:
             for swap in swapSuffixes:

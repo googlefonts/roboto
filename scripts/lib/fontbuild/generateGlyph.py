@@ -15,7 +15,7 @@
 
 import re
 from anchors import alignComponentsToAnchors
-
+from string import find
 
 def parseComposite(composite):
     c = composite.split("=")
@@ -33,6 +33,7 @@ def parseComposite(composite):
 
 
 def copyMarkAnchors(f, g, srcname, width):
+    unicode_range = range(0x0030, 0x02B0) + range(0x1E00, 0x1EFF)
     anchors = f[srcname].anchors
     for anchor in anchors:
         if "top_dd" == anchor.name:
@@ -43,19 +44,63 @@ def copyMarkAnchors(f, g, srcname, width):
             g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
         if "top" == anchor.name:
             if g.unicode == None:
-                continue
-            if g.unicode > 0x02B0:
-                continue
+                if -1 == find(g.name, ".ccmp"):
+                    continue                
+            if False == (g.unicode in unicode_range):
+                if -1 == find(g.name, ".ccmp"):
+                    continue
+            #if g.unicode > 0x02B0:
+            #    continue
             parenttop_present = 0
             for anc in g.anchors:
                 if anc.name == "parent_top":
                     parenttop_present = 1
-            if parenttop_present:
-                continue
-            g.appendAnchor("parent_top", anchor.position)
+            if 0 == parenttop_present:
+                g.appendAnchor("parent_top", anchor.position)
 
+        if "bottom" == anchor.name:
+            if g.unicode == None:
+                continue
+            if False == (g.unicode in unicode_range):
+                continue            
+            #if g.unicode > 0x02B0:
+            #    continue
+            bottom_present = 0
+            for anc in g.anchors:
+                if anc.name == "bottom":
+                    bottom_present = 1
+            if 0 == bottom_present:
+                anchor2 = Anchor(anchor)
+                anchor2.name = "bottom"
+#               anchor1.x += width
+                g.anchors.append(anchor2)
+
+
+#            anchor1 = Anchor(anchor)
+#            anchor1.name = "top"
+#            anchor1.x += width
+#            g.anchors.append(anchor1)
+            
  #       if "rhotichook" == anchor.name:
  #           g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
+ 
+    #print g.anchors
+    for anchor in g.anchors:
+        if "top" == anchor.name:
+            #print g.name, g.anchors
+            return
+ 
+    anchor_parent_top = None
+
+    for anchor in g.anchors:
+        if "parent_top" == anchor.name:
+            anchor_parent_top = anchor
+            break
+
+    if anchor_parent_top:
+        anchor_top = Anchor(anchor_parent_top)
+        anchor_top.name = "top"
+        g.anchors.append(anchor_top)
 
 
 def generateGlyph(f,gname,glyphList={}):

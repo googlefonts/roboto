@@ -27,15 +27,18 @@ def getAnchorByName(g,anchorName):
         if a.name == anchorName:
             return a
 
-
 def moveMarkAnchors(f, g, anchorName, accentName, dx, dy):
     if "top"==anchorName:
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmktop_acc" == anchor.name:
+                for i in range(len(g.anchors)):
+                    if g.anchors[i].name == "top":
+                        del g.anchors[i]
+                        break
                 g.appendAnchor("top", (anchor.x + int(dx), anchor.y + int(dy)))
  
-    elif "bottom"==anchorName:
+    elif anchorName in ["bottom", "bottomu"]:
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmkbottom_acc" == anchor.name:

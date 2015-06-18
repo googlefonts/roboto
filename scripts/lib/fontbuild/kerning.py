@@ -85,7 +85,7 @@ class KernFeatureWriter(AbstractFeatureWriter):
             else:
                 rulesAdded = 1
             self.ruleCount += rulesAdded
-            if self.ruleCount > 2048:
+            if self.ruleCount > 1024:
                 lines.append("    subtable;")
                 self.ruleCount = rulesAdded
             lines.append("    %spos %s %s %d;" % (enum, left, right, val))

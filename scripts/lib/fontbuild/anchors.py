@@ -32,9 +32,9 @@ def moveMarkAnchors(f, g, anchorName, accentName, dx, dy):
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmktop_acc" == anchor.name:
-                for i in range(len(g.anchors)):
-                    if g.anchors[i].name == "top":
-                        del g.anchors[i]
+                for anc in g.anchors:
+                    if anc.name == "top":
+                        g.removeAnchor(anc)
                         break
                 g.appendAnchor("top", (anchor.x + int(dx), anchor.y + int(dy)))
  

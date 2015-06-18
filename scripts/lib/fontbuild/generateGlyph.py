@@ -70,16 +70,10 @@ def copyMarkAnchors(f, g, srcname, width):
                 if anc.name == "bottom":
                     bottom_present = 1
             if 0 == bottom_present:
-                anchor2 = Anchor(anchor)
-                anchor2.name = "bottom"
-#               anchor1.x += width
-                g.anchors.append(anchor2)
+                g.appendAnchor("bottom", anchor.position)
 
 
-#            anchor1 = Anchor(anchor)
-#            anchor1.name = "top"
-#            anchor1.x += width
-#            g.anchors.append(anchor1)
+#            g.appendAnchor("top", anchor.position)
             
  #       if "rhotichook" == anchor.name:
  #           g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
@@ -98,9 +92,7 @@ def copyMarkAnchors(f, g, srcname, width):
             break
 
     if anchor_parent_top:
-        anchor_top = Anchor(anchor_parent_top)
-        anchor_top.name = "top"
-        g.anchors.append(anchor_top)
+        g.appendAnchor("top", anchor_parent_top.position)
 
 
 def generateGlyph(f,gname,glyphList={}):

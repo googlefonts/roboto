@@ -122,8 +122,8 @@ class FGlyph:
         g.width = self._derefX(self.width)
         if len(g.components) == len(self.components):
             for i in range(len(self.components)):
-                g.components[i].scale = (self._derefX(self.components[i][0] + 0),
-                                         self._derefY(self.components[i][1] + 0))
+                g.components[i].scale = (self._derefX(self.components[i][0] + 0, asInt=False),
+                                         self._derefY(self.components[i][1] + 0, asInt=False))
                 g.components[i].offset = (self._derefX(self.components[i][0] + 1),
                                           self._derefY(self.components[i][1] + 1))
         if len(g.anchors) == len(self.anchors):
@@ -202,11 +202,13 @@ class FGlyph:
         ng.name = self.name
         return ng
     
-    def _derefX(self,id):
-        return int(round(self.dataX[id]))
+    def _derefX(self,id, asInt=True):
+        val = self.dataX[id]
+        return int(round(val)) if asInt else val
     
-    def _derefY(self,id):
-        return int(round(self.dataY[id]))
+    def _derefY(self,id, asInt=True):
+        val = self.dataY[id]
+        return int(round(val)) if asInt else val
     
     def addDiff(self,gB,gC):
         newGlyph = self + (gB - gC)

@@ -94,7 +94,31 @@ languagesystem grek dflt;
 @frac4 = [ zero.sup one.sup two.sup three.sup four.sup five.sup six.sup seven.sup eight.sup nine.sup ];
 @unicase_l = [ a b c d e f g h i j k l m n o p q r s t u v w x y z scedilla udieresis zcaron zdotaccent zacute ydieresis ycircumflex wcircumflex uogonek uhungarumlaut uring ubreve umacron utilde tcaron uni0163 scaron scircumflex sacute rcaron rcommaaccent racute ohungarumlaut obreve omacron ncaron ncommaaccent nacute ldot lcaron lcommaaccent lacute kcommaaccent jcircumflex iogonek ibreve imacron itilde hcircumflex gcommaaccent gbreve gcircumflex ecaron eogonek edotaccent ebreve emacron dcaron ccaron ccircumflex cacute aogonek abreve amacron yacute ucircumflex uacute ugrave odieresis otilde ocircumflex oacute ograve ntilde idieresis icircumflex iacute igrave edieresis ecircumflex eacute egrave ccedilla aringacute aring adieresis atilde acircumflex aacute agrave tbar eth dcroat ];
 @unicase_r = [ A.unic B C D E.unic F G H I J K L M.unic N.unic O P Q R S T U.unic V W X Y Z Scedilla Udieresis.unic Zcaron Zdotaccent Zacute Ydieresis Ycircumflex Wcircumflex Uogonek.unic Uhungarumlaut.unic Uring.unic Ubreve.unic Umacron.unic Utilde.unic Tcaron uni0162 Scaron Scircumflex Sacute Rcaron Rcommaaccent Racute Ohungarumlaut Obreve Omacron Ncaron.unic Ncommaaccent.unic Nacute.unic Ldot Lcaron Lcommaaccent Lacute Kcommaaccent Jcircumflex Iogonek Ibreve Imacron Itilde Hcircumflex Gcommaaccent Gbreve Gcircumflex Ecaron.unic Eogonek.unic Edotaccent.unic Ebreve.unic Emacron.unic Dcaron Ccaron Ccircumflex Cacute Aogonek.unic Abreve.unic Amacron.unic Yacute Ucircumflex Uacute.unic Ugrave.unic Odieresis Otilde Ocircumflex Oacute Ograve Ntilde.unic Idieresis Icircumflex Iacute Igrave Edieresis.unic Ecircumflex.unic Eacute.unic Egrave.unic Ccedilla Aringacute.unic Aring.unic Adieresis.unic Atilde.unic Acircumflex.unic Aacute.unic Agrave.unic Tbar Eth Dcroat ];
-@ccmp_acc = [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb circumflexnosp overscorenosp brevenosp dotnosp dieresisnosp hook ringnosp acutedblnosp uni030C linevertnosp linevertdblnosp uni030F candrabindunosp breveinvnosp commaturnsupnosp uni0313 commasuprevnosp uni0315 anglesupnosp hornnosp xsupnosp tildevertsupnosp overscoredblnosp graveleftnosp acuterightnosp uni0342 uni0343 diaeresistonosnosp uni0346 uni034A uni034B uni034C uni0350 uni0351 uni0352 uni0357 uni0358 uni035B tildecomb_uni1ABB tildecomb_uni1ABC macroncomb_uni1ABB dieresisnosp_uni1ABB uni030C_uni1ABB uni1AB0 uni1AB1 uni1AB2 uni1AB3 uni1AB4 uni1DC0 uni1DC1 uni1DC3 uni1DC4 uni1DC5 uni1DC6 uni1DC7 uni1DC8 uni1DC9 uni1DCB uni1DCC uni1DCD uni1DCE uni1DD1 uni1DD2 uni1DD3 uni1DD4 uni1DD5 uni1DD6 uni1DD7 uni1DD8 uni1DD9 uni1DDA uni1DDB uni1DDC uni1DDD uni1DDE uni1DDF uni1DE0 uni1DE1 uni1DE2 uni1DE3 uni1DE4 uni1DE5 uni1DE6 uni1DE7 uni1DE8 uni1DE9 uni1DEA uni1DEB uni1DEC uni1DED uni1DEE uni1DEF uni1DF0 uni1DF1 uni1DF2 uni1DF3 uni1DF4 uni1DF5 uni1DFE ];
+@unicase2_l = [ A E M N U Udieresis Uogonek Uhungarumlaut Uring Ubreve Umacron Utilde Ncaron Ncommaaccent Nacute Ecaron Eogonek Edotaccent Ebreve Emacron Aogonek Abreve Amacron Uacute Ugrave Ntilde Edieresis Ecircumflex Eacute Egrave Aringacute Aring Adieresis Atilde Acircumflex Aacute Agrave];
+@unicase2_r = [ A.unic E.unic M.unic N.unic U.unic Udieresis.unic Uogonek.unic Uhungarumlaut.unic Uring.unic Ubreve.unic Umacron.unic Utilde.unic Ncaron.unic Ncommaaccent.unic Nacute.unic Ecaron.unic Eogonek.unic Edotaccent.unic Ebreve.unic Emacron.unic Aogonek.unic Abreve.unic Amacron.unic Uacute.unic Ugrave.unic Ntilde.unic Edieresis.unic Ecircumflex.unic Eacute.unic Egrave.unic Aringacute.unic Aring.unic Adieresis.unic Atilde.unic Acircumflex.unic Aacute.unic Agrave.unic];
+
+@ccmp_acc = [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb circumflexnosp overscorenosp brevenosp dotnosp dieresisnosp hook ringnosp acutedblnosp uni030C linevertnosp linevertdblnosp uni030F candrabindunosp breveinvnosp commaturnsupnosp uni0313 commasuprevnosp uni0315 anglesupnosp hornnosp xsupnosp tildevertsupnosp overscoredblnosp graveleftnosp acuterightnosp uni0342 uni0343 diaeresistonosnosp uni0346 uni034A uni034B uni034C uni0350 uni0351 uni0352 uni0357 uni0358 uni035B tildecomb_uni1ABB tildecomb_uni1ABC macroncomb_uni1ABB dieresisnosp_uni1ABB uni030C_uni1ABB uni1AB0 uni1AB1 uni1AB2 uni1AB3 uni1AB4 uni1DC0 uni1DC1 uni1DC3 uni1DC4 uni1DC5 uni1DC6 uni1DC7 uni1DC8 uni1DC9 uni1DCB uni1DCC uni1DCD uni1DCE uni1DD1 uni1DD2 uni1DD3 uni1DD4 uni1DD5 uni1DD6 uni1DD7 uni1DD8 uni1DD9 uni1DDA uni1DDB uni1DDC uni1DDD uni1DDE uni1DDF uni1DE0 uni1DE1 uni1DE2 uni1DE3 uni1DE4 uni1DE5 uni1DE6 uni1DE7 uni1DE8 uni1DE9 uni1DEA uni1DEB uni1DEC uni1DED uni1DEE uni1DEF uni1DF0 uni1DF1 uni1DF2 uni1DF3 uni1DF4 uni1DF5 uni1DFE uni0363 uni0364 uni0365 uni0366 uni0367 uni0368 uni0369 uni036A uni036B uni036C uni036D uni036E uni036F uni0483 uni0484 uni0485 uni0486 uni0487 uni20F0 uniA66F uniA674 uniA675 uniA676 uniA677 uniA678 uniA679 uniA67A uniA67B uniA67C uniA67D uniA69F uni2DE0 uni2DE1 uni2DE2 uni2DE3 uni2DE4 uni2DE5 uni2DE6 uni2DE7 uni2DE8 uni2DE9 uni2DEA uni2DEB uni2DEC uni2DED uni2DEE uni2DEF uni2DF0 uni2DF1 uni2DF2 uni2DF3 uni2DF4 uni2DF5 uni2DF6 uni2DF7 uni2DF8 uni2DF9 uni2DFA uni2DFB uni2DFC uni2DFD uni2DFE uni2DFF uni1ABB uni1ABC uni20DC uniFE20 uniFE21 uniFE22 uniFE23 uniFE24 uniFE25 uniFE26];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -122,33 +146,39 @@ languagesystem grek dflt;
 feature cpsp {
   pos @UC_ROMAN <36 0 72 0>;
   pos @UC_SET1 <36 0 72 0>;
-} cpsp;
-
+} cpsp;
 
 feature c2sc {
   sub @UC_ROMAN by @SC_ROMAN;
   sub @UC_SET1 by @SC_SET1;
   sub @UC_SET3 by @SC_SET3;
-  sub germandbls by Germandbls.smcp;
-} c2sc;
-
+  sub Germandbls by Germandbls.smcp;
+  sub [zero one two three four five six seven eight nine ampersand] by [zero.smcp one.smcp two.smcp three.smcp four.smcp five.smcp six.smcp seven.smcp eight.smcp nine.smcp ampersand.smcp];
+  sub [AE Hbar Oslash Lslash Eng Thorn] by [AE.smcp Hbar.smcp Oslash.smcp Lslash.smcp Eng.smcp Thorn.smcp];
+  sub [IJ AEacute Oslashacute uni0218 Wgrave Wacute Wdieresis Ygrave] by [IJ.smcp AEacute.smcp Oslashacute.smcp Scommaaccent.smcp Wgrave.smcp Wacute.smcp Wdieresis.smcp Ygrave.smcp];
+} c2sc;
 
 feature smcp {
   sub @LC_ROMAN by @SC_ROMAN;
   sub @LC_SET2 by @SC_SET2;    
-  sub @LC_SET3 by @SC_SET3;    
-} smcp;
+  sub @LC_SET3 by @SC_SET3;
+  sub [germandbls ampersand sigma1] by [Germandbls.smcp ampersand.smcp Sigma.smcp];
+  sub [ae hbar oslash lslash eng thorn] by [AE.smcp Hbar.smcp Oslash.smcp Lslash.smcp Eng.smcp Thorn.smcp];
+  sub [ij aeacute oslashacute uni0219 wgrave wacute wdieresis ygrave] by [IJ.smcp AEacute.smcp Oslashacute.smcp Scommaaccent.smcp Wgrave.smcp Wacute.smcp Wdieresis.smcp Ygrave.smcp];
+} smcp;
 
+feature unic {
+  sub @unicase_l by @unicase_r ;
+  sub @unicase2_l by @unicase2_r ;  
+} unic;
 
 feature mark {
   ;#insert from script mark
-} mark;
-
+} mark;
 
 feature mkmk {
   ;#insert from script mkmk
-} mkmk;
-
+} mkmk;
 
 feature ccmp {
 
@@ -382,19 +412,26 @@ feature ccmp {
   sub a dotbelow by uni1EA1;
   sub A hook by uni1EA2;
   sub a hook by uni1EA3;
-  sub A circumflexacutecomb by uni1EA4;
+  #sub A circumflexacutecomb by uni1EA4;
+  sub A circumflexnosp acutecomb by uni1EA4;
   sub a circumflexacutecomb by uni1EA5;
-  sub A circumflexgravecomb by uni1EA6;
+  #sub A circumflexgravecomb by uni1EA6;
+  sub A circumflexnosp gravecomb by uni1EA6;
   sub a circumflexgravecomb by uni1EA7;
-  sub A circumflexhookcomb by uni1EA8;
+  #sub A circumflexhookcomb by uni1EA8;
+  sub A circumflexnosp hook by uni1EA8;
   sub a circumflexhookcomb by uni1EA9;
-  sub A circumflextildecomb by uni1EAA;
+  #sub A circumflextildecomb by uni1EAA;
+  sub A circumflexnosp tildecomb by uni1EAA;
   sub a circumflextildecomb by uni1EAB;
-  sub A breveacutecomb by uni1EAE;
+  #sub A breveacutecomb by uni1EAE;
+  sub A brevenosp acutecomb by uni1EAE;
   sub a breveacutecomb by uni1EAF;
-  sub A brevegravecomb by uni1EB0;
+  #sub A brevegravecomb by uni1EB0;
+  sub A brevenosp gravecomb by uni1EB0;
   sub a brevegravecomb by uni1EB1;
-  sub A brevehookcomb by uni1EB2;
+  #sub A brevehookcomb by uni1EB2;
+  sub A brevenosp hook by uni1EB2;
   sub a brevehookcomb by uni1EB3;
   sub A brevetildecomb by uni1EB4;
   sub a brevetildecomb by uni1EB5;
@@ -404,13 +441,17 @@ feature ccmp {
   sub e hook by uni1EBB;
   sub E tildecomb by uni1EBC;
   sub e tildecomb by uni1EBD;
-  sub E circumflexacutecomb by uni1EBE;
+  #sub E circumflexacutecomb by uni1EBE;
+  sub E circumflexnosp acutecomb by uni1EBE;
   sub e circumflexacutecomb by uni1EBF;
-  sub E circumflexgravecomb by uni1EC0;
+  #sub E circumflexgravecomb by uni1EC0;
+  sub E circumflexnosp gravecomb by uni1EC0;
   sub e circumflexgravecomb by uni1EC1;
-  sub E circumflexhookcomb by uni1EC2;
+  #sub E circumflexhookcomb by uni1EC2;
+  sub E circumflexnosp hook by uni1EC2;
   sub e circumflexhookcomb by uni1EC3;
-  sub E circumflextildecomb by uni1EC4;
+  #sub E circumflextildecomb by uni1EC4;
+  sub E circumflexnosp tildecomb by uni1EC4;
   sub e circumflextildecomb by uni1EC5;
   sub I hook by uni1EC8;
   sub dotlessi hook by uni1EC9;
@@ -420,13 +461,17 @@ feature ccmp {
   sub o dotbelow by uni1ECD;
   sub O hook by uni1ECE;
   sub o hook by uni1ECF;
-  sub O circumflexacutecomb by uni1ED0;
+  #sub O circumflexacutecomb by uni1ED0;
+  sub O circumflexnosp acutecomb by uni1ED0;
   sub o circumflexacutecomb by uni1ED1;
-  sub O circumflexgravecomb by uni1ED2;
+  #sub O circumflexgravecomb by uni1ED2;
+  sub O circumflexnosp gravecomb by uni1ED2;
   sub o circumflexgravecomb by uni1ED3;
-  sub O circumflexhookcomb by uni1ED4;
+  #sub O circumflexhookcomb by uni1ED4;
+  sub O circumflexnosp hook by uni1ED4;
   sub o circumflexhookcomb by uni1ED5;
-  sub O circumflextildecomb by uni1ED6;
+  #sub O circumflextildecomb by uni1ED6;
+  sub O circumflexnosp tildecomb by uni1ED6;
   sub o circumflextildecomb by uni1ED7;
   sub Ohorn acutecomb by uni1EDA;
   sub ohorn acutecomb by uni1EDB;
@@ -466,17 +511,23 @@ feature ccmp {
   sub o uni030C by ocaron;
   sub U uni030C by Ucaron;
   sub u uni030C by ucaron;
-  sub U dieresismacroncomb by uni01D5;
+  #sub U dieresismacroncomb by uni01D5;
+  sub U dieresisnosp macroncomb by uni01D5;
   sub u dieresismacroncomb by uni01D6;
-  sub U dieresisacutecomb by uni01D7;
+  #sub U dieresisacutecomb by uni01D7;
+  sub U dieresisnosp acutecomb by uni01D7;
   sub u dieresisacutecomb by uni01D8;
-  sub U dieresiscaroncomb by uni01D9;
+  #sub U dieresiscaroncomb by uni01D9;
+  sub U dieresisnosp uni030C by uni01D9;
   sub u dieresiscaroncomb by uni01DA;
-  sub U dieresisgravecomb by uni01DB;
+  #sub U dieresisgravecomb by uni01DB;
+  sub U dieresisnosp gravecomb by uni01DB;
   sub u dieresisgravecomb by uni01DC;
-  sub A dieresismacroncomb by uni01DE;
+  #sub A dieresismacroncomb by uni01DE;
+  sub A dieresisnosp macroncomb by uni01DE;
   sub a dieresismacroncomb by uni01DF;
-  sub A dotmacroncomb by uni01E0;
+  #sub A dotmacroncomb by uni01E0;
+  sub A dotnosp macroncomb by uni01E0;
   sub a dotmacroncomb by uni01E1;
   sub AE macroncomb by AEmacron;
   sub ae macroncomb by aemacron;
@@ -520,13 +571,16 @@ feature ccmp {
   sub a dotnosp by uni0227;
   sub E cedillanosp by uni0228;
   sub e cedillanosp by uni0229;
-  sub O dieresismacroncomb by uni022A;
+  #sub O dieresismacroncomb by uni022A;
+  sub O dieresisnosp macroncomb by uni022A;
   sub o dieresismacroncomb by uni022B;
-  sub O tildemacroncomb by uni022C;
+  #sub O tildemacroncomb by uni022C;
+  sub O tildecomb macroncomb by uni022C;
   sub o tildemacroncomb by uni022D;
   sub O dotnosp by uni022E;
   sub o dotnosp by uni022F;
-  sub O dotmacroncomb by uni0230;
+  #sub O dotmacroncomb by uni0230;
+  sub O dotnosp macroncomb by uni0230;
   sub o dotmacroncomb by uni0231;
   sub Y macroncomb by uni0232;
   sub y macroncomb by uni0233;
@@ -548,9 +602,11 @@ feature ccmp {
   sub d commaaccent by uni1E11;
   sub D circumflexsubnosp by uni1E12;
   sub d circumflexsubnosp by uni1E13;
-  sub E macrongravecomb by uni1E14;
+  #sub E macrongravecomb by uni1E14;
+  sub E macroncomb gravecomb by uni1E14;
   sub e macrongravecomb by uni1E15;
-  sub E macronacutecomb by uni1E16;
+  #sub E macronacutecomb by uni1E16;
+  sub E macroncomb acutecomb by uni1E16;
   sub e macronacutecomb by uni1E17;
   sub E circumflexsubnosp by uni1E18;
   sub e circumflexsubnosp by uni1E19;
@@ -570,7 +626,8 @@ feature ccmp {
   sub h brevesubnosp by uni1E2B;
   sub I tildesubnosp by uni1E2C;
   sub i tildesubnosp by uni1E2D;
-  sub I dieresisacutecomb by uni1E2E;
+  #sub I dieresisacutecomb by uni1E2E;
+  sub I dieresisnosp acutecomb by uni1E2E;
   sub dotlessi dieresisacutecomb by uni1E2F;
   sub K acutecomb by uni1E30;
   sub k acutecomb by uni1E31;
@@ -598,13 +655,17 @@ feature ccmp {
   sub n macronsubnosp by uni1E49;
   sub N circumflexsubnosp by uni1E4A;
   sub n circumflexsubnosp by uni1E4B;
-  sub O tildeacutecomb by uni1E4C;
+  #sub O tildeacutecomb by uni1E4C;
+  sub O tildecomb acutecomb by uni1E4C;
   sub o tildeacutecomb by uni1E4D;
-  sub O tildedieresiscomb by uni1E4E;
+  #sub O tildedieresiscomb by uni1E4E;
+  sub O tildecomb dieresisnosp by uni1E4E;
   sub o tildedieresiscomb by uni1E4F;
-  sub O macrongravecomb by uni1E50;
+  #sub O macrongravecomb by uni1E50;
+  sub O macroncomb gravecomb by uni1E50;
   sub o macrongravecomb by uni1E51;
-  sub O macronacutecomb by uni1E52;
+  #sub O macronacutecomb by uni1E52;
+  sub O macroncomb acutecomb by uni1E52;
   sub o macronacutecomb by uni1E53;
   sub P acutecomb by uni1E54;
   sub p acutecomb by uni1E55;
@@ -620,9 +681,11 @@ feature ccmp {
   sub s dotnosp by uni1E61;
   sub S dotbelow by uni1E62;
   sub s dotbelow by uni1E63;
-  sub S acutedotcomb by uni1E64;
+  #sub S acutedotcomb by uni1E64;
+  sub S acutecomb dotnosp by uni1E64;
   sub s acutedotcomb by uni1E65;
-  sub S carondotcomb by uni1E66;
+  #sub S carondotcomb by uni1E66;
+  sub S uni030C dotnosp by uni1E66;
   sub s carondotcomb by uni1E67;
   sub T dotnosp by uni1E6A;
   sub t dotnosp by uni1E6B;
@@ -638,9 +701,11 @@ feature ccmp {
   sub u tildesubnosp by uni1E75;
   sub U circumflexsubnosp by uni1E76;
   sub u circumflexsubnosp by uni1E77;
-  sub U tildeacutecomb by uni1E78;
+  #sub U tildeacutecomb by uni1E78;
+  sub U tildecomb acutecomb by uni1E78;
   sub u tildeacutecomb by uni1E79;
-  sub U macrondieresiscomb by uni1E7A;
+  #sub U macrondieresiscomb by uni1E7A;
+  sub U macroncomb dieresisnosp by uni1E7A;
   sub u macrondieresiscomb by uni1E7B;
   sub V tildecomb by uni1E7C;
   sub v tildecomb by uni1E7D;
@@ -814,6 +879,7 @@ feature ccmp {
   sub uni02E6 uni02E7 by uni02E6_uni02E7;
   } ccmp04;
 
+
   lookup ccmp05 {
   
   sub lmidtilde [uni1ABB uni1ABD uni1ABE]' by uni1ABE.w2;
@@ -832,9 +898,20 @@ feature ccmp {
   
 	} ccmp05;
 
- 
-} ccmp;
+  lookup ccmp05a {
+  
+  sub lmidtilde uni1ABE.w2 by lmidtilde_uni1ABE;
+  sub dcroat uni1ABE.w2 by dcroat_uni1ABE;
+  sub eng uni1ABE.w1 by eng_uni1ABE;
+  sub gbar uni1ABE.w3 by gbar_uni1ABE;
+  sub bbar uni1ABE.w2 by bbar_uni1ABE;
+  sub rrthook uni1ABE.w1 by rrthook_uni1ABE;
+  
+	} ccmp05a;
 
+
+ 
+} ccmp;
 
 feature locl {
  script latn; language dflt; #set comment (#) for FDK 2.5
@@ -844,15 +921,13 @@ feature locl {
   sub [Scedilla scedilla] by [uni0218 uni0219];
  language NAV  exclude_dflt; # Navajo
   sub [ Aogonek aogonek Eogonek eogonek Oogonek oogonek ] by [ Aogonek.NAV aogonek.NAV Eogonek.NAV eogonek.NAV Oogonek.NAV oogonek.NAV ];
-} locl;
-
+} locl;
 
 feature dlig {
 	sub f f by f_f;
 	sub longs t by longst;
 	sub s t by st;
-} dlig;
-
+} dlig;
 
 feature liga {
   script latn; language dflt; #set comment (#) for FDK 2.5
@@ -870,46 +945,34 @@ feature liga {
 	language TUR  exclude_dflt;
 	lookup liga02;	
 	
-} liga;
-
-
-feature unic {
-  sub @unicase_l by @unicase_r ;
-} unic;
-
+} liga;
 
 feature salt {
   sub K by K.alt;
   sub g by g.alt;
-} salt;
-
+} salt;
 
 feature ss01 {
   sub g by g.alt ;
-} ss01;
-
+} ss01;
 
 feature ss02 {
   sub alpha by alpha.alt;
-} ss02;
-
+} ss02;
 
 feature ss03 {
   sub R by R.alt ;
-} ss03;
-
+} ss03;
 
 feature ss04 {
   sub K by K.alt;
   sub k by k.alt;
-} ss04;
-
+} ss04;
 
 feature ss05 {
   sub k by k.alt2;
   sub K by K.alt2;
-} ss05;
-
+} ss05;
 
 feature ss06 {
   sub C by C.ss06;
@@ -918,34 +981,28 @@ feature ss06 {
   sub Q by Q.ss06;
   sub G by G.ss06;
   sub [b c d g o p q] by [b.ss06 c.ss06 d.ss06 g.ss06 o.ss06 p.ss06 q.ss06];
-} ss06;
-
+} ss06;
 
 feature ss07 {
   sub [g e] by [g.ss07 e.ss07];
   sub [g.ss06] by [g.ss07];
-} ss07;
-
+} ss07;
 
 feature onum {
   sub [zero one two three four five seven nine] by [zero.onum one.onum two.onum three.onum four.onum five.onum seven.onum nine.onum];
-} onum;
-
+} onum;
 
 feature tnum {
   sub [zero.lnum one.lnum two.lnum three.lnum four.lnum five.lnum seven.lnum nine.lnum] by [zero one two three four five seven nine];
-} tnum;
-
+} tnum;
 
 feature pnum {
   sub [zero one two three four five seven nine] by [zero.lnum one.lnum two.lnum three.lnum four.lnum five.lnum seven.lnum nine.lnum];
-} pnum;
-
+} pnum;
 
 feature lnum {
   sub [zero.onum one.onum two.onum three.onum four.onum five.onum seven.onum nine.onum] by [zero one two three four five seven nine];
-} lnum;
-
+} lnum;
 
 feature frac { # Fractions
  # Latin
@@ -958,13 +1015,11 @@ lookup frac_2 {
 lookup frac_3 {
     sub @frac1 by @frac2;
 } frac_3;
-} frac;
-
+} frac;
 
 feature dnom {
   sub @frac1 by @frac4;
-} dnom;
-
+} dnom;
 
 feature numr {
   sub @frac1 by @frac2;
@@ -1175,4 +1230,37 @@ feature numr {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -62,6 +62,7 @@ class FontProject:
         self.predecompose = self.config.get("glyphs","predecompose").split()
         self.lessItalic = self.config.get("glyphs","lessitalic").split()
         self.deleteList = self.config.get("glyphs","delete").split()
+        self.noItalic = self.config.get("glyphs","noitalic").split()
         self.buildnumber = self.loadBuildNumber()
         
         self.buildOTF = False
@@ -134,8 +135,10 @@ class FontProject:
 
                 if g.name in self.lessItalic:
                     italicizeGlyph(f, g, 9, stemWidth=stemWidth)
-                elif g.name != ".notdef":
+                elif False == (g.name in self.noItalic):
                     italicizeGlyph(f, g, 10, stemWidth=stemWidth)
+                #elif g.name != ".notdef":
+                #    italicizeGlyph(g, 10, stemWidth=stemWidth)
                 if g.width != 0:
                     g.width += 10
 

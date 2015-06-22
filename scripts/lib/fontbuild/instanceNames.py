@@ -75,6 +75,7 @@ class InstanceNames:
             f.info.openTypeNamePreferredFamilyName = self.longfamily 
             f.info.openTypeNamePreferredSubfamilyName = self.longstyle 
         
+        f.info.openTypeOS2WeightClass = self._getWeightCode(self.weight)
         f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
         f.info.postscriptFontName = f.info.macintoshFONDName.replace(" ", "-")
         if self.italic:

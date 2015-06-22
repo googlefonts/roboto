@@ -44,11 +44,10 @@ class InstanceNames:
         self.fullname =        "%s %s" %(self.longfamily, self.longstyle)
         self.postscript =      re.sub(' ','', self.longfamily) + "-" + re.sub(' ','',self.longstyle)
         
-        # if self.subfamilyAbbrev != "" and self.subfamilyAbbrev != None and self.subfamilyAbbrev != "Rg":
-        #     self.shortfamily = "%s %s" %(self.longfamily, self.subfamilyAbbrev)
-        # else:
-        #     self.shortfamily = self.longfamily
-        self.shortfamily = self.longfamily
+        if self.subfamilyAbbrev != "" and self.subfamilyAbbrev != None and self.subfamilyAbbrev != "Rg":
+            self.shortfamily = "%s %s" %(self.longfamily, self.longstyle.split()[0])
+        else:
+            self.shortfamily = self.longfamily
     
     def setRFNames(self,f, version=1, versionMinor=0):
         f.info.familyName = self.longfamily
@@ -76,7 +75,9 @@ class InstanceNames:
             f.info.openTypeNamePreferredFamilyName = self.longfamily 
             f.info.openTypeNamePreferredSubfamilyName = self.longstyle 
         
+        f.info.openTypeOS2WeightClass = self._getWeightCode(self.weight)
         f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
+        f.info.postscriptFontName = f.info.macintoshFONDName.replace(" ", "-")
         if self.italic:
             f.info.italicAngle = -12.0
         

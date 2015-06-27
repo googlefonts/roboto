@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="hyphendot" format="1">
-  <advance width="576"/>
+  <advance width="578"/>
   <unicode hex="2027"/>
   <outline>
     <contour>
-      <point x="427" y="758" type="line"/>
-      <point x="139" y="758" type="line"/>
-      <point x="139" y="497" type="line"/>
-      <point x="427" y="497" type="line"/>
+      <point x="110" y="629" type="curve" smooth="yes"/>
+      <point x="110" y="533"/>
+      <point x="182" y="465"/>
+      <point x="289" y="465" type="curve" smooth="yes"/>
+      <point x="396" y="465"/>
+      <point x="468" y="533"/>
+      <point x="468" y="629" type="curve" smooth="yes"/>
+      <point x="468" y="725"/>
+      <point x="396" y="793"/>
+      <point x="289" y="793" type="curve" smooth="yes"/>
+      <point x="182" y="793"/>
+      <point x="110" y="725"/>
     </contour>
   </outline>
   <lib>
   <dict>
   <key>com.typemytype.robofont.mark</key>
   <array>
-    <real>0.967</real>
-    <real>0.6</real>
+    <real>0.798</real>
     <real>1</real>
+    <real>0.6</real>
     <real>1</real>
   </array>
   </dict>

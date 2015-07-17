@@ -91,7 +91,7 @@ def copyMarkAnchors(f, g, srcname, width):
             anchor_parent_top = anchor
             break
 
-    if anchor_parent_top:
+    if anchor_parent_top is not None:
         g.appendAnchor("top", anchor_parent_top.position)
 
 

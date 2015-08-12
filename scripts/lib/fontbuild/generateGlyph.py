@@ -44,10 +44,10 @@ def copyMarkAnchors(f, g, srcname, width):
             g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
         if "top" == anchor.name:
             if g.unicode == None:
-                if -1 == find(g.name, ".ccmp"):
+                if not g.name.endswith(('.ccmp', '.smcp', '.NAV')):
                     continue                
             if False == (g.unicode in unicode_range):
-                if -1 == find(g.name, ".ccmp"):
+                if not g.name.endswith(('.ccmp', '.smcp', '.NAV')):
                     continue
             #if g.unicode > 0x02B0:
             #    continue

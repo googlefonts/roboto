@@ -20,8 +20,9 @@ exactly two off curve points.
 
 """
 
-import numpy
-from numpy import array,cross,dot
+from math import sqrt
+
+from numpy import array
 from fontTools.misc import bezierTools
 from robofab.objects.objectsRF import RSegment
 
@@ -30,29 +31,84 @@ def replaceSegments(contour, segments):
         contour.removeSegment(0)
     for s in segments:
         contour.appendSegment(s.type, [(p.x, p.y) for p in s.points], s.smooth)
-    
-# OFFCURVE_VECTOR_CORRECTION = -.015
-OFFCURVE_VECTOR_CORRECTION = 0
+
+
+def lerp(p1, p2, t):
+    """Linearly interpolate between p1 and p2 at time t."""
+    return p1 * (1 - t) + p2 * t
+
+
+def extend(p1, p2, n):
+    """Return the point extended from p1 in the direction of p2 scaled by n."""
+    return p1 + (p2 - p1) * n
+
+
+def dist(p1, p2):
+    """Calculate the distance between two points."""
+    return sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+
+
+def bezierAt(p, t):
+    """Return the point on a bezier curve at time t."""
+
+    n = len(p)
+    if n == 1:
+        return p[0]
+    return lerp(bezierAt(p[:n - 1], t), bezierAt(p[1:n], t), t)
+
+
+def cubicApprox(p, t):
+    """Approximate a cubic bezier curve with a quadratic one."""
+
+    p1 = extend(p[0], p[1], 1.5)
+    p2 = extend(p[3], p[2], 1.5)
+    return [p[0], lerp(p1, p2, t), p[3]]
+
+
+def cubicApproxContour(p, n):
+    """Approximate a cubic bezier curve with a contour of n quadratics."""
+
+    contour = [p[0]]
+    ts = [(float(i) / n) for i in range(1, n)]
+    segments = [
+        map(array, segment)
+        for segment in bezierTools.splitCubicAtT(p[0], p[1], p[2], p[3], *ts)]
+    for i in range(len(segments)):
+        segment = cubicApprox(segments[i], float(i) / (n - 1))
+        contour.append(segment[1])
+    contour.append(p[3])
+    return contour
+
+
+def curveContourDist(bezier, contour):
+    """Max distance between a bezier and quadratic contour at sampled ts."""
+
+    TOTAL_STEPS = 20
+    error = 0
+    n = len(contour) - 2
+    steps = TOTAL_STEPS / n
+    for i in range(1, n + 1):
+        segment = [
+            contour[0] if i == 1 else segment[2],
+            contour[i],
+            contour[i + 1] if i == n else lerp(contour[i], contour[i + 1], 0.5)]
+        for j in range(steps):
+            p1 = bezierAt(bezier, (float(j) / steps + i - 1) / n)
+            p2 = bezierAt(segment, float(j) / steps)
+            error = max(error, dist(p1, p2))
+    return error
+
 
 def convertToQuadratic(p0,p1,p2,p3):
-    # TODO: test for accuracy and subdivide further if needed
-    p = [(i.x,i.y) for i in [p0,p1,p2,p3]]
-    # if p[0][0] == p[1][0] and p[0][0] == p[2][0] and p[0][0] == p[2][0] and p[0][0] == p[3][0]:
-    #     return (p[0],p[1],p[2],p[3]) 
-    # if p[0][1] == p[1][1] and p[0][1] == p[2][1] and p[0][1] == p[2][1] and p[0][1] == p[3][1]:
-    #     return (p[0],p[1],p[2],p[3])     
-    seg1,seg2 = bezierTools.splitCubicAtT(p[0], p[1], p[2], p[3], .5)
-    pts1 = [array([i[0], i[1]]) for i in seg1]
-    pts2 = [array([i[0], i[1]]) for i in seg2]
-    on1 = seg1[0]
-    on2 = seg2[3]
-    off1 = ((pts1[0] + (pts1[1] - pts1[0]) * 1.5) * 0.5 +
-            (pts1[3] + (pts1[2] - pts1[3]) * 1.5) * 0.5)
-    off2 = ((pts2[0] + (pts2[1] - pts2[0]) * 1.5) * 0.5 +
-            (pts2[3] + (pts2[2] - pts2[3]) * 1.5) * 0.5)
-    off1 = (on1 - off1) * OFFCURVE_VECTOR_CORRECTION + off1
-    off2 = (on2 - off2) * OFFCURVE_VECTOR_CORRECTION + off2
-    return (on1,off1,off2,on2)
+    MAX_N = 10
+    MAX_ERROR = 10
+    p = [array([i.x, i.y]) for i in [p0, p1, p2, p3]]
+    for n in range(2, MAX_N + 1):
+        contour = cubicApproxContour(p, n)
+        if curveContourDist(p, contour) <= MAX_ERROR:
+            break
+    return contour
+
 
 def cubicSegmentToQuadratic(c,sid):
     

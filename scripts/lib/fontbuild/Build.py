@@ -19,7 +19,7 @@ from robofab.world import OpenFont
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
-from fontbuild.convertCurves import glyphCurvesToQuadratic
+from fontbuild.convertCurves import fontsToQuadratic
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
@@ -68,6 +68,8 @@ class FontProject:
         
         self.buildOTF = False
         self.buildTTF = False
+        self.compatible = False
+        self.generatedFonts = []
         
         
     def loadBuildNumber(self):
@@ -163,7 +165,8 @@ class FontProject:
 
         setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
                          version=self.config.get('main', 'version'))
-        cleanCurves(f)
+        if not self.compatible:
+            cleanCurves(f)
         deleteGlyphs(f, self.deleteList)
 
         if kern:
@@ -176,6 +179,7 @@ class FontProject:
         GenerateFeature_mkmk(f)
         ufoName = self.generateOutputPath(f, "ufo")
         f.save(ufoName)
+        self.generatedFonts.append(ufoName)
 
         if self.buildOTF:
             log(">> Generating OTF file")
@@ -185,12 +189,28 @@ class FontProject:
             if not builtSuccessfully:
                 sys.exit(1)
 
-            if self.buildTTF:
-                log(">> Converting curves to quadratic")
-                for glyph in newFont:
-                    glyphCurvesToQuadratic(glyph)
-                log(">> Generating TTF file")
-                saveTTF(newFont, self.generateOutputPath(f, "ttf"), otfName)
+
+    def generateTTFs(self):
+        """Build TTF for each font generated since last call to generateTTFs."""
+
+        if not self.buildTTF:
+            return
+        if not self.buildOTF:
+            print "FontProject cannot build TTFs without OTFs."
+            return
+
+        fonts = [OpenFont(ufo) for ufo in self.generatedFonts]
+
+        log(">> Converting curves to quadratic")
+        fontsToQuadratic(fonts, self.compatible)
+
+        log(">> Generating TTF files")
+        for font in fonts:
+            ttf, otf = [self.generateOutputPath(font, ext)
+                        for ext in "ttf", "otf"]
+            log(os.path.basename(ttf))
+            saveTTF(font, ttf, otf)
+        self.generatedFonts = []
 
 
 def transformGlyphMembers(g, m):

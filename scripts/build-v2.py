@@ -92,6 +92,7 @@ FAMILYNAME = "Roboto"
 
 proj.buildOTF = True
 proj.buildTTF = True
+proj.compatible = True
 
 proj.generateFont(th.font, "%s/Thin/Regular/Th"%FAMILYNAME)
 proj.generateFont(Mix([th, rg], 0.45), "%s/Light/Regular/Lt"%FAMILYNAME)
@@ -102,6 +103,7 @@ proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
                   "%s/Bold/Bold/Rg"%FAMILYNAME)
 proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
                   "%s/Black/Bold/Bk"%FAMILYNAME)
+proj.generateTTFs()
 
 proj.generateFont(th.font, "%s/Thin Italic/Italic/Th"%FAMILYNAME,
                   italic=True, stemWidth=80)
@@ -117,6 +119,7 @@ proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
 proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
                   "%s/Black Italic/Bold Italic/Bk"%FAMILYNAME,
                   italic=True, stemWidth=290)
+proj.generateTTFs()
 
 thcn1 = Master(condenseFont(th.font, .84, 40))
 cn1 = Master(rg.ffont.addDiff(thcn1.ffont, th.ffont))
@@ -131,6 +134,7 @@ proj.generateFont(Mix([thcn1, cn1], RPoint(0.9, 0.92)),
 proj.generateFont(Mix([cn1, bdcn1], RPoint(0.75, 0.75)),
                   "%s Condensed/Bold/Bold/Rg"%FAMILYNAME,
                   swapSuffixes=[".cn"])
+proj.generateTTFs()
 
 proj.generateFont(Mix([thcn1, cn1], RPoint(0.45, 0.47)),
                   "%s Condensed/Light Italic/Italic/Lt"%FAMILYNAME,
@@ -141,5 +145,4 @@ proj.generateFont(Mix([thcn1, cn1], RPoint(0.9, 0.92)),
 proj.generateFont(Mix([cn1, bdcn1], RPoint(0.75, 0.75)),
                   "%s Condensed/Bold Italic/Bold Italic/Rg"%FAMILYNAME,
                   italic=True, swapSuffixes=[".cn"], stemWidth=240)
-
-sys.exit(0)
+proj.generateTTFs()

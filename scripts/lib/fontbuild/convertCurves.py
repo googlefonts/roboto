@@ -24,13 +24,26 @@ from math import sqrt
 
 from numpy import array
 from fontTools.misc import bezierTools
-from robofab.objects.objectsRF import RSegment
+from robofab.objects.objectsRF import RSegment, RPoint
 
 def replaceSegments(contour, segments):
+    try:
+        return contour.replaceSegments(segments)
+    except AttributeError:
+        pass
     while len(contour):
         contour.removeSegment(0)
     for s in segments:
         contour.appendSegment(s.type, [(p.x, p.y) for p in s.points], s.smooth)
+
+
+_zip = zip
+def zip(*args):
+    """Ensure each argument to zip has the same length."""
+    if len(set(len(a) for a in args)) != 1:
+        msg = "Args to zip in convertCurves.py should have equal lengths: "
+        raise ValueError(msg + " ".join(str(a) for a in args))
+    return _zip(*args)
 
 
 def lerp(p1, p2, t):
@@ -102,12 +115,24 @@ def curveContourDist(bezier, contour):
 def convertToQuadratic(p0,p1,p2,p3):
     MAX_N = 10
     MAX_ERROR = 10
+    if not isinstance(p0, RPoint):
+        return convertCollectionToQuadratic(p0, p1, p2, p3, MAX_N, MAX_ERROR)
+
     p = [array([i.x, i.y]) for i in [p0, p1, p2, p3]]
     for n in range(2, MAX_N + 1):
         contour = cubicApproxContour(p, n)
         if curveContourDist(p, contour) <= MAX_ERROR:
             break
     return contour
+
+
+def convertCollectionToQuadratic(p0, p1, p2, p3, maxN, maxErr):
+    curves = [[array([i.x, i.y]) for i in p] for p in zip(p0, p1, p2, p3)]
+    for n in range(2, maxN + 1):
+        contours = [cubicApproxContour(c, n) for c in curves]
+        if max(curveContourDist(*a) for a in zip(curves, contours)) <= maxErr:
+            break
+    return contours
 
 
 def cubicSegmentToQuadratic(c,sid):
@@ -121,6 +146,11 @@ def cubicSegmentToQuadratic(c,sid):
     pSegment = c[sid-1] #assumes that a curve type will always be proceeded by another point on the same contour
     points = convertToQuadratic(pSegment.points[-1],segment.points[0],
                                 segment.points[1],segment.points[2])
+
+    try:
+        return segment.asQuadratic([p[1:] for p in points])
+    except AttributeError:
+        pass
     return RSegment(
         'qcurve', [[int(i) for i in p] for p in points[1:]], segment.smooth)
 
@@ -139,3 +169,73 @@ def glyphCurvesToQuadratic(g):
             else:
                 segments.append(s)
         replaceSegments(c, segments)
+
+
+class FontCollection:
+    """A collection of fonts, or font components from different fonts.
+
+    Behaves like a single instance of the component, allowing access into
+    multiple fonts simultaneously for purposes of ensuring interpolation
+    compatibility.
+    """
+
+    def __init__(self, fonts):
+        self.init(fonts, GlyphCollection)
+
+    def __getitem__(self, key):
+        return self.children[key]
+
+    def __len__(self):
+        return len(self.children)
+
+    def __str__(self):
+        return str(self.instances)
+
+    def init(self, instances, childCollectionType, getChildren=None):
+        self.instances = instances
+        childrenByInstance = map(getChildren, self.instances)
+        self.children = map(childCollectionType, zip(*childrenByInstance))
+
+
+class GlyphCollection(FontCollection):
+    def __init__(self, glyphs):
+        self.init(glyphs, ContourCollection)
+        self.name = glyphs[0].name
+
+
+class ContourCollection(FontCollection):
+    def __init__(self, contours):
+        self.init(contours, SegmentCollection)
+
+    def replaceSegments(self, segmentCollections):
+        segmentsByContour = zip(*[s.instances for s in segmentCollections])
+        for contour, segments in zip(self.instances, segmentsByContour):
+            replaceSegments(contour, segments)
+
+
+class SegmentCollection(FontCollection):
+    def __init__(self, segments):
+        self.init(segments, None, lambda s: s.points)
+        self.points = self.children
+        self.type = segments[0].type
+
+    def asQuadratic(self, newPoints=None):
+        points = newPoints or self.children
+        return SegmentCollection([
+            RSegment("qcurve", [[int(i) for i in p] for p in pts], s.smooth)
+            for s, pts in zip(self.instances, points)])
+
+
+def fontsToQuadratic(fonts, compatible=False):
+    """Convert the curves of a collection of fonts to quadratic.
+
+    If compatibility is required, all curves will be converted to quadratic
+    at once. Otherwise the glyphs will be converted one font at a time,
+    which should be slightly more optimized.
+    """
+
+    if compatible:
+        fonts = [FontCollection(fonts)]
+    for font in fonts:
+        for glyph in font:
+            glyphCurvesToQuadratic(glyph)

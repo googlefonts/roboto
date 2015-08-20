@@ -39,10 +39,10 @@ def copyMarkAnchors(f, g, srcname, width):
             g.anchors.append(anchor1)
         if "top" == anchor.name:
             if g.unicode == None:
-                if -1 == find(g.name, ".ccmp"):
+                if (-1 == find(g.name, ".ccmp")) and (-1 == find(g.name, ".NAV")) and (-1 == find(g.name, ".smcp")):
                     continue                
             if False == (g.unicode in unicode_range):
-                if -1 == find(g.name, ".ccmp"):
+                if (-1 == find(g.name, ".ccmp")) and (-1 == find(g.name, ".NAV")) and (-1 == find(g.name, ".smcp")):
                     continue
             #if g.unicode > 0x02B0:
             #    continue
@@ -58,9 +58,11 @@ def copyMarkAnchors(f, g, srcname, width):
 
         if "bottom" == anchor.name:
             if g.unicode == None:
-                continue
+                if -1 == find(g.name, ".smcp"):
+                    continue
             if False == (g.unicode in unicode_range):
-                continue            
+                if -1 == find(g.name, ".smcp"):
+                    continue
             #if g.unicode > 0x02B0:
             #    continue
             bottom_present = 0

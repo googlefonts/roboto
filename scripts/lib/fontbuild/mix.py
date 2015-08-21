@@ -115,8 +115,8 @@ class FGlyph:
                 valuesX.append(g[i].points[j].x)
                 valuesY.append(g[i].points[j].y)
 
-        self.dataX = array(valuesX)
-        self.dataY = array(valuesY)
+        self.dataX = array(valuesX, dtype=float)
+        self.dataY = array(valuesY, dtype=float)
         
     def copyToGlyph(self,g):
         g.width = self._derefX(self.width)

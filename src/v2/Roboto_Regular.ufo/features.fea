@@ -70,6 +70,7 @@ languagesystem DFLT dflt;
 languagesystem latn dflt;
 languagesystem latn MOL;
 languagesystem latn ROM;
+languagesystem latn FRA;
 languagesystem cyrl dflt;
 languagesystem grek dflt;
 
@@ -150,10 +151,16 @@ languagesystem grek dflt;
 
 
 
+
+
+
+
+
 feature cpsp {
   pos @UC_ROMAN <36 0 72 0>;
   pos @UC_SET1 <36 0 72 0>;
-} cpsp;
+} cpsp;
+
 
 feature c2sc {
   sub @UC_ROMAN by @SC_ROMAN;
@@ -163,7 +170,8 @@ feature c2sc {
   sub [zero one two three four five six seven eight nine ampersand] by [zero.smcp one.smcp two.smcp three.smcp four.smcp five.smcp six.smcp seven.smcp eight.smcp nine.smcp ampersand.smcp];
   sub [AE Hbar Oslash Lslash Eng Thorn] by [AE.smcp Hbar.smcp Oslash.smcp Lslash.smcp Eng.smcp Thorn.smcp];
   sub [IJ AEacute Oslashacute uni0218 Wgrave Wacute Wdieresis Ygrave] by [IJ.smcp AEacute.smcp Oslashacute.smcp Scommaaccent.smcp Wgrave.smcp Wacute.smcp Wdieresis.smcp Ygrave.smcp];
-} c2sc;
+} c2sc;
+
 
 feature smcp {
   sub @LC_ROMAN by @SC_ROMAN;
@@ -172,20 +180,24 @@ feature smcp {
   sub [germandbls ampersand sigma1] by [Germandbls.smcp ampersand.smcp Sigma.smcp];
   sub [ae hbar oslash lslash eng thorn] by [AE.smcp Hbar.smcp Oslash.smcp Lslash.smcp Eng.smcp Thorn.smcp];
   sub [ij aeacute oslashacute uni0219 wgrave wacute wdieresis ygrave] by [IJ.smcp AEacute.smcp Oslashacute.smcp Scommaaccent.smcp Wgrave.smcp Wacute.smcp Wdieresis.smcp Ygrave.smcp];
-} smcp;
+} smcp;
+
 
 feature unic {
   sub @unicase_l by @unicase_r ;
   sub @unicase2_l by @unicase2_r ;  
-} unic;
+} unic;
+
 
 feature mark {
   ;#insert from script mark
-} mark;
+} mark;
+
 
 feature mkmk {
   ;#insert from script mkmk
-} mkmk;
+} mkmk;
+
 
 feature ccmp {
 
@@ -918,7 +930,8 @@ feature ccmp {
 
 
  
-} ccmp;
+} ccmp;
+
 
 feature locl {
  script latn; language dflt; #set comment (#) for FDK 2.5
@@ -927,14 +940,18 @@ feature locl {
  language ROM  exclude_dflt; # Romanian
   sub [Scedilla scedilla] by [uni0218 uni0219];
  language NAV  exclude_dflt; # Navajo
-  sub [ Aogonek aogonek Eogonek eogonek Oogonek oogonek ] by [ Aogonek.NAV aogonek.NAV Eogonek.NAV eogonek.NAV Oogonek.NAV oogonek.NAV ];
-} locl;
+  sub [ Aogonek aogonek Eogonek eogonek Oogonek oogonek Aogonek.smcp Eogonek.smcp Oogonek.smcp ] by [ Aogonek.NAV aogonek.NAV Eogonek.NAV eogonek.NAV Oogonek.NAV oogonek.NAV Aogonek.smcp.NAV Eogonek.smcp.NAV Oogonek.smcp.NAV ];
+ language FRA  exclude_dflt; # French
+  sub [ uni2009 ] by [ uni2009.fra ];  
+} locl;
+
 
 feature dlig {
 	sub f f by f_f;
 	sub longs t by longst;
 	sub s t by st;
-} dlig;
+} dlig;
+
 
 feature liga {
   script latn; language dflt; #set comment (#) for FDK 2.5
@@ -952,34 +969,41 @@ feature liga {
 	language TUR  exclude_dflt;
 	lookup liga02;	
 	
-} liga;
+} liga;
+
 
 feature salt {
   sub K by K.alt;
   sub g by g.alt;
-} salt;
+} salt;
+
 
 feature ss01 {
   sub g by g.alt ;
-} ss01;
+} ss01;
+
 
 feature ss02 {
   sub alpha by alpha.alt;
-} ss02;
+} ss02;
+
 
 feature ss03 {
   sub R by R.alt ;
-} ss03;
+} ss03;
+
 
 feature ss04 {
   sub K by K.alt;
   sub k by k.alt;
-} ss04;
+} ss04;
+
 
 feature ss05 {
   sub k by k.alt2;
   sub K by K.alt2;
-} ss05;
+} ss05;
+
 
 feature ss06 {
   sub C by C.ss06;
@@ -988,28 +1012,34 @@ feature ss06 {
   sub Q by Q.ss06;
   sub G by G.ss06;
   sub [b c d g o p q] by [b.ss06 c.ss06 d.ss06 g.ss06 o.ss06 p.ss06 q.ss06];
-} ss06;
+} ss06;
+
 
 feature ss07 {
   sub [g e] by [g.ss07 e.ss07];
   sub [g.ss06] by [g.ss07];
-} ss07;
+} ss07;
+
 
 feature onum {
   sub [zero one two three four five seven nine] by [zero.onum one.onum two.onum three.onum four.onum five.onum seven.onum nine.onum];
-} onum;
+} onum;
+
 
 feature tnum {
   sub [zero.lnum one.lnum two.lnum three.lnum four.lnum five.lnum seven.lnum nine.lnum] by [zero one two three four five seven nine];
-} tnum;
+} tnum;
+
 
 feature pnum {
   sub [zero one two three four five seven nine] by [zero.lnum one.lnum two.lnum three.lnum four.lnum five.lnum seven.lnum nine.lnum];
-} pnum;
+} pnum;
+
 
 feature lnum {
   sub [zero.onum one.onum two.onum three.onum four.onum five.onum seven.onum nine.onum] by [zero one two three four five seven nine];
-} lnum;
+} lnum;
+
 
 feature frac { # Fractions
  # Latin
@@ -1022,11 +1052,13 @@ lookup frac_2 {
 lookup frac_3 {
     sub @frac1 by @frac2;
 } frac_3;
-} frac;
+} frac;
+
 
 feature dnom {
   sub @frac1 by @frac4;
-} dnom;
+} dnom;
+
 
 feature numr {
   sub @frac1 by @frac2;
@@ -1276,5 +1308,14 @@ feature numr {
 
 
 
-
+
+
+
+
+
+
+
+
+
+
 

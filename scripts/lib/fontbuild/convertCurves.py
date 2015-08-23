@@ -22,7 +22,8 @@ exactly two off curve points.
 
 from math import sqrt
 
-from numpy import array
+import numpy
+from numpy import array, dot
 from fontTools.misc import bezierTools
 from robofab.objects.objectsRF import RSegment, RPoint
 
@@ -78,8 +79,33 @@ def cubicApprox(p, t):
     return [p[0], lerp(p1, p2, t), p[3]]
 
 
+def calcIntersect(p):
+    """Calculate the intersection of ab and cd, given [a, b, c, d]."""
+
+    numpy.seterr(all="raise")
+    a, b, c, d = p
+    ab = b - a
+    cd = d - c
+    p = array([-ab[1], ab[0]])
+    try:
+        h = dot(a - c, p) / dot(cd, p)
+    except FloatingPointError:
+        raise ValueError("Parallel vectors given to calcIntersect.")
+    return c + dot(cd, h)
+
+
 def cubicApproxContour(p, n):
-    """Approximate a cubic bezier curve with a contour of n quadratics."""
+    """Approximate a cubic bezier curve with a contour of n quadratics.
+
+    Returns None if n is 1 and the cubic's control vectors are parallel, since
+    no quadratic exists with this cubic's tangents."""
+
+    if n == 1:
+        try:
+            p1 = calcIntersect(p)
+        except ValueError:
+            return None
+        return p[0], p1, p[3]
 
     contour = [p[0]]
     ts = [(float(i) / n) for i in range(1, n)]
@@ -119,17 +145,19 @@ def convertToQuadratic(p0,p1,p2,p3):
         return convertCollectionToQuadratic(p0, p1, p2, p3, MAX_N, MAX_ERROR)
 
     p = [array([i.x, i.y]) for i in [p0, p1, p2, p3]]
-    for n in range(2, MAX_N + 1):
+    for n in range(1, MAX_N + 1):
         contour = cubicApproxContour(p, n)
-        if curveContourDist(p, contour) <= MAX_ERROR:
+        if contour and curveContourDist(p, contour) <= MAX_ERROR:
             break
     return contour
 
 
 def convertCollectionToQuadratic(p0, p1, p2, p3, maxN, maxErr):
     curves = [[array([i.x, i.y]) for i in p] for p in zip(p0, p1, p2, p3)]
-    for n in range(2, maxN + 1):
+    for n in range(1, maxN + 1):
         contours = [cubicApproxContour(c, n) for c in curves]
+        if not all(contours):
+            continue
         if max(curveContourDist(*a) for a in zip(curves, contours)) <= maxErr:
             break
     return contours

@@ -47,6 +47,27 @@ def zip(*args):
     return _zip(*args)
 
 
+class Point:
+    """An arithmetic-compatible 2D vector.
+    We use this because arithmetic with RoboFab's RPoint is prohibitively slow.
+    """
+
+    def __init__(self, p):
+        self.p = p
+
+    def __getitem__(self, key):
+        return self.p[key]
+
+    def __add__(self, other):
+        return Point([a + b for a, b in zip(self.p, other.p)])
+
+    def __sub__(self, other):
+        return Point([a - b for a, b in zip(self.p, other.p)])
+
+    def __mul__(self, n):
+        return Point([a * n for a in self.p])
+
+
 def lerp(p1, p2, t):
     """Linearly interpolate between p1 and p2 at time t."""
     return p1 * (1 - t) + p2 * t
@@ -60,6 +81,11 @@ def extend(p1, p2, n):
 def dist(p1, p2):
     """Calculate the distance between two points."""
     return sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+
+
+def dot(p1, p2):
+    """Return the dot product of two points."""
+    return p1[0] * p2[0] + p1[1] * p2[1]
 
 
 def bezierAt(p, t):
@@ -86,12 +112,12 @@ def calcIntersect(p):
     a, b, c, d = p
     ab = b - a
     cd = d - c
-    p = array([-ab[1], ab[0]])
+    p = Point([-ab[1], ab[0]])
     try:
         h = dot(a - c, p) / dot(cd, p)
-    except FloatingPointError:
+    except ZeroDivisionError:
         raise ValueError("Parallel vectors given to calcIntersect.")
-    return c + dot(cd, h)
+    return c + cd * h
 
 
 def cubicApproxContour(p, n):
@@ -110,7 +136,7 @@ def cubicApproxContour(p, n):
     contour = [p[0]]
     ts = [(float(i) / n) for i in range(1, n)]
     segments = [
-        map(array, segment)
+        map(Point, segment)
         for segment in bezierTools.splitCubicAtT(p[0], p[1], p[2], p[3], *ts)]
     for i in range(len(segments)):
         segment = cubicApprox(segments[i], float(i) / (n - 1))
@@ -144,7 +170,7 @@ def convertToQuadratic(p0,p1,p2,p3):
     if not isinstance(p0, RPoint):
         return convertCollectionToQuadratic(p0, p1, p2, p3, MAX_N, MAX_ERROR)
 
-    p = [array([i.x, i.y]) for i in [p0, p1, p2, p3]]
+    p = [Point([i.x, i.y]) for i in [p0, p1, p2, p3]]
     for n in range(1, MAX_N + 1):
         contour = cubicApproxContour(p, n)
         if contour and curveContourDist(p, contour) <= MAX_ERROR:
@@ -153,7 +179,7 @@ def convertToQuadratic(p0,p1,p2,p3):
 
 
 def convertCollectionToQuadratic(p0, p1, p2, p3, maxN, maxErr):
-    curves = [[array([i.x, i.y]) for i in p] for p in zip(p0, p1, p2, p3)]
+    curves = [[Point([i.x, i.y]) for i in p] for p in zip(p0, p1, p2, p3)]
     for n in range(1, maxN + 1):
         contours = [cubicApproxContour(c, n) for c in curves]
         if not all(contours):

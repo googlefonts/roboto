@@ -22,8 +22,6 @@ exactly two off curve points.
 
 from math import sqrt
 
-import numpy
-from numpy import array, dot
 from fontTools.misc import bezierTools
 from robofab.objects.objectsRF import RSegment, RPoint
 
@@ -108,7 +106,6 @@ def cubicApprox(p, t):
 def calcIntersect(p):
     """Calculate the intersection of ab and cd, given [a, b, c, d]."""
 
-    numpy.seterr(all="raise")
     a, b, c, d = p
     ab = b - a
     cd = d - c

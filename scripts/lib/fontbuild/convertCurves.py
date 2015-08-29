@@ -20,7 +20,7 @@ exactly two off curve points.
 
 """
 
-from math import sqrt
+from math import hypot
 
 from fontTools.misc import bezierTools
 from robofab.objects.objectsRF import RSegment, RPoint
@@ -78,7 +78,7 @@ def extend(p1, p2, n):
 
 def dist(p1, p2):
     """Calculate the distance between two points."""
-    return sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+    return hypot(p1[0] - p2[0], p1[1] - p2[1])
 
 
 def dot(p1, p2):

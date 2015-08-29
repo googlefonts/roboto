@@ -121,8 +121,8 @@ def calcIntersect(p):
     return c + cd * h
 
 
-def cubicApproxContour(p, n):
-    """Approximate a cubic bezier curve with a contour of n quadratics.
+def cubicApproxSpline(p, n):
+    """Approximate a cubic bezier curve with a spline of n quadratics.
 
     Returns None if n is 1 and the cubic's control vectors are parallel, since
     no quadratic exists with this cubic's tangents."""
@@ -134,30 +134,30 @@ def cubicApproxContour(p, n):
             return None
         return p[0], p1, p[3]
 
-    contour = [p[0]]
+    spline = [p[0]]
     ts = [(float(i) / n) for i in range(1, n)]
     segments = [
         map(Point, segment)
         for segment in bezierTools.splitCubicAtT(p[0], p[1], p[2], p[3], *ts)]
     for i in range(len(segments)):
         segment = cubicApprox(segments[i], float(i) / (n - 1))
-        contour.append(segment[1])
-    contour.append(p[3])
-    return contour
+        spline.append(segment[1])
+    spline.append(p[3])
+    return spline
 
 
-def curveContourDist(bezier, contour):
-    """Max distance between a bezier and quadratic contour at sampled ts."""
+def curveSplineDist(bezier, spline):
+    """Max distance between a bezier and quadratic spline at sampled ts."""
 
     TOTAL_STEPS = 20
     error = 0
-    n = len(contour) - 2
+    n = len(spline) - 2
     steps = TOTAL_STEPS / n
     for i in range(1, n + 1):
         segment = [
-            contour[0] if i == 1 else segment[2],
-            contour[i],
-            contour[i + 1] if i == n else lerp(contour[i], contour[i + 1], 0.5)]
+            spline[0] if i == 1 else segment[2],
+            spline[i],
+            spline[i + 1] if i == n else lerp(spline[i], spline[i + 1], 0.5)]
         for j in range(steps):
             p1 = bezierAt(bezier, (float(j) / steps + i - 1) / n)
             p2 = bezierAt(segment, float(j) / steps)
@@ -173,21 +173,21 @@ def convertToQuadratic(p0,p1,p2,p3):
 
     p = [Point([i.x, i.y]) for i in [p0, p1, p2, p3]]
     for n in range(1, MAX_N + 1):
-        contour = cubicApproxContour(p, n)
-        if contour and curveContourDist(p, contour) <= MAX_ERROR:
+        spline = cubicApproxSpline(p, n)
+        if spline and curveSplineDist(p, spline) <= MAX_ERROR:
             break
-    return contour
+    return spline
 
 
 def convertCollectionToQuadratic(p0, p1, p2, p3, maxN, maxErr):
     curves = [[Point([i.x, i.y]) for i in p] for p in zip(p0, p1, p2, p3)]
     for n in range(1, maxN + 1):
-        contours = [cubicApproxContour(c, n) for c in curves]
-        if not all(contours):
+        splines = [cubicApproxSpline(c, n) for c in curves]
+        if not all(splines):
             continue
-        if max(curveContourDist(*a) for a in zip(curves, contours)) <= maxErr:
+        if max(curveSplineDist(*a) for a in zip(curves, splines)) <= maxErr:
             break
-    return contours
+    return splines
 
 
 def cubicSegmentToQuadratic(c,sid):

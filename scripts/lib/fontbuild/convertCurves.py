@@ -14,10 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Converts a cubic bezier curve to a quadratic spline with 
-exactly two off curve points.
+"""Converts cubic bezier curves to quadratic splines.
 
+Conversion is performed such that the quadratic splines keep the same end-curve
+tangents as the original cubics. The approach is iterative, increasing the
+number of segments for a spline until the error gets below a bound.
+
+If necessary, respective curves from multiple fonts will be converted at once to
+ensure that the resulting splines are interpolation-compatible.
 """
 
 from math import hypot

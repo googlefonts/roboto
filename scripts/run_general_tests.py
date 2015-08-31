@@ -67,6 +67,12 @@ class TestVerticalMetrics(common_tests.TestVerticalMetrics):
     test_ymin_ymax = None
     test_hhea_table_metrics = None
 
+
+class TestGlyphAreas(common_tests.TestGlyphAreas):
+    loaded_fonts = UFOS
+    masters = UFO_MASTERS
+
+
 if __name__ == '__main__':
     unittest.main()
 

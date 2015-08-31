@@ -18,11 +18,23 @@
 
 import unittest
 
+from robofab.world import OpenFont
+
 import common_tests
 
 FONTS = common_tests.load_fonts(
     ['hinted/*.ttf'],
     expected_count=18)
+
+UFOS = common_tests.load_fonts(
+    ['out/RobotoUFO/*.ufo', 'out/RobotoCondensedUFO/*.ufo'],
+    expected_count=18,
+    font_class=OpenFont)
+
+UFO_MASTERS = common_tests.load_fonts(
+    ['src/v2/*.ufo'],
+    expected_count=3,
+    font_class=OpenFont)
 
 class TestItalicAngle(common_tests.TestItalicAngle):
     loaded_fonts = FONTS

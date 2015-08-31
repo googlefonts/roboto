@@ -42,15 +42,19 @@ def get_rendered_char_height(font_filename, font_size, char, target='mono'):
     return face.glyph.bitmap.rows
 
 
-def load_fonts(patterns, expected_count=None):
+def load_fonts(patterns, expected_count=None, font_class=None):
     """Load all fonts specified in the patterns.
 
     Also assert that the number of the fonts found is exactly the same as
     expected_count."""
+
+    if font_class is None:
+        font_class = ttLib.TTFont
+
     all_font_files = []
     for pattern in patterns:
         all_font_files += glob.glob(pattern)
-    all_fonts = [ttLib.TTFont(font) for font in all_font_files]
+    all_fonts = [font_class(font) for font in all_font_files]
     if expected_count:
         assert len(all_font_files) == expected_count
     return all_font_files, all_fonts

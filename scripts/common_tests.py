@@ -27,6 +27,7 @@ import freetype
 
 import layout
 import roboto_data
+from glyph_area_pen import GlyphAreaPen
 
 
 def get_rendered_char_height(font_filename, font_size, char, target='mono'):
@@ -42,15 +43,19 @@ def get_rendered_char_height(font_filename, font_size, char, target='mono'):
     return face.glyph.bitmap.rows
 
 
-def load_fonts(patterns, expected_count=None):
+def load_fonts(patterns, expected_count=None, font_class=None):
     """Load all fonts specified in the patterns.
 
     Also assert that the number of the fonts found is exactly the same as
     expected_count."""
+
+    if font_class is None:
+        font_class = ttLib.TTFont
+
     all_font_files = []
     for pattern in patterns:
         all_font_files += glob.glob(pattern)
-    all_fonts = [ttLib.TTFont(font) for font in all_font_files]
+    all_fonts = [font_class(font) for font in all_font_files]
     if expected_count:
         assert len(all_font_files) == expected_count
     return all_font_files, all_fonts
@@ -327,3 +332,56 @@ class TestVerticalMetrics(FontTest):
             self.assertEqual(hhea_table.ascent, 1900)
             self.assertEqual(hhea_table.lineGap, 0)
 
+
+class TestGlyphAreas(unittest.TestCase):
+    """Tests that glyph areas between weights have the right ratios."""
+
+    def setUp(self):
+        """Determine which glyphs are intentionally unchanged."""
+
+        self.unchanged = set()
+        pen = self.pen = GlyphAreaPen()
+        thin, bold = self.getFonts(self.masters[1], "Roboto", "Thin", "Bold")
+        for glyph in thin:
+            glyph.draw(pen)
+            thin_area = pen.unload()
+            bold[glyph.name].draw(pen)
+            bold_area = pen.unload()
+            if thin_area == bold_area:
+                if thin_area:
+                    self.unchanged.add(glyph.name)
+            else:
+                assert thin_area and bold_area
+
+    def getFonts(self, fonts, family, *weights):
+        """Extract fonts of certain family and weights from given font list."""
+
+        fonts = dict((f.info.styleName, f) for f in fonts
+                     if f.info.familyName == family)
+        return [fonts[w] for w in weights]
+
+    def test_output(self):
+        """Test that only empty or intentionally unchanged glyphs are unchanged.
+        """
+
+        pen = self.pen
+        thin, regular, bold = self.getFonts(
+            self.loaded_fonts[1], "Roboto", "Thin", "Regular", "Bold")
+        regular_areas = {}
+        for glyph in regular:
+            glyph.draw(pen)
+            regular_areas[glyph.name] = pen.unload()
+
+        for other in [thin, bold]:
+            for name, regular_area in regular_areas.iteritems():
+                other[name].draw(pen)
+                other_area = pen.unload()
+                if not regular_area:  # glyph probably contains only components
+                    self.assertFalse(other_area)
+                    continue
+                unchanged = regular_area == other_area
+                if unchanged:
+                    msg = name + " has not changed, but should have."
+                else:
+                    msg = name + " has changed, but should not have."
+                self.assertEqual(unchanged, name in self.unchanged, msg)

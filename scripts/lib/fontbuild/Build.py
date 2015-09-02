@@ -150,7 +150,7 @@ class FontProject:
                     swapContours(f, gname.replace(swap,""), gname)
         for gname in self.predecompose:
             if f.has_key(gname):
-                decomposeGlyph(f[gname])
+                decomposeGlyph(f, gname)
 
         log(">> Generating glyphs")
         generateGlyphs(f, self.diacriticList, self.adobeGlyphList)
@@ -159,7 +159,7 @@ class FontProject:
         log(">> Decomposing")
         for gname in self.decompose:
             if f.has_key(gname):
-                decomposeGlyph(f[gname])
+                decomposeGlyph(f, gname)
 
         setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
                          version=self.config.get('main', 'version'))

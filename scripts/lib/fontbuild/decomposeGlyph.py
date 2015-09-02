@@ -1,7 +1,7 @@
-def decomposeGlyph(glyph):
+def decomposeGlyph(font, glyphName):
     """Moves the components of a glyph to its outline."""
 
-    font = glyph.getParent()
+    glyph = font[glyphName]
     for component in glyph.components:
         componentGlyph = font[component.baseGlyph]
         for contour in componentGlyph:

@@ -249,7 +249,7 @@ class Master:
           size = len(g)
           csize = len(g.components)
           if (size > 0 and csize > 0):
-            decomposeGlyph(g)
+            decomposeGlyph(self.font, g.name)
 
         if overlayPath != None:
             overlayFont = OpenFont(overlayPath)

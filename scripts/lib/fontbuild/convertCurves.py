@@ -83,13 +83,22 @@ def lerp(p1, p2, t):
     return p1 * (1 - t) + p2 * t
 
 
-def bezierAt(p, t):
-    """Return the point on a bezier curve at time t."""
+def quadraticBezierAt(p, t):
+    """Return the point on a quadratic bezier curve at time t."""
 
-    n = len(p)
-    if n == 1:
-        return p[0]
-    return lerp(bezierAt(p[:n - 1], t), bezierAt(p[1:n], t), t)
+    return Point([
+        lerp(lerp(p[0][0], p[1][0], t), lerp(p[1][0], p[2][0], t), t),
+        lerp(lerp(p[0][1], p[1][1], t), lerp(p[1][1], p[2][1], t), t)])
+
+
+def cubicBezierAt(p, t):
+    """Return the point on a cubic bezier curve at time t."""
+
+    return Point([
+        lerp(lerp(lerp(p[0][0], p[1][0], t), lerp(p[1][0], p[2][0], t), t),
+             lerp(lerp(p[1][0], p[2][0], t), lerp(p[2][0], p[3][0], t), t), t),
+        lerp(lerp(lerp(p[0][1], p[1][1], t), lerp(p[1][1], p[2][1], t), t),
+             lerp(lerp(p[1][1], p[2][1], t), lerp(p[2][1], p[3][1], t), t), t)])
 
 
 def cubicApprox(p, t):
@@ -152,8 +161,8 @@ def curveSplineDist(bezier, spline):
             spline[i],
             spline[i + 1] if i == n else lerp(spline[i], spline[i + 1], 0.5)]
         for j in range(steps):
-            p1 = bezierAt(bezier, (float(j) / steps + i - 1) / n)
-            p2 = bezierAt(segment, float(j) / steps)
+            p1 = cubicBezierAt(bezier, (float(j) / steps + i - 1) / n)
+            p2 = quadraticBezierAt(segment, float(j) / steps)
             error = max(error, p1.dist(p2))
     return error
 

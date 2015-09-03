@@ -69,25 +69,18 @@ class Point:
     def __mul__(self, n):
         return Point([a * n for a in self.p])
 
+    def dist(self, other):
+        """Calculate the distance between two points."""
+        return hypot(self[0] - other[0], self[1] - other[1])
+
+    def dot(self, other):
+        """Return the dot product of two points."""
+        return self[0] * other[0] + self[1] * other[1]
+
 
 def lerp(p1, p2, t):
     """Linearly interpolate between p1 and p2 at time t."""
     return p1 * (1 - t) + p2 * t
-
-
-def extend(p1, p2, n):
-    """Return the point extended from p1 in the direction of p2 scaled by n."""
-    return p1 + (p2 - p1) * n
-
-
-def dist(p1, p2):
-    """Calculate the distance between two points."""
-    return hypot(p1[0] - p2[0], p1[1] - p2[1])
-
-
-def dot(p1, p2):
-    """Return the dot product of two points."""
-    return p1[0] * p2[0] + p1[1] * p2[1]
 
 
 def bezierAt(p, t):
@@ -102,8 +95,8 @@ def bezierAt(p, t):
 def cubicApprox(p, t):
     """Approximate a cubic bezier curve with a quadratic one."""
 
-    p1 = extend(p[0], p[1], 1.5)
-    p2 = extend(p[3], p[2], 1.5)
+    p1 = lerp(p[0], p[1], 1.5)
+    p2 = lerp(p[3], p[2], 1.5)
     return [p[0], lerp(p1, p2, t), p[3]]
 
 
@@ -115,7 +108,7 @@ def calcIntersect(p):
     cd = d - c
     p = Point([-ab[1], ab[0]])
     try:
-        h = dot(a - c, p) / dot(cd, p)
+        h = p.dot(a - c) / p.dot(cd)
     except ZeroDivisionError:
         raise ValueError("Parallel vectors given to calcIntersect.")
     return c + cd * h
@@ -161,7 +154,7 @@ def curveSplineDist(bezier, spline):
         for j in range(steps):
             p1 = bezierAt(bezier, (float(j) / steps + i - 1) / n)
             p2 = bezierAt(segment, float(j) / steps)
-            error = max(error, dist(p1, p2))
+            error = max(error, p1.dist(p2))
     return error
 
 

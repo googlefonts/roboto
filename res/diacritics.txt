@@ -544,15 +544,21 @@ x+crossbar:cross=uni04FF
 epsilon=uni0511
 F+crossbar:cross=franc
 emdash=uni2015
-#Lining numbers
-two=two.lnum
-three=three.lnum
-four=four.lnum
-five=five.lnum
-six=six.lnum/20,0
-eight=eight.lnum/20,20
-nine=nine.lnum/0,20
-zero=zero.lnum/20,20
+#
+# proportional numbers
+two=two.pnum
+three=three.pnum
+four=four.pnum
+five=five.pnum
+six=six.pnum/20,0
+eight=eight.pnum/20,20
+nine=nine.pnum/0,20
+zero=zero.pnum/20,20
+#
+# old-style numbers
+six=six.onum
+eight=eight.onum
+#
 # AddGlyphs
 uni1FBE=uni037A
 #I=Iota1

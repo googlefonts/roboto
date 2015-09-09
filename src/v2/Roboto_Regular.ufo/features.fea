@@ -87,8 +87,10 @@ languagesystem grek dflt;
 @LC_SET3 = [ alpha alphatonos beta chi delta epsilon epsilontonos eta etatonos gamma iota iotadieresis iotatonos kappa lambda uni03BC omega omegatonos omicron omicrontonos phi pi psi rho sigma tau theta upsilon upsilondieresis upsilontonos xi zeta nu uni03F3 ];
 @SC_SET3 = [ Alpha.smcp Alphatonos.smcp Beta.smcp Chi.smcp Delta.smcp Epsilon.smcp Epsilontonos.smcp Eta.smcp Etatonos.smcp Gamma.smcp Iota.smcp Iotadieresis.smcp Iotatonos.smcp Kappa.smcp Lambda.smcp Mu.smcp Omega.smcp Omegatonos.smcp Omicron.smcp Omicrontonos.smcp Phi.smcp Pi.smcp Psi.smcp Rho.smcp Sigma.smcp Tau.smcp Theta.smcp Upsilon.smcp Upsilondieresis.smcp Upsilontonos.smcp Xi.smcp Zeta.smcp Nu.smcp uni037F.smcp ];
 
-#@TNUM = [zero one two three four five six seven eight nine];
-#@LNUM = [zero.lnum one.lnum two.lnum three.lnum four.lnum five.lnum six.lnum seven.lnum eight.lnum nine.lnum];
+@LNUM = [zero one two three four five six seven eight nine];
+@ONUM = [zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum];
+@PNUM = [zero.pnum one.pnum two.pnum three.pnum four.pnum five.pnum six.pnum seven.pnum eight.pnum nine.pnum];
+@TNUM = [zero.tnum one.tnum two.tnum three.tnum four.tnum five.tnum six.tnum seven.tnum eight.tnum nine.tnum];
 @frac1 = [ zero one two three four five six seven eight nine ];
 @frac2 = [ zero.frac onesuperior twosuperior threesuperior four.frac five.frac six.frac seven.frac eight.frac nine.frac ];
 @frac3 = [ fraction zero.sup one.sup two.sup three.sup four.sup five.sup six.sup seven.sup eight.sup nine.sup ];
@@ -1022,22 +1024,26 @@ feature ss07 {
 
 
 feature onum {
-  sub [zero one two three four five seven nine] by [zero.onum one.onum two.onum three.onum four.onum five.onum seven.onum nine.onum];
+  sub @LNUM by @ONUM;
+  sub @PNUM by @TNUM;
 } onum;
 
 
 feature tnum {
-  sub [zero.lnum one.lnum two.lnum three.lnum four.lnum five.lnum seven.lnum nine.lnum] by [zero one two three four five seven nine];
+  sub @PNUM by @LNUM;
+  sub @ONUM by @TNUM;
 } tnum;
 
 
 feature pnum {
-  sub [zero one two three four five seven nine] by [zero.lnum one.lnum two.lnum three.lnum four.lnum five.lnum seven.lnum nine.lnum];
+  sub @LNUM by @PNUM;
+  sub @TNUM by @ONUM;
 } pnum;
 
 
 feature lnum {
-  sub [zero.onum one.onum two.onum three.onum four.onum five.onum seven.onum nine.onum] by [zero one two three four five seven nine];
+  sub @ONUM by @LNUM;
+  sub @TNUM by @PNUM;
 } lnum;
 
 

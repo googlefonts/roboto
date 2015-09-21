@@ -2,17 +2,18 @@ def decomposeGlyph(font, glyphName):
     """Moves the components of a glyph to its outline."""
 
     glyph = font[glyphName]
-    decompose(font, glyph, glyph, (0, 0), (1, 1))
+    deepCopyContours(font, glyph, glyph, (0, 0), (1, 1))
     glyph.clearComponents()
 
 
-def decompose(font, parent, component, offset, scale):
+def deepCopyContours(font, parent, component, offset, scale):
     """Copy contours to parent from component, including nested components."""
 
     for nested in component.components:
-        decompose(font, parent, font[nested.baseGlyph],
-                  (offset[0] + nested.offset[0], offset[1] + nested.offset[1]),
-                  (scale[0] * nested.scale[0], scale[1] * nested.scale[1]))
+        deepCopyContours(
+            font, parent, font[nested.baseGlyph],
+            (offset[0] + nested.offset[0], offset[1] + nested.offset[1]),
+            (scale[0] * nested.scale[0], scale[1] * nested.scale[1]))
 
     if component == parent:
         return

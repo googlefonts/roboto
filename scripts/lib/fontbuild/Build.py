@@ -14,11 +14,12 @@
 
 
 from booleanOperations import BooleanOperationManager
+from fontTools.ttLib import TTFont
 from robofab.world import OpenFont
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
-from fontbuild.convertCurves import glyphCurvesToQuadratic
+from fontbuild.convertCurves import fontsToQuadratic
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.generateGlyph import generateGlyph
 from fontTools.misc.transform import Transform
@@ -66,8 +67,9 @@ class FontProject:
         self.buildnumber = self.loadBuildNumber()
         
         self.buildOTF = False
-        self.autohintOTF = False
         self.buildTTF = False
+        self.compatible = False
+        self.generatedFonts = []
         
         
     def loadBuildNumber(self):
@@ -163,7 +165,8 @@ class FontProject:
 
         setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
                          version=self.config.get('main', 'version'))
-        cleanCurves(f)
+        if not self.compatible:
+            cleanCurves(f)
         deleteGlyphs(f, self.deleteList)
 
         if kern:
@@ -176,20 +179,38 @@ class FontProject:
         GenerateFeature_mkmk(f)
         ufoName = self.generateOutputPath(f, "ufo")
         f.save(ufoName)
+        self.generatedFonts.append(ufoName)
 
         if self.buildOTF:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
             otfName = self.generateOutputPath(f, "otf")
-            builtSuccessfully = saveOTF(newFont, otfName, autohint=self.autohintOTF)
+            builtSuccessfully = saveOTF(newFont, otfName)
             if not builtSuccessfully:
                 sys.exit(1)
 
-            if self.buildTTF:
-                log(">> Generating TTF file")
-                import fontforge
-                otFont = fontforge.open(otfName)
-                otFont.generate(self.generateOutputPath(f, "ttf"))
+
+    def generateTTFs(self):
+        """Build TTF for each font generated since last call to generateTTFs."""
+
+        if not self.buildTTF:
+            return
+        if not self.buildOTF:
+            print "FontProject cannot build TTFs without OTFs."
+            return
+
+        fonts = [OpenFont(ufo) for ufo in self.generatedFonts]
+
+        log(">> Converting curves to quadratic")
+        fontsToQuadratic(fonts, self.compatible)
+
+        log(">> Generating TTF files")
+        for font in fonts:
+            ttf, otf = [self.generateOutputPath(font, ext)
+                        for ext in "ttf", "otf"]
+            log(os.path.basename(ttf))
+            saveTTF(font, ttf, otf)
+        self.generatedFonts = []
 
 
 def transformGlyphMembers(g, m):
@@ -253,10 +274,6 @@ def cleanCurves(f):
     # log(">> Mitring sharp corners")
     # for g in f:
     #     mitreGlyph(g, 3., .7)
-    
-    # log(">> Converting curves to quadratic")
-    # for g in f:
-    #     glyphCurvesToQuadratic(g)
 
 
 def deleteGlyphs(f, deleteList):
@@ -274,7 +291,7 @@ def removeGlyphOverlap(glyph):
     manager.union(contours, glyph.getPointPen())
 
 
-def saveOTF(font, destFile, autohint=False):
+def saveOTF(font, destFile):
     """Save a RoboFab font as an OTF binary using ufo2fdk.
 
     Returns True on success, False otherwise.
@@ -293,11 +310,30 @@ def saveOTF(font, destFile, autohint=False):
             newGlyph.width = glyph.width
 
     compiler = OTFCompiler()
-    reports = compiler.compile(font, destFile, autohint=autohint)
-    if autohint:
-        print reports["autohint"]
+    reports = compiler.compile(font, destFile, autohint=True, releaseMode=True)
+    print reports["autohint"]
     print reports["makeotf"]
 
     successMsg = ("makeotfexe [NOTE] Wrote new font file '%s'." %
                   os.path.basename(destFile))
     return successMsg in reports["makeotf"]
+
+
+def saveTTF(font, destFile, feaSrcFile):
+    """Save a RoboFab font as a TTF binary.
+
+    Copies features tables from the OTF binary referred to by feaSrcFile.
+    """
+
+    from fontbuild.outlineTTF import OutlineTTFCompiler
+
+    tmpFile = destFile + ".tmp"
+    compiler = OutlineTTFCompiler(font, tmpFile)
+    compiler.compile()
+
+    ttf = TTFont(tmpFile)
+    feaSrc = TTFont(feaSrcFile)
+    ttf['GPOS'] = feaSrc['GPOS']
+    ttf['GSUB'] = feaSrc['GSUB']
+    ttf.save(destFile)
+    os.remove(tmpFile)

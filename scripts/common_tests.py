@@ -17,11 +17,14 @@
 """Common tests for different targets."""
 
 import glob
+import os
+import re
 import unittest
 
 from fontTools import ttLib
 from nototools import coverage
 from nototools import font_data
+from nototools import noto_fonts
 
 import freetype
 
@@ -96,7 +99,7 @@ class TestMetaInfo(FontTest):
         """
         for font in self.fonts:
             font_name = font_data.font_name(font)
-            bold = ('Bold' in font_name) or ('Black' in font_name)
+            bold = 'Bold' in font_name
             italic = 'Italic' in font_name
             expected_mac_style = (italic << 1) | bold
             self.assertEqual(font['head'].macStyle, expected_mac_style)
@@ -119,8 +122,8 @@ class TestMetaInfo(FontTest):
     def test_us_weight(self):
         "Tests the usWeight of the fonts to be correct."""
         for font in self.fonts:
-            weight = roboto_data.extract_weight_name(font_data.font_name(font))
-            expected_numeric_weight = roboto_data.WEIGHTS[weight]
+            weight = noto_fonts.parse_weight(font_data.font_name(font))
+            expected_numeric_weight = noto_fonts.WEIGHTS[weight]
             self.assertEqual(
                 font['OS/2'].usWeightClass,
                 expected_numeric_weight)
@@ -143,7 +146,8 @@ class TestNames(FontTest):
     """Tests various strings in the name table."""
 
     def setUp(self):
-        _, self.fonts = self.loaded_fonts
+        font_files, self.fonts = self.loaded_fonts
+        self.font_files = [os.path.basename(f) for f in font_files]
         self.condensed_family_name = self.family_name + ' Condensed'
         self.names = []
         for font in self.fonts:
@@ -156,13 +160,76 @@ class TestNames(FontTest):
                 records[0],
                 'Copyright 2011 Google Inc. All Rights Reserved.')
 
+    def parse_filename(self, filename):
+        """Parse expected name attributes from filename."""
+
+        name_nosp = self.family_name.replace(' ', '')
+        condensed_name_nosp = self.condensed_family_name.replace(' ', '')
+        family_names = '%s|%s' % (condensed_name_nosp, name_nosp)
+
+        filename_match = noto_fonts.match_filename(filename, family_names)
+        family, _, _, _, _, weight, slope, _ = filename_match.groups()
+
+        if family == condensed_name_nosp:
+            family = self.condensed_family_name
+        else:  # family == name_nosp
+            family = self.family_name
+        if not weight:
+            weight = 'Regular'
+        return family, weight, slope
+
+    def build_style(self, weight, slope):
+        """Build style (typographic subfamily) out of weight and slope."""
+
+        style = weight
+        if slope:
+            if style == 'Regular':
+                style = 'Italic'
+            else:
+                style += ' ' + slope
+        return style
+
     def test_family_name(self):
-        """Tests the family name."""
-        for records in self.names:
-            self.assertIn(records[1],
-                          [self.family_name, self.condensed_family_name])
-            if 16 in records:
-                self.assertEqual(records[16], records[1])
+        """Tests the family name.
+        Bug: https://github.com/google/roboto/issues/37
+        """
+
+        for font_file, records in zip(self.font_files, self.names):
+
+            family, weight, _ = self.parse_filename(font_file)
+
+            # check that family name includes weight, if not regular or bold
+            if weight not in ['Regular', 'Bold']:
+                self.assertEqual(records[1], '%s %s' % (family, weight))
+
+                # check typographic name, if present
+                self.assertIn(16, records)
+                self.assertEqual(records[16], family)
+
+            # check that family name does not include weight, if regular or bold
+            else:
+                self.assertEqual(records[1], family)
+
+    def test_subfamily_name(self):
+        """Tests the subfamily name.
+        Bug: https://github.com/google/roboto/issues/37
+        """
+
+        for font_file, records in zip(self.font_files, self.names):
+            _, weight, slope = self.parse_filename(font_file)
+            subfam = records[2]
+
+            # check that subfamily is just a combination of bold and italic
+            self.assertIn(subfam, ['Regular', 'Bold', 'Italic', 'Bold Italic'])
+
+            # check that subfamily weight/slope are consistent with filename
+            self.assertEqual(weight == 'Bold', subfam.startswith('Bold'))
+            self.assertEqual(slope == 'Italic', subfam.endswith('Italic'))
+
+            # check typographic name, if present
+            if weight not in ['Regular', 'Bold']:
+                self.assertIn(17, records)
+                self.assertEqual(records[17], self.build_style(weight, slope))
 
     def test_postscript_name_for_spaces(self):
         """Tests that there are no spaces in PostScript names."""

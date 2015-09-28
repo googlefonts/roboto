@@ -98,7 +98,7 @@ class TestMetaInfo(FontTest):
         """
         for font in self.fonts:
             font_name = font_data.font_name(font)
-            bold = 'Bold' in font_name
+            bold = ('Bold' in font_name) or ('Black' in font_name)
             italic = 'Italic' in font_name
             expected_mac_style = (italic << 1) | bold
             self.assertEqual(font['head'].macStyle, expected_mac_style)

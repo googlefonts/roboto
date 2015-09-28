@@ -17,8 +17,7 @@
 """Common tests for different targets."""
 
 import glob
-import os
-import re
+from os import path
 import unittest
 
 from fontTools import ttLib
@@ -147,7 +146,7 @@ class TestNames(FontTest):
 
     def setUp(self):
         font_files, self.fonts = self.loaded_fonts
-        self.font_files = [os.path.basename(f) for f in font_files]
+        self.font_files = [path.basename(f) for f in font_files]
         self.condensed_family_name = self.family_name + ' Condensed'
         self.names = []
         for font in self.fonts:

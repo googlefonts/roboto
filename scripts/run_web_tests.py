@@ -32,6 +32,7 @@ class TestItalicAngle(common_tests.TestItalicAngle):
 
 class TestMetaInfo(common_tests.TestMetaInfo):
     loaded_fonts = FONTS
+    mark_heavier_as_bold = True
     # Since different font files are hinted at different times, the actual
     # outlines differ slightly. So we are keeping the version numbers as a hint.
     test_version_numbers = None
@@ -40,6 +41,7 @@ class TestMetaInfo(common_tests.TestMetaInfo):
 class TestNames(common_tests.TestNames):
     loaded_fonts = FONTS
     family_name = 'Roboto'
+    mark_heavier_as_bold = True
 
     def test_unique_identifier_and_full_name(self):
         """Tests the unique identifier and full name."""

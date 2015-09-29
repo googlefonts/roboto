@@ -88,6 +88,8 @@ class TestItalicAngle(FontTest):
 class TestMetaInfo(FontTest):
     """Test various meta information."""
 
+    mark_heavier_as_bold = False
+
     def setUp(self):
         _, self.fonts = self.loaded_fonts
 
@@ -98,7 +100,8 @@ class TestMetaInfo(FontTest):
         """
         for font in self.fonts:
             font_name = font_data.font_name(font)
-            bold = ('Bold' in font_name) or ('Black' in font_name)
+            bold = ('Bold' in font_name) or (
+                self.mark_heavier_as_bold and 'Black' in font_name)
             italic = 'Italic' in font_name
             expected_mac_style = (italic << 1) | bold
             self.assertEqual(font['head'].macStyle, expected_mac_style)
@@ -143,6 +146,8 @@ class TestMetaInfo(FontTest):
 
 class TestNames(FontTest):
     """Tests various strings in the name table."""
+
+    mark_heavier_as_bold = False
 
     def setUp(self):
         font_files, self.fonts = self.loaded_fonts
@@ -222,7 +227,10 @@ class TestNames(FontTest):
             self.assertIn(subfam, ['Regular', 'Bold', 'Italic', 'Bold Italic'])
 
             # check that subfamily weight/slope are consistent with filename
-            self.assertEqual(weight == 'Bold', subfam.startswith('Bold'))
+            bold = (weight == 'Bold') or (
+                self.mark_heavier_as_bold and
+                noto_fonts.WEIGHTS[weight] > noto_fonts.WEIGHTS['Bold'])
+            self.assertEqual(bold, subfam.startswith('Bold'))
             self.assertEqual(slope == 'Italic', subfam.endswith('Italic'))
 
             # check typographic name, if present

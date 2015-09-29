@@ -42,6 +42,7 @@ class TestItalicAngle(common_tests.TestItalicAngle):
 
 class TestMetaInfo(common_tests.TestMetaInfo):
     loaded_fonts = FONTS
+    mark_heavier_as_bold = True
     test_us_weight = None
     test_version_numbers = None
 

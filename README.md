@@ -221,7 +221,7 @@ TTF generation depends on:
 
 - FontForge (https://github.com/fontforge/fontforge)
 
-Whose Python interface should be availabe on Ubuntu by default via `apt-get
+Whose Python interface should be available on Ubuntu by default via `apt-get
 install fontforge python-fontforge`.
 
 ## Post-Production

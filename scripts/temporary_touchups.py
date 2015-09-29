@@ -16,6 +16,7 @@
 
 from datetime import date
 from nototools import font_data
+from nototools import noto_fonts
 
 import roboto_data
 
@@ -23,8 +24,8 @@ def apply_temporary_fixes(font):
     """Apply some temporary fixes."""
     # Fix usWeight:
     font_name = font_data.font_name(font)
-    weight = roboto_data.extract_weight_name(font_name)
-    weight_number = roboto_data.WEIGHTS[weight]
+    weight = noto_fonts.parse_weight(font_name)
+    weight_number = noto_fonts.WEIGHTS[weight]
     font['OS/2'].usWeightClass = weight_number
 
     # Set ascent, descent, and lineGap values to Android K values

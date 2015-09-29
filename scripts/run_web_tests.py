@@ -64,6 +64,9 @@ class TestNames(common_tests.TestNames):
 
 class TestDigitWidths(common_tests.TestDigitWidths):
     loaded_fonts = FONTS
+    # disable this test while *.frac and *superior glyphs are separate
+    # the webfont glyph subset contains *.frac but not *superior
+    test_superscript_digits = False
 
 
 class TestCharacterCoverage(common_tests.TestCharacterCoverage):

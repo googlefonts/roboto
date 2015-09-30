@@ -84,36 +84,8 @@ class TestLigatures(common_tests.TestLigatures):
     loaded_fonts = FONTS
 
 
-class TestHints(unittest.TestCase):
-    """Tests hints."""
-
-    def setUp(self):
-        self.fontfiles, self.fonts = FONTS
-
-    def test_existance_of_hints(self):
-        """Tests all glyphs and makes sure non-composite ones have hints."""
-        missing_hints = []
-        for font in self.fonts:
-            glyf_table = font['glyf']
-            for glyph_name in font.getGlyphOrder():
-                glyph = glyf_table[glyph_name]
-                if glyph.numberOfContours <= 0:  # composite or empty glyph
-                    continue
-                if len(glyph.program.bytecode) <= 0:
-                    missing_hints.append(
-                        (glyph_name, font_data.font_name(font)))
-
-        self.assertTrue(missing_hints == [])
-
-    def test_height_of_lowercase_o(self):
-        """Tests the height of the lowercase o in low resolutions."""
-        for fontfile in self.fontfiles:
-            for size in range(8, 30):  # Kind of arbitrary
-                o_height = common_tests.get_rendered_char_height(
-                    fontfile, size, 'o')
-                n_height = common_tests.get_rendered_char_height(
-                    fontfile, size, 'n')
-                self.assertEqual(o_height, n_height)
+class TestHints(common_tests.TestHints):
+    loaded_fonts = FONTS
 
 
 if __name__ == '__main__':

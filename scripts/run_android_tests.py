@@ -33,18 +33,15 @@ FONTS = common_tests.load_fonts(
     expected_count=18)
 
 
-class TestVerticalMetrics(unittest.TestCase):
-    """Test the vertical metrics of fonts."""
+class TestVerticalMetrics(common_tests.TestVerticalMetrics):
+    loaded_fonts = FONTS
+    test_glyphs_ymin_ymax = None
+    test_hhea_table_metrics = None
+    test_os2_metrics = None
 
-    def setUp(self):
-        _, self.fonts = load_fonts()
+    expected_head_yMin = -555
+    expected_head_yMax = 2163
 
-    def test_ymin_ymax(self):
-        """Tests yMin and yMax to be equal to what Android expects."""
-        for font in self.fonts:
-            head_table = font['head']
-            self.assertEqual(head_table.yMin, -555)
-            self.assertEqual(head_table.yMax, 2163)
 
 
 class TestDigitWidths(unittest.TestCase):

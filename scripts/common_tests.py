@@ -362,9 +362,6 @@ class TestFeatures(FontTest):
                     u''.join(chars_with_no_smcp).encode('UTF-8')))
 
 
-EXPECTED_YMIN = -555
-EXPECTED_YMAX = 2163
-
 class TestVerticalMetrics(FontTest):
     """Test the vertical metrics of fonts."""
 
@@ -378,8 +375,8 @@ class TestVerticalMetrics(FontTest):
         """
         for font in self.fonts:
             head_table = font['head']
-            self.assertEqual(head_table.yMin, EXPECTED_YMIN)
-            self.assertEqual(head_table.yMax, EXPECTED_YMAX)
+            self.assertEqual(head_table.yMin, self.expected_head_yMin)
+            self.assertEqual(head_table.yMax, self.expected_head_yMax)
 
     def test_glyphs_ymin_ymax(self):
         """Tests yMin and yMax of all glyphs to not go outside the range."""
@@ -393,7 +390,8 @@ class TestVerticalMetrics(FontTest):
                     continue
 
                 self.assertTrue(
-                    EXPECTED_YMIN <= y_min and y_max <= EXPECTED_YMAX,
+                    self.expected_head_yMin <= y_min and
+                    y_max <= self.expected_head_yMax,
                     ('The vertical metrics for glyph %s in %s exceed the '
                      'acceptable range: yMin=%d, yMax=%d' % (
                          glyph_name, font_file, y_min, y_max)))
@@ -403,9 +401,24 @@ class TestVerticalMetrics(FontTest):
         """
         for font in self.fonts:
             hhea_table = font['hhea']
-            self.assertEqual(hhea_table.descent, -500)
-            self.assertEqual(hhea_table.ascent, 1900)
-            self.assertEqual(hhea_table.lineGap, 0)
+            self.assertEqual(hhea_table.descent, self.expected_hhea_descent)
+            self.assertEqual(hhea_table.ascent, self.expected_hhea_ascent)
+            self.assertEqual(hhea_table.lineGap, self.expected_hhea_lineGap)
+
+    def test_os2_metrics(self):
+        """Tests OS/2 vertical metrics to be equal to the old values."""
+        for font in self.fonts:
+            os2_table = font['OS/2']
+            self.assertEqual(os2_table.sTypoDescender,
+                             self.expected_os2_sTypoDescender)
+            self.assertEqual(os2_table.sTypoAscender,
+                             self.expected_os2_sTypoAscender)
+            self.assertEqual(os2_table.sTypoLineGap,
+                             self.expected_os2_sTypoLineGap)
+            self.assertEqual(os2_table.usWinDescent,
+                             self.expected_os2_usWinDescent)
+            self.assertEqual(os2_table.usWinAscent,
+                             self.expected_os2_usWinAscent)
 
 
 class TestGlyphAreas(unittest.TestCase):

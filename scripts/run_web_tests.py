@@ -66,15 +66,18 @@ class TestCharacterCoverage(common_tests.TestCharacterCoverage):
 class TestVerticalMetrics(common_tests.TestVerticalMetrics):
     loaded_fonts = FONTS
 
-    def test_os2_metrics(self):
-        """Tests OS/2 vertical metrics to be equal to the old values."""
-        for font in self.fonts:
-            os2_table = font['OS/2']
-            self.assertEqual(os2_table.sTypoDescender, -512)
-            self.assertEqual(os2_table.sTypoAscender, 1536)
-            self.assertEqual(os2_table.sTypoLineGap, 102)
-            self.assertEqual(os2_table.usWinDescent, 512)
-            self.assertEqual(os2_table.usWinAscent, 1946)
+    expected_head_yMin = -555
+    expected_head_yMax = 2163
+
+    expected_hhea_descent = -500
+    expected_hhea_ascent = 1900
+    expected_hhea_lineGap = 0
+
+    expected_os2_sTypoDescender = -512
+    expected_os2_sTypoAscender = 1536
+    expected_os2_sTypoLineGap = 102
+    expected_os2_usWinDescent = 512
+    expected_os2_usWinAscent = 1946
 
 
 class TestLigatures(common_tests.TestLigatures):
@@ -115,4 +118,3 @@ class TestHints(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

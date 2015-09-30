@@ -76,6 +76,10 @@ class TestVerticalMetrics(common_tests.TestVerticalMetrics):
     loaded_fonts = FONTS
     test_ymin_ymax = None
     test_hhea_table_metrics = None
+    test_os2_metrics = None
+
+    expected_head_yMin = -555
+    expected_head_yMax = 2163
 
 
 class TestGlyphAreas(common_tests.TestGlyphAreas):
@@ -85,4 +89,3 @@ class TestGlyphAreas(common_tests.TestGlyphAreas):
 
 if __name__ == '__main__':
     unittest.main()
-

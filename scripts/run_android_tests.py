@@ -25,14 +25,12 @@ from nototools import coverage
 from nototools import font_data
 from nototools import render
 from nototools import unicode_data
+import common_tests
 
 
-def load_fonts():
-    """Load all fonts built for Android."""
-    all_font_files = glob.glob('out/android/*.ttf')
-    all_fonts = [ttLib.TTFont(font) for font in all_font_files]
-    assert len(all_font_files) == 18
-    return all_font_files, all_fonts
+FONTS = common_tests.load_fonts(
+    ['out/android/*.ttf'],
+    expected_count=18)
 
 
 class TestVerticalMetrics(unittest.TestCase):
@@ -66,52 +64,20 @@ class TestDigitWidths(unittest.TestCase):
             self.assertEqual(len(set(widths)), 1)
 
 
-class TestCharacterCoverage(unittest.TestCase):
-    """Tests character coverage."""
+class TestCharacterCoverage(common_tests.TestCharacterCoverage):
+    loaded_fonts = FONTS
 
-    def setUp(self):
-        _, self.fonts = load_fonts()
-        self.LEGACY_PUA = frozenset({0xEE01, 0xEE02, 0xF6C3})
+    include = frozenset([
+        0x2117,  # SOUND RECORDING COPYRIGHT
+        0xEE01, 0xEE02, 0xF6C3])  # legacy PUA
 
-    def test_lack_of_arrows_and_combining_keycap(self):
-        """Tests that arrows and combining keycap are not in the fonts."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            self.assertNotIn(0x20E3, charset)  # COMBINING ENCLOSING KEYCAP
-            self.assertNotIn(0x2191, charset)  # UPWARDS ARROW
-            self.assertNotIn(0x2193, charset)  # DOWNWARDS ARROW
-
-    def test_lack_of_unassigned_chars(self):
-        """Tests that unassigned characters are not in the fonts."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            self.assertNotIn(0x2072, charset)
-            self.assertNotIn(0x2073, charset)
-            self.assertNotIn(0x208F, charset)
-
-    def test_inclusion_of_sound_recording_copyright(self):
-        """Tests that sound recording copyright symbol is in the fonts."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            self.assertIn(
-                0x2117, charset,  # SOUND RECORDING COPYRIGHT
-                'U+2117 not found in %s.' % font_data.font_name(font))
-
-    def test_inclusion_of_legacy_pua(self):
-        """Tests that legacy PUA characters remain in the fonts."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            for char in self.LEGACY_PUA:
-                self.assertIn(char, charset)
-
-    def test_non_inclusion_of_other_pua(self):
-        """Tests that there are not other PUA characters except legacy ones."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            pua_chars = {
-                char for char in charset
-                if 0xE000 <= char <= 0xF8FF or 0xF0000 <= char <= 0x10FFFF}
-            self.assertTrue(pua_chars <= self.LEGACY_PUA)
+    exclude = frozenset([
+        0x20E3,  # COMBINING ENCLOSING KEYCAP
+        0x2191,  # UPWARDS ARROW
+        0x2193,  # DOWNWARDS ARROW
+        0x2072, 0x2073, 0x208F] +  # unassigned characters
+        range(0xE000, 0xF8FF + 1) + range(0xF0000, 0x10FFFF + 1)  # other PUA
+        ) - include  # don't exclude legacy PUA
 
 
 class TestSpacingMarks(unittest.TestCase):

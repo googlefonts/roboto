@@ -295,39 +295,22 @@ class TestCharacterCoverage(FontTest):
 
     def setUp(self):
         _, self.fonts = self.loaded_fonts
-        self.LEGACY_PUA = frozenset({0xEE01, 0xEE02, 0xF6C3})
 
-    def test_inclusion_of_legacy_pua(self):
-        """Tests that legacy PUA characters remain in the fonts."""
+    def test_inclusion(self):
+        """Tests for characters which should be included."""
+
         for font in self.fonts:
             charset = coverage.character_set(font)
-            for char in self.LEGACY_PUA:
+            for char in self.include:
                 self.assertIn(char, charset)
 
-    def test_non_inclusion_of_other_pua(self):
-        """Tests that there are not other PUA characters except legacy ones."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            pua_chars = {
-                char for char in charset
-                if 0xE000 <= char <= 0xF8FF or 0xF0000 <= char <= 0x10FFFF}
-            self.assertTrue(pua_chars <= self.LEGACY_PUA)
+    def test_exclusion(self):
+        """Tests that characters which should be excluded are absent."""
 
-    def test_lack_of_unassigned_chars(self):
-        """Tests that unassigned characters are not in the fonts."""
         for font in self.fonts:
             charset = coverage.character_set(font)
-            self.assertNotIn(0x2072, charset)
-            self.assertNotIn(0x2073, charset)
-            self.assertNotIn(0x208F, charset)
-
-    def test_inclusion_of_sound_recording_copyright(self):
-        """Tests that sound recording copyright symbol is in the fonts."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            self.assertIn(
-                0x2117, charset,  # SOUND RECORDING COPYRIGHT
-                'U+2117 not found in %s.' % font_data.font_name(font))
+            for char in self.exclude:
+                self.assertNotIn(char, charset)
 
 
 class TestLigatures(FontTest):

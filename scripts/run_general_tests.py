@@ -54,6 +54,15 @@ class TestDigitWidths(common_tests.TestDigitWidths):
 class TestCharacterCoverage(common_tests.TestCharacterCoverage):
     loaded_fonts = FONTS
 
+    include = frozenset([
+        0x2117,  # SOUND RECORDING COPYRIGHT
+        0xEE01, 0xEE02, 0xF6C3])  # legacy PUA
+
+    exclude = frozenset([
+        0x2072, 0x2073, 0x208F] +  # unassigned characters
+        range(0xE000, 0xF8FF + 1) + range(0xF0000, 0x10FFFF + 1)  # other PUA
+        ) - include  # don't exclude legacy PUA
+
 
 class TestLigatures(common_tests.TestLigatures):
     loaded_fonts = FONTS

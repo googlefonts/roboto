@@ -43,24 +43,6 @@ class TestNames(common_tests.TestNames):
     family_name = 'Roboto'
     mark_heavier_as_bold = True
 
-    def test_unique_identifier_and_full_name(self):
-        """Tests the unique identifier and full name."""
-        for font_file, records in zip(self.font_files, self.names):
-            family, weight, slope = self.parse_filename(font_file)
-            style = self.build_style(weight, slope)
-            expected_name = family + ' ' + style
-            self.assertEqual(records[3], expected_name)
-            self.assertEqual(records[4], expected_name)
-            self.assertFalse(records.has_key(18))
-
-    def test_postscript_name(self):
-        """Tests the postscript name."""
-        for font_file, records in zip(self.font_files, self.names):
-            family, weight, slope = self.parse_filename(font_file)
-            style = self.build_style(weight, slope)
-            expected_name = (family + '-' + style).replace(' ', '')
-            self.assertEqual(records[6], expected_name)
-
 
 class TestDigitWidths(common_tests.TestDigitWidths):
     loaded_fonts = FONTS

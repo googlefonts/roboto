@@ -130,7 +130,8 @@ class TestMetaInfo(FontTest):
         for font in self.fonts:
             version = font_data.font_version(font)
             usable_part_of_version = version.split(';')[0]
-            self.assertEqual(usable_part_of_version, self.expected_version)
+            self.assertEqual(usable_part_of_version,
+                             'Version ' + self.expected_version)
 
             revision = font_data.printable_font_revision(font, accuracy=5)
             self.assertEqual(revision, self.expected_version)

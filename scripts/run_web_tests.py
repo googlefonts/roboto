@@ -28,20 +28,34 @@ FONTS = common_tests.load_fonts(
 
 class TestItalicAngle(common_tests.TestItalicAngle):
     loaded_fonts = FONTS
+    expected_italic_angle = -12.0
 
 
 class TestMetaInfo(common_tests.TestMetaInfo):
     loaded_fonts = FONTS
     mark_heavier_as_bold = True
+
     # Since different font files are hinted at different times, the actual
     # outlines differ slightly. So we are keeping the version numbers as a hint.
     test_version_numbers = None
 
+    # fsType of 0 marks the font free for installation, embedding, etc.
+    expected_os2_fsType = 0
+    expected_os2_achVendID = 'GOOG'
+
 
 class TestNames(common_tests.TestNames):
+    """Bugs:
+    https://github.com/google/roboto/issues/37
+    """
+
     loaded_fonts = FONTS
     family_name = 'Roboto'
     mark_heavier_as_bold = True
+    expected_copyright = 'Copyright 2011 Google Inc. All Rights Reserved.'
+
+    def expected_unique_id(self, full_name):
+        return full_name
 
 
 class TestDigitWidths(common_tests.TestDigitWidths):

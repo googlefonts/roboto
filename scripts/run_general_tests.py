@@ -21,6 +21,7 @@ import unittest
 from robofab.world import OpenFont
 
 import common_tests
+import roboto_data
 
 FONTS = common_tests.load_fonts(
     ['hinted/*.ttf'],
@@ -38,13 +39,23 @@ UFO_MASTERS = common_tests.load_fonts(
 
 class TestItalicAngle(common_tests.TestItalicAngle):
     loaded_fonts = FONTS
+    expected_italic_angle = -12.0
 
 
 class TestMetaInfo(common_tests.TestMetaInfo):
+    """Bugs:
+    https://code.google.com/a/google.com/p/roboto/issues/detail?id=8
+    https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
+    """
+
     loaded_fonts = FONTS
     mark_heavier_as_bold = True
     test_us_weight = None
     test_version_numbers = None
+
+    # fsType of 0 marks the font free for installation, embedding, etc.
+    expected_os2_fsType = 0
+    expected_os2_achVendID = 'GOOG'
 
 
 class TestDigitWidths(common_tests.TestDigitWidths):

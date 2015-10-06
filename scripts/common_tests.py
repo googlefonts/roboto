@@ -24,6 +24,7 @@ from fontTools import ttLib
 from nototools import coverage
 from nototools import font_data
 from nototools import noto_fonts
+from nototools import unicode_data
 
 import freetype
 
@@ -238,6 +239,24 @@ class TestNames(FontTest):
                 self.assertIn(17, records)
                 self.assertEqual(records[17], self.build_style(weight, slope))
 
+    def test_unique_identifier_and_full_name(self):
+        """Tests the unique identifier and full name."""
+        for font_file, records in zip(self.font_files, self.names):
+            family, weight, slope = self.parse_filename(font_file)
+            style = self.build_style(weight, slope)
+            expected_name = family + ' ' + style
+            self.assertEqual(records[3], expected_name)
+            self.assertEqual(records[4], expected_name)
+            self.assertFalse(records.has_key(18))
+
+    def test_postscript_name(self):
+        """Tests the postscript name."""
+        for font_file, records in zip(self.font_files, self.names):
+            family, weight, slope = self.parse_filename(font_file)
+            style = self.build_style(weight, slope)
+            expected_name = (family + '-' + style).replace(' ', '')
+            self.assertEqual(records[6], expected_name)
+
     def test_postscript_name_for_spaces(self):
         """Tests that there are no spaces in PostScript names."""
         for records in self.names:
@@ -277,39 +296,22 @@ class TestCharacterCoverage(FontTest):
 
     def setUp(self):
         _, self.fonts = self.loaded_fonts
-        self.LEGACY_PUA = frozenset({0xEE01, 0xEE02, 0xF6C3})
 
-    def test_inclusion_of_legacy_pua(self):
-        """Tests that legacy PUA characters remain in the fonts."""
+    def test_inclusion(self):
+        """Tests for characters which should be included."""
+
         for font in self.fonts:
             charset = coverage.character_set(font)
-            for char in self.LEGACY_PUA:
+            for char in self.include:
                 self.assertIn(char, charset)
 
-    def test_non_inclusion_of_other_pua(self):
-        """Tests that there are not other PUA characters except legacy ones."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            pua_chars = {
-                char for char in charset
-                if 0xE000 <= char <= 0xF8FF or 0xF0000 <= char <= 0x10FFFF}
-            self.assertTrue(pua_chars <= self.LEGACY_PUA)
+    def test_exclusion(self):
+        """Tests that characters which should be excluded are absent."""
 
-    def test_lack_of_unassigned_chars(self):
-        """Tests that unassigned characters are not in the fonts."""
         for font in self.fonts:
             charset = coverage.character_set(font)
-            self.assertNotIn(0x2072, charset)
-            self.assertNotIn(0x2073, charset)
-            self.assertNotIn(0x208F, charset)
-
-    def test_inclusion_of_sound_recording_copyright(self):
-        """Tests that sound recording copyright symbol is in the fonts."""
-        for font in self.fonts:
-            charset = coverage.character_set(font)
-            self.assertIn(
-                0x2117, charset,  # SOUND RECORDING COPYRIGHT
-                'U+2117 not found in %s.' % font_data.font_name(font))
+            for char in self.exclude:
+                self.assertNotIn(char, charset)
 
 
 class TestLigatures(FontTest):
@@ -361,9 +363,6 @@ class TestFeatures(FontTest):
                     u''.join(chars_with_no_smcp).encode('UTF-8')))
 
 
-EXPECTED_YMIN = -555
-EXPECTED_YMAX = 2163
-
 class TestVerticalMetrics(FontTest):
     """Test the vertical metrics of fonts."""
 
@@ -377,8 +376,8 @@ class TestVerticalMetrics(FontTest):
         """
         for font in self.fonts:
             head_table = font['head']
-            self.assertEqual(head_table.yMin, EXPECTED_YMIN)
-            self.assertEqual(head_table.yMax, EXPECTED_YMAX)
+            self.assertEqual(head_table.yMin, self.expected_head_yMin)
+            self.assertEqual(head_table.yMax, self.expected_head_yMax)
 
     def test_glyphs_ymin_ymax(self):
         """Tests yMin and yMax of all glyphs to not go outside the range."""
@@ -392,7 +391,8 @@ class TestVerticalMetrics(FontTest):
                     continue
 
                 self.assertTrue(
-                    EXPECTED_YMIN <= y_min and y_max <= EXPECTED_YMAX,
+                    self.expected_head_yMin <= y_min and
+                    y_max <= self.expected_head_yMax,
                     ('The vertical metrics for glyph %s in %s exceed the '
                      'acceptable range: yMin=%d, yMax=%d' % (
                          glyph_name, font_file, y_min, y_max)))
@@ -402,9 +402,56 @@ class TestVerticalMetrics(FontTest):
         """
         for font in self.fonts:
             hhea_table = font['hhea']
-            self.assertEqual(hhea_table.descent, -500)
-            self.assertEqual(hhea_table.ascent, 1900)
-            self.assertEqual(hhea_table.lineGap, 0)
+            self.assertEqual(hhea_table.descent, self.expected_hhea_descent)
+            self.assertEqual(hhea_table.ascent, self.expected_hhea_ascent)
+            self.assertEqual(hhea_table.lineGap, self.expected_hhea_lineGap)
+
+    def test_os2_metrics(self):
+        """Tests OS/2 vertical metrics to be equal to the old values."""
+        for font in self.fonts:
+            os2_table = font['OS/2']
+            self.assertEqual(os2_table.sTypoDescender,
+                             self.expected_os2_sTypoDescender)
+            self.assertEqual(os2_table.sTypoAscender,
+                             self.expected_os2_sTypoAscender)
+            self.assertEqual(os2_table.sTypoLineGap,
+                             self.expected_os2_sTypoLineGap)
+            self.assertEqual(os2_table.usWinDescent,
+                             self.expected_os2_usWinDescent)
+            self.assertEqual(os2_table.usWinAscent,
+                             self.expected_os2_usWinAscent)
+
+
+class TestHints(FontTest):
+    """Tests hints."""
+
+    def setUp(self):
+        self.fontfiles, self.fonts = self.loaded_fonts
+
+    def test_existance_of_hints(self):
+        """Tests all glyphs and makes sure non-composite ones have hints."""
+        missing_hints = []
+        for font in self.fonts:
+            glyf_table = font['glyf']
+            for glyph_name in font.getGlyphOrder():
+                glyph = glyf_table[glyph_name]
+                if glyph.numberOfContours <= 0:  # composite or empty glyph
+                    continue
+                if len(glyph.program.bytecode) <= 0:
+                    missing_hints.append(
+                        (glyph_name, font_data.font_name(font)))
+
+        self.assertTrue(missing_hints == [])
+
+    def test_height_of_lowercase_o(self):
+        """Tests the height of the lowercase o in low resolutions."""
+        for fontfile in self.fontfiles:
+            for size in range(8, 30):  # Kind of arbitrary
+                o_height = get_rendered_char_height(
+                    fontfile, size, 'o')
+                n_height = get_rendered_char_height(
+                    fontfile, size, 'n')
+                self.assertEqual(o_height, n_height)
 
 
 class TestGlyphAreas(unittest.TestCase):
@@ -459,3 +506,76 @@ class TestGlyphAreas(unittest.TestCase):
                 else:
                     msg = name + " has changed, but should not have."
                 self.assertEqual(unchanged, name in self.unchanged, msg)
+
+
+class TestSpacingMarks(FontTest):
+    """Tests that spacing marks are indeed spacing."""
+
+    def setUp(self):
+        self.font_files, _ = self.loaded_fonts
+        charset = coverage.character_set(self.font_files[0])
+        self.marks_to_test = [char for char in charset
+                              if unicode_data.category(char) in ['Lm', 'Sk']]
+        self.advance_cache = {}
+
+    def test_individual_spacing_marks(self):
+        """Tests that spacing marks are spacing by themselves."""
+        for font in self.font_files:
+            print 'Testing %s for stand-alone spacing marks...' % font
+            for mark in self.marks_to_test:
+                mark = unichr(mark)
+                advances = layout.get_advances(mark, font)
+                assert len(advances) == 1
+                self.assertNotEqual(advances[0], 0)
+
+    def test_spacing_marks_in_combination(self):
+        """Tests that spacing marks do not combine with base letters."""
+        for font in self.font_files:
+            print 'Testing %s for spacing marks in combination...' % font
+            for base_letter in (u'A\u00C6BCDEFGHIJKLMNO\u00D8\u01A0PRST'
+                                u'U\u01AFVWXYZ'
+                                u'a\u00E6bcdefghi\u0131j\u0237klmn'
+                                u'o\u00F8\u01A1prs\u017Ftu\u01B0vwxyz'
+                                u'\u03D2'):
+                print 'Testing %s combinations' % base_letter
+                for mark in self.marks_to_test:
+                    if mark == 0x02DE:
+                        # Skip rhotic hook, as it's perhaps OK for it to form
+                        # ligatures
+                        continue
+                    mark = unichr(mark)
+                    advances = layout.get_advances(base_letter + mark, font)
+                    self.assertEqual(len(advances), 2,
+                        'The sequence <%04X, %04X> combines, '
+                        'but it should not' % (ord(base_letter), ord(mark)))
+
+
+class TestSoftDottedChars(FontTest):
+    """Tests that soft-dotted characters lose their dots."""
+
+    def setUp(self):
+        self.font_files, _ = self.loaded_fonts
+        charset = coverage.character_set(self.font_files[0])
+        self.marks_to_test = [char for char in charset
+                              if unicode_data.combining(char) == 230]
+        self.advance_cache = {}
+
+    def test_combinations(self):
+        """Tests that soft-dotted characters lose their dots when combined."""
+
+        for font in self.font_files:
+            print 'Testing %s for soft-dotted combinations...' % font
+
+            # TODO: replace the following list with actual derivation based on
+            # Unicode's soft-dotted property
+            for base_letter in (u'ij\u012F\u0249\u0268\u029D\u02B2\u03F3\u0456'
+                                u'\u0458\u1D62\u1D96\u1DA4\u1DA8\u1E2D\u1ECB'
+                                u'\u2071\u2C7C'):
+                print 'Testing %s combinations' % base_letter.encode('UTF-8')
+                for mark in self.marks_to_test:
+                    mark = unichr(mark)
+                    letter_only = layout.get_glyphs(base_letter, font)
+                    combination = layout.get_glyphs(base_letter + mark, font)
+                    self.assertNotEqual(combination[0], letter_only[0],
+                        "The sequence <%04X, %04X> doesn't lose its dot, "
+                        "but it should" % (ord(base_letter), ord(mark)))

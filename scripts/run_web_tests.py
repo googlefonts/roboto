@@ -43,24 +43,6 @@ class TestNames(common_tests.TestNames):
     family_name = 'Roboto'
     mark_heavier_as_bold = True
 
-    def test_unique_identifier_and_full_name(self):
-        """Tests the unique identifier and full name."""
-        for font_file, records in zip(self.font_files, self.names):
-            family, weight, slope = self.parse_filename(font_file)
-            style = self.build_style(weight, slope)
-            expected_name = family + ' ' + style
-            self.assertEqual(records[3], expected_name)
-            self.assertEqual(records[4], expected_name)
-            self.assertFalse(records.has_key(18))
-
-    def test_postscript_name(self):
-        """Tests the postscript name."""
-        for font_file, records in zip(self.font_files, self.names):
-            family, weight, slope = self.parse_filename(font_file)
-            style = self.build_style(weight, slope)
-            expected_name = (family + '-' + style).replace(' ', '')
-            self.assertEqual(records[6], expected_name)
-
 
 class TestDigitWidths(common_tests.TestDigitWidths):
     loaded_fonts = FONTS
@@ -71,59 +53,40 @@ class TestDigitWidths(common_tests.TestDigitWidths):
 
 class TestCharacterCoverage(common_tests.TestCharacterCoverage):
     loaded_fonts = FONTS
-    test_inclusion_of_sound_recording_copyright = None
+
+    include = frozenset([
+        0xEE01, 0xEE02, 0xF6C3])  # legacy PUA
+
+    exclude = frozenset([
+        0x2072, 0x2073, 0x208F] +  # unassigned characters
+        range(0xE000, 0xF8FF + 1) + range(0xF0000, 0x10FFFF + 1)  # other PUA
+        ) - include  # don't exclude legacy PUA
 
 
 class TestVerticalMetrics(common_tests.TestVerticalMetrics):
     loaded_fonts = FONTS
 
-    def test_os2_metrics(self):
-        """Tests OS/2 vertical metrics to be equal to the old values."""
-        for font in self.fonts:
-            os2_table = font['OS/2']
-            self.assertEqual(os2_table.sTypoDescender, -512)
-            self.assertEqual(os2_table.sTypoAscender, 1536)
-            self.assertEqual(os2_table.sTypoLineGap, 102)
-            self.assertEqual(os2_table.usWinDescent, 512)
-            self.assertEqual(os2_table.usWinAscent, 1946)
+    expected_head_yMin = -555
+    expected_head_yMax = 2163
+
+    expected_hhea_descent = -500
+    expected_hhea_ascent = 1900
+    expected_hhea_lineGap = 0
+
+    expected_os2_sTypoDescender = -512
+    expected_os2_sTypoAscender = 1536
+    expected_os2_sTypoLineGap = 102
+    expected_os2_usWinDescent = 512
+    expected_os2_usWinAscent = 1946
 
 
 class TestLigatures(common_tests.TestLigatures):
     loaded_fonts = FONTS
 
 
-class TestHints(unittest.TestCase):
-    """Tests hints."""
-
-    def setUp(self):
-        self.fontfiles, self.fonts = FONTS
-
-    def test_existance_of_hints(self):
-        """Tests all glyphs and makes sure non-composite ones have hints."""
-        missing_hints = []
-        for font in self.fonts:
-            glyf_table = font['glyf']
-            for glyph_name in font.getGlyphOrder():
-                glyph = glyf_table[glyph_name]
-                if glyph.numberOfContours <= 0:  # composite or empty glyph
-                    continue
-                if len(glyph.program.bytecode) <= 0:
-                    missing_hints.append(
-                        (glyph_name, font_data.font_name(font)))
-
-        self.assertTrue(missing_hints == [])
-
-    def test_height_of_lowercase_o(self):
-        """Tests the height of the lowercase o in low resolutions."""
-        for fontfile in self.fontfiles:
-            for size in range(8, 30):  # Kind of arbitrary
-                o_height = common_tests.get_rendered_char_height(
-                    fontfile, size, 'o')
-                n_height = common_tests.get_rendered_char_height(
-                    fontfile, size, 'n')
-                self.assertEqual(o_height, n_height)
+class TestHints(common_tests.TestHints):
+    loaded_fonts = FONTS
 
 
 if __name__ == '__main__':
     unittest.main()
-

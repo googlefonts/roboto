@@ -29,7 +29,6 @@ from nototools import unicode_data
 import freetype
 
 import layout
-import roboto_data
 from glyph_area_pen import GlyphAreaPen
 
 
@@ -80,7 +79,7 @@ class TestItalicAngle(FontTest):
         for font in self.fonts:
             post_table = font['post']
             if 'Italic' in font_data.font_name(font):
-                expected_angle = -12.0
+                expected_angle = self.expected_italic_angle
             else:
                 expected_angle = 0.0
             self.assertEqual(post_table.italicAngle, expected_angle)
@@ -95,10 +94,8 @@ class TestMetaInfo(FontTest):
         _, self.fonts = self.loaded_fonts
 
     def test_mac_style(self):
-        """Tests the macStyle of the fonts to be correct.
+        """Tests the macStyle of the fonts to be correct."""
 
-        Bug: https://code.google.com/a/google.com/p/roboto/issues/detail?id=8
-        """
         for font in self.fonts:
             font_name = font_data.font_name(font)
             bold = ('Bold' in font_name) or (
@@ -108,19 +105,16 @@ class TestMetaInfo(FontTest):
             self.assertEqual(font['head'].macStyle, expected_mac_style)
 
     def test_fs_type(self):
-        """Tests the fsType of the fonts to be 0.
+        """Tests the fsType of the fonts."""
 
-        fsType of 0 marks the font free for installation, embedding, etc.
-
-        Bug: https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
-        """
         for font in self.fonts:
-            self.assertEqual(font['OS/2'].fsType, 0)
+            self.assertEqual(font['OS/2'].fsType, self.expected_os2_fsType)
 
     def test_vendor_id(self):
-        """Tests the vendor ID of the fonts to be 'GOOG'."""
+        """Tests the vendor ID of the fonts."""
         for font in self.fonts:
-            self.assertEqual(font['OS/2'].achVendID, 'GOOG')
+            self.assertEqual(font['OS/2'].achVendID,
+                             self.expected_os2_achVendID)
 
     def test_us_weight(self):
         "Tests the usWeight of the fonts to be correct."""
@@ -134,15 +128,13 @@ class TestMetaInfo(FontTest):
     def test_version_numbers(self):
         "Tests the two version numbers of the font to be correct."""
         for font in self.fonts:
-            build_number = roboto_data.get_build_number()
-            expected_version = '2.' + build_number
             version = font_data.font_version(font)
             usable_part_of_version = version.split(';')[0]
             self.assertEqual(usable_part_of_version,
-                             'Version ' + expected_version)
+                             'Version ' + self.expected_version)
 
             revision = font_data.printable_font_revision(font, accuracy=5)
-            self.assertEqual(revision, expected_version)
+            self.assertEqual(revision, self.expected_version)
 
 
 class TestNames(FontTest):
@@ -161,9 +153,7 @@ class TestNames(FontTest):
     def test_copyright(self):
         """Tests the copyright message."""
         for records in self.names:
-            self.assertEqual(
-                records[0],
-                'Copyright 2011 Google Inc. All Rights Reserved.')
+            self.assertEqual(records[0], self.expected_copyright)
 
     def parse_filename(self, filename):
         """Parse expected name attributes from filename."""
@@ -195,9 +185,7 @@ class TestNames(FontTest):
         return style
 
     def test_family_name(self):
-        """Tests the family name.
-        Bug: https://github.com/google/roboto/issues/37
-        """
+        """Tests the family name."""
 
         for font_file, records in zip(self.font_files, self.names):
 
@@ -216,9 +204,7 @@ class TestNames(FontTest):
                 self.assertEqual(records[1], family)
 
     def test_subfamily_name(self):
-        """Tests the subfamily name.
-        Bug: https://github.com/google/roboto/issues/37
-        """
+        """Tests the subfamily name."""
 
         for font_file, records in zip(self.font_files, self.names):
             _, weight, slope = self.parse_filename(font_file)
@@ -245,7 +231,7 @@ class TestNames(FontTest):
             family, weight, slope = self.parse_filename(font_file)
             style = self.build_style(weight, slope)
             expected_name = family + ' ' + style
-            self.assertEqual(records[3], expected_name)
+            self.assertEqual(records[3], self.expected_unique_id(expected_name))
             self.assertEqual(records[4], expected_name)
             self.assertFalse(records.has_key(18))
 

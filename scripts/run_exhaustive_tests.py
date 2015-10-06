@@ -17,17 +17,18 @@
 """Time-consuming tests for general health of the fonts."""
 
 import unittest
+from nototools.unittests import font_tests
 
-FONTS = common_tests.load_fonts(
+FONTS = font_tests.load_fonts(
     ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
     expected_count=18)
 
 
-class TestSpacingMarks(common_tests.TestSpacingMarks):
+class TestSpacingMarks(font_tests.TestSpacingMarks):
     loaded_fonts = FONTS
 
 
-class TestSoftDottedChars(common_tests.TestSoftDottedChars):
+class TestSoftDottedChars(font_tests.TestSoftDottedChars):
     loaded_fonts = FONTS
     # FIXME: Test is currently disabled, since the fonts fail it
     test_combinations = None

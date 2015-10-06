@@ -51,6 +51,8 @@ class TestMetaInfo(common_tests.TestMetaInfo):
     loaded_fonts = FONTS
     mark_heavier_as_bold = True
     test_us_weight = None
+
+    #expected_version = 'Version 2.' + roboto_data.get_build_number()
     test_version_numbers = None
 
     # fsType of 0 marks the font free for installation, embedding, etc.

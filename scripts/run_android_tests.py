@@ -17,16 +17,15 @@
 """Test assumptions that Android relies on."""
 
 import unittest
+from nototools.unittests import font_tests
 
-import common_tests
 
-
-FONTS = common_tests.load_fonts(
+FONTS = font_tests.load_fonts(
     ['out/android/*.ttf'],
     expected_count=18)
 
 
-class TestVerticalMetrics(common_tests.TestVerticalMetrics):
+class TestVerticalMetrics(font_tests.TestVerticalMetrics):
     loaded_fonts = FONTS
     test_glyphs_ymin_ymax = None
     test_hhea_table_metrics = None
@@ -36,12 +35,12 @@ class TestVerticalMetrics(common_tests.TestVerticalMetrics):
     expected_head_yMax = 2163
 
 
-class TestDigitWidths(common_tests.TestDigitWidths):
+class TestDigitWidths(font_tests.TestDigitWidths):
     loaded_fonts = FONTS
     test_superscript_digits = None
 
 
-class TestCharacterCoverage(common_tests.TestCharacterCoverage):
+class TestCharacterCoverage(font_tests.TestCharacterCoverage):
     loaded_fonts = FONTS
 
     include = frozenset([
@@ -57,7 +56,7 @@ class TestCharacterCoverage(common_tests.TestCharacterCoverage):
         ) - include  # don't exclude legacy PUA
 
 
-class TestSpacingMarks(common_tests.TestSpacingMarks):
+class TestSpacingMarks(font_tests.TestSpacingMarks):
     loaded_fonts = FONTS
 
 

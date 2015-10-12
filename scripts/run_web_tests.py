@@ -19,19 +19,18 @@
 import unittest
 
 from nototools import font_data
+from nototools.unittests import font_tests
 
-import common_tests
-
-FONTS = common_tests.load_fonts(
+FONTS = font_tests.load_fonts(
     ['out/web/*.ttf'],
     expected_count=18)
 
-class TestItalicAngle(common_tests.TestItalicAngle):
+class TestItalicAngle(font_tests.TestItalicAngle):
     loaded_fonts = FONTS
     expected_italic_angle = -12.0
 
 
-class TestMetaInfo(common_tests.TestMetaInfo):
+class TestMetaInfo(font_tests.TestMetaInfo):
     loaded_fonts = FONTS
     mark_heavier_as_bold = True
 
@@ -44,7 +43,7 @@ class TestMetaInfo(common_tests.TestMetaInfo):
     expected_os2_achVendID = 'GOOG'
 
 
-class TestNames(common_tests.TestNames):
+class TestNames(font_tests.TestNames):
     """Bugs:
     https://github.com/google/roboto/issues/37
     """
@@ -58,14 +57,14 @@ class TestNames(common_tests.TestNames):
         return full_name
 
 
-class TestDigitWidths(common_tests.TestDigitWidths):
+class TestDigitWidths(font_tests.TestDigitWidths):
     loaded_fonts = FONTS
     # disable this test while *.frac and *superior glyphs are separate
     # the webfont glyph subset contains *.frac but not *superior
     test_superscript_digits = False
 
 
-class TestCharacterCoverage(common_tests.TestCharacterCoverage):
+class TestCharacterCoverage(font_tests.TestCharacterCoverage):
     loaded_fonts = FONTS
 
     include = frozenset([
@@ -77,7 +76,7 @@ class TestCharacterCoverage(common_tests.TestCharacterCoverage):
         ) - include  # don't exclude legacy PUA
 
 
-class TestVerticalMetrics(common_tests.TestVerticalMetrics):
+class TestVerticalMetrics(font_tests.TestVerticalMetrics):
     loaded_fonts = FONTS
 
     expected_head_yMin = -555
@@ -94,11 +93,11 @@ class TestVerticalMetrics(common_tests.TestVerticalMetrics):
     expected_os2_usWinAscent = 1946
 
 
-class TestLigatures(common_tests.TestLigatures):
+class TestLigatures(font_tests.TestLigatures):
     loaded_fonts = FONTS
 
 
-class TestHints(common_tests.TestHints):
+class TestHints(font_tests.TestHints):
     loaded_fonts = FONTS
 
 

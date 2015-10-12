@@ -19,30 +19,30 @@
 import unittest
 
 from robofab.world import OpenFont
+from nototools.unittests import font_tests
 
-import common_tests
 import roboto_data
 
-FONTS = common_tests.load_fonts(
+FONTS = font_tests.load_fonts(
     ['hinted/*.ttf'],
     expected_count=18)
 
-UFOS = common_tests.load_fonts(
+UFOS = font_tests.load_fonts(
     ['out/RobotoUFO/*.ufo', 'out/RobotoCondensedUFO/*.ufo'],
     expected_count=18,
     font_class=OpenFont)
 
-UFO_MASTERS = common_tests.load_fonts(
+UFO_MASTERS = font_tests.load_fonts(
     ['src/v2/*.ufo'],
     expected_count=3,
     font_class=OpenFont)
 
-class TestItalicAngle(common_tests.TestItalicAngle):
+class TestItalicAngle(font_tests.TestItalicAngle):
     loaded_fonts = FONTS
     expected_italic_angle = -12.0
 
 
-class TestMetaInfo(common_tests.TestMetaInfo):
+class TestMetaInfo(font_tests.TestMetaInfo):
     """Bugs:
     https://code.google.com/a/google.com/p/roboto/issues/detail?id=8
     https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
@@ -60,11 +60,11 @@ class TestMetaInfo(common_tests.TestMetaInfo):
     expected_os2_achVendID = 'GOOG'
 
 
-class TestDigitWidths(common_tests.TestDigitWidths):
+class TestDigitWidths(font_tests.TestDigitWidths):
     loaded_fonts = FONTS
 
 
-class TestCharacterCoverage(common_tests.TestCharacterCoverage):
+class TestCharacterCoverage(font_tests.TestCharacterCoverage):
     loaded_fonts = FONTS
 
     include = frozenset([
@@ -77,15 +77,15 @@ class TestCharacterCoverage(common_tests.TestCharacterCoverage):
         ) - include  # don't exclude legacy PUA
 
 
-class TestLigatures(common_tests.TestLigatures):
+class TestLigatures(font_tests.TestLigatures):
     loaded_fonts = FONTS
 
 
-class TestFeatures(common_tests.TestFeatures):
+class TestFeatures(font_tests.TestFeatures):
     loaded_fonts = FONTS
 
 
-class TestVerticalMetrics(common_tests.TestVerticalMetrics):
+class TestVerticalMetrics(font_tests.TestVerticalMetrics):
     loaded_fonts = FONTS
     test_ymin_ymax = None
     test_hhea_table_metrics = None
@@ -95,7 +95,7 @@ class TestVerticalMetrics(common_tests.TestVerticalMetrics):
     expected_head_yMax = 2163
 
 
-class TestGlyphAreas(common_tests.TestGlyphAreas):
+class TestGlyphAreas(font_tests.TestGlyphAreas):
     loaded_fonts = UFOS
     masters = UFO_MASTERS
 

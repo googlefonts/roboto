@@ -13,23 +13,25 @@
 # limitations under the License.
 
 
-from booleanOperations import BooleanOperationManager
-from robofab.world import OpenFont
-from fontbuild.mix import Mix,Master,narrowFLGlyph
-from fontbuild.instanceNames import setNamesRF
-from fontbuild.italics import italicizeGlyph
-from fontbuild.convertCurves import glyphCurvesToQuadratic
-from fontbuild.mitreGlyph import mitreGlyph
-from fontbuild.generateGlyph import generateGlyph
-from fontTools.misc.transform import Transform
-from fontbuild.kerning import makeKernFeature
-from fontbuild.features import readFeatureFile, writeFeatureFile
-from fontbuild.markFeature import GenerateFeature_mark
-from fontbuild.mkmkFeature import GenerateFeature_mkmk
-from fontbuild.decomposeGlyph import decomposeGlyph
 import ConfigParser
 import os
 import sys
+
+from booleanOperations import BooleanOperationManager
+from fontTools.misc.transform import Transform
+from robofab.world import OpenFont
+
+from fontbuild.convertCurves import glyphCurvesToQuadratic
+from fontbuild.decomposeGlyph import decomposeGlyph
+from fontbuild.features import readFeatureFile, writeFeatureFile
+from fontbuild.generateGlyph import generateGlyph
+from fontbuild.instanceNames import setNamesRF
+from fontbuild.italics import italicizeGlyph
+from fontbuild.kerning import makeKernFeature
+from fontbuild.markFeature import GenerateFeature_mark
+from fontbuild.mitreGlyph import mitreGlyph
+from fontbuild.mix import Mix,Master,narrowFLGlyph
+from fontbuild.mkmkFeature import GenerateFeature_mkmk
 
 
 class FontProject:

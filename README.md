@@ -91,10 +91,7 @@ cd ../feaTools
 sudo python setup.py install
 cd ../Cython-0.22
 sudo python setup.py install
-cd ../booleanOperations/cppWrapper
-sudo python setup.py build_ext --inplace
-cp pyClipper.so ../Lib/booleanOperations
-cd ..
+cd ../booleanOperations
 sudo python setup.py install
 cd ..
 ```

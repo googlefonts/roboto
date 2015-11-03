@@ -91,8 +91,7 @@ proj = FontProject(rg.font, BASEDIR, "res/roboto.cfg", th.ffont)
 FAMILYNAME = "Roboto"
 
 proj.buildOTF = True
-#proj.autohintOTF = True
-proj.buildTTF = True
+#proj.compatible = True
 
 proj.generateFont(th.font, "%s/Thin/Regular/Th"%FAMILYNAME)
 proj.generateFont(Mix([th, rg], 0.45), "%s/Light/Regular/Lt"%FAMILYNAME)
@@ -119,6 +118,10 @@ proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
                   "%s/Black Italic/Bold Italic/Bk"%FAMILYNAME,
                   italic=True, stemWidth=290)
 
+# unfortunately some condensed forms (*.cn) of glyphs are not compatible with
+# their original forms, so we can't convert all fonts together compatibly
+proj.generateTTFs()
+
 thcn1 = Master(condenseFont(th.font, .84, 40))
 cn1 = Master(rg.ffont.addDiff(thcn1.ffont, th.ffont))
 bdcn1 = Master(bd.ffont.addDiff(thcn1.ffont, th.ffont))
@@ -143,4 +146,4 @@ proj.generateFont(Mix([cn1, bdcn1], RPoint(0.75, 0.75)),
                   "%s Condensed/Bold Italic/Bold Italic/Rg"%FAMILYNAME,
                   italic=True, swapSuffixes=[".cn"], stemWidth=240)
 
-sys.exit(0)
+proj.generateTTFs()

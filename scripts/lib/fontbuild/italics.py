@@ -13,12 +13,18 @@
 # limitations under the License.
 
 
-from fontTools.misc.transform import Transform
-from robofab.world import RFont
-from time import clock
-import numpy as np
 import math
-from alignpoints import alignCorners
+
+from fontTools.misc.transform import Transform
+import numpy as np
+from numpy.linalg import norm
+from scipy.sparse.linalg import cg
+from scipy.ndimage.filters import gaussian_filter1d as gaussian
+from scipy.cluster.vq import vq, whiten
+
+from fontbuild.alignpoints import alignCorners
+from fontbuild.curveFitPen import fitGlyph, segmentGlyph
+
 
 def italicizeGlyph(f, g, angle=10, stemWidth=185):
     unic = g.unicode #save unicode
@@ -111,13 +117,7 @@ def transformFLGlyphMembers(g, m, transformAnchors = True):
                 a.x  = aa[0]
                 # a.x,a.y = (aa[0] - p[0], aa[1] - p[1])
                 # a.x = a.x - m[4]
-        
 
-from curveFitPen import fitGlyph,segmentGlyph
-from numpy.linalg import norm
-from scipy.sparse.linalg import cg
-from scipy.ndimage.filters import gaussian_filter1d as gaussian
-from scipy.cluster.vq import vq, kmeans2, whiten
 
 def glyphToMesh(g):
     points = []

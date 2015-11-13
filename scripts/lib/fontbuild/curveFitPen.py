@@ -19,14 +19,10 @@ __all__ = ["SubsegmentPen","SubsegmentsToCurvesPen", "segmentGlyph", "fitGlyph"]
 
 
 from fontTools.pens.basePen import BasePen
-from fontTools.misc import bezierTools
-from robofab.pens.pointPen import AbstractPointPen
-from robofab.pens.adapterPens import PointToSegmentPen, GuessSmoothPointPen
 import numpy as np
-from numpy.linalg import norm
 from numpy import array as v
-from random import random
-
+from numpy.linalg import norm
+from robofab.pens.adapterPens import GuessSmoothPointPen
 from robofab.pens.pointPen import BasePointToSegmentPen
 
 

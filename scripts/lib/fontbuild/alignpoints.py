@@ -13,9 +13,11 @@
 # limitations under the License.
 
 
+import math
+
 import numpy as np
 from numpy.linalg import lstsq
-import math
+
 
 def alignCorners(glyph, va, subsegments):
     out = va.copy()

@@ -33,11 +33,11 @@ def italicizeGlyph(f, g, angle=10, stemWidth=185):
     m = Transform(1, 0, slope, 1, 0, 0)
     xoffset, junk = m.transformPoint((0, MEAN_YCENTER))
     m = Transform(.97, 0, slope, 1, xoffset, 0)
-    
+
     if len(glyph) > 0:
         g2 = italicize(f[g.name], angle, xoffset=xoffset, stemWidth=stemWidth)
         f.insertGlyph(g2, g.name)
-        
+
     transformFLGlyphMembers(f[g.name], m)
 
     if unic > 0xFFFF: #restore unicode
@@ -53,12 +53,12 @@ def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
     grad = mapEdges(lambda a,(p,n): normalize(p-a), va, e)
     cornerWeights = mapEdges(lambda a,(p,n): normalize(p-a).dot(normalize(a-n)), grad, e)[:,0].reshape((-1,1))
     smooth = np.ones((n,1)) * CURVE_CORRECTION_WEIGHT
-    
+
     controlPoints = findControlPointsInMesh(glyph, va, subsegments)
     smooth[controlPoints > 0] = 1
     smooth[cornerWeights < .6] = CORNER_WEIGHT
     # smooth[cornerWeights >= .9999] = 1
-    
+
     out = va.copy()
     hascurves = False
     for c in glyph.contours:
@@ -80,13 +80,13 @@ def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
     centerSkew = skewMesh(center.dot(np.array([[.97,0],[0,1]])), angle * .9)
     out = outCorrected + (centerSkew - center)
     out[:,1] = outCorrected[:,1]
-    
+
     smooth = np.ones((n,1)) * .1
     out = alignCorners(glyph, out, subsegments)
     out = copyMeshDetails(skewMesh(va, angle), out, e, 7, smooth=smooth)
     # grad = mapEdges(lambda a,(p,n): normalize(p-a), skewMesh(outCorrected, angle*.9), e)
     # out = recompose(out, grad, e, smooth=smooth)
-    
+
     out = skewMesh(out, angle * .1)
     out[:,0] += xoffset
     # out[:,1] = outCorrected[:,1]
@@ -132,6 +132,7 @@ def glyphToMesh(g):
         offset += len(c)
     return np.array(points), edges
 
+
 def meshToGlyph(points, g):
     g1 = g.copy()
     j = 0
@@ -144,6 +145,7 @@ def meshToGlyph(points, g):
             j += 1
     return g1
 
+
 def quantizeGradient(grad, book=None):
     if book == None:
         book = np.array([(1,0),(0,1),(0,-1),(-1,0)])
@@ -152,6 +154,7 @@ def quantizeGradient(grad, book=None):
     for i,v in enumerate(out):
         out[i] = normalize(v)
     return out
+
 
 def findControlPointsInMesh(glyph, va, subsegments):
     controlPointIndices = np.zeros((len(va),1))
@@ -164,7 +167,6 @@ def findControlPointsInMesh(glyph, va, subsegments):
                     controlPointIndices[index] = 1
             index += s[1]
     return controlPointIndices
-
 
 
 def recompose(v, grad, e, smooth=1, P=None, distance=None):
@@ -183,6 +185,7 @@ def recompose(v, grad, e, smooth=1, P=None, distance=None):
         out[:,i] = cg(P, f[:,i])[0]
     return out
 
+
 def mP(v,e):
     n = len(v)
     M = np.zeros((n,n))
@@ -193,17 +196,20 @@ def mP(v,e):
         M[i,i] = 2
     return M
 
+
 def normalize(v):
     n = np.linalg.norm(v)
     if n == 0:
         return v
     return v/n
 
+
 def mapEdges(func,v,e,*args):
     b = v.copy()
     for i, edges in e.iteritems():
         b[i] = func(v[i], [v[j] for j in edges], *args)
     return b
+
 
 def getNormal(a,b,c):
     "Assumes TT winding direction"
@@ -214,18 +220,22 @@ def getNormal(a,b,c):
     # print p, n, normalize((p + n) * .5)
     return normalize((p + n) * .5)
 
+
 def edgeNormals(v,e):
     "Assumes a mesh where each vertex has exactly least two edges"
     return mapEdges(lambda a,(p,n) : getNormal(a,p,n),v,e)
+
 
 def rangePrevNext(count):
     c = np.arange(count,dtype=int)
     r = np.vstack((c, np.roll(c, 1), np.roll(c, -1)))
     return r.T
 
+
 def skewMesh(v,angle):
     slope = np.tanh([math.pi * angle / 180])
     return v.dot(np.array([[1,0],[slope,1]]))
+
 
 def labelConnected(e):
     label = 0
@@ -236,6 +246,7 @@ def labelConnected(e):
             label += 1
     return labels
 
+
 def copyGradDetails(a,b,e,scale=15):
     n = len(a)
     labels = labelConnected(e)
@@ -245,14 +256,13 @@ def copyGradDetails(a,b,e,scale=15):
         out[mask,:] = gaussian(b[mask,:], scale, mode="wrap", axis=0) + a[mask,:] - gaussian(a[mask,:], scale, mode="wrap", axis=0)
     return out
 
+
 def copyMeshDetails(va,vb,e,scale=5,smooth=.01):
     gradA = mapEdges(lambda a,(p,n): normalize(p-a), va, e)
     gradB = mapEdges(lambda a,(p,n): normalize(p-a), vb, e)
     grad = copyGradDetails(gradA, gradB, e, scale)
     grad = mapEdges(lambda a,(p,n): normalize(a), grad, e)
     return recompose(vb, grad, e, smooth=smooth)
-
-
 
 
 def condenseGlyph(glyph, scale=.8, stemWidth=185):
@@ -273,7 +283,7 @@ def condenseGlyph(glyph, scale=.8, stemWidth=185):
     # cornerWeights = mapEdges(lambda a,(p,n): normalize(p-a).dot(normalize(a-n)), grad, e)[:,0].reshape((-1,1))
     #     smooth = np.ones((n,1)) * .1
     #     smooth[cornerWeights < .6] = 10
-    #     
+    #
     #     grad2 = quantizeGradient(grad).astype(float)
     #     grad2 = copyGradDetails(grad, grad2, e, scale=10)
     #     grad2 = mapEdges(lambda a,e: normalize(a), grad2, e)

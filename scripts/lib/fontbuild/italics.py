@@ -53,6 +53,8 @@ def italicizeGlyph(f, g, angle=10, stemWidth=185):
 def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
     CURVE_CORRECTION_WEIGHT = .03
     CORNER_WEIGHT = 10
+
+    # decompose the glyph into smaller segments
     ga, subsegments = segmentGlyph(glyph,25)
     va, e  = glyphToMesh(ga)
     n = len(va)
@@ -79,14 +81,19 @@ def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
         # out = copyMeshDetails(va, out, e, 6)
     else:
         outCorrected = out
+
+    # create a transform for italicizing
     normals = edgeNormals(out, e)
     center = va + normals * stemWidth * .4
     if stemWidth > 130:
         center[:, 0] = va[:, 0] * .7 + center[:,0] * .3
     centerSkew = skewMesh(center.dot(np.array([[.97,0],[0,1]])), angle * .9)
+
+    # apply the transform
     out = outCorrected + (centerSkew - center)
     out[:,1] = outCorrected[:,1]
 
+    # make some corrections
     smooth = np.ones((n,1)) * .1
     out = alignCorners(glyph, out, subsegments)
     out = copyMeshDetails(skewMesh(va, angle), out, e, 7, smooth=smooth)
@@ -101,6 +108,8 @@ def italicize(glyph, angle=12, stemWidth=180, xoffset=-50):
     # gOut.width *= .97
     # gOut.width += 10
     # return gOut
+
+    # recompose the glyph into original segments
     return fitGlyph(glyph, gOut, subsegments)
 
 

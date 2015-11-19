@@ -280,6 +280,14 @@ class SubsegmentPen(BasePen):
     def _closePath(self):
         if not (self.lastPoint[0] == self.startContour[0] and self.lastPoint[1] == self.startContour[1]):
             self._lineTo(self.startContour)
+
+        # round values used by otherPen (a RoboFab SegmentToPointPen) to decide
+        # whether to delete duplicate points at start and end of contour
+        #TODO(jamesgk) figure out why we have to do this hack, then remove it
+        c = self.otherPen.contour
+        for i in [0, -1]:
+            c[i] = [[round(n, 5) for n in c[i][0]]] + list(c[i][1:])
+
         self.otherPen.closePath()
 
     def _endPath(self):

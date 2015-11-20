@@ -18,7 +18,7 @@ import os
 import sys
 
 from booleanOperations import BooleanOperationManager
-from convert_curves import fonts_to_quadratic
+from cu2qu.rf import fonts_to_quadratic
 from fontTools.misc.transform import Transform
 from robofab.world import OpenFont
 from ufo2ft import compileOTF, compileTTF
@@ -177,15 +177,20 @@ class FontProject:
         """Build TTF for each font generated since last call to generateTTFs."""
 
         fonts = [OpenFont(ufo) for ufo in self.generatedFonts]
+        self.generatedFonts = []
+
         log(">> Converting curves to quadratic")
-        fonts_to_quadratic(fonts, self.compatible)
+        if self.compatible:
+            fonts_to_quadratic(*fonts, dump_report=True)
+        else:
+            for font in fonts:
+                fonts_to_quadratic(font, dump_report=True)
 
         log(">> Generating TTF files")
         for font in fonts:
             ttfName = self.generateOutputPath(font, "ttf")
             log(os.path.basename(ttfName))
             saveOTF(font, ttfName, truetype=True)
-        self.generatedFonts = []
 
 
 def transformGlyphMembers(g, m):

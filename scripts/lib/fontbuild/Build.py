@@ -120,18 +120,8 @@ class FontProject:
                 
                 if g.name == "uniFFFD":
                     continue
-                    
-                # if i < 24:
-                #     continue
-                # if i > 86:
-                #     for i,g in enumerate(fl.font.glyphs):
-                #       fl.UpdateGlyph(i)
-                #     # break
-                #     assert False
-                
-                # print g.name
-                # if self.thinfont != None:
-                #                     narrowFLGlyph(g,self.thinfont.getGlyph(g.name),factor=narrowAmmount)
+
+                removeGlyphOverlap(g)
 
                 if g.name in self.lessItalic:
                     italicizeGlyph(f, g, 9, stemWidth=stemWidth)

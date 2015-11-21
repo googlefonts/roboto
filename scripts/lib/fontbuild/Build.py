@@ -180,11 +180,14 @@ class FontProject:
         self.generatedFonts = []
 
         log(">> Converting curves to quadratic")
+        # using a slightly higher max error (e.g. 0.0025), dots will have fewer
+        # control points and look noticeably different
+        max_err = 0.002
         if self.compatible:
-            fonts_to_quadratic(*fonts, dump_report=True)
+            fonts_to_quadratic(*fonts, max_err=max_err, dump_report=True)
         else:
             for font in fonts:
-                fonts_to_quadratic(font, dump_report=True)
+                fonts_to_quadratic(font, max_err=max_err, dump_report=True)
 
         log(">> Generating TTF files")
         for font in fonts:

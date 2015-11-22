@@ -1,6 +1,6 @@
 This is the source repository for Roboto: Google’s signature family
 of fonts, the default font on Android and ChromeOS, and the
-recommended font for Google’s visual language, Material Design.
+recommended font for Google’s visual language and Material Design.
 
 It also contains the toolchain used in creating Roboto.
 

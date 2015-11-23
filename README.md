@@ -26,6 +26,7 @@ cd $HOME/roboto-src
 ```bash
 git clone https://github.com/google/roboto.git
 git clone https://github.com/behdad/fonttools.git
+git clone https://github.com/googlei18n/cu2qu.git
 git clone https://github.com/jamesgk/ufo2ft.git
 git clone https://github.com/robofab-developers/robofab.git
 git clone https://github.com/typesupply/feaTools.git
@@ -76,6 +77,8 @@ You can install the necessary modules at the sytem level:
 ```bash
 cd fonttools
 sudo python setup.py install
+cd ../cu2qu
+sudo python setup.py install
 cd ../ufo2ft
 sudo python setup.py install
 cd ../robofab
@@ -93,6 +96,7 @@ Or set `$PYTHONPATH` locally before running `make`:
 
 ```bash
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/fonttools/Lib"
+PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/cu2qu/Lib"
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/ufo2ft/Lib"
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/robofab/Lib"
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/feaTools/Lib"
@@ -187,6 +191,7 @@ The Roboto build toolchain depends on:
 OTF generation depends on:
 
 - ufo2ft (https://github.com/jamesgk/ufo2tk)
+- cu2qu (https://github.com/googlei18n/cu2qu)
 - Open-source portions of the AFDKO
   (https://github.com/adobe-type-tools/afdko/releases)
 

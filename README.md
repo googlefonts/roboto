@@ -190,7 +190,7 @@ The Roboto build toolchain depends on:
 ## OTF/TTF Generation
 OTF generation depends on:
 
-- ufo2ft (https://github.com/jamesgk/ufo2tk)
+- ufo2ft (https://github.com/jamesgk/ufo2ft)
 - cu2qu (https://github.com/googlei18n/cu2qu)
 - Open-source portions of the AFDKO
   (https://github.com/adobe-type-tools/afdko/releases)

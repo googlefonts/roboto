@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="glottalstopinv" format="1">
+  <advance width="1066"/>
+  <unicode hex="0296"/>
+  <outline>
+    <contour>
+      <point x="511" y="970" type="line"/>
+      <point x="662" y="970"/>
+      <point x="687" y="841"/>
+      <point x="687" y="681" type="curve" smooth="yes"/>
+      <point x="687" y="530" type="line" smooth="yes"/>
+      <point x="687" y="374"/>
+      <point x="661" y="240"/>
+      <point x="513" y="240" type="curve" smooth="yes"/>
+      <point x="405" y="240"/>
+      <point x="352" y="317"/>
+      <point x="352" y="414" type="curve"/>
+      <point x="50" y="414" type="line"/>
+      <point x="50" y="139"/>
+      <point x="237" y="-20"/>
+      <point x="506" y="-20" type="curve" smooth="yes"/>
+      <point x="841" y="-20"/>
+      <point x="1009" y="217"/>
+      <point x="1009" y="530" type="curve" smooth="yes"/>
+      <point x="1009" y="681" type="line" smooth="yes"/>
+      <point x="1009" y="994"/>
+      <point x="841" y="1230"/>
+      <point x="504" y="1230" type="curve" smooth="yes"/>
+      <point x="392" y="1230" type="line"/>
+      <point x="392" y="970" type="line"/>
+    </contour>
+    <contour>
+      <point x="678" y="1536" type="line"/>
+      <point x="355" y="1536" type="line"/>
+      <point x="355" y="970" type="line"/>
+      <point x="678" y="970" type="line"/>
+    </contour>
+    <contour>
+      <point x="514" y="1633" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="514" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1066" y="1633" type="move" name="top0315"/>
+    </contour>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.939</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  <key>com.typemytype.robofont.guides</key>
+  <array>
+    <dict>
+      <key>angle</key>
+      <real>0</real>
+      <key>isGlobal</key>
+      <false/>
+      <key>magnetic</key>
+      <integer>5</integer>
+      <key>x</key>
+      <real>0</real>
+      <key>y</key>
+      <real>-20</real>
+    </dict>
+  </array>
+  </dict>
+  </lib>
+</glyph>

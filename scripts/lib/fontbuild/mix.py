@@ -1,6 +1,25 @@
-from FL import *
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 from numpy import array, append
 import copy
+import json
+from robofab.objects.objectsRF import RPoint
+from robofab.world import OpenFont
+from decomposeGlyph import decomposeGlyph
+
 
 class FFont:
     "Font wrapper for floating point operations"
@@ -9,32 +28,37 @@ class FFont:
         self.glyphs = {}
         self.hstems = []
         self.vstems = []
+        self.kerning = {}
         if isinstance(f,FFont):
             #self.glyphs = [g.copy() for g in f.glyphs]
             for key,g in f.glyphs.iteritems():
                 self.glyphs[key] = g.copy()
             self.hstems = list(f.hstems)
             self.vstems = list(f.vstems)
+            self.kerning = dict(f.kerning)
         elif f != None:
             self.copyFromFont(f)
-        
-    def copyFromFont(self,f):
-        for g in f.glyphs:
+
+    def copyFromFont(self, f):
+        for g in f:
             self.glyphs[g.name] = FGlyph(g)
-        self.hstems = [s for s in f.stem_snap_h[0]]
-        self.vstems = [s for s in f.stem_snap_v[0]]
-    
-            
-    def copyToFont(self,f):
-        for g in f.glyphs:
+        self.hstems = [s for s in f.info.postscriptStemSnapH]
+        self.vstems = [s for s in f.info.postscriptStemSnapV]
+        self.kerning = f.kerning.asDict()
+
+
+    def copyToFont(self, f):
+        for g in f:
             try:
                 gF = self.glyphs[g.name]
                 gF.copyToGlyph(g)
             except:
                 print "Copy to glyph failed for" + g.name
-        f.stem_snap_h[0] = self.hstems
-        f.stem_snap_v[0] = self.vstems
-        
+        f.info.postscriptStemSnapH = self.hstems
+        f.info.postscriptStemSnapV = self.vstems
+        for pair in self.kerning:
+            f.kerning[pair] = self.kerning[pair]
+
     def getGlyph(self, gname):
         try:
             return self.glyphs[gname]
@@ -46,7 +70,6 @@ class FFont:
     
     def addDiff(self,b,c):
         newFont = FFont(self)
-        
         for key,g in newFont.glyphs.iteritems():
             gB = b.getGlyph(key)
             gC = c.getGlyph(key)
@@ -54,17 +77,15 @@ class FFont:
                 newFont.glyphs[key] = g.addDiff(gB,gC)
             except:
                 print "Add diff failed for '%s'" %key
-
         return newFont
 
 class FGlyph:
     "provides a temporary floating point compatible glyph data structure"
     
     def __init__(self, g=None):
-        self.nodes = []
+        self.contours = []
         self.width = 0.
         self.components = []
-        self.kerning = []
         self.anchors = []
         if g != None:
             self.copyFromGlyph(g)
@@ -76,52 +97,48 @@ class FGlyph:
         self.width = len(valuesX)
         valuesX.append(g.width)
         for c in g.components:
-            self.components.append((len(valuesX),len(valuesY)))
-            valuesX.append(c.scale.x)
-            valuesY.append(c.scale.y)
-            valuesX.append(c.delta.x)
-            valuesY.append(c.delta.y)
-        
+            self.components.append((len(valuesX), len(valuesY)))
+            valuesX.append(c.scale[0])
+            valuesY.append(c.scale[1])
+            valuesX.append(c.offset[0])
+            valuesY.append(c.offset[1])
+
         for a in g.anchors:
             self.anchors.append((len(valuesX), len(valuesY)))
             valuesX.append(a.x)
             valuesY.append(a.y)
-                
-        for i in range(len(g.nodes)):
-            self.nodes.append([])
-            for j in range (len(g.nodes[i])):
-                self.nodes[i].append( (len(valuesX), len(valuesY)) )
-                valuesX.append(g.nodes[i][j].x)
-                valuesY.append(g.nodes[i][j].y)
-                
-        for k in g.kerning:
-            self.kerning.append(KerningPair(k))
-            
-        self.dataX = array(valuesX)
-        self.dataY = array(valuesY)
+
+        for i in range(len(g)):
+            self.contours.append([])
+            for j in range (len(g[i].points)):
+                self.contours[i].append((len(valuesX), len(valuesY)))
+                valuesX.append(g[i].points[j].x)
+                valuesY.append(g[i].points[j].y)
+
+        self.dataX = array(valuesX, dtype=float)
+        self.dataY = array(valuesY, dtype=float)
         
     def copyToGlyph(self,g):
         g.width = self._derefX(self.width)
         if len(g.components) == len(self.components):
             for i in range(len(self.components)):
-                g.components[i].scale.x = self._derefX( self.components[i][0] + 0)
-                g.components[i].scale.y = self._derefY( self.components[i][1] + 0)
-                g.components[i].deltas[0].x = self._derefX( self.components[i][0] + 1)
-                g.components[i].deltas[0].y = self._derefY( self.components[i][1] + 1)
-        g.kerning = []
+                g.components[i].scale = (self._derefX(self.components[i][0] + 0, asInt=False),
+                                         self._derefY(self.components[i][1] + 0, asInt=False))
+                g.components[i].offset = (self._derefX(self.components[i][0] + 1),
+                                          self._derefY(self.components[i][1] + 1))
         if len(g.anchors) == len(self.anchors):
             for i in range(len(self.anchors)):
                 g.anchors[i].x = self._derefX( self.anchors[i][0])
                 g.anchors[i].y = self._derefY( self.anchors[i][1])
-        for k in self.kerning:
-            g.kerning.append(KerningPair(k))
-        for i in range( len(g.nodes)) :
-            for j in range (len(g.nodes[i])):
-                g.nodes[i][j].x = self._derefX( self.nodes[i][j][0] )
-                g.nodes[i][j].y = self._derefY( self.nodes[i][j][1] )
-    
-    def isCompatible(self,g):
-        return len(self.dataX) == len(g.dataX) and len(self.dataY) == len(g.dataY) and len(g.nodes) == len(self.nodes)
+        for i in range(len(g)) :
+            for j in range (len(g[i].points)):
+                g[i].points[j].x = self._derefX(self.contours[i][j][0])
+                g[i].points[j].y = self._derefY(self.contours[i][j][1])
+
+    def isCompatible(self, g):
+        return (len(self.dataX) == len(g.dataX) and
+                len(self.dataY) == len(g.dataY) and
+                len(g.contours) == len(self.contours))
     
     def __add__(self,g):
         if self.isCompatible(g):
@@ -172,26 +189,26 @@ class FGlyph:
         
         gF.dataX += (g.dataX - gF.dataX) * v.x
         gF.dataY += (g.dataY - gF.dataY) * v.y
-        gF.kerning = interpolateKerns(self,g,v)
         return gF
     
     def copy(self):
         ng = FGlyph()
-        ng.nodes = list(self.nodes)
+        ng.contours = list(self.contours)
         ng.width = self.width
         ng.components = list(self.components)
-        ng.kerning = list(self.kerning)
         ng.anchors = list(self.anchors)
         ng.dataX = self.dataX.copy()
         ng.dataY = self.dataY.copy()
         ng.name = self.name
         return ng
     
-    def _derefX(self,id):
-        return int(round(self.dataX[id]))
+    def _derefX(self,id, asInt=True):
+        val = self.dataX[id]
+        return int(round(val)) if asInt else val
     
-    def _derefY(self,id):
-        return int(round(self.dataY[id]))
+    def _derefY(self,id, asInt=True):
+        val = self.dataY[id]
+        return int(round(val)) if asInt else val
     
     def addDiff(self,gB,gC):
         newGlyph = self + (gB - gC)
@@ -200,22 +217,21 @@ class FGlyph:
     
 
 class Master:
-    
-    
-    def __init__(self,font=None,v=0,ifont=None, kernlist=None, overlay=None):
-        if isinstance(font,FFont):
+
+    def __init__(self, font=None, v=0, kernlist=None, overlay=None,
+                 anchorPath=None):
+        if isinstance(font, FFont):
             self.font = None
             self.ffont = font
         elif isinstance(font,str):
-            self.openFont(font,overlay)
+            self.openFont(font,overlay, anchorPath)
         elif isinstance(font,Mix):
             self.font = font
         else:
             self.font = font
-            self.ifont = ifont
             self.ffont = FFont(font)
         if isinstance(v,float) or isinstance(v,int):
-            self.v = Point(v,v)
+            self.v = RPoint(v, v)
         else:
             self.v = v
         if kernlist != None:
@@ -227,37 +243,30 @@ class Master:
                             and not k[0] == ""]
             #TODO implement class based kerning / external kerning file
     
-    def openFont(self, path, overlayPath=None):
-        fl.Open(path,True)
-        self.ifont = fl.ifont
-        for g in fl.font.glyphs:
+    def openFont(self, path, overlayPath=None, anchorPath=None):
+        self.font = OpenFont(path)
+        for g in self.font:
           size = len(g)
           csize = len(g.components)
           if (size > 0 and csize > 0):
-            g.Decompose()
+            decomposeGlyph(self.font, g.name)
 
-        self.ifont = fl.ifont
-        self.font = fl.font
         if overlayPath != None:
-            fl.Open(overlayPath,True)
-            ifont = self.ifont
+            overlayFont = OpenFont(overlayPath)
             font = self.font
-            overlayIfont = fl.ifont
-            overlayFont = fl.font
+            for overlayGlyph in overlayFont:
+                font.insertGlyph(overlayGlyph)
 
-            for overlayGlyph in overlayFont.glyphs:
-                glyphIndex = font.FindGlyph(overlayGlyph.name)
-                if glyphIndex != -1:
-                    oldGlyph = Glyph(font.glyphs[glyphIndex])
-                    kernlist = [KerningPair(k) for k in oldGlyph.kerning]
-                    font.glyphs[glyphIndex] = Glyph(overlayGlyph)
-                    font.glyphs[glyphIndex].kerning = kernlist
-                    if 0 == overlayGlyph:
-                        font.glyphs[glyphIndex].width = 0
-                else:
-                    font.glyphs.append(overlayGlyph)
-            fl.UpdateFont(ifont)
-            fl.Close(overlayIfont)
+        # work around a bug with vfb2ufo in which anchors are dropped from
+        # glyphs containing components and no contours. "anchorPath" should
+        # point to the output of src/v2/get_dropped_anchors.py
+        if anchorPath:
+            anchorData = json.load(open(anchorPath))
+            for glyphName, anchors in anchorData.items():
+                glyph = self.font[glyphName]
+                for name, (x, y) in anchors.items():
+                    glyph.appendAnchor(str(name), (x, y))
+
         self.ffont = FFont(self.font)
 
 
@@ -265,7 +274,7 @@ class Mix:
     def __init__(self,masters,v):
         self.masters = masters
         if isinstance(v,float) or isinstance(v,int):
-            self.v = Point(v,v)
+            self.v = RPoint(v,v)
         else:
             self.v = v
     
@@ -283,21 +292,20 @@ class Mix:
         ffont = FFont(self.masters[0].ffont)
         for key,g in ffont.glyphs.iteritems():
             ffont.glyphs[key] = self.mixGlyphs(key)
+        ffont.kerning = self.mixKerns()
         return ffont
     
     def generateFont(self, baseFont):
-        newFont = Font(baseFont)
+        newFont = baseFont.copy()
         #self.mixStems(newFont)  todo _ fix stems code
-        for g in newFont.glyphs:
+        for g in newFont:
             gF = self.mixGlyphs(g.name)
             if gF == None:
                 g.mark = True
             else:
-                # FIX THIS #print gF.name, g.name, len(gF.nodes),len(g.nodes),len(gF.components),len(g.components)
-                try:
-                    gF.copyToGlyph(g)
-                except:
-                    "Nodes incompatible"
+                gF.copyToGlyph(g)
+        newFont.kerning.clear()
+        newFont.kerning.update(self.mixKerns() or {})
         return newFont
     
     def mixGlyphs(self,gname):
@@ -308,6 +316,17 @@ class Mix:
             print "mixglyph failed for %s" %(gname)
             if gA != None:
                 return gA.copy()
+
+    def getKerning(self, master):
+        if isinstance(master.font, Mix):
+            return master.font.mixKerns()
+        return master.ffont.kerning
+
+    def mixKerns(self):
+        masters = self.masters
+        kA, kB = self.getKerning(masters[0]), self.getKerning(masters[-1])
+        return interpolateKerns(kA, kB, self.v)
+
 
 def narrowFLGlyph(g, gThin, factor=.75):
     gF = FGlyph(g)
@@ -327,19 +346,13 @@ def interpolate(a,b,v,e=0):
     le = a+(b-a)*v   # linear easing
     return le + (qe-le) * e
     
-def interpolateKerns(gA,gB,v):
-    kerns = []
-    for kA in gA.kerning:
-        key = kA.key
-        matchedKern = None
-        for kB in gA.kerning:
-            if key == kB.key:
-                matchedKern = kB
-                break
+def interpolateKerns(kA, kB, v):
+    kerns = {}
+    for pair in kA.keys():
+        matchedKern = kB.get(pair)
         # if matchedkern == None:
         #     matchedkern = Kern(kA)
         #     matchedkern.value = 0
         if matchedKern != None:
-            kernValue = interpolate(kA.value, matchedKern.value, v.x)
-            kerns.append(KerningPair(kA.key,kernValue))
+            kerns[pair] = interpolate(kA[pair], matchedKern, v.x)
     return kerns

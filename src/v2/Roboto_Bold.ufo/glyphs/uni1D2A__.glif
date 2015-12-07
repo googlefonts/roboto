@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="uni1D2A" format="1">
+  <advance width="1500"/>
+  <unicode hex="1D2A"/>
+  <outline>
+    <contour>
+      <point x="918" y="1082" type="line" name="hr00"/>
+      <point x="596" y="1082" type="line"/>
+      <point x="596" y="0" type="line"/>
+      <point x="918" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="1136" y="1082" type="line"/>
+      <point x="1136" y="860" type="line" smooth="yes"/>
+      <point x="1136" y="618"/>
+      <point x="1020" y="505"/>
+      <point x="750" y="505" type="curve" smooth="yes"/>
+      <point x="480" y="505"/>
+      <point x="364" y="618"/>
+      <point x="364" y="860" type="curve" smooth="yes"/>
+      <point x="364" y="1082" type="line"/>
+      <point x="42" y="1082" type="line"/>
+      <point x="42" y="860" type="line" smooth="yes"/>
+      <point x="42" y="466"/>
+      <point x="258" y="245"/>
+      <point x="750" y="245" type="curve" smooth="yes"/>
+      <point x="1242" y="245"/>
+      <point x="1458" y="466"/>
+      <point x="1458" y="860" type="curve" smooth="yes"/>
+      <point x="1458" y="1082" type="line"/>
+    </contour>
+    <contour>
+      <point x="760" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="760" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1500" y="1290" type="move" name="top0315"/>
+    </contour>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.939</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  <key>com.adobe.type.autohint</key>
+  <data>
+  <hintSetList>
+    <hintset pointTag="hr00">
+      <vstem pos="596" width="322" />
+    </hintset>
+  </hintSetList>
+  </data>
+  </dict>
+  </lib>
+</glyph>

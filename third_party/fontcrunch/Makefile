@@ -20,7 +20,7 @@ OPT = $(patsubst %.bez, %.bezopt, $(SRC))
 dummy: $(OPT)
 
 quadopt: quadopt.cc
-	$(CXX) $< -std=c++0x -O3 -o $@
+	$(CXX) $< -std=c++0x -O3 -Werror -Wall -o $@
 
 %.bezopt:	%.bez quadopt
 	./quadopt $< $@

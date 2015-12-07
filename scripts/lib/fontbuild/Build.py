@@ -1,17 +1,36 @@
-from FL import *
-from fontbuild.mix import Mix,Master,narrowFLGlyph
-from fontbuild.instanceNames import setNames
-from fontbuild.italics import italicizeGlyph
-from fontbuild.convertCurves import glyphCurvesToQuadratic
-from fontbuild.mitreGlyph import mitreGlyph
-from fontbuild.generateGlyph import generateGlyph
-from fontTools.misc.transform import Transform
-from fontbuild.kerning import generateFLKernClassesFromOTString
-from fontbuild.features import CreateFeaFile
-from fontbuild.markFeature import GenerateFeature_mark
-from fontbuild.mkmkFeature import GenerateFeature_mkmk
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 import ConfigParser
 import os
+import sys
+
+from booleanOperations import BooleanOperationManager
+from cu2qu.rf import fonts_to_quadratic
+from fontTools.misc.transform import Transform
+from robofab.world import OpenFont
+from ufo2ft import compileOTF, compileTTF
+
+from fontbuild.decomposeGlyph import decomposeGlyph
+from fontbuild.features import readFeatureFile, writeFeatureFile
+from fontbuild.generateGlyph import generateGlyph
+from fontbuild.instanceNames import setNamesRF
+from fontbuild.italics import italicizeGlyph
+from fontbuild.markFeature import RobotoFeatureCompiler
+from fontbuild.mitreGlyph import mitreGlyph
+from fontbuild.mix import Mix,Master,narrowFLGlyph
 
 
 class FontProject:
@@ -29,7 +48,16 @@ class FontProject:
         self.ot_classes = open(self.basedir + "/" + self.config.get("res","ot_classesfile")).read()
         self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
         #self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
+        adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
+        self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
         
+        # map exceptional glyph names in Roboto to names in the AGL
+        roboNames = (
+            ('Obar', 'Ocenteredtilde'), ('obar', 'obarred'),
+            ('eturn', 'eturned'), ('Iota1', 'Iotaafrican'))
+        for roboName, aglName in roboNames:
+            self.adobeGlyphList[roboName] = self.adobeGlyphList[aglName]
+
         self.builddir = "out"
         self.decompose = self.config.get("glyphs","decompose").split()
         self.predecompose = self.config.get("glyphs","predecompose").split()
@@ -38,7 +66,9 @@ class FontProject:
         self.noItalic = self.config.get("glyphs","noitalic").split()
         self.buildnumber = self.loadBuildNumber()
         
-        self.buldVFBandFEA = False
+        self.buildOTF = False
+        self.compatible = False
+        self.generatedFonts = []
         
         
     def loadBuildNumber(self):
@@ -58,7 +88,14 @@ class FontProject:
             versionFile.close()
         else:
             raise Exception("Empty build number")
-    
+
+    def generateOutputPath(self, font, ext):
+        family = font.info.familyName.replace(" ", "")
+        style = font.info.styleName.replace(" ", "")
+        path = os.path.join(self.basedir, self.builddir, family + ext.upper())
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return os.path.join(path, "%s-%s.%s" % (family, style, ext))
     
     def generateFont(self, mix, names, italic=False, swapSuffixes=None, stemWidth=185, kern=True):
         
@@ -68,13 +105,9 @@ class FontProject:
         if isinstance( mix, Mix):
             f = mix.generateFont(self.basefont)
         else:
-            f = Font(mix)
-        fl.Add(f)
-        index = fl.ifont
-        fl.CallCommand(33239) # Sort glyphs by unicode
+            f = mix.copy()
         if italic == True:
             log(">> Italicizing")
-            fl.UpdateFont(fl.ifont)
             tweakAmmount = .085
             narrowAmmount = .93
             if names.find("Thin") != -1:
@@ -82,114 +115,89 @@ class FontProject:
             if names.find("Condensed") != -1:
                 narrowAmmount = .96
             i = 0
-            for g in f.glyphs:
-                
+            for g in f:
                 i += 1
                 if i % 10 == 0: print g.name
                 
                 if g.name == "uniFFFD":
                     continue
-                    
-                # if i < 24:
-                #     continue
-                # if i > 86:
-                #     for i,g in enumerate(fl.font.glyphs):
-                #       fl.UpdateGlyph(i)
-                #     # break
-                #     assert False
-                
-                # print g.name
-                # if self.thinfont != None:
-                #                     narrowFLGlyph(g,self.thinfont.getGlyph(g.name),factor=narrowAmmount)
-                
-                if g.name != "eight" or g.name != "Q":
-                    g.RemoveOverlap()
-                    
-                    # not sure why FontLab sometimes refuses, seems to work if called twice
 
-                    
-                if (g.name in self.lessItalic):
-                    italicizeGlyph(g, 9, stemWidth=stemWidth)
+                removeGlyphOverlap(g)
+
+                if g.name in self.lessItalic:
+                    italicizeGlyph(f, g, 9, stemWidth=stemWidth)
                 elif False == (g.name in self.noItalic):
-                    italicizeGlyph(g, 10, stemWidth=stemWidth)
+                    italicizeGlyph(f, g, 10, stemWidth=stemWidth)
                 #elif g.name != ".notdef":
                 #    italicizeGlyph(g, 10, stemWidth=stemWidth)
-                  
-                g.RemoveOverlap()
-            
                 if g.width != 0:
                     g.width += 10
-                    
-                fl.UpdateGlyph(i-1)             
-            
+
         if swapSuffixes != None:
             for swap in swapSuffixes:
-                swapList = [g.name for g in f.glyphs if g.name.endswith(swap)]
+                swapList = [g.name for g in f if g.name.endswith(swap)]
                 for gname in swapList:
                     print gname
-                    swapGlyphs(f, gname.replace(swap,""), gname)
+                    swapContours(f, gname.replace(swap,""), gname)
         for gname in self.predecompose:
-            g = f[f.FindGlyph(gname)]
-            if g != None:
-                g.Decompose()
+            if f.has_key(gname):
+                decomposeGlyph(f, gname)
 
         log(">> Generating glyphs")
-        generateGlyphs(f, self.diacriticList)
+        generateGlyphs(f, self.diacriticList, self.adobeGlyphList)
         log(">> Copying features")
-        f.ot_classes = self.ot_classes
-        copyFeatures(self.basefont,f)
-        fl.UpdateFont(index)
+        readFeatureFile(f, self.ot_classes + self.basefont.features.text)
         log(">> Decomposing")
         for gname in self.decompose:
-            g = f[f.FindGlyph(gname)]
-            if g != None:
-                g.Decompose()
-                g.Decompose()
+            if f.has_key(gname):
+                decomposeGlyph(f, gname)
 
-        setNames(f, n, foundry=self.config.get('main','foundry'), 
-                       version=self.config.get('main','version'), 
-                       build=self.buildnumber)
-        cleanCurves(f)
-        deleteGlyphs(f,self.deleteList)
-        
+        setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
+                         version=self.config.get('main', 'version'))
+        if not self.compatible:
+            cleanCurves(f)
+        deleteGlyphs(f, self.deleteList)
+
         if kern:
             log(">> Generating kern classes")
-            generateFLKernClassesFromOTString(f,self.ot_kerningclasses)
-            kern = f.MakeKernFeature()
-            kern_exist = False
-            for fea_id in range (len(f.features)):
-              if "kern" == f.features[fea_id].tag:
-                f.features[fea_id] = kern
-                kern_exist = True
-            if (False == kern_exist):
-              f.features.append(kern)
-              
-        directoryName = n[0].replace(" ","")
+            readFeatureFile(f, self.ot_kerningclasses)
 
-        if self.buldVFBandFEA:
-          log(">> Generating VFB files")  
-          directoryPath = "%s/%s/%sVFB"%(self.basedir,self.builddir,directoryName)        
-          if not os.path.exists(directoryPath):
-            os.makedirs(directoryPath)
-          flName = "%s/%s.vfb"%(directoryPath,f.font_name)
-          fl.GenerateFont(fl.ifont,ftFONTLAB,flName)
-          
         log(">> Generating font files")
-        directoryPath = "%s/%s/%sTTF"%(self.basedir,self.builddir,directoryName)        
-        if not os.path.exists(directoryPath):
-          os.makedirs(directoryPath)
-        ttfName = "%s/%s.ttf"%(directoryPath,f.font_name)
-        fl.GenerateFont(fl.ifont,ftTRUETYPE,ttfName)
-        
-        if self.buldVFBandFEA:
-          log(">> Generating FEA files")  
-          GenerateFeature_mark(f)
-          GenerateFeature_mkmk(f)
-          feaName = "%s/%s.fea"%(directoryPath,f.font_name)
-          CreateFeaFile(f, feaName)
-        
-        f.modified = 0
-        #fl.Close(index)
+        ufoName = self.generateOutputPath(f, "ufo")
+        f.save(ufoName)
+        self.generatedFonts.append(ufoName)
+
+        if self.buildOTF:
+            log(">> Generating OTF file")
+            newFont = OpenFont(ufoName)
+            otfName = self.generateOutputPath(f, "otf")
+            saveOTF(newFont, otfName)
+
+    def generateTTFs(self):
+        """Build TTF for each font generated since last call to generateTTFs."""
+
+        fonts = [OpenFont(ufo) for ufo in self.generatedFonts]
+        self.generatedFonts = []
+
+        log(">> Converting curves to quadratic")
+        # using a slightly higher max error (e.g. 0.0025 em), dots will have
+        # fewer control points and look noticeably different
+        max_err = 0.002
+        if self.compatible:
+            fonts_to_quadratic(*fonts, max_err_em=max_err, dump_report=True)
+        else:
+            for font in fonts:
+                fonts_to_quadratic(font, max_err_em=max_err, dump_report=True)
+
+        log(">> Generating TTF files")
+        for font in fonts:
+            ttfName = self.generateOutputPath(font, "ttf")
+            log(os.path.basename(ttfName))
+            for glyph in font:
+                for contour in glyph:
+                    contour.reverseContour()
+            saveOTF(font, ttfName, truetype=True)
+
 
 def transformGlyphMembers(g, m):
     g.width = int(g.width * m.a)
@@ -211,62 +219,74 @@ def transformGlyphMembers(g, m):
         s.Transform(m)
         #c.scale = s
 
-def swapGlyphs(f,gName1,gName2):
+def swapContours(f,gName1,gName2):
     try:
-        g1 = f.glyphs[f.FindGlyph(gName1)]
-        g2 = f.glyphs[f.FindGlyph(gName2)]
-    except IndexError:
-        log("swapGlyphs failed for %s %s"%(gName1, gName2))
+        g1 = f[gName1]
+        g2 = f[gName2]
+    except KeyError:
+        log("swapGlyphs failed for %s %s" % (gName1, gName2))
         return
-    g3 = Glyph(g1)
-    
-    g1.Clear()
-    g1.Insert(g2)
-    g1.SetMetrics(g2.GetMetrics())
-    
-    g2.Clear()
-    g2.Insert(g3)
-    g2.SetMetrics(g3.GetMetrics())
-    
+    g3 = g1.copy()
+
+    while g1.contours:
+        g1.removeContour(0)
+    for contour in g2.contours:
+        g1.appendContour(contour)
+    g1.width = g2.width
+
+    while g2.contours:
+        g2.removeContour(0)
+    for contour in g3.contours:
+        g2.appendContour(contour)
+    g2.width = g3.width
+
+
 def log(msg):
     print msg
 
-# def addOTFeatures(f):
-#     f.ot_classes = ot_classes
 
-def copyFeatures(f1, f2):
-    for ft in f1.features:
-        t = Feature(ft.tag, ft.value)
-        f2.features.append(t)
-    #f2.ot_classes = f1.ot_classes
-    f2.classes = []
-    f2.classes = f1.classes
-
-def generateGlyphs(f, glyphNames):
+def generateGlyphs(f, glyphNames, glyphList={}):
     log(">> Generating diacritics")
     glyphnames = [gname for gname in glyphNames if not gname.startswith("#") and gname != ""]
     
     for glyphName in glyphNames:
-        generateGlyph(f, glyphName)
+        generateGlyph(f, glyphName, glyphList)
 
 def cleanCurves(f):
     log(">> Removing overlaps")
-    for g in f.glyphs:
-        g.UnselectAll()
-        g.RemoveOverlap()
+    for g in f:
+        removeGlyphOverlap(g)
 
-    log(">> Mitring sharp corners")
-    # for g in f.glyphs:
+    # log(">> Mitring sharp corners")
+    # for g in f:
     #     mitreGlyph(g, 3., .7)
     
-    log(">> Converting curves to quadratic")
-    # for g in f.glyphs:
+    # log(">> Converting curves to quadratic")
+    # for g in f:
     #     glyphCurvesToQuadratic(g)
-    
-def deleteGlyphs(f,deleteList):
-    fl.Unselect()
+
+
+def deleteGlyphs(f, deleteList):
     for name in deleteList:
-        glyphIndex = f.FindGlyph(name)
-        if glyphIndex != -1:
-            del f.glyphs[glyphIndex]
-    fl.UpdateFont()
+        if f.has_key(name):
+            f.removeGlyph(name)
+
+
+def removeGlyphOverlap(glyph):
+    """Remove overlaps in contours from a glyph."""
+    #TODO(jamesgk) verify overlaps exist first, as per library's recommendation
+    manager = BooleanOperationManager()
+    contours = glyph.contours
+    glyph.clearContours()
+    manager.union(contours, glyph.getPointPen())
+
+
+def saveOTF(font, destFile, truetype=False):
+    """Save a RoboFab font as an OTF binary using ufo2fdk."""
+
+    if truetype:
+        compiler = compileTTF
+    else:
+        compiler = compileOTF
+    otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler)
+    otf.save(destFile)

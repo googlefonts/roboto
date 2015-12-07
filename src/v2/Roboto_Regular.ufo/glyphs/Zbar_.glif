@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Zbar" format="1">
+  <advance width="1227"/>
+  <unicode hex="01B5"/>
+  <outline>
+    <contour>
+      <point x="1079" y="815" type="line" name="hr00"/>
+      <point x="117" y="815" type="line"/>
+      <point x="117" y="655" type="line"/>
+      <point x="1079" y="655" type="line"/>
+    </contour>
+    <contour>
+      <point x="617" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="610" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1227" y="1600" type="move" name="top0315"/>
+    </contour>
+    <component base="Z"/>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.939</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  <key>com.adobe.type.autohint</key>
+  <data>
+  <hintSetList>
+    <hintset pointTag="hr00">
+      <hstem pos="655" width="160" />
+    </hintset>
+  </hintSetList>
+  </data>
+  </dict>
+  </lib>
+</glyph>

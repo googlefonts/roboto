@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="srthook" format="1">
+  <advance width="1061"/>
+  <unicode hex="0282"/>
+  <outline>
+    <contour>
+      <point x="94" y="339" type="line"/>
+      <point x="94" y="-139" type="line" smooth="yes"/>
+      <point x="94" y="-331"/>
+      <point x="236" y="-437"/>
+      <point x="400" y="-437" type="curve" smooth="yes"/>
+      <point x="429" y="-437"/>
+      <point x="472" y="-431"/>
+      <point x="499" y="-422" type="curve"/>
+      <point x="499" y="-288" type="line"/>
+      <point x="482" y="-293"/>
+      <point x="459" y="-295"/>
+      <point x="444" y="-295" type="curve" smooth="yes"/>
+      <point x="352" y="-295"/>
+      <point x="294" y="-255"/>
+      <point x="294" y="-139" type="curve" smooth="yes"/>
+      <point x="294" y="339" type="line"/>
+    </contour>
+    <contour>
+      <point x="547" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="547" y="-447" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1061" y="1290" type="move" name="top0315"/>
+    </contour>
+    <component base="s"/>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.939</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  </dict>
+  </lib>
+</glyph>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="uni024F" format="1">
+  <advance width="1211"/>
+  <unicode hex="024F"/>
+  <outline>
+    <contour>
+      <point x="1171" y="745" type="line" name="hr00"/>
+      <point x="40" y="745" type="line"/>
+      <point x="40" y="584" type="line"/>
+      <point x="1171" y="584" type="line"/>
+    </contour>
+    <contour>
+      <point x="607" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="908" y="-92" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1211" y="1290" type="move" name="top0315"/>
+    </contour>
+    <component base="y" xOffset="85"/>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.798</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  <key>com.adobe.type.autohint</key>
+  <data>
+  <hintSetList>
+    <hintset pointTag="hr00">
+      <hstem pos="584" width="161" />
+    </hintset>
+  </hintSetList>
+  </data>
+  </dict>
+  </lib>
+</glyph>

@@ -119,8 +119,8 @@ class ArclenFunctor {
 public:
 	ArclenFunctor(const Quad& q)
 			: dx0(2 * (q.p[1].x - q.p[0].x))
-			, dx1(2 * (q.p[2].x - q.p[1].x))
 			, dy0(2 * (q.p[1].y - q.p[0].y))
+			, dx1(2 * (q.p[2].x - q.p[1].x))
 			, dy1(2 * (q.p[2].y - q.p[1].y)) { }
 	void operator()(double dydx[1], double t, const double y[1]) {
 		Point p(deriv(t));
@@ -224,7 +224,6 @@ Point Thetas::dir(double s) const {
 
 // L1 angle norm, 2, L2 angle norm, 0.05
 // L1 distance norm, 200
-double penalty = 1;
 double dist_factor = .005;
 double angle_factor = 5;
 
@@ -272,7 +271,9 @@ private:
 // of angle mismatch
 double measureQuad(const Thetas& curve, double s0, double s1, const Quad& q) {
 	ArclenFunctor derivs(q);
-	double ss = (s1 - s0) / q.arclen();
+	double ss = 0;
+	if (q.arclen() != 0)
+		ss = (s1 - s0) / q.arclen();
 	MeasureFunctor err(curve, s0, ss, derivs, q);
 	const int n = 10;
 	double dt = 1./n;
@@ -293,13 +294,13 @@ struct Break {
 };
 
 struct Statelet {
-	void combine(const Statelet* prev, double score, Quad q);
+	void combine(const Statelet* prev, double score, Quad q, double penalty);
 	const Statelet* prev;
 	double score;
 	Quad q;
 };
 
-void Statelet::combine(const Statelet* newprev, double newscore, Quad newq) {
+void Statelet::combine(const Statelet* newprev, double newscore, Quad newq, double penalty) {
 	prev = newprev;
 	double pmul = 2;
 	if (newq.isLine()) {
@@ -313,18 +314,18 @@ void Statelet::combine(const Statelet* newprev, double newscore, Quad newq) {
 }
 
 struct State {
-	void combine(const State* prev, double score, Quad q);
+	void combine(const State* prev, double score, Quad q, double penalty);
 	vector<Statelet> sts;
 	bool init;
 };
 
-void State::combine(const State* prev, double score, Quad q) {
+void State::combine(const State* prev, double score, Quad q, double penalty) {
 	const Statelet* prevsl = prev->sts.empty() ? 0 : &prev->sts[0];
 	if (prevsl == 0 && !prev->init) {
 		return;
 	}
 	Statelet sl;
-	sl.combine(prevsl, score, q);
+	sl.combine(prevsl, score, q, penalty);
 	if (sts.empty()) {
 		sts.push_back(sl);
 	} else {
@@ -379,7 +380,7 @@ void findBreaks(vector<Break>* breaks, const Thetas& curve) {
 
 bool intersect(Point* result, Point p0, Point dir0, Point p1, Point dir1) {
 	double det = dir0.x * dir1.y - dir0.y * dir1.x;
-	if (std::abs(det) < 1e-6) return false;
+	if (std::abs(det) < 1e-6 || std::isnan(det)) return false;
 	det = 1 / det;
 	double a = p0.y * dir0.x - p0.x * dir0.y;
 	double b = p1.y * dir1.x - p1.x * dir1.y;
@@ -389,47 +390,47 @@ bool intersect(Point* result, Point p0, Point dir0, Point p1, Point dir1) {
 }
 
 void tryQuad(const State* prev, State* st, const Thetas& curve,
-	const Break& bk0, const Break& bk1, const Quad& q) {
+	const Break& bk0, const Break& bk1, const Quad& q, double penalty) {
 	double score = measureQuad(curve, bk0.s, bk1.s, q);
-	st->combine(prev, score, q);
+	st->combine(prev, score, q, penalty);
 }
 
 void tryLineQuad(const State* prev, State* st, const Thetas& curve,
-	const Break& bk0, const Break& bk1) {
+	const Break& bk0, const Break& bk1, double penalty) {
 	if (isInt(bk0.xy.x) && isInt(bk0.xy.y)) {
 		Quad line(bk0.xy, lerp(0.5, bk0.xy, bk1.xy), bk1.xy);
-		tryQuad(prev, st, curve, bk0, bk1, line);
+		tryQuad(prev, st, curve, bk0, bk1, line, penalty);
 	}
 	Point pmid;
 	if (intersect(&pmid, bk0.xy, bk0.dir, bk1.xy, bk1.dir)) {
 		Quad q(bk0.xy, round(pmid), bk1.xy);
 		if (okForHalf(prev, q)) {
-			tryQuad(prev, st, curve, bk0, bk1, q);
+			tryQuad(prev, st, curve, bk0, bk1, q, penalty);
 		}
 	}
 }
 
-vector<Quad> optimize(const Thetas& curve) {
+vector<Quad> optimize(const Thetas& curve, double penalty=1) {
 	vector<Break> breaks;
 	findBreaks(&breaks, curve);
 	int n = breaks.size() - 1;
 	vector<State> states;
 	states.resize(n + 1);
 	states[0].init = true;
-	tryLineQuad(&states[0], &states[n], curve, breaks[0], breaks[n]);
+	tryLineQuad(&states[0], &states[n], curve, breaks[0], breaks[n], penalty);
 	if (states[n].sts[0].score <= 3 * penalty) {
 		goto done;
 	}
 	for (int i = 1; i < n; i++) {
-		tryLineQuad(&states[0], &states[i], curve, breaks[0], breaks[i]);
-		tryLineQuad(&states[i], &states[n], curve, breaks[i], breaks[n]);
+		tryLineQuad(&states[0], &states[i], curve, breaks[0], breaks[i], penalty);
+		tryLineQuad(&states[i], &states[n], curve, breaks[i], breaks[n], penalty);
 	}
 	if (states[n].sts[0].score <= 4 * penalty) {
 		goto done;
 	}
 	for (int i = 1; i <= n; i++) {
 		for (int j = i - 1; j >= 0; j--) {
-			tryLineQuad(&states[j], &states[i], curve, breaks[j], breaks[i]);
+			tryLineQuad(&states[j], &states[i], curve, breaks[j], breaks[i], penalty);
 		}
 	}
 done:
@@ -447,9 +448,8 @@ void readBzs(vector<Quad>* result, std::istream& is) {
 		result->push_back(Quad(Point(x0, y0), Point(x1, y1), Point(x2, y2)));
 	}
 	// Round the endpoints, they must be on integers
-	(*result)[0].p[0] = round((*result)[0].p[0]);
-	Quad* lastq = &(*result)[(*result).size()];
-	lastq->p[2] = round(lastq->p[2]);
+	result->front().p[0] = round(result->front().p[0]);
+	result->back().p[2] = round(result->back().p[2]);
 }
 
 int main(int argc, char** argv) {

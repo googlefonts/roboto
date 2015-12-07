@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Ismallcap" format="1">
+  <advance width="782"/>
+  <unicode hex="026A"/>
+  <outline>
+    <contour>
+      <point x="702" y="1083" type="line" name="hr00"/>
+      <point x="80" y="1083" type="line"/>
+      <point x="80" y="823" type="line"/>
+      <point x="702" y="823" type="line"/>
+    </contour>
+    <contour>
+      <point x="550" y="1082" type="line"/>
+      <point x="228" y="1082" type="line"/>
+      <point x="228" y="0" type="line"/>
+      <point x="550" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="702" y="260" type="line"/>
+      <point x="80" y="260" type="line"/>
+      <point x="80" y="0" type="line"/>
+      <point x="702" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="391" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="391" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="782" y="1290" type="move" name="top0315"/>
+    </contour>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.939</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  <key>com.typemytype.robofont.guides</key>
+  <array>
+    <dict>
+      <key>angle</key>
+      <real>90</real>
+      <key>isGlobal</key>
+      <false/>
+      <key>magnetic</key>
+      <integer>5</integer>
+      <key>x</key>
+      <real>391</real>
+      <key>y</key>
+      <real>0</real>
+    </dict>
+  </array>
+  <key>com.adobe.type.autohint</key>
+  <data>
+  <hintSetList>
+    <hintset pointTag="hr00">
+      <hstem pos="0" width="260" />
+      <hstem pos="823" width="260" />
+    </hintset>
+  </hintSetList>
+  </data>
+  </dict>
+  </lib>
+</glyph>

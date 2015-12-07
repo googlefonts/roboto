@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="trthook" format="1">
+  <advance width="672"/>
+  <unicode hex="0288"/>
+  <outline>
+    <contour>
+      <point x="539" y="1082" type="line"/>
+      <point x="38" y="1082" type="line"/>
+      <point x="38" y="1027" type="line"/>
+      <point x="539" y="1027" type="line"/>
+    </contour>
+    <contour>
+      <point x="239" y="1374" type="line"/>
+      <point x="239" y="-89" type="line" smooth="yes"/>
+      <point x="239" y="-314"/>
+      <point x="305" y="-437"/>
+      <point x="484" y="-437" type="curve" smooth="yes"/>
+      <point x="525" y="-437"/>
+      <point x="557" y="-430"/>
+      <point x="596" y="-417" type="curve"/>
+      <point x="583" y="-365" type="line"/>
+      <point x="562" y="-373"/>
+      <point x="521" y="-383"/>
+      <point x="484" y="-383" type="curve" smooth="yes"/>
+      <point x="336" y="-383"/>
+      <point x="293" y="-276"/>
+      <point x="293" y="-89" type="curve" smooth="yes"/>
+      <point x="293" y="1374" type="line"/>
+    </contour>
+    <contour>
+      <point x="268" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="399" y="-447" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="672" y="1600" type="move" name="top0315"/>
+    </contour>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.967</real>
+    <real>0.6</real>
+    <real>1</real>
+    <real>1</real>
+  </array>
+  </dict>
+  </lib>
+</glyph>

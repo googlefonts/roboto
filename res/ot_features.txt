@@ -10,10 +10,6 @@ feature liga {
   sub f f i by ffi;
 } liga;
 
-feature lnum {
-  sub @TNUM by @LNUM;
-}
-
 feature ss01 {
   sub alpha by alpha.alt;
 }

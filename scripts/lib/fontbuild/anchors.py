@@ -1,18 +1,25 @@
-#import numpy as np
-from FL import *
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 
-def getGlyph(gname,font):
-    index = font.FindGlyph(gname)
-    if index != -1:
-        return font.glyphs[index]
-    else:
-        return None
+def getGlyph(gname, font):
+    return font[gname] if font.has_key(gname) else None
 
-def getComponentByName(f,g,componentName):
-    componentIndex = f.FindGlyph(componentName)
+
+def getComponentByName(f, g, componentName):
     for c in g.components:
-        if c.index == componentIndex:
+        if c.baseGlyph == componentName:
             return c
 
 def getAnchorByName(g,anchorName):
@@ -25,34 +32,25 @@ def moveMarkAnchors(f, g, anchorName, accentName, dx, dy):
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmktop_acc" == anchor.name:
-                for i in range(len(g.anchors)):
-                    if g.anchors[i].name == "top":
-                        del g.anchors[i]
+                for anc in g.anchors:
+                    if anc.name == "top":
+                        g.removeAnchor(anc)
                         break
-                anchor2 = Anchor()
-                #print anchor.x, dx, anchor.y, dy
-                anchor2.name = "top"
-                anchor2.x = anchor.x + int(dx)
-                anchor2.y = anchor.y + int(dy)
-                g.anchors.append(anchor2)
+                g.appendAnchor("top", (anchor.x + int(dx), anchor.y + int(dy)))
  
     elif anchorName in ["bottom", "bottomu"]:
         anchors = f[accentName].anchors
         for anchor in anchors:
             if "mkmkbottom_acc" == anchor.name:
-                for n in range(len(g.anchors)):
-                    if g.anchors[n].name == "bottom":
-                        del g.anchors[n]
+                for anc in g.anchors:
+                    if anc.name == "bottom":
+                        g.removeAnchor(anc)
                         break
-                anchor2 = Anchor()
-                #print anchor.x, dx, anchor.y, dy
-                anchor2.name = "bottom"
-                anchor2.x = anchor.x + int(dx)
-                anchor2.y = anchor.y + int(dy)
+                x = anchor.x + int(dx)
                 for anc in anchors:
                     if "top" == anc.name:
-                        anchor2.x = anc.x + int(dx)
-                g.anchors.append(anchor2)          
+                        x = anc.x + int(dx)
+                g.appendAnchor("bottom", (x, anchor.y + int(dy)))
 
 
 def alignComponentToAnchor(f,glyphName,baseName,accentName,anchorName):
@@ -65,12 +63,11 @@ def alignComponentToAnchor(f,glyphName,baseName,accentName,anchorName):
     a2 = getAnchorByName(accent,"_" + anchorName)
     if a1 == None or a2 == None:
         return
-    offset = a1.p - a2.p
-    c = getComponentByName(f,g,accentName)
-    c.deltas[0].x = offset.x
-    c.deltas[0].y = offset.y
-    moveMarkAnchors(f, g, anchorName, accentName, offset.x, offset.y)  
-    
+    offset = (a1.x - a2.x, a1.y - a2.y)
+    c = getComponentByName(f, g, accentName)
+    c.offset = offset
+    moveMarkAnchors(f, g, anchorName, accentName, offset[0], offset[1])
+
 
 def alignComponentsToAnchors(f,glyphName,baseName,accentNames):
     for a in accentNames:

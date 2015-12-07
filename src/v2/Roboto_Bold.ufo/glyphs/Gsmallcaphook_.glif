@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Gsmallcaphook" format="1">
+  <advance width="1345"/>
+  <unicode hex="029B"/>
+  <outline>
+    <contour>
+      <point x="1094" y="714" type="line"/>
+      <point x="1094" y="861" type="line" smooth="yes"/>
+      <point x="1094" y="971"/>
+      <point x="1189" y="996"/>
+      <point x="1265" y="996" type="curve" smooth="yes"/>
+      <point x="1293" y="996"/>
+      <point x="1317" y="993"/>
+      <point x="1345" y="989" type="curve"/>
+      <point x="1345" y="1205" type="line"/>
+      <point x="1298" y="1217"/>
+      <point x="1260" y="1220"/>
+      <point x="1213" y="1220" type="curve" smooth="yes"/>
+      <point x="1001" y="1220"/>
+      <point x="873" y="1093"/>
+      <point x="873" y="861" type="curve" smooth="yes"/>
+      <point x="873" y="714" type="line"/>
+    </contour>
+    <contour>
+      <point x="594" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="594" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1345" y="1290" type="move" name="top0315"/>
+    </contour>
+    <component base="Gsmallcap" xOffset="-33"/>
+  </outline>
+  <lib>
+  <dict>
+  <key>com.typemytype.robofont.mark</key>
+  <array>
+    <real>0.939</real>
+    <real>1</real>
+    <real>0.6</real>
+    <real>1</real>
+  </array>
+  </dict>
+  </lib>
+</glyph>

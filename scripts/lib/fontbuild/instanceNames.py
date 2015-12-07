@@ -1,3 +1,18 @@
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 from datetime import date
 import re
 from random import randint
@@ -17,7 +32,7 @@ class InstanceNames:
     def __init__(self,names):
         if type(names) == type(" "):
             names = names.split("/")
-        #print names    
+        #print names            
         self.longfamily =      names[0]
         self.longstyle =       names[1]
         self.shortstyle =      names[2]
@@ -29,11 +44,10 @@ class InstanceNames:
         self.fullname =        "%s %s" %(self.longfamily, self.longstyle)
         self.postscript =      re.sub(' ','', self.longfamily) + "-" + re.sub(' ','',self.longstyle)
         
-        # if self.subfamilyAbbrev != "" and self.subfamilyAbbrev != None and self.subfamilyAbbrev != "Rg":
-        #     self.shortfamily = "%s %s" %(self.longfamily, self.subfamilyAbbrev)
-        # else:
-        #     self.shortfamily = self.longfamily
-        self.shortfamily = self.longfamily
+        if self.subfamilyAbbrev != "" and self.subfamilyAbbrev != None and self.subfamilyAbbrev != "Rg":
+            self.shortfamily = "%s %s" %(self.longfamily, self.longstyle.split()[0])
+        else:
+            self.shortfamily = self.longfamily
     
     def setRFNames(self,f, version=1, versionMinor=0):
         f.info.familyName = self.longfamily
@@ -61,7 +75,11 @@ class InstanceNames:
             f.info.openTypeNamePreferredFamilyName = self.longfamily 
             f.info.openTypeNamePreferredSubfamilyName = self.longstyle 
         
+        f.info.openTypeOS2WeightClass = self._getWeightCode(self.weight)
         f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
+        f.info.postscriptFontName = f.info.macintoshFONDName.replace(" ", "-")
+        if self.italic:
+            f.info.italicAngle = -12.0
         
     
     def setFLNames(self,flFont):
@@ -186,8 +204,9 @@ def setNames(f,names,foundry="",version="1.0",build="0000"):
     i = InstanceNames(names)
     i.setFLNames(f)
 
-def setNamesRF(f,names,foundry=""):
+
+def setNamesRF(f, names, foundry="", version="1.0"):
     InstanceNames.foundry = foundry
     i = InstanceNames(names)
-    i.setRFNames(f)
-    
+    version, versionMinor = [int(num) for num in version.split(".")]
+    i.setRFNames(f, version=version, versionMinor=versionMinor)

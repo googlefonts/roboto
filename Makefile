@@ -1,31 +1,21 @@
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-all: sans slab mono
-
-sans:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefonts.flw
-	cat "scripts/build.py" >> /tmp/makefonts.flw
-	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
+all: v2
 
 v2:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefontsB.flw
-	cat "scripts/build-v2.py" >> /tmp/makefontsB.flw
-	open -nWa "$(FONTLAB)" /tmp/makefontsB.flw
-
-
-slab:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefonts.flw
-	cat "scripts/build-slab.py" >> /tmp/makefonts.flw
-	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
-
-slabitalic:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefonts.flw
-	cat "scripts/build-slabitalic.py" >> /tmp/makefonts.flw
-	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
-
-mono:
-	echo "BASEDIR=\"$(CURDIR)\"" > /tmp/makefonts.flw
-	cat "scripts/build-monoV2.py" >> /tmp/makefonts.flw
-	open -nWa "$(FONTLAB)" /tmp/makefonts.flw
+	PYTHONPATH=$(PYTHONPATH):$(CURDIR)/scripts/lib python scripts/build-v2.py
 
 crunch:
 	mkdir -p out/crunched
@@ -50,9 +40,21 @@ android:
 		rm $$touched $$subsetted; \
 	done
 
-glass: out/android/Roboto-Thin.ttf
-	mkdir -p out/glass
-	python scripts/touchup_for_glass.py $< out/glass/Roboto-Thin.ttf
+# TODO: remove this build target once we are comfortable with the quality of
+# the new toolchain
+android-from-hinted:
+	mkdir -p out/android
+	for source in hinted/*.ttf; do \
+	        unhinted=$$(mktemp); \
+		touched=$$(mktemp); \
+		subsetted=$$(mktemp); \
+		final=out/android/$$(basename $$source); \
+		python $$HOME/noto/nototools/drop_hints.py $$source $$unhinted && \
+		python scripts/touchup_for_android.py $$unhinted $$touched && \
+		python $$HOME/noto/nototools/subset.py $$touched $$subsetted && \
+		python scripts/force_yminmax.py $$subsetted $$final && \
+		rm $$touched $$subsetted; \
+	done
 
 web:
 	mkdir -p out/web

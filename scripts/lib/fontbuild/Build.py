@@ -13,23 +13,24 @@
 # limitations under the License.
 
 
-from booleanOperations import BooleanOperationManager
-from robofab.world import OpenFont
-from fontbuild.mix import Mix,Master,narrowFLGlyph
-from fontbuild.instanceNames import setNamesRF
-from fontbuild.italics import italicizeGlyph
-from fontbuild.convertCurves import glyphCurvesToQuadratic
-from fontbuild.mitreGlyph import mitreGlyph
-from fontbuild.generateGlyph import generateGlyph
-from fontTools.misc.transform import Transform
-from fontbuild.kerning import makeKernFeature
-from fontbuild.features import readFeatureFile, writeFeatureFile
-from fontbuild.markFeature import GenerateFeature_mark
-from fontbuild.mkmkFeature import GenerateFeature_mkmk
-from fontbuild.decomposeGlyph import decomposeGlyph
 import ConfigParser
 import os
 import sys
+
+from booleanOperations import BooleanOperationManager
+from cu2qu.rf import fonts_to_quadratic
+from fontTools.misc.transform import Transform
+from robofab.world import OpenFont
+from ufo2ft import compileOTF, compileTTF
+
+from fontbuild.decomposeGlyph import decomposeGlyph
+from fontbuild.features import readFeatureFile, writeFeatureFile
+from fontbuild.generateGlyph import generateGlyph
+from fontbuild.instanceNames import setNamesRF
+from fontbuild.italics import italicizeGlyph
+from fontbuild.markFeature import RobotoFeatureCompiler
+from fontbuild.mitreGlyph import mitreGlyph
+from fontbuild.mix import Mix,Master,narrowFLGlyph
 
 
 class FontProject:
@@ -66,8 +67,8 @@ class FontProject:
         self.buildnumber = self.loadBuildNumber()
         
         self.buildOTF = False
-        self.autohintOTF = False
-        self.buildTTF = False
+        self.compatible = False
+        self.generatedFonts = []
         
         
     def loadBuildNumber(self):
@@ -153,33 +154,49 @@ class FontProject:
 
         setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
                          version=self.config.get('main', 'version'))
-        cleanCurves(f)
+        if not self.compatible:
+            cleanCurves(f)
         deleteGlyphs(f, self.deleteList)
 
         if kern:
             log(">> Generating kern classes")
             readFeatureFile(f, self.ot_kerningclasses)
-            makeKernFeature(f, self.ot_kerningclasses)
 
         log(">> Generating font files")
-        GenerateFeature_mark(f)
-        GenerateFeature_mkmk(f)
         ufoName = self.generateOutputPath(f, "ufo")
         f.save(ufoName)
+        self.generatedFonts.append(ufoName)
 
         if self.buildOTF:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
             otfName = self.generateOutputPath(f, "otf")
-            builtSuccessfully = saveOTF(newFont, otfName, autohint=self.autohintOTF)
-            if not builtSuccessfully:
-                sys.exit(1)
+            saveOTF(newFont, otfName)
 
-            if self.buildTTF:
-                log(">> Generating TTF file")
-                import fontforge
-                otFont = fontforge.open(otfName)
-                otFont.generate(self.generateOutputPath(f, "ttf"))
+    def generateTTFs(self):
+        """Build TTF for each font generated since last call to generateTTFs."""
+
+        fonts = [OpenFont(ufo) for ufo in self.generatedFonts]
+        self.generatedFonts = []
+
+        log(">> Converting curves to quadratic")
+        # using a slightly higher max error (e.g. 0.0025 em), dots will have
+        # fewer control points and look noticeably different
+        max_err = 0.002
+        if self.compatible:
+            fonts_to_quadratic(*fonts, max_err_em=max_err, dump_report=True)
+        else:
+            for font in fonts:
+                fonts_to_quadratic(font, max_err_em=max_err, dump_report=True)
+
+        log(">> Generating TTF files")
+        for font in fonts:
+            ttfName = self.generateOutputPath(font, "ttf")
+            log(os.path.basename(ttfName))
+            for glyph in font:
+                for contour in glyph:
+                    contour.reverseContour()
+            saveOTF(font, ttfName, truetype=True)
 
 
 def transformGlyphMembers(g, m):
@@ -264,30 +281,12 @@ def removeGlyphOverlap(glyph):
     manager.union(contours, glyph.getPointPen())
 
 
-def saveOTF(font, destFile, autohint=False):
-    """Save a RoboFab font as an OTF binary using ufo2fdk.
+def saveOTF(font, destFile, truetype=False):
+    """Save a RoboFab font as an OTF binary using ufo2fdk."""
 
-    Returns True on success, False otherwise.
-    """
-
-    from ufo2fdk import OTFCompiler
-
-    # glyphs with multiple unicode values must be split up, due to FontTool's
-    # use of a name -> UV dictionary during cmap compilation
-    for glyph in font:
-        if len(glyph.unicodes) > 1:
-            newUV = glyph.unicodes.pop()
-            newGlyph = font.newGlyph("uni%04X" % newUV)
-            newGlyph.appendComponent(glyph.name)
-            newGlyph.unicode = newUV
-            newGlyph.width = glyph.width
-
-    compiler = OTFCompiler()
-    reports = compiler.compile(font, destFile, autohint=autohint)
-    if autohint:
-        print reports["autohint"]
-    print reports["makeotf"]
-
-    successMsg = ("makeotfexe [NOTE] Wrote new font file '%s'." %
-                  os.path.basename(destFile))
-    return successMsg in reports["makeotf"]
+    if truetype:
+        compiler = compileTTF
+    else:
+        compiler = compileOTF
+    otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler)
+    otf.save(destFile)

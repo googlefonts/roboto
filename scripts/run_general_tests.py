@@ -24,7 +24,7 @@ from nototools.unittests import font_tests
 import roboto_data
 
 FONTS = font_tests.load_fonts(
-    ['hinted/*.ttf'],
+    ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
     expected_count=18)
 
 UFOS = font_tests.load_fonts(

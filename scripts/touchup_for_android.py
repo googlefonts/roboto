@@ -56,7 +56,7 @@ def apply_android_specific_fixes(font):
     hhea.lineGap = 0
 
     # Remove combining keycap and the arrows from the cmap table:
-    # https://code.google.com/a/google.com/p/roboto/issues/detail?id=52
+    # https://github.com/google/roboto/issues/99
     font_data.delete_from_cmap(font, [
         0x20E3, # COMBINING ENCLOSING KEYCAP
         0x2191, # UPWARDS ARROW

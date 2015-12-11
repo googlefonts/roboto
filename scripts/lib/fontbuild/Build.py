@@ -28,7 +28,7 @@ from fontbuild.features import readFeatureFile, writeFeatureFile
 from fontbuild.generateGlyph import generateGlyph
 from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
-from fontbuild.markFeature import RobotoFeatureCompiler
+from fontbuild.markFeature import RobotoFeatureCompiler, RobotoKernWriter
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 
@@ -288,5 +288,6 @@ def saveOTF(font, destFile, truetype=False):
         compiler = compileTTF
     else:
         compiler = compileOTF
-    otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler)
+    otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler,
+                   kernWriter=RobotoKernWriter)
     otf.save(destFile)

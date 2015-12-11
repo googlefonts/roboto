@@ -43,3 +43,8 @@ class RobotoFeatureCompiler(FeatureOTFCompiler):
             ["a", "uni0430"], ["e", "uni0435"], ["p", "uni0440"],
             ["c", "uni0441"], ["x", "uni0445"], ["s", "uni0455"],
             ["i", "uni0456"], ["psi", "uni0471"]]
+
+
+class RobotoKernWriter(KernFeatureWriter):
+    leftFeaClassRe = r"@_(.+)_L$"
+    rightFeaClassRe = r"@_(.+)_R$"

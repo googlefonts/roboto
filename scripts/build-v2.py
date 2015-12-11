@@ -101,7 +101,7 @@ proj.generateFont(Mix([rg, bd], 0.35), "%s/Medium/Regular/Lt"%FAMILYNAME)
 proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
                   "%s/Bold/Bold/Rg"%FAMILYNAME)
 proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
-                  "%s/Black/Bold/Bk"%FAMILYNAME)
+                  "%s/Black/Regular/Bk"%FAMILYNAME)
 
 proj.generateFont(th.font, "%s/Thin Italic/Italic/Th"%FAMILYNAME,
                   italic=True, stemWidth=80)
@@ -115,7 +115,7 @@ proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
                   "%s/Bold Italic/Bold Italic/Rg"%FAMILYNAME,
                   italic=True, stemWidth=290)
 proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
-                  "%s/Black Italic/Bold Italic/Bk"%FAMILYNAME,
+                  "%s/Black Italic/Italic/Bk"%FAMILYNAME,
                   italic=True, stemWidth=290)
 
 # unfortunately some condensed forms (*.cn) of glyphs are not compatible with

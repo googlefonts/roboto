@@ -44,12 +44,13 @@ class TestItalicAngle(font_tests.TestItalicAngle):
 
 class TestMetaInfo(font_tests.TestMetaInfo):
     """Bugs:
+    https://github.com/google/roboto/issues/142
     https://code.google.com/a/google.com/p/roboto/issues/detail?id=8
     https://code.google.com/a/google.com/p/roboto/issues/detail?id=29
     """
 
     loaded_fonts = FONTS
-    mark_heavier_as_bold = True
+    mark_heavier_as_bold = False
     test_us_weight = None
 
     #expected_version = '2.' + roboto_data.get_build_number()

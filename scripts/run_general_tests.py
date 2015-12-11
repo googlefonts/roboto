@@ -61,6 +61,20 @@ class TestMetaInfo(font_tests.TestMetaInfo):
     expected_os2_achVendID = 'GOOG'
 
 
+class TestNames(font_tests.TestNames):
+    """Bugs:
+    https://github.com/google/roboto/issues/37
+    """
+
+    loaded_fonts = FONTS
+    family_name = 'Roboto'
+    mark_heavier_as_bold = False
+    expected_copyright = 'Font data copyright Google 2015'
+
+    def expected_unique_id(self, family, style):
+        return 'Google:%s:2015' % family
+
+
 class TestDigitWidths(font_tests.TestDigitWidths):
     loaded_fonts = FONTS
 

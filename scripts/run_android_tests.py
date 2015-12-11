@@ -19,10 +19,30 @@
 import unittest
 from nototools.unittests import font_tests
 
+import run_general_tests
+
 
 FONTS = font_tests.load_fonts(
     ['out/android/*.ttf'],
     expected_count=18)
+
+
+class TestMetaInfo(run_general_tests.TestMetaInfo):
+    """Bugs:
+    https://github.com/google/roboto/issues/142
+    """
+
+    loaded_fonts = FONTS
+    mark_heavier_as_bold = True
+
+
+class TestNames(run_general_tests.TestNames):
+    """Bugs:
+    https://github.com/google/roboto/issues/37
+    """
+
+    loaded_fonts = FONTS
+    mark_heavier_as_bold = True
 
 
 class TestVerticalMetrics(font_tests.TestVerticalMetrics):

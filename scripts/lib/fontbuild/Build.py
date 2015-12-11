@@ -184,10 +184,10 @@ class FontProject:
         # fewer control points and look noticeably different
         max_err = 0.002
         if self.compatible:
-            fonts_to_quadratic(*fonts, max_err_em=max_err, dump_report=True)
+            fonts_to_quadratic(fonts, max_err_em=max_err, dump_stats=True)
         else:
             for font in fonts:
-                fonts_to_quadratic(font, max_err_em=max_err, dump_report=True)
+                fonts_to_quadratic([font], max_err_em=max_err, dump_stats=True)
 
         log(">> Generating TTF files")
         for font in fonts:

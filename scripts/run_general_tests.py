@@ -69,7 +69,7 @@ class TestNames(font_tests.TestNames):
     loaded_fonts = FONTS
     family_name = 'Roboto'
     mark_heavier_as_bold = False
-    expected_copyright = 'Font data copyright Google 2015'
+    expected_copyright = 'Copyright 2011 Google Inc. All Rights Reserved.'
 
     def expected_unique_id(self, family, style):
         return 'Google:%s:2015' % family

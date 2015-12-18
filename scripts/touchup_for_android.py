@@ -75,6 +75,7 @@ def apply_android_specific_fixes(font):
     if family_name.endswith('Black'):
         font['head'].macStyle |= (1 << 0)
         font['OS/2'].fsSelection |= (1 << 5)
+        font['OS/2'].fsSelection &= ~(1 << 6)
         new_subfam_name = (
             ('Bold ' + subfam_name) if subfam_name != 'Regular' else 'Bold')
         font_data.set_name_record(font, 2, new_subfam_name)

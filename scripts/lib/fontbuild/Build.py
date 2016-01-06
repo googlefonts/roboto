@@ -28,7 +28,7 @@ from fontbuild.features import readFeatureFile, writeFeatureFile
 from fontbuild.generateGlyph import generateGlyph
 from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
-from fontbuild.markFeature import RobotoFeatureCompiler
+from fontbuild.markFeature import RobotoFeatureCompiler, RobotoKernWriter
 from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 
@@ -184,10 +184,10 @@ class FontProject:
         # fewer control points and look noticeably different
         max_err = 0.002
         if self.compatible:
-            fonts_to_quadratic(*fonts, max_err_em=max_err, dump_report=True)
+            fonts_to_quadratic(fonts, max_err_em=max_err, dump_stats=True)
         else:
             for font in fonts:
-                fonts_to_quadratic(font, max_err_em=max_err, dump_report=True)
+                fonts_to_quadratic([font], max_err_em=max_err, dump_stats=True)
 
         log(">> Generating TTF files")
         for font in fonts:
@@ -288,5 +288,6 @@ def saveOTF(font, destFile, truetype=False):
         compiler = compileTTF
     else:
         compiler = compileOTF
-    otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler)
+    otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler,
+                   kernWriter=RobotoKernWriter)
     otf.save(destFile)

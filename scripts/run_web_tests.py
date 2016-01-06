@@ -53,8 +53,8 @@ class TestNames(font_tests.TestNames):
     mark_heavier_as_bold = True
     expected_copyright = 'Copyright 2011 Google Inc. All Rights Reserved.'
 
-    def expected_unique_id(self, full_name):
-        return full_name
+    def expected_unique_id(self, family, style):
+        return family + ' ' + style
 
 
 class TestDigitWidths(font_tests.TestDigitWidths):

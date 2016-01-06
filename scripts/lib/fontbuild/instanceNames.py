@@ -57,7 +57,7 @@ class InstanceNames:
         f.info.versionMajor = version
         f.info.versionMinor = versionMinor
         f.info.year = self.year
-        f.info.copyright = "Font data copyright %s %s" %(self.foundry, self.year)
+        #f.info.copyright = "Font data copyright %s %s" %(self.foundry, self.year)
         f.info.trademark = "%s is a trademark of %s." %(self.longfamily, self.foundry)
         
         f.info.openTypeNameDesigner = "Christian Robertson"

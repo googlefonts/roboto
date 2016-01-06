@@ -47,12 +47,6 @@ def apply_web_specific_fixes(font, family_name):
         family_name += ' Condensed'
     full_name = family_name + ' ' + subfamily_name
 
-    # macStyle
-    bold = subfamily_name.startswith(('Bold', 'Black'))
-    italic = subfamily_name.endswith('Italic')
-    macStyle = (italic << 1) | bold
-    font['head'].macStyle = macStyle
-
     # Family, subfamily names
     font_data.set_name_record(font, 16, family_name)
     style_map = ['Regular', 'Bold', 'Italic', 'Bold Italic']

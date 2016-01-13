@@ -66,8 +66,8 @@ class InstanceNames:
         f.info.openTypeNameManufacturerURL = self.foundry + ".com"
         f.info.openTypeNameLicense = self.license
         f.info.openTypeNameLicenseURL = self.licenseURL
-        f.info.openTypeNameVersion = "%i.%i" %(version,versionMinor)
-        f.info.openTypeNameUniqueID = "%s:%s:%s" %(self.foundry, self.longfamily, self.year)
+        f.info.openTypeNameVersion = "Version %i.%i" %(version,versionMinor)
+        f.info.openTypeNameUniqueID = "%s:%s:%s" %(self.foundry, self.fullname, self.year)
         # f.info.openTypeNameDescription = ""        
         # f.info.openTypeNameCompatibleFullName = "" 
         # f.info.openTypeNameSampleText = ""

@@ -67,6 +67,9 @@ def apply_android_specific_fixes(font):
     for table in ['LTSH', 'hdmx', 'VDMX', 'gasp']:
         if table in font:
             del font[table]
+    cmap = font['cmap']
+    cmap.tables = [t for t in cmap.tables if t.format == 12]
+    assert cmap.tables, 'No format 12 cmap found in font'
 
     # Set bold bits for Black (macStyle bit 0, fsSelection bit 5, subfamily)
     name_records = font_data.get_name_records(font)

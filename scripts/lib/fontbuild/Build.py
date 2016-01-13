@@ -133,6 +133,9 @@ class FontProject:
                 if g.width != 0:
                     g.width += 10
 
+            # set the oblique flag in fsSelection
+            f.info.openTypeOS2Selection.append(9)
+
         if swapSuffixes != None:
             for swap in swapSuffixes:
                 swapList = [g.name for g in f if g.name.endswith(swap)]

@@ -75,6 +75,12 @@ class TestCharacterCoverage(font_tests.TestCharacterCoverage):
         range(0xE000, 0xF8FF + 1) + range(0xF0000, 0x10FFFF + 1)  # other PUA
         ) - include  # don't exclude legacy PUA
 
+    def test_only_includes_format_12_cmaps(self):
+        """Test that only format 12 cmaps are present in the fonts."""
+
+        for font in self.fonts:
+            self.assertFalse([t for t in font['cmap'].tables if t.format != 12])
+
 
 class TestSpacingMarks(font_tests.TestSpacingMarks):
     loaded_fonts = FONTS

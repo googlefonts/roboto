@@ -51,6 +51,7 @@ class TestMetaInfo(font_tests.TestMetaInfo):
 
     loaded_fonts = FONTS
     mark_heavier_as_bold = False
+    mark_italic_as_oblique = True
     test_us_weight = None
 
     #expected_version = '2.' + roboto_data.get_build_number()
@@ -72,7 +73,7 @@ class TestNames(font_tests.TestNames):
     expected_copyright = 'Copyright 2011 Google Inc. All Rights Reserved.'
 
     def expected_unique_id(self, family, style):
-        return 'Google:%s:2015' % family
+        return 'Google:%s %s:2016' % (family, style)
 
 
 class TestDigitWidths(font_tests.TestDigitWidths):

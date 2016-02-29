@@ -204,8 +204,8 @@ portions are not used to build Roboto.
 Post-production scripts (most of the code outside of the `fontbuild` directory,
 e.g. for testing output) depend on:
 
-- The nototools module, installed as part of Noto
+- The nototools module, installed as part of Noto;
   (https://github.com/googlei18n/nototools)
-  - (Noto subsequently depends on HarfBuzz: https://github.com/behdad/harfbuzz)
-- freetype-py (https://github.com/rougier/freetype-py)
-- eog (https://wiki.gnome.org/Apps/EyeOfGnome)
+  - (Noto subsequently depends on HarfBuzz: https://github.com/behdad/harfbuzz);
+- freetype-py (https://github.com/rougier/freetype-py);
+- eog (https://wiki.gnome.org/Apps/EyeOfGnome);

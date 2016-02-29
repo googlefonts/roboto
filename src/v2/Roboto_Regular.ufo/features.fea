@@ -1024,15 +1024,9 @@ feature ss07 {
 
 
 feature onum {
-  sub @LNUM by @ONUM;
-  sub @PNUM by @TNUM;
+  sub @LNUM by @TNUM;
+  sub @PNUM by @ONUM;
 } onum;
-
-
-feature tnum {
-  sub @PNUM by @LNUM;
-  sub @ONUM by @TNUM;
-} tnum;
 
 
 feature pnum {
@@ -1041,9 +1035,15 @@ feature pnum {
 } pnum;
 
 
+feature tnum {
+  sub @PNUM by @LNUM;
+  sub @ONUM by @TNUM;
+} tnum;
+
+
 feature lnum {
-  sub @ONUM by @LNUM;
-  sub @TNUM by @PNUM;
+  sub @TNUM by @LNUM;
+  sub @ONUM by @PNUM;
 } lnum;
 
 

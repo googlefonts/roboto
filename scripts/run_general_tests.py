@@ -107,6 +107,8 @@ class TestVerticalMetrics(font_tests.TestVerticalMetrics):
     test_hhea_table_metrics = None
     test_os2_metrics = None
 
+    # tests yMin and yMax to be equal to Roboto v1 values
+    # android requires this, and web fonts expect this
     expected_head_yMin = -555
     expected_head_yMax = 2163
 

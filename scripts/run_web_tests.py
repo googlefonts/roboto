@@ -79,13 +79,17 @@ class TestCharacterCoverage(font_tests.TestCharacterCoverage):
 class TestVerticalMetrics(font_tests.TestVerticalMetrics):
     loaded_fonts = FONTS
 
+    # tests yMin and yMax to be equal to Roboto v1 values
+    # android requires this, and web fonts expect this
     expected_head_yMin = -555
     expected_head_yMax = 2163
 
+    # test ascent, descent, and lineGap to be equal to Roboto v1 values
     expected_hhea_descent = -500
     expected_hhea_ascent = 1900
     expected_hhea_lineGap = 0
 
+    # test OS/2 vertical metrics to be equal to the old values
     expected_os2_sTypoDescender = -512
     expected_os2_sTypoAscender = 1536
     expected_os2_sTypoLineGap = 102

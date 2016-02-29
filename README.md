@@ -1,10 +1,10 @@
 This is the source repository for Roboto: Google’s signature family
-of fonts, the default font on Android and ChromeOS, and the
+of fonts, the default font on Android and Chrome OS, and the
 recommended font for Google’s visual language, Material Design.
 
 It also contains the toolchain used in creating Roboto.
 
-The font family supports all Latin, Cyrillic, and Greek characters in
+The font family supports all Latin, Cyrillic and Greek characters in
 Unicode 7.0, as well as the currency symbol for the Georgian lari, to
 be published in Unicode 8.0.
 
@@ -50,7 +50,7 @@ git clone https://github.com/adobe-type-tools/afdko.git
 ```
 
 download the latest version of Python 2.7
-[here](https://www.python.org/downloads/) and extract it into the current
+[here](https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi) and extract it into the current
 directory.
 
 If you're not building the FDK yourself, download the pre-built version

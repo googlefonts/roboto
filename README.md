@@ -27,7 +27,7 @@ cd $HOME/roboto-src
 git clone https://github.com/google/roboto.git
 git clone https://github.com/behdad/fonttools.git
 git clone https://github.com/googlei18n/cu2qu.git
-git clone https://github.com/jamesgk/ufo2ft.git
+git clone https://github.com/googlei18n/ufo2ft.git
 git clone https://github.com/robofab-developers/robofab.git
 git clone https://github.com/typesupply/feaTools.git
 git clone https://github.com/typemytype/booleanOperations.git
@@ -40,22 +40,6 @@ via:
 ```bash
 sudo apt-get install cython
 ```
-
-##### For OTF/TTF generation:
-
-To build the FDK yourself:
-
-```bash
-git clone https://github.com/adobe-type-tools/afdko.git
-```
-
-download the latest version of Python 2.7
-[here](https://www.python.org/downloads/) and extract it into the current
-directory.
-
-If you're not building the FDK yourself, download the pre-built version
-[here](http://www.adobe.com/devnet/opentype/afdko.html) and unzip it into the
-current directory.
 
 ##### For post-production:
 
@@ -102,38 +86,6 @@ PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/robofab/Lib"
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/feaTools/Lib"
 PYTHONPATH="$PYTHONPATH:$HOME/roboto-src/booleanOperations/Lib"
 ```
-
-##### For OTF generation:
-
-If building the FDK yourself, follow the instructions in `afdko/FDK/FDK Build Notes.txt`:
-
-```bash
-cd Python-2.7
-./configure --prefix=AFDKOPythonBuild
-make install
-mv AFDKOPythonBuild ../afdko/FDK/Tools/osx/Python
-cd ../fonttools
-sudo ../afdko/FDK/Tools/osx/Python/bin/python setup.py install
-cd ../afdko/FDK/Tools/Programs
-./BuildAll.sh
-cd ../..
-./FinishInstallOSX
-cd ../..
-```
-
-Otherwise:
-
-```bash
-cd FDK
-./FinishInstallOSX
-cd ..
-```
-
-In either case, use whatever install scripts and directory
-(`FinishInstall[OSX|Linux|Windows.cmd]`,
-`BuildAll[.sh|Linux.sh|.cmd]`,
-`FDK/Tools/[osx|linux|win]`) are appropriate for your platform (more
-detailed information can be found in `FDK/Read_Me_First.html`).
 
 ##### For post-production:
 
@@ -190,22 +142,14 @@ The Roboto build toolchain depends on:
 ## OTF/TTF Generation
 OTF generation depends on:
 
-- ufo2ft (https://github.com/jamesgk/ufo2ft)
+- ufo2ft (https://github.com/googlei18n/ufo2ft)
 - cu2qu (https://github.com/googlei18n/cu2qu)
-- Open-source portions of the AFDKO
-  (https://github.com/adobe-type-tools/afdko/releases)
-
-The AFDKO from GitHub can be time consuming to setup. It is easier to just use
-the variety which includes closed-source tools
-(http://www.adobe.com/devnet/opentype/afdko.html), though these closed-source
-portions are not used to build Roboto.
 
 ## Post-Production
 Post-production scripts (most of the code outside of the `fontbuild` directory,
 e.g. for testing output) depend on:
 
-- The nototools module, installed as part of Noto
-  (https://github.com/googlei18n/nototools)
+- The nototools module (https://github.com/googlei18n/nototools)
   - (Noto subsequently depends on HarfBuzz: https://github.com/behdad/harfbuzz)
 - freetype-py (https://github.com/rougier/freetype-py)
 - eog (https://wiki.gnome.org/Apps/EyeOfGnome)

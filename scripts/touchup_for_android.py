@@ -16,25 +16,21 @@
 
 """Post-build changes for Roboto for Android."""
 
-import os
-from os import path
 import sys
 
 from fontTools import ttLib
 from nototools import font_data
 
+import roboto_data
+
 
 def apply_temporary_fixes(font):
-    """Apply some temporary fixes.
-    """
-    # Fix version number from buildnumber.txt
+    """Apply some temporary fixes."""
+
     from datetime import date
 
-    build_number_txt = path.join(
-        path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
-    build_number = open(build_number_txt).read().strip()
-
-    version_record = 'Version 2.%s; %d' % (build_number, date.today().year)
+    version_number = roboto_data.get_version_number()
+    version_record = 'Version %s; %d' % (version_number, date.today().year)
 
     for record in font['name'].names:
         if record.nameID == 5:

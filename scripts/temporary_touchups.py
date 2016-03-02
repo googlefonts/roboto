@@ -40,10 +40,9 @@ def apply_temporary_fixes(font):
 
 
 def update_version_and_revision(font):
-    """Update version and revision numbers from buildnumber.txt."""
-    build_number = roboto_data.get_build_number()
-    version_number = '2.' + build_number
+    """Update version and revision numbers."""
+
+    version_number = roboto_data.get_version_number()
     version_record = 'Version %s; %d' % (version_number, date.today().year)
     font_data.set_name_record(font, 5, version_record)
     font['head'].fontRevision = float(version_number)
-

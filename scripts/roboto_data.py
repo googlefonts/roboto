@@ -14,16 +14,18 @@
 
 """General module for Roboto-specific data and methods."""
 
+import ConfigParser
 import os
-from os import path
 import re
 
 
-def get_build_number():
-    """Returns the build number as a five-digit string."""
-    build_number_txt = path.join(
-        path.dirname(__file__), os.pardir, 'res', 'buildnumber.txt')
-    build_number = open(build_number_txt).read().strip()
-    assert re.match('[0-9]{5}', build_number)
-    return build_number
+def get_version_number():
+    """Returns the version number as a string."""
 
+    config_parser = ConfigParser.RawConfigParser()
+    config_file = os.path.join(
+        os.path.dirname(__file__), os.pardir, 'res', 'roboto.cfg')
+    config_parser.read(config_file)
+    version_number = config_parser.get('main', 'version')
+    assert re.match(r'[0-9]+\.[0-9]{3}', version_number)
+    return version_number

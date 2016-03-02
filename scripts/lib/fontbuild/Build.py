@@ -64,30 +64,10 @@ class FontProject:
         self.lessItalic = self.config.get("glyphs","lessitalic").split()
         self.deleteList = self.config.get("glyphs","delete").split()
         self.noItalic = self.config.get("glyphs","noitalic").split()
-        self.buildnumber = self.loadBuildNumber()
         
         self.buildOTF = False
         self.compatible = False
         self.generatedFonts = []
-        
-        
-    def loadBuildNumber(self):
-        versionFile = open(self.basedir + "/" + self.config.get("main","buildnumberfile"), "r+")
-        buildnumber = int(versionFile.read().strip())
-        buildnumber = "%05d" %(int(buildnumber) + 1)
-        print "BuildNumber: %s" %(buildnumber)
-        versionFile.close()
-        return buildnumber
-        
-    def incrementBuildNumber(self):
-        if len(self.buildnumber) > 0:
-            versionFile = open(self.basedir + "/" + self.config.get("main","buildnumberfile"), "r+")
-            versionFile.seek(0)
-            versionFile.write(self.buildnumber)
-            versionFile.truncate()
-            versionFile.close()
-        else:
-            raise Exception("Empty build number")
 
     def generateOutputPath(self, font, ext):
         family = font.info.familyName.replace(" ", "")

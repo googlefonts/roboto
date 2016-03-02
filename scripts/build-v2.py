@@ -84,7 +84,6 @@ def condenseFont(font, scale=.8, stemWidth=185):
 
 
 proj = FontProject(rg.font, BASEDIR, "res/roboto.cfg", th.ffont)
-#proj.incrementBuildNumber()
 
 # FAMILYNAME = "Roboto 2 DRAFT"
 # FAMILYNAME = "Roboto2"

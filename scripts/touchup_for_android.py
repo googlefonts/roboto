@@ -52,6 +52,13 @@ def apply_android_specific_fixes(font):
             ('Bold ' + subfam_name) if subfam_name != 'Regular' else 'Bold')
         font_data.set_name_record(font, 2, new_subfam_name)
 
+    # turn off round-to-grid flags in certain problem components
+    # https://github.com/google/roboto/issues/153
+    glyph_set = font.getGlyphSet()
+    ellipsis = glyph_set['ellipsis']._glyph
+    for component in ellipsis.components:
+        component.flags &= ~(1 << 2)
+
 
 def correct_font(source_font_name, target_font_name):
     """Corrects metrics and other meta information."""

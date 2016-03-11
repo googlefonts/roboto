@@ -39,6 +39,18 @@ class TestMetaInfo(run_general_tests.TestMetaInfo):
     loaded_fonts = FONTS
     mark_heavier_as_bold = True
 
+    def test_glyphs_dont_round_to_grid(self):
+        """Bug: https://github.com/google/roboto/issues/153"""
+
+        for font in self.fonts:
+            glyph_set = font.getGlyphSet()
+
+            # only concerned with this glyph for now, but maybe more later
+            for name in ['ellipsis']:
+                glyph = glyph_set[name]._glyph
+                for component in glyph.components:
+                    self.assertFalse(component.flags & (1 << 2))
+
 
 class TestNames(run_general_tests.TestNames):
     """Bugs:

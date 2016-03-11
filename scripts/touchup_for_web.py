@@ -54,17 +54,29 @@ def apply_web_specific_fixes(font, family_name):
         font_data.set_name_record(font, 1, family_name)
     else:
         weight = subfamily_name.split()[0]
-        font_data.set_name_record(font, 1, '%s %s' % (family_name, weight))
-        font_data.set_name_record(font, 2, style_map[macStyle])
+        new_family_name = family_name
+        if weight != 'Regular':
+            new_family_name += ' ' + weight
+        font_data.set_name_record(font, 1, new_family_name)
+
+        # all weights outside regular and bold should only have subfamily
+        # "Regular" or "Italic"
+        italic = subfamily_name.endswith('Italic')
+        font_data.set_name_record(font, 2, style_map[italic << 1])
+
 
     # Unique identifier and full name
     font_data.set_name_record(font, 3, full_name)
-    font_data.set_name_record(font, 4, full_name)
+    font_data.set_name_record(font, 4, full_name.replace(' Regular', ''))
     font_data.set_name_record(font, 18, None)
 
     # PostScript name
     font_data.set_name_record(
         font, 6, (family_name+'-'+subfamily_name).replace(' ', ''))
+
+    # Copyright message
+    font_data.set_name_record(
+        font, 0, 'Copyright 2011 Google Inc. All Rights Reserved.')
 
 
 def correct_font(source_font_name, target_font_name, family_name):

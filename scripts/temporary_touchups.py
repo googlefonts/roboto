@@ -34,10 +34,6 @@ def apply_temporary_fixes(font):
     hhea.descent = -500
     hhea.lineGap = 0
 
-    # Copyright message
-    font_data.set_name_record(
-        font, 0, 'Copyright 2011 Google Inc. All Rights Reserved.')
-
 
 def update_version_and_revision(font):
     """Update version and revision numbers."""

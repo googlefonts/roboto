@@ -54,8 +54,7 @@ class TestMetaInfo(font_tests.TestMetaInfo):
     mark_italic_as_oblique = True
     test_us_weight = None
 
-    #expected_version = '2.' + roboto_data.get_build_number()
-    test_version_numbers = None
+    expected_version = roboto_data.get_version_number()
 
     # fsType of 0 marks the font free for installation, embedding, etc.
     expected_os2_fsType = 0
@@ -99,6 +98,7 @@ class TestLigatures(font_tests.TestLigatures):
 
 class TestFeatures(font_tests.TestFeatures):
     loaded_fonts = FONTS
+    smcp_reqs_path = 'res/smcp_requirements.txt'
 
 
 class TestVerticalMetrics(font_tests.TestVerticalMetrics):

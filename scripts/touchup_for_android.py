@@ -21,35 +21,11 @@ import sys
 from fontTools import ttLib
 from nototools import font_data
 
-import roboto_data
-
-
-def apply_temporary_fixes(font):
-    """Apply some temporary fixes."""
-
-    from datetime import date
-
-    version_number = roboto_data.get_version_number()
-    version_record = 'Version %s; %d' % (version_number, date.today().year)
-
-    for record in font['name'].names:
-        if record.nameID == 5:
-            if record.platformID == 1 and record.platEncID == 0:  # MacRoman
-                record.string = version_record
-            elif record.platformID == 3 and record.platEncID == 1:
-                # Windows UCS-2
-                record.string = version_record.encode('UTF-16BE')
-            else:
-                assert False
+import temporary_touchups
 
 
 def apply_android_specific_fixes(font):
     """Apply fixes needed for Android."""
-    # Set ascent, descent, and lineGap values to Android K values
-    hhea = font['hhea']
-    hhea.ascent = 1900
-    hhea.descent = -500
-    hhea.lineGap = 0
 
     # Remove combining keycap and the arrows from the cmap table:
     # https://github.com/google/roboto/issues/99
@@ -76,11 +52,20 @@ def apply_android_specific_fixes(font):
             ('Bold ' + subfam_name) if subfam_name != 'Regular' else 'Bold')
         font_data.set_name_record(font, 2, new_subfam_name)
 
+    # turn off round-to-grid flags in certain problem components
+    # https://github.com/google/roboto/issues/153
+    glyph_set = font.getGlyphSet()
+    ellipsis = glyph_set['ellipsis']._glyph
+    for component in ellipsis.components:
+        component.flags &= ~(1 << 2)
+
 
 def correct_font(source_font_name, target_font_name):
     """Corrects metrics and other meta information."""
+
     font = ttLib.TTFont(source_font_name)
-    apply_temporary_fixes(font)
+    temporary_touchups.apply_temporary_fixes(font)
+    temporary_touchups.update_version_and_revision(font)
     apply_android_specific_fixes(font)
     font.save(target_font_name)
 

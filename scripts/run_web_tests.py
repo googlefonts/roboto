@@ -17,22 +17,22 @@
 """Test assumptions that web fonts rely on."""
 
 import unittest
-
-from nototools import font_data
 from nototools.unittests import font_tests
+
+import run_general_tests
+
 
 FONTS = font_tests.load_fonts(
     ['out/web/*.ttf'],
     expected_count=18)
 
-class TestItalicAngle(font_tests.TestItalicAngle):
+
+class TestItalicAngle(run_general_tests.TestItalicAngle):
     loaded_fonts = FONTS
-    expected_italic_angle = -12.0
 
 
 class TestMetaInfo(font_tests.TestMetaInfo):
     loaded_fonts = FONTS
-    mark_heavier_as_bold = True
 
     # Since different font files are hinted at different times, the actual
     # outlines differ slightly. So we are keeping the version numbers as a hint.
@@ -43,15 +43,12 @@ class TestMetaInfo(font_tests.TestMetaInfo):
     expected_os2_achVendID = 'GOOG'
 
 
-class TestNames(font_tests.TestNames):
+class TestNames(run_general_tests.TestNames):
     """Bugs:
     https://github.com/google/roboto/issues/37
     """
 
     loaded_fonts = FONTS
-    family_name = 'Roboto'
-    mark_heavier_as_bold = True
-    expected_copyright = 'Copyright 2011 Google Inc. All Rights Reserved.'
 
     def expected_unique_id(self, family, style):
         return family + ' ' + style

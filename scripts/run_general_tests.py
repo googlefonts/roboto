@@ -98,6 +98,7 @@ class TestLigatures(font_tests.TestLigatures):
 
 class TestFeatures(font_tests.TestFeatures):
     loaded_fonts = FONTS
+    smcp_reqs_path = 'res/smcp_requirements.txt'
 
 
 class TestVerticalMetrics(font_tests.TestVerticalMetrics):

@@ -103,61 +103,6 @@ languagesystem grek dflt;
 @ccmp_acc = [ gravecomb acutecomb tildecomb brevetildecomb brevehookcomb breveacutecomb circumflextildecomb circumflexhookcomb circumflexgravecomb circumflexacutecomb brevegravecomb macroncomb commaaboverightcomb dieresismacroncomb dieresisacutecomb dieresiscaroncomb dieresisgravecomb dotmacroncomb tildeacutecomb macrongravecomb macronacutecomb macrondieresiscomb acutedotcomb carondotcomb tildemacroncomb tildedieresiscomb circumflexnosp overscorenosp brevenosp dotnosp dieresisnosp hook ringnosp acutedblnosp uni030C linevertnosp linevertdblnosp uni030F candrabindunosp breveinvnosp commaturnsupnosp uni0313 commasuprevnosp uni0315 anglesupnosp hornnosp xsupnosp tildevertsupnosp overscoredblnosp graveleftnosp acuterightnosp uni0342 uni0343 diaeresistonosnosp uni0346 uni034A uni034B uni034C uni0350 uni0351 uni0352 uni0357 uni0358 uni035B tildecomb_uni1ABB tildecomb_uni1ABC macroncomb_uni1ABB dieresisnosp_uni1ABB uni030C_uni1ABB uni1AB0 uni1AB1 uni1AB2 uni1AB3 uni1AB4 uni1DC0 uni1DC1 uni1DC3 uni1DC4 uni1DC5 uni1DC6 uni1DC7 uni1DC8 uni1DC9 uni1DCB uni1DCC uni1DCD uni1DCE uni1DD1 uni1DD2 uni1DD3 uni1DD4 uni1DD5 uni1DD6 uni1DD7 uni1DD8 uni1DD9 uni1DDA uni1DDB uni1DDC uni1DDD uni1DDE uni1DDF uni1DE0 uni1DE1 uni1DE2 uni1DE3 uni1DE4 uni1DE5 uni1DE6 uni1DE7 uni1DE8 uni1DE9 uni1DEA uni1DEB uni1DEC uni1DED uni1DEE uni1DEF uni1DF0 uni1DF1 uni1DF2 uni1DF3 uni1DF4 uni1DF5 uni1DFE uni0363 uni0364 uni0365 uni0366 uni0367 uni0368 uni0369 uni036A uni036B uni036C uni036D uni036E uni036F uni0483 uni0484 uni0485 uni0486 uni0487 uni20F0 uniA66F uniA674 uniA675 uniA676 uniA677 uniA678 uniA679 uniA67A uniA67B uniA67C uniA67D uniA69F uni2DE0 uni2DE1 uni2DE2 uni2DE3 uni2DE4 uni2DE5 uni2DE6 uni2DE7 uni2DE8 uni2DE9 uni2DEA uni2DEB uni2DEC uni2DED uni2DEE uni2DEF uni2DF0 uni2DF1 uni2DF2 uni2DF3 uni2DF4 uni2DF5 uni2DF6 uni2DF7 uni2DF8 uni2DF9 uni2DFA uni2DFB uni2DFC uni2DFD uni2DFE uni2DFF uni1ABB uni1ABC uni20DC uniFE20 uniFE21 uniFE22 uniFE23 uniFE24 uniFE25 uniFE26];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 feature cpsp {
   pos @UC_ROMAN <36 0 72 0>;
   pos @UC_SET1 <36 0 72 0>;
@@ -177,7 +122,7 @@ feature c2sc {
 
 feature smcp {
   sub @LC_ROMAN by @SC_ROMAN;
-  sub @LC_SET2 by @SC_SET2;    
+  sub @LC_SET2 by @SC_SET2;
   sub @LC_SET3 by @SC_SET3;
   sub [germandbls ampersand sigma1] by [Germandbls.smcp ampersand.smcp Sigma.smcp];
   sub [ae hbar oslash lslash eng thorn] by [AE.smcp Hbar.smcp Oslash.smcp Lslash.smcp Eng.smcp Thorn.smcp];
@@ -187,7 +132,7 @@ feature smcp {
 
 feature unic {
   sub @unicase_l by @unicase_r ;
-  sub @unicase2_l by @unicase2_r ;  
+  sub @unicase2_l by @unicase2_r ;
 } unic;
 
 
@@ -204,7 +149,7 @@ feature mkmk {
 feature ccmp {
 
   lookup ccmp01 {
-  
+
   sub tildecomb uni1ABB by tildecomb_uni1ABB;
   sub tildecomb uni1ABC by tildecomb_uni1ABC;
   sub macroncomb uni1ABB by macroncomb_uni1ABB;
@@ -218,9 +163,9 @@ feature ccmp {
   sub breveinvsubnosp uni1ABD by breveinvsubnosp_uni1ABD;
   sub tildesubnosp uni1ABD by tildesubnosp_uni1ABD;
   sub uni1AB9 uni1ABD by uni1AB9_uni1ABD;
-  sub uni1ABA uni1ABD by uni1ABA_uni1ABD;  
+  sub uni1ABA uni1ABD by uni1ABA_uni1ABD;
   sub uni1AB8 uni1ABD by uni1AB8_uni1ABD;
- 
+
   } ccmp01;
 
   lookup ccmp02 {
@@ -245,11 +190,11 @@ feature ccmp {
   } ccmp02;
 
   lookup ccmp03 {
-  
+
   sub d uni030C by dcaron;
   sub l uni030C by lcaron;
-  sub t uni030C by tcaron;  
-  
+  sub t uni030C by tcaron;
+
   sub A gravecomb by Agrave;
   sub A acutecomb by Aacute;
   sub A circumflexnosp by Acircumflex;
@@ -756,7 +701,7 @@ feature ccmp {
   sub A ringsubnosp by uni1E00;
   sub a ringsubnosp by uni1E01;
   } ccmp03;
-  
+
   lookup ccmp04 {
   sub uni02E9 uni02E7 uni02E6 by uni02E9_uni02E7_uni02E6;
   sub uni02E5 uni02E7 uni02E8 by uni02E5_uni02E7_uni02E8;
@@ -900,38 +845,35 @@ feature ccmp {
   sub uni02E6 uni02E7 by uni02E6_uni02E7;
   } ccmp04;
 
-
   lookup ccmp05 {
-  
+
   sub lmidtilde [uni1ABB uni1ABD uni1ABE]' by uni1ABE.w2;
   sub dcroat [uni1ABB uni1ABD uni1ABE]' by uni1ABE.w2;
   sub eng [uni1ABB uni1ABD uni1ABE]' by uni1ABE.w1;
   sub gbar [uni1ABB uni1ABD uni1ABE]' by uni1ABE.w3;
   sub bbar [uni1ABB uni1ABD uni1ABE]' by uni1ABE.w2;
   sub rrthook [uni1ABB uni1ABD uni1ABE]' by uni1ABE.w1;
-  
+
   sub lmidtilde uni1ABC' by uni1ABC.w2;
   sub dcroat uni1ABC' by uni1ABC.w2;
   sub eng uni1ABC' by uni1ABC.w1;
   sub gbar uni1ABC' by uni1ABC.w3;
   sub bbar uni1ABC' by uni1ABC.w2;
-  sub rrthook uni1ABC' by uni1ABC.w1;  
-  
-	} ccmp05;
+  sub rrthook uni1ABC' by uni1ABC.w1;
+
+  } ccmp05;
 
   lookup ccmp05a {
-  
+
   sub lmidtilde uni1ABE.w2 by lmidtilde_uni1ABE;
   sub dcroat uni1ABE.w2 by dcroat_uni1ABE;
   sub eng uni1ABE.w1 by eng_uni1ABE;
   sub gbar uni1ABE.w3 by gbar_uni1ABE;
   sub bbar uni1ABE.w2 by bbar_uni1ABE;
   sub rrthook uni1ABE.w1 by rrthook_uni1ABE;
-  
-	} ccmp05a;
 
+  } ccmp05a;
 
- 
 } ccmp;
 
 
@@ -944,33 +886,33 @@ feature locl {
  language NAV  exclude_dflt; # Navajo
   sub [ Aogonek aogonek Eogonek eogonek Oogonek oogonek Aogonek.smcp Eogonek.smcp Oogonek.smcp ] by [ Aogonek.NAV aogonek.NAV Eogonek.NAV eogonek.NAV Oogonek.NAV oogonek.NAV Aogonek.smcp.NAV Eogonek.smcp.NAV Oogonek.smcp.NAV ];
  language FRA  exclude_dflt; # French
-  sub [ uni2009 ] by [ uni2009.fra ];  
+  sub [ uni2009 ] by [ uni2009.fra ];
 } locl;
 
 
 feature dlig {
-	sub f f by f_f;
-	sub longs t by longst;
-	sub s t by st;
+  sub f f by f_f;
+  sub longs t by longst;
+  sub s t by st;
 } dlig;
 
 
 feature liga {
   script latn; language dflt; #set comment (#) for FDK 2.5
-  
-	lookup liga01 {
-		sub f_f i by f_f_i;
-		sub f i by fi;
-	} liga01;
-	
-	lookup liga02 {
-		sub f_f l by f_f_l;
-		sub f l by f_l;		
-	} liga02;
-	
-	language TUR  exclude_dflt;
-	lookup liga02;	
-	
+
+  lookup liga01 {
+    sub f_f i by f_f_i;
+    sub f i by fi;
+  } liga01;
+
+  lookup liga02 {
+    sub f_f l by f_f_l;
+    sub f l by f_l;
+  } liga02;
+
+  language TUR  exclude_dflt;
+  lookup liga02;
+
 } liga;
 
 
@@ -1069,259 +1011,3 @@ feature dnom {
 feature numr {
   sub @frac1 by @frac2;
 } numr;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

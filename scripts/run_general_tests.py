@@ -27,11 +27,6 @@ FONTS = font_tests.load_fonts(
     ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
     expected_count=18)
 
-UFOS = font_tests.load_fonts(
-    ['out/RobotoUFO/*.ufo', 'out/RobotoCondensedUFO/*.ufo'],
-    expected_count=18,
-    font_class=OpenFont)
-
 UFO_MASTERS = font_tests.load_fonts(
     ['src/v2/*.ufo'],
     expected_count=3,
@@ -99,6 +94,8 @@ class TestLigatures(font_tests.TestLigatures):
 class TestFeatures(font_tests.TestFeatures):
     loaded_fonts = FONTS
     smcp_reqs_path = 'res/smcp_requirements.txt'
+    c2sc_reqs_path = 'res/c2sc_requirements.txt'
+    unic_reqs_path = 'res/unic_requirements.txt'
 
 
 class TestVerticalMetrics(font_tests.TestVerticalMetrics):

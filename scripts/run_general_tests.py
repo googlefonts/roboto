@@ -27,11 +27,6 @@ FONTS = font_tests.load_fonts(
     ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
     expected_count=18)
 
-UFOS = font_tests.load_fonts(
-    ['out/RobotoUFO/*.ufo', 'out/RobotoCondensedUFO/*.ufo'],
-    expected_count=18,
-    font_class=OpenFont)
-
 UFO_MASTERS = font_tests.load_fonts(
     ['src/v2/*.ufo'],
     expected_count=3,

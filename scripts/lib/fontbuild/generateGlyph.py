@@ -118,11 +118,11 @@ def generateGlyph(f,gname,glyphList={}):
             g = f[glyphName]
             setUnicodeValue(g, glyphList)
             copyMarkAnchors(f, g, baseName, offset[1] + offset[0])
+            if len(accentNames) > 0:
+                alignComponentsToAnchors(f, glyphName, baseName, accentNames)
             if offset[0] != 0 or offset[1] != 0:
                 g.width += offset[1] + offset[0]
                 g.move((offset[0], 0), anchors=False)
-            if len(accentNames) > 0:
-                alignComponentsToAnchors(f, glyphName, baseName, accentNames)
         else:
             print ("Existing glyph '%s' found in font, ignoring composition "
                 "rule '%s'" % (glyphName, gname))

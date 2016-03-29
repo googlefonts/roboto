@@ -42,15 +42,18 @@ class FontProject:
         self.config = ConfigParser.RawConfigParser()
         self.configfile = self.basedir+"/"+configfile
         self.config.read(self.configfile)
-        
-        diacriticList = open(self.basedir + "/" + self.config.get("res","diacriticfile")).readlines()
+
+        diacriticList = self.openResource("diacriticfile", splitlines=True)
         self.diacriticList = [line.strip() for line in diacriticList if not line.startswith("#")]
-        self.ot_classes = open(self.basedir + "/" + self.config.get("res","ot_classesfile")).read()
-        self.ot_kerningclasses = open(self.basedir + "/" + self.config.get("res","ot_kerningclassesfile")).read()
-        #self.ot_features = open(self.basedir + "/" + self.config.get("res","ot_featuresfile")).read()
-        adobeGlyphList = open(self.basedir + "/" + self.config.get("res", "agl_glyphlistfile")).readlines()
+        self.ot_classes = self.openResource("ot_classesfile")
+        self.ot_kerningclasses = self.openResource("ot_kerningclassesfile")
+        #self.ot_features = self.openResource("ot_featuresfile")
+        adobeGlyphList = self.openResource("agl_glyphlistfile", splitlines=True)
         self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
-        
+        self.glyphOrder = self.openResource("glyphorder", splitlines=True)
+        self.thinGlyphOrder = self.openResource(
+            "glyphorder_thin", splitlines=True)
+
         # map exceptional glyph names in Roboto to names in the AGL
         roboNames = (
             ('Obar', 'Ocenteredtilde'), ('obar', 'obarred'),
@@ -68,6 +71,14 @@ class FontProject:
         self.buildOTF = False
         self.compatible = False
         self.generatedFonts = []
+
+    def openResource(self, name, splitlines=False):
+        with open(os.path.join(
+                self.basedir, self.config.get("res", name))) as resourceFile:
+            resource = resourceFile.read()
+        if splitlines:
+            return resource.splitlines()
+        return resource
 
     def generateOutputPath(self, font, ext):
         family = font.info.familyName.replace(" ", "")
@@ -154,7 +165,9 @@ class FontProject:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
             otfName = self.generateOutputPath(f, "otf")
-            saveOTF(newFont, otfName)
+            saveOTF(
+                newFont, otfName,
+                self.thinGlyphOrder if "Thin" in otfName else self.glyphOrder)
 
     def generateTTFs(self):
         """Build TTF for each font generated since last call to generateTTFs."""
@@ -179,7 +192,10 @@ class FontProject:
             for glyph in font:
                 for contour in glyph:
                     contour.reverseContour()
-            saveOTF(font, ttfName, truetype=True)
+            saveOTF(
+                font, ttfName,
+                self.thinGlyphOrder if "Thin" in ttfName else self.glyphOrder,
+                truetype=True)
 
 
 def transformGlyphMembers(g, m):
@@ -264,7 +280,7 @@ def removeGlyphOverlap(glyph):
     manager.union(contours, glyph.getPointPen())
 
 
-def saveOTF(font, destFile, truetype=False):
+def saveOTF(font, destFile, glyphOrder, truetype=False):
     """Save a RoboFab font as an OTF binary using ufo2fdk."""
 
     if truetype:
@@ -272,5 +288,5 @@ def saveOTF(font, destFile, truetype=False):
     else:
         compiler = compileOTF
     otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler,
-                   kernWriter=RobotoKernWriter)
+                   kernWriter=RobotoKernWriter, glyphOrder=glyphOrder)
     otf.save(destFile)

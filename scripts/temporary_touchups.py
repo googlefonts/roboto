@@ -34,6 +34,14 @@ def apply_temporary_fixes(font):
     hhea.descent = -500
     hhea.lineGap = 0
 
+    # Set bold bits for Black (macStyle bit 0, fsSelection bit 5)
+    name_records = font_data.get_name_records(font)
+    family_name = name_records[1]
+    if family_name.endswith('Black'):
+        font['head'].macStyle |= (1 << 0)
+        font['OS/2'].fsSelection |= (1 << 5)
+        font['OS/2'].fsSelection &= ~(1 << 6)
+
 
 def update_version_and_revision(font):
     """Update version and revision numbers."""

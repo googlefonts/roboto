@@ -27,6 +27,13 @@ FONTS = font_tests.load_fonts(
     expected_count=18)
 
 
+class TestRobotoRegressions(run_general_tests.TestRobotoRegressions):
+    loaded_fonts = FONTS
+
+    # this bug is present in the hinted binaries and not fixed by the web target
+    test_upsilontonos_narrow = False
+
+
 class TestItalicAngle(run_general_tests.TestItalicAngle):
     loaded_fonts = FONTS
 

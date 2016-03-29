@@ -45,7 +45,9 @@ def apply_web_specific_fixes(font, family_name):
 
     if 'Condensed' in font_data.get_name_records(font)[1]:
         family_name += ' Condensed'
-    full_name = family_name + ' ' + subfamily_name
+    full_name = family_name
+    if subfamily_name != 'Regular':
+        full_name += ' ' + subfamily_name
 
     # Family, subfamily names
     font_data.set_name_record(font, 16, family_name)
@@ -64,10 +66,9 @@ def apply_web_specific_fixes(font, family_name):
         italic = subfamily_name.endswith('Italic')
         font_data.set_name_record(font, 2, style_map[italic << 1])
 
-
     # Unique identifier and full name
     font_data.set_name_record(font, 3, full_name)
-    font_data.set_name_record(font, 4, full_name.replace(' Regular', ''))
+    font_data.set_name_record(font, 4, full_name)
     font_data.set_name_record(font, 18, None)
 
     # PostScript name

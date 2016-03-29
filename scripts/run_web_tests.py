@@ -49,6 +49,7 @@ class TestNames(run_general_tests.TestNames):
     """
 
     loaded_fonts = FONTS
+    mark_heavier_as_bold = True
 
     def expected_unique_id(self, family, style):
         return family + ' ' + style

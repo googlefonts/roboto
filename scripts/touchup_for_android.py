@@ -40,18 +40,6 @@ def apply_android_specific_fixes(font):
         if table in font:
             del font[table]
 
-    # Set bold bits for Black (macStyle bit 0, fsSelection bit 5, subfamily)
-    name_records = font_data.get_name_records(font)
-    family_name = name_records[1]
-    subfam_name = name_records[2]
-    if family_name.endswith('Black'):
-        font['head'].macStyle |= (1 << 0)
-        font['OS/2'].fsSelection |= (1 << 5)
-        font['OS/2'].fsSelection &= ~(1 << 6)
-        new_subfam_name = (
-            ('Bold ' + subfam_name) if subfam_name != 'Regular' else 'Bold')
-        font_data.set_name_record(font, 2, new_subfam_name)
-
     # turn off round-to-grid flags in certain problem components
     # https://github.com/google/roboto/issues/153
     glyph_set = font.getGlyphSet()

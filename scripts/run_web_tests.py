@@ -109,11 +109,8 @@ class TestLigatures(font_tests.TestLigatures):
     loaded_fonts = FONTS
 
 
-class TestFeatures(font_tests.TestFeatures):
+class TestFeatures(run_general_tests.TestFeatures):
     loaded_fonts = FONTS
-    smcp_reqs_path = 'res/smcp_requirements.txt'
-    c2sc_reqs_path = 'res/c2sc_requirements.txt'
-    unic_reqs_path = 'res/unic_requirements.txt'
 
 
 class TestHints(font_tests.TestHints):

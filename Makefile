@@ -59,11 +59,14 @@ android-from-hinted:
 web:
 	mkdir -p out/web
 	for source in hinted/*.ttf; do \
-		touched=$$(mktemp); \
-		final=out/web/$$(basename $$source); \
-		python scripts/touchup_for_web.py $$source $$touched Roboto && \
-		python scripts/subset_for_web.py $$touched $$final && \
-		rm $$touched; \
+		basename=$$(basename $$source); \
+		case $$source in \
+			hinted/Roboto-*) unhinted=out/RobotoTTF/$$basename ;; \
+			*) unhinted=out/RobotoCondensedTTF/$$basename ;; \
+		esac; \
+		final=out/web/$$basename; \
+		python scripts/touchup_for_web.py $$source $$unhinted $$final Roboto; \
+		if [[ $$? -ne 0 ]]; then exit 1; fi; \
 	done
 
 chromeos:

@@ -33,6 +33,7 @@ class TestItalicAngle(run_general_tests.TestItalicAngle):
 
 class TestMetaInfo(font_tests.TestMetaInfo):
     loaded_fonts = FONTS
+    mark_heavier_as_bold = True
 
     # Since different font files are hinted at different times, the actual
     # outlines differ slightly. So we are keeping the version numbers as a hint.
@@ -49,10 +50,12 @@ class TestNames(run_general_tests.TestNames):
     """
 
     loaded_fonts = FONTS
-    mark_heavier_as_bold = True
 
     def expected_unique_id(self, family, style):
-        return family + ' ' + style
+        expected = family
+        if style != 'Regular':
+            expected += ' ' + style
+        return expected
 
 
 class TestDigitWidths(font_tests.TestDigitWidths):
@@ -97,6 +100,13 @@ class TestVerticalMetrics(font_tests.TestVerticalMetrics):
 
 class TestLigatures(font_tests.TestLigatures):
     loaded_fonts = FONTS
+
+
+class TestFeatures(font_tests.TestFeatures):
+    loaded_fonts = FONTS
+    smcp_reqs_path = 'res/smcp_requirements.txt'
+    c2sc_reqs_path = 'res/c2sc_requirements.txt'
+    unic_reqs_path = 'res/unic_requirements.txt'
 
 
 class TestHints(font_tests.TestHints):

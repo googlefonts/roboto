@@ -50,7 +50,10 @@ class FontProject:
         #self.ot_features = self.openResource("ot_featuresfile")
         adobeGlyphList = self.openResource("agl_glyphlistfile", splitlines=True)
         self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
-        
+        self.glyphOrder = self.openResource("glyphorder", splitlines=True)
+        self.thinGlyphOrder = self.openResource(
+            "glyphorder_thin", splitlines=True)
+
         # map exceptional glyph names in Roboto to names in the AGL
         roboNames = (
             ('Obar', 'Ocenteredtilde'), ('obar', 'obarred'),
@@ -162,7 +165,9 @@ class FontProject:
             log(">> Generating OTF file")
             newFont = OpenFont(ufoName)
             otfName = self.generateOutputPath(f, "otf")
-            saveOTF(newFont, otfName)
+            saveOTF(
+                newFont, otfName,
+                self.thinGlyphOrder if "Thin" in otfName else self.glyphOrder)
 
     def generateTTFs(self):
         """Build TTF for each font generated since last call to generateTTFs."""
@@ -187,7 +192,10 @@ class FontProject:
             for glyph in font:
                 for contour in glyph:
                     contour.reverseContour()
-            saveOTF(font, ttfName, truetype=True)
+            saveOTF(
+                font, ttfName,
+                self.thinGlyphOrder if "Thin" in ttfName else self.glyphOrder,
+                truetype=True)
 
 
 def transformGlyphMembers(g, m):
@@ -272,7 +280,7 @@ def removeGlyphOverlap(glyph):
     manager.union(contours, glyph.getPointPen())
 
 
-def saveOTF(font, destFile, truetype=False):
+def saveOTF(font, destFile, glyphOrder, truetype=False):
     """Save a RoboFab font as an OTF binary using ufo2fdk."""
 
     if truetype:
@@ -280,5 +288,5 @@ def saveOTF(font, destFile, truetype=False):
     else:
         compiler = compileOTF
     otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler,
-                   kernWriter=RobotoKernWriter)
+                   kernWriter=RobotoKernWriter, glyphOrder=glyphOrder)
     otf.save(destFile)

@@ -345,14 +345,15 @@ def interpolate(a,b,v,e=0):
     qe = (b-a)*v*v*v + a   #cubic easing
     le = a+(b-a)*v   # linear easing
     return le + (qe-le) * e
-    
+
 def interpolateKerns(kA, kB, v):
     kerns = {}
-    for pair in kA.keys():
-        matchedKern = kB.get(pair)
-        # if matchedkern == None:
-        #     matchedkern = Kern(kA)
-        #     matchedkern.value = 0
-        if matchedKern != None:
-            kerns[pair] = interpolate(kA[pair], matchedKern, v.x)
+    for pair, val in kA.items():
+        kerns[pair] = interpolate(val, kB.get(pair, 0), v.x)
+    for pair, val in kB.items():
+        lerped_val = interpolate(val, kA.get(pair, 0), v.x)
+        if pair in kerns:
+            assert kerns[pair] == lerped_val
+        else:
+            kerns[pair] = lerped_val
     return kerns

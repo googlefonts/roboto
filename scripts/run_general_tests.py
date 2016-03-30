@@ -32,6 +32,42 @@ UFO_MASTERS = font_tests.load_fonts(
     expected_count=3,
     font_class=OpenFont)
 
+
+class TestRobotoRegressions(font_tests.FontTest):
+    loaded_fonts = FONTS
+
+    def setUp(self):
+        self.font_files, self.fonts = self.loaded_fonts
+
+    def test_chi_descends(self):
+        """Test that the chi glyph descends below the baseline.
+        Bug: https://github.com/google/roboto/issues/18
+        """
+
+        for font in self.fonts:
+            glyph_set = font.getGlyphSet()
+            glyph = glyph_set['chi']._glyph
+            self.assertTrue(
+                glyph.yMin < 0, 'Lowercase chi does not descend below y=0, is '
+                'it an alias of x?')
+
+    def test_upsilontonos_narrow(self):
+        """Test that the tonos in Upsilontonos is not too far left.
+        Bug: https://github.com/google/roboto/issues/154
+        """
+
+        for filename, font in zip(self.font_files, self.fonts):
+            glyph_set = font.getGlyphSet()
+            glyph = glyph_set['Upsilontonos']._glyph
+
+            # accept within an x bound based on weight, where xMin=-150 is about
+            # what is expected for regular, -110 for light, -190 for medium
+            bound = -(150 + (font['OS/2'].usWeightClass - 400) * 0.4)
+            self.assertTrue(
+                glyph.xMin > bound, 'Upsilontonos extends far to the left and may '
+                'be susceptible to aggressive clipping. %s %d' % (filename, glyph.xMin))
+
+
 class TestItalicAngle(font_tests.TestItalicAngle):
     loaded_fonts = FONTS
     expected_italic_angle = -12.0

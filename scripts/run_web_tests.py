@@ -27,12 +27,20 @@ FONTS = font_tests.load_fonts(
     expected_count=18)
 
 
+class TestRobotoRegressions(run_general_tests.TestRobotoRegressions):
+    loaded_fonts = FONTS
+
+    # this bug is present in the hinted binaries and not fixed by the web target
+    test_upsilontonos_narrow = False
+
+
 class TestItalicAngle(run_general_tests.TestItalicAngle):
     loaded_fonts = FONTS
 
 
 class TestMetaInfo(font_tests.TestMetaInfo):
     loaded_fonts = FONTS
+    mark_heavier_as_bold = True
 
     # Since different font files are hinted at different times, the actual
     # outlines differ slightly. So we are keeping the version numbers as a hint.
@@ -49,10 +57,12 @@ class TestNames(run_general_tests.TestNames):
     """
 
     loaded_fonts = FONTS
-    mark_heavier_as_bold = True
 
     def expected_unique_id(self, family, style):
-        return family + ' ' + style
+        expected = family
+        if style != 'Regular':
+            expected += ' ' + style
+        return expected
 
 
 class TestDigitWidths(font_tests.TestDigitWidths):
@@ -96,6 +106,10 @@ class TestVerticalMetrics(font_tests.TestVerticalMetrics):
 
 
 class TestLigatures(font_tests.TestLigatures):
+    loaded_fonts = FONTS
+
+
+class TestFeatures(run_general_tests.TestFeatures):
     loaded_fonts = FONTS
 
 

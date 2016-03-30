@@ -58,7 +58,6 @@ class TestNames(run_general_tests.TestNames):
     """
 
     loaded_fonts = FONTS
-    mark_heavier_as_bold = True
 
 
 class TestVerticalMetrics(font_tests.TestVerticalMetrics):

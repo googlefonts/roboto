@@ -353,7 +353,7 @@ def interpolateKerns(kA, kB, v):
     for pair, val in kB.items():
         lerped_val = interpolate(val, kA.get(pair, 0), 1 - v.x)
         if pair in kerns:
-            assert kerns[pair] == lerped_val
+            assert abs(kerns[pair] - lerped_val) < 1e-6
         else:
             kerns[pair] = lerped_val
     return kerns

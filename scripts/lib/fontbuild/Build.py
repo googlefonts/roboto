@@ -18,7 +18,7 @@ import os
 import sys
 
 from booleanOperations import BooleanOperationManager
-from cu2qu.rf import fonts_to_quadratic
+from cu2qu.ufo import fonts_to_quadratic
 from fontTools.misc.transform import Transform
 from robofab.world import OpenFont
 from ufo2ft import compileOTF, compileTTF

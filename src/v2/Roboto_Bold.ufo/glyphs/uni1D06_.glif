@@ -3,18 +3,27 @@
   <advance width="1287"/>
   <unicode hex="1D06"/>
   <outline>
+    <contour>
+      <point x="713" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="1287" y="1290" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="713" y="0" type="move" name="bottom"/>
+    </contour>
     <component base="uni1D05" xOffset="139"/>
     <component base="crossbar" xOffset="-99" yOffset="-200"/>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.939</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

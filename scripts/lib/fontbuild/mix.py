@@ -218,13 +218,12 @@ class FGlyph:
 
 class Master:
 
-    def __init__(self, font=None, v=0, kernlist=None, overlay=None,
-                 anchorPath=None):
+    def __init__(self, font=None, v=0, kernlist=None, overlay=None):
         if isinstance(font, FFont):
             self.font = None
             self.ffont = font
         elif isinstance(font,str):
-            self.openFont(font,overlay, anchorPath)
+            self.openFont(font,overlay)
         elif isinstance(font,Mix):
             self.font = font
         else:
@@ -243,7 +242,7 @@ class Master:
                             and not k[0] == ""]
             #TODO implement class based kerning / external kerning file
     
-    def openFont(self, path, overlayPath=None, anchorPath=None):
+    def openFont(self, path, overlayPath=None):
         self.font = OpenFont(path)
         for g in self.font:
           size = len(g)
@@ -256,16 +255,6 @@ class Master:
             font = self.font
             for overlayGlyph in overlayFont:
                 font.insertGlyph(overlayGlyph)
-
-        # work around a bug with vfb2ufo in which anchors are dropped from
-        # glyphs containing components and no contours. "anchorPath" should
-        # point to the output of src/v2/get_dropped_anchors.py
-        if anchorPath:
-            anchorData = json.load(open(anchorPath))
-            for glyphName, anchors in anchorData.items():
-                glyph = self.font[glyphName]
-                for name, (x, y) in anchors.items():
-                    glyph.appendAnchor(str(name), (x, y))
 
         self.ffont = FFont(self.font)
 

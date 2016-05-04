@@ -3,33 +3,42 @@
   <advance width="761"/>
   <unicode hex="0268"/>
   <outline>
+    <contour>
+      <point x="381" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="761" y="1600" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="381" y="0" type="move" name="bottom"/>
+    </contour>
     <component base="i" xOffset="103"/>
     <component base="crossbar" xOffset="-119" yOffset="-177"/>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>90</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>381</real>
-      <key>y</key>
-      <real>0</real>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>90.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>381.0</real>
+          <key>y</key>
+          <real>0.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
     </dict>
-  </array>
-  </dict>
   </lib>
 </glyph>

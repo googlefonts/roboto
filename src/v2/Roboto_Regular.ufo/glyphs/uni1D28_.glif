@@ -3,17 +3,26 @@
   <advance width="1189"/>
   <unicode hex="1D28"/>
   <outline>
+    <contour>
+      <point x="596" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="1189" y="1290" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="596" y="0" type="move" name="bottom"/>
+    </contour>
     <component base="uni043F"/>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.939</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

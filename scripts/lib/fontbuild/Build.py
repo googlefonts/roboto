@@ -281,5 +281,6 @@ def saveOTF(font, destFile, glyphOrder, truetype=False):
     else:
         compiler = compileOTF
     otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler,
-                   kernWriter=RobotoKernWriter, glyphOrder=glyphOrder)
+                   kernWriter=RobotoKernWriter, glyphOrder=glyphOrder,
+                   useProductionNames=False)
     otf.save(destFile)

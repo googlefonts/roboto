@@ -47,7 +47,6 @@ class FontProject:
         self.diacriticList = [line.strip() for line in diacriticList if not line.startswith("#")]
         self.ot_classes = self.openResource("ot_classesfile")
         self.ot_kerningclasses = self.openResource("ot_kerningclassesfile")
-        #self.ot_features = self.openResource("ot_featuresfile")
         adobeGlyphList = self.openResource("agl_glyphlistfile", splitlines=True)
         self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
         self.glyphOrder = self.openResource("glyphorder", splitlines=True)

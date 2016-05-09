@@ -45,9 +45,6 @@ class FontProject:
 
         diacriticList = self.openResource("diacriticfile", splitlines=True)
         self.diacriticList = [line.strip() for line in diacriticList if not line.startswith("#")]
-        self.ot_classes = self.openResource("ot_classesfile")
-        self.ot_kerningclasses = self.openResource("ot_kerningclassesfile")
-        #self.ot_features = self.openResource("ot_featuresfile")
         adobeGlyphList = self.openResource("agl_glyphlistfile", splitlines=True)
         self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
         self.glyphOrder = self.openResource("glyphorder", splitlines=True)
@@ -88,7 +85,7 @@ class FontProject:
             os.makedirs(path)
         return os.path.join(path, "%s-%s.%s" % (family, style, ext))
     
-    def generateFont(self, mix, names, italic=False, swapSuffixes=None, stemWidth=185, kern=True):
+    def generateFont(self, mix, names, italic=False, swapSuffixes=None, stemWidth=185):
         
         n = names.split("/")
         log("---------------------\n%s %s\n----------------------" %(n[0],n[1]))
@@ -140,7 +137,7 @@ class FontProject:
         log(">> Generating glyphs")
         generateGlyphs(f, self.diacriticList, self.adobeGlyphList)
         log(">> Copying features")
-        readFeatureFile(f, self.ot_classes + self.basefont.features.text)
+        readFeatureFile(f, self.basefont.features.text)
         log(">> Decomposing")
         for gname in self.decompose:
             if f.has_key(gname):
@@ -151,10 +148,6 @@ class FontProject:
         if not self.compatible:
             cleanCurves(f)
         deleteGlyphs(f, self.deleteList)
-
-        if kern:
-            log(">> Generating kern classes")
-            readFeatureFile(f, self.ot_kerningclasses)
 
         log(">> Generating font files")
         ufoName = self.generateOutputPath(f, "ufo")
@@ -288,5 +281,6 @@ def saveOTF(font, destFile, glyphOrder, truetype=False):
     else:
         compiler = compileOTF
     otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler,
-                   kernWriter=RobotoKernWriter, glyphOrder=glyphOrder)
+                   kernWriter=RobotoKernWriter, glyphOrder=glyphOrder,
+                   useProductionNames=False)
     otf.save(destFile)

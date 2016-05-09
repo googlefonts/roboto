@@ -3,18 +3,45 @@
   <advance width="787"/>
   <unicode hex="1E2C"/>
   <outline>
+    <contour>
+      <point x="553" y="0" type="move" name="right"/>
+    </contour>
+    <contour>
+      <point x="394" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="88" y="1457" type="move" name="tonos"/>
+    </contour>
+    <contour>
+      <point x="394" y="-407" type="move" name="mkmkbottom_acc"/>
+    </contour>
+    <contour>
+      <point x="393" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="700" y="1600" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="700" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="494" y="0" type="move" name="ogonek"/>
+    </contour>
+    <contour>
+      <point x="700" y="-407" type="move" name="bottom_dd"/>
+    </contour>
     <component base="I" xOffset="88"/>
     <component base="tilde" xOffset="-104" yOffset="-1660"/>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.798</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.798</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

@@ -3,18 +3,42 @@
   <advance width="725"/>
   <unicode hex="1E2D"/>
   <outline>
+    <contour>
+      <point x="372" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="403" y="654" type="move" name="rhotichook"/>
+    </contour>
+    <contour>
+      <point x="372" y="-422" type="move" name="mkmkbottom_acc"/>
+    </contour>
+    <contour>
+      <point x="374" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="625" y="1600" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="625" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="455" y="0" type="move" name="ogonek"/>
+    </contour>
+    <contour>
+      <point x="625" y="-407" type="move" name="bottom_dd"/>
+    </contour>
     <component base="i" xOffset="119"/>
     <component base="tilde" xOffset="-122" yOffset="-1610"/>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.798</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.798</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

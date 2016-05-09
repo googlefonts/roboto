@@ -38,6 +38,8 @@ class RobotoFeatureCompiler(FeatureOTFCompiler):
             ["mkmktop", "_marktop"],
             ["mkmkbottom_acc", "_markbottom"]]
 
+        self.ligaAnchorPairs = []
+
     def setupAliases(self):
         self.aliases = [
             ["a", "uni0430"], ["e", "uni0435"], ["p", "uni0440"],

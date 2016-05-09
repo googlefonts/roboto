@@ -2,18 +2,42 @@
 <glyph name="a_uni02DE" format="1">
   <advance width="1421"/>
   <outline>
+    <contour>
+      <point x="507" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="577" y="1292" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="1421" y="1292" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="507" y="0" type="move" name="markbottom"/>
+    </contour>
+    <contour>
+      <point x="1081" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="933" y="0" type="move" name="ogonek"/>
+    </contour>
+    <contour>
+      <point x="1081" y="-407" type="move" name="bottom_dd"/>
+    </contour>
+    <contour>
+      <point x="700" y="1263" type="move" name="rhalfring"/>
+    </contour>
     <component base="a"/>
     <component base="uni02DE" xOffset="1062"/>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.798</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.798</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

@@ -23,28 +23,31 @@ class RobotoFeatureCompiler(FeatureOTFCompiler):
 
     def setupAnchorPairs(self):
         self.anchorPairs = [
-            ["top", "_marktop", True, True],
-            ["bottom", "_markbottom", True, True],
-            ["top_dd", "_marktop_dd", True, False],
-            ["bottom_dd", "_markbottom_dd", True, False],
-            ["rhotichook", "_markrhotichook", False, False],
-            ["top0315", "_marktop0315", False, False],
-            ["parent_top", "_markparent_top", False, False],
-            ["parenthesses.w1", "_markparenthesses.w1", False, False],
-            ["parenthesses.w2", "_markparenthesses.w2", False, False],
-            ["parenthesses.w3", "_markparenthesses.w3", False, False]]
+            ["top", "_marktop"],
+            ["bottom", "_markbottom"],
+            ["top_dd", "_marktop_dd"],
+            ["bottom_dd", "_markbottom_dd"],
+            ["rhotichook", "_markrhotichook"],
+            ["top0315", "_marktop0315"],
+            ["parent_top", "_markparent_top"],
+            ["parenthesses.w1", "_markparenthesses.w1"],
+            ["parenthesses.w2", "_markparenthesses.w2"],
+            ["parenthesses.w3", "_markparenthesses.w3"]]
 
         self.mkmkAnchorPairs = [
             ["mkmktop", "_marktop"],
-            ["mkmkbottom_acc", "_markbottom"]]
+            ["mkmkbottom_acc", "_markbottom"],
+
+            # By providing a pair with accent anchor _bottom and no base anchor,
+            # we designate all glyphs with _bottom as accents (so that they will
+            # be used as base glyphs for mkmk features) without generating any
+            # positioning rules actually using this anchor (which is instead
+            # used to generate composite glyphs). This is all for consistency
+            # with older roboto versions.
+            ["", "_bottom"],
+        ]
 
         self.ligaAnchorPairs = []
-
-    def setupAliases(self):
-        self.aliases = [
-            ["a", "uni0430"], ["e", "uni0435"], ["p", "uni0440"],
-            ["c", "uni0441"], ["x", "uni0445"], ["s", "uni0455"],
-            ["i", "uni0456"], ["psi", "uni0471"]]
 
 
 class RobotoKernWriter(KernFeatureWriter):

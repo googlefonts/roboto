@@ -44,57 +44,23 @@ def copyMarkAnchors(f, g, srcname, width):
             g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
         if "top0315" == anchor.name:
             g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
-        if "top" == anchor.name:
-            if g.unicode == None:
-                if not g.name.endswith(('.ccmp', '.smcp', '.NAV')):
-                    continue                
-            if False == (g.unicode in unicode_range):
-                if not g.name.endswith(('.ccmp', '.smcp', '.NAV')):
-                    continue
-            #if g.unicode > 0x02B0:
-            #    continue
-            parenttop_present = 0
-            for anc in g.anchors:
-                if anc.name == "parent_top":
-                    parenttop_present = 1
-            if 0 == parenttop_present:
-                g.appendAnchor("parent_top", anchor.position)
 
-        if "bottom" == anchor.name:
-            if g.unicode == None:
-                if -1 == find(g.name, ".smcp"):
-                    continue
-            if False == (g.unicode in unicode_range):
-                if -1 == find(g.name, ".smcp"):
-                    continue
-            #if g.unicode > 0x02B0:
-            #    continue
-            bottom_present = 0
-            for anc in g.anchors:
-                if anc.name == "bottom":
-                    bottom_present = 1
-            if 0 == bottom_present:
-                g.appendAnchor("bottom", anchor.position)
+        if ("top" == anchor.name and
+                (g.unicode in unicode_range or
+                 g.name.endswith((".ccmp", ".smcp", ".NAV"))) and
+                not any(a.name == "parent_top" for a in g.anchors)):
+            g.appendAnchor("parent_top", anchor.position)
 
+        if ("bottom" == anchor.name and
+                (g.unicode in unicode_range or g.name.endswith(".smcp")) and
+                not any(a.name == "bottom" for a in g.anchors)):
+            g.appendAnchor("bottom", anchor.position)
 
-#            g.appendAnchor("top", anchor.position)
-            
- #       if "rhotichook" == anchor.name:
- #           g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
- 
-    #print g.anchors
-    for anchor in g.anchors:
-        if "top" == anchor.name:
-            #print g.name, g.anchors
-            return
- 
-    anchor_parent_top = None
+    if any(a.name == "top" for a in g.anchors):
+        return
 
-    for anchor in g.anchors:
-        if "parent_top" == anchor.name:
-            anchor_parent_top = anchor
-            break
-
+    anchor_parent_top = next(
+        (a for a in g.anchors if a.name == "parent_top"), None)
     if anchor_parent_top is not None:
         g.appendAnchor("top", anchor_parent_top.position)
 

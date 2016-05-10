@@ -36,7 +36,16 @@ class RobotoFeatureCompiler(FeatureOTFCompiler):
 
         self.mkmkAnchorPairs = [
             ["mkmktop", "_marktop"],
-            ["mkmkbottom_acc", "_markbottom"]]
+            ["mkmkbottom_acc", "_markbottom"],
+
+            # By providing a pair with accent anchor _bottom and no base anchor,
+            # we designate all glyphs with _bottom as accents (so that they will
+            # be used as base glyphs for mkmk features) without generating any
+            # positioning rules actually using this anchor (which is instead
+            # used to generate composite glyphs). This is all for consistency
+            # with older roboto versions.
+            ["", "_bottom"],
+        ]
 
         self.ligaAnchorPairs = []
 

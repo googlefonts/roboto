@@ -20,15 +20,18 @@ from nototools import noto_fonts
 
 import roboto_data
 
-def apply_temporary_fixes(font):
+def apply_temporary_fixes(font, is_for_cros=False):
     """Apply some temporary fixes."""
     # Fix usWeight:
     font_name = font_data.font_name(font)
     weight = noto_fonts.parse_weight(font_name)
     weight_number = noto_fonts.WEIGHTS[weight]
+    # Chrome OS wants Thin to have usWeightClass=100
+    if is_for_cros and weight == 'Thin':
+        weight_number = 100
     font['OS/2'].usWeightClass = weight_number
 
-    # Set ascent, descent, and lineGap values to Android K values
+    # Set ascent, descent, and lineGap values to Android K values.
     hhea = font['hhea']
     hhea.ascent = 1900
     hhea.descent = -500
@@ -41,7 +44,6 @@ def apply_temporary_fixes(font):
         font['head'].macStyle |= (1 << 0)
         font['OS/2'].fsSelection |= (1 << 5)
         font['OS/2'].fsSelection &= ~(1 << 6)
-
 
 def update_version_and_revision(font):
     """Update version and revision numbers."""

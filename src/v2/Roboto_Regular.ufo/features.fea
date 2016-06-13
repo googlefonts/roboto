@@ -926,23 +926,16 @@ feature locl {
 } locl;
 
 
-feature dlig {
-  sub f f by f_f;
-  sub longs t by longst;
-  sub s t by st;
-} dlig;
-
-
 feature liga {
   script latn; language dflt; #set comment (#) for FDK 2.5
 
   lookup liga01 {
-    sub f_f i by f_f_i;
+    sub f f i by f_f_i;
     sub f i by fi;
   } liga01;
 
   lookup liga02 {
-    sub f_f l by f_f_l;
+    sub f f l by f_f_l;
     sub f l by f_l;
   } liga02;
 
@@ -950,6 +943,13 @@ feature liga {
   lookup liga02;
 
 } liga;
+
+
+feature dlig {
+  sub f f by f_f;
+  sub longs t by longst;
+  sub s t by st;
+} dlig;
 
 
 feature salt {

@@ -33,7 +33,10 @@ def apply_web_specific_fixes(font, unhinted, family_name):
     os2.sTypoLineGap = 102
     os2.usWinAscent = 1946
     os2.usWinDescent = 512
+    apply_web_cros_common_fixes(font, unhinted, family_name)
 
+def apply_web_cros_common_fixes(font, unhinted, family_name):
+    """Apply fixes needed for web and CrOS targets"""
     subfamily_name = font_data.get_name_records(font)[2].encode('ASCII')
     assert(subfamily_name in
         ['Thin', 'Thin Italic',
@@ -115,6 +118,7 @@ def correct_font(source_name, unhinted_name, target_font_name, family_name):
     # correct for black weights and their bold bits will be set
     apply_web_specific_fixes(font, unhinted, family_name)
     temporary_touchups.apply_temporary_fixes(font)
+    temporary_touchups.update_version_and_revision(font)
     font.save(target_font_name)
 
 

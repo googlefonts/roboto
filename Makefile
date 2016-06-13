@@ -72,9 +72,14 @@ web:
 chromeos:
 	mkdir -p out/chromeos
 	for source in hinted/*.ttf; do \
+		basename=$$(basename $$source); \
+		case $$source in \
+			hinted/Roboto-*) unhinted=out/RobotoTTF/$$basename ;; \
+			*) unhinted=out/RobotoCondensedTTF/$$basename ;; \
+		esac; \
 		touched=$$(mktemp); \
 		final=out/chromeos/$$(basename $$source); \
-		python scripts/touchup_for_web.py $$source $$touched Roboto && \
+		python scripts/touchup_for_cros.py $$source $$unhinted $$touched Roboto && \
 		python $$HOME/noto/nototools/subset.py $$touched $$final && \
 		rm $$touched; \
 	done

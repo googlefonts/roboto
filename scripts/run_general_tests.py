@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=UTF-8
 #
 # Copyright 2015 Google Inc. All Rights Reserved.
 #
@@ -125,6 +126,15 @@ class TestCharacterCoverage(font_tests.TestCharacterCoverage):
 
 class TestLigatures(font_tests.TestLigatures):
     loaded_fonts = FONTS
+    active = (
+        (None, ('ffi', 'ffl')),
+        ('--features=dlig', ('ff', 'st', u'ſt')),
+    )
+    #TODO uncomment when working
+    #inactive = (
+    #    ('--language=TRK', ('fi', 'ffi')),
+    #)
+    inactive = ()
 
 
 class TestFeatures(font_tests.TestFeatures):

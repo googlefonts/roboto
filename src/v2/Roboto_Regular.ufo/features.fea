@@ -3,7 +3,7 @@ languagesystem latn dflt;
 languagesystem latn MOL;
 languagesystem latn ROM;
 languagesystem latn FRA;
-languagesystem latn TUR;
+languagesystem latn TRK;
 languagesystem latn AZE;
 languagesystem latn CRT;
 languagesystem latn NAV;
@@ -939,7 +939,26 @@ feature liga {
     sub f l by f_l;
   } liga02;
 
-  language TUR  exclude_dflt;
+  # include all ligatures for these languages
+  language FRA;  # French
+  lookup liga01;
+  lookup liga02;
+  language MOL;  # Moldavian
+  lookup liga01;
+  lookup liga02;
+  language NAV;  # Navajo
+  lookup liga01;
+  lookup liga02;
+  language ROM;  # Romanian
+  lookup liga01;
+  lookup liga02;
+
+  # don't include fi/ffi ligatures for these languages
+  language AZE  exclude_dflt;  # Azerbaijani
+  lookup liga02;
+  language CRT  exclude_dflt;  # Crimean Tatar
+  lookup liga02;
+  language TRK  exclude_dflt;  # Turkish
   lookup liga02;
 
 } liga;

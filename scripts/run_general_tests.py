@@ -127,14 +127,16 @@ class TestCharacterCoverage(font_tests.TestCharacterCoverage):
 class TestLigatures(font_tests.TestLigatures):
     loaded_fonts = FONTS
     active = (
-        (None, ('ffi', 'ffl')),
+        (None, ('fi', 'fl', 'ffi', 'ffl')),
+        ('--language=FRA', ('fi', 'fl', 'ffi', 'ffl')),
+        ('--language=TRK', ('fl', 'ffl')),
         ('--features=dlig', ('ff', 'st', u'ſt')),
     )
-    #TODO uncomment when working
-    #inactive = (
-    #    ('--language=TRK', ('fi', 'ffi')),
-    #)
-    inactive = ()
+    inactive = (
+        (None, ('ff', 'st', u'ſt')),
+        ('--language=TRK', ('fi', 'ffi')),
+        ('--script=arab', ('fi', 'fl', 'ffi', 'ffl')),
+    )
 
 
 class TestFeatures(font_tests.TestFeatures):

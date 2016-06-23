@@ -105,7 +105,7 @@ class TestVerticalMetrics(font_tests.TestVerticalMetrics):
     expected_os2_usWinAscent = 1946
 
 
-class TestLigatures(font_tests.TestLigatures):
+class TestLigatures(run_general_tests.TestLigatures):
     loaded_fonts = FONTS
 
 

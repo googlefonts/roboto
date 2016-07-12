@@ -64,6 +64,10 @@ def copyMarkAnchors(f, g, srcname, width):
 
 def generateGlyph(f,gname,glyphList={}):
     glyphName, baseName, accentNames, offset = parseComposite(gname)
+    if f.has_key(glyphName):
+        print('Existing glyph "%s" found in font, ignoring composition rule '
+              '"%s"' % (glyphName, gname))
+        return
 
     if baseName.find("_") != -1:
         g = f.newGlyph(glyphName)
@@ -73,10 +77,6 @@ def generateGlyph(f,gname,glyphList={}):
             setUnicodeValue(g, glyphList)
 
     else:
-        if f.has_key(glyphName):
-            print('Existing glyph "%s" found in font, ignoring composition '
-                  'rule "%s"' % (glyphName, gname))
-            return
         try:
             f.compileGlyph(glyphName, baseName, accentNames)
         except KeyError as e:

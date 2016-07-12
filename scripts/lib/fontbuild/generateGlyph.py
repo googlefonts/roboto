@@ -35,23 +35,16 @@ def parseComposite(composite):
 
 
 def copyMarkAnchors(f, g, srcname, width):
-    unicode_range = set(
-        range(0x0030, 0x02B0) + range(0x1E00, 0x1EFF) +
-        [0x430, 0x435, 0x440, 0x441, 0x445, 0x455, 0x456, 0x471])
-
     for anchor in f[srcname].anchors:
         if anchor.name in ("top_dd", "bottom_dd", "top0315"):
             g.appendAnchor(anchor.name, (anchor.x + width, anchor.y))
 
         if ("top" == anchor.name and
-                (g.unicode in unicode_range or
-                 g.name.endswith((".ccmp", ".smcp", ".NAV"))) and
-                not any(a.name == "parent_top" for a in g.anchors)):
+            not any(a.name == "parent_top" for a in g.anchors)):
             g.appendAnchor("parent_top", anchor.position)
 
         if ("bottom" == anchor.name and
-                (g.unicode in unicode_range or g.name.endswith(".smcp")) and
-                not any(a.name == "bottom" for a in g.anchors)):
+            not any(a.name == "bottom" for a in g.anchors)):
             g.appendAnchor("bottom", anchor.position)
 
     if any(a.name == "top" for a in g.anchors):

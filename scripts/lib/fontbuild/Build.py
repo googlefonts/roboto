@@ -34,22 +34,22 @@ from fontbuild.mix import Mix,Master,narrowFLGlyph
 
 
 class FontProject:
-    
-    def __init__(self, basefont, basedir, configfile, thinfont = None):
+
+    def __init__(self, basefont, basedir, configfile):
         self.basefont = basefont
-        self.thinfont = thinfont
         self.basedir = basedir
         self.config = ConfigParser.RawConfigParser()
-        self.configfile = self.basedir+"/"+configfile
+        self.configfile = os.path.join(self.basedir, configfile)
         self.config.read(self.configfile)
 
-        diacriticList = self.openResource("diacriticfile", splitlines=True)
-        self.diacriticList = [line.strip() for line in diacriticList if not line.startswith("#")]
-        adobeGlyphList = self.openResource("agl_glyphlistfile", splitlines=True)
-        self.adobeGlyphList = dict([line.split(";") for line in adobeGlyphList if not line.startswith("#")])
-        self.glyphOrder = self.openResource("glyphorder", splitlines=True)
-        self.thinGlyphOrder = self.openResource(
-            "glyphorder_thin", splitlines=True)
+        self.diacriticList = [
+            line.strip() for line in self.openResource("diacriticfile")
+            if not line.startswith("#")]
+        self.adobeGlyphList = dict(
+            line.split(";") for line in self.openResource("agl_glyphlistfile")
+            if not line.startswith("#"))
+        self.glyphOrder = self.openResource("glyphorder")
+        self.thinGlyphOrder = self.openResource("glyphorder_thin")
 
         # map exceptional glyph names in Roboto to names in the AGL
         roboNames = (
@@ -64,18 +64,16 @@ class FontProject:
         self.lessItalic = self.config.get("glyphs","lessitalic").split()
         self.deleteList = self.config.get("glyphs","delete").split()
         self.noItalic = self.config.get("glyphs","noitalic").split()
-        
+
         self.buildOTF = False
         self.compatible = False
         self.generatedFonts = []
 
-    def openResource(self, name, splitlines=False):
+    def openResource(self, name):
         with open(os.path.join(
                 self.basedir, self.config.get("res", name))) as resourceFile:
             resource = resourceFile.read()
-        if splitlines:
-            return resource.splitlines()
-        return resource
+        return resource.splitlines()
 
     def generateOutputPath(self, font, ext):
         family = font.info.familyName.replace(" ", "")
@@ -84,9 +82,9 @@ class FontProject:
         if not os.path.exists(path):
             os.makedirs(path)
         return os.path.join(path, "%s-%s.%s" % (family, style, ext))
-    
+
     def generateFont(self, mix, names, italic=False, swapSuffixes=None, stemWidth=185):
-        
+
         n = names.split("/")
         log("---------------------\n%s %s\n----------------------" %(n[0],n[1]))
         log(">> Mixing masters")
@@ -106,7 +104,7 @@ class FontProject:
             for g in f:
                 i += 1
                 if i % 10 == 0: print g.name
-                
+
                 if g.name == "uniFFFD":
                     continue
 
@@ -116,8 +114,6 @@ class FontProject:
                     italicizeGlyph(f, g, 9, stemWidth=stemWidth)
                 elif False == (g.name in self.noItalic):
                     italicizeGlyph(f, g, 10, stemWidth=stemWidth)
-                #elif g.name != ".notdef":
-                #    italicizeGlyph(g, 10, stemWidth=stemWidth)
                 if g.width != 0:
                     g.width += 10
 
@@ -211,6 +207,7 @@ def transformGlyphMembers(g, m):
         s.Transform(m)
         #c.scale = s
 
+
 def swapContours(f,gName1,gName2):
     try:
         g1 = f[gName1]
@@ -240,7 +237,7 @@ def log(msg):
 def generateGlyphs(f, glyphNames, glyphList={}):
     log(">> Generating diacritics")
     glyphnames = [gname for gname in glyphNames if not gname.startswith("#") and gname != ""]
-    
+
     for glyphName in glyphNames:
         generateGlyph(f, glyphName, glyphList)
 
@@ -252,7 +249,7 @@ def cleanCurves(f):
     # log(">> Mitring sharp corners")
     # for g in f:
     #     mitreGlyph(g, 3., .7)
-    
+
     # log(">> Converting curves to quadratic")
     # for g in f:
     #     glyphCurvesToQuadratic(g)

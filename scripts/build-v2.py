@@ -31,9 +31,9 @@ BASEDIR = os.path.abspath(
 
 # Masters
 
-rg = Master("%s/src/v2/Roboto_Regular.ufo" % BASEDIR)
-bd = Master("%s/src/v2/Roboto_Bold.ufo" % BASEDIR)
-th = Master("%s/src/v2/Roboto_Thin.ufo" % BASEDIR)
+rg = Master("%s/src/v2/Roboto-Regular.ufo" % BASEDIR)
+bd = Master("%s/src/v2/Roboto-Bold.ufo" % BASEDIR)
+th = Master("%s/src/v2/Roboto-Thin.ufo" % BASEDIR)
 
 lessCondensed = (
     "plusminus bracketleft bracketright dieresis macron "

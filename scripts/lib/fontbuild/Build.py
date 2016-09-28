@@ -29,7 +29,6 @@ from fontbuild.generateGlyph import generateGlyph
 from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
 from fontbuild.markFeature import RobotoFeatureCompiler, RobotoKernWriter
-from fontbuild.mitreGlyph import mitreGlyph
 from fontbuild.mix import Mix,Master,narrowFLGlyph
 
 
@@ -242,14 +241,6 @@ def cleanCurves(f):
     log(">> Removing overlaps")
     for g in f:
         removeGlyphOverlap(g)
-
-    # log(">> Mitring sharp corners")
-    # for g in f:
-    #     mitreGlyph(g, 3., .7)
-
-    # log(">> Converting curves to quadratic")
-    # for g in f:
-    #     glyphCurvesToQuadratic(g)
 
 
 def deleteGlyphs(f, deleteList):

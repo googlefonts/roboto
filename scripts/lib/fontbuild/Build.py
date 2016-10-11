@@ -178,9 +178,6 @@ class FontProject:
         for font in fonts:
             ttfName = self.generateOutputPath(font, "ttf")
             log(os.path.basename(ttfName))
-            for glyph in font:
-                for contour in glyph:
-                    contour.reverseContour()
             saveOTF(
                 font, ttfName,
                 self.thinGlyphOrder if "Thin" in ttfName else self.glyphOrder,

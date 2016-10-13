@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Amacron" format="1">
+  <advance width="1223"/>
+  <unicode hex="0100"/>
+  <outline>
+    <contour>
+      <point x="612" y="1612" type="move" name="parent_top"/>
+    </contour>
+    <contour>
+      <point x="638" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1223" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="1223" y="-407" type="move" name="bottom_dd"/>
+    </contour>
+    <contour>
+      <point x="1223" y="1612" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="612" y="1870" type="move" name="top"/>
+    </contour>
+    <component base="A"/>
+    <component base="macron" xOffset="199" yOffset="330"/>
+  </outline>
+</glyph>

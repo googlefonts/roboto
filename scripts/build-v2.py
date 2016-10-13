@@ -14,13 +14,11 @@
 
 
 import os
-import sys
 
 from fontTools.misc.transform import Transform
 from robofab.objects.objectsRF import RPoint
 
 from fontbuild.Build import FontProject
-from fontbuild.italics import condenseGlyph
 from fontbuild.italics import transformFLGlyphMembers
 from fontbuild.mix import Master
 from fontbuild.mix import Mix
@@ -35,41 +33,21 @@ rg = Master("%s/src/v2/Roboto-Regular.ufo" % BASEDIR)
 bd = Master("%s/src/v2/Roboto-Bold.ufo" % BASEDIR)
 th = Master("%s/src/v2/Roboto-Thin.ufo" % BASEDIR)
 
-lessCondensed = (
-    "plusminus bracketleft bracketright dieresis macron "
-    "percent multiply degree at i j "
-    "zero one two three four five six seven eight nine "
-    "braceright braceleft").split()
 uncondensed = (
     "tonos breve acute grave quotesingle quotedbl asterisk "
     "period currency registered copyright bullet ring degree "
     "dieresis comma bar brokenbar dotaccent dotbelow "
     "colon semicolon uniFFFC uniFFFD uni0488 uni0489 ringbelow "
     "estimated").split()
-moreCondensed = "z Z M W A V".split()
 
 
 def condenseFont(font, scale=.8, stemWidth=185):
     f = font.copy()
-
-    xscale = scale
-    CAPS = ("A B C.cn D.cn E F G.cn H I J K L M N O.cn P Q.cn R S T U.cn V W X "
-            "Y Z one two three four five six seven eight nine zero").split()
-    LC = ("a.cn b.cn c.cn d.cn e.cn f g.cn h i j k l m n o.cn p.cn q.cn r s t "
-          "u v w x y z").split()
-    # for g in [f[name] for name in LC]:
     for g in f:
-        if len(g) > 0:
-            if g.name in lessCondensed:
-                scale = xscale * 1.1
-            if g.name in uncondensed:
-                continue
-            if g.name in moreCondensed:
-                scale = xscale * .90
-            # g2 = condenseGlyph(g, xscale)
-            # g.clear()
-            # g2.drawPoints(g.getPointPen())
-        m = Transform(xscale, 0, 0, 1, 20, 0)
+        if g.name in uncondensed:
+            assert len(g) > 0
+            continue
+        m = Transform(scale, 0, 0, 1, 20, 0)
         g.transform(m)
         transformFLGlyphMembers(g, m, transformAnchors=False)
         if g.width != 0:

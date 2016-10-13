@@ -4,6 +4,12 @@
   <unicode hex="033B"/>
   <outline>
     <contour>
+      <point x="-575" y="0" type="move" name="_markbottom"/>
+    </contour>
+    <contour>
+      <point x="-575" y="-525" type="move" name="mkmkbottom_acc"/>
+    </contour>
+    <contour>
       <point x="-797" y="-525" type="line"/>
       <point x="-353" y="-525" type="line"/>
       <point x="-353" y="-81" type="line"/>
@@ -15,22 +21,16 @@
       <point x="-509" y="-369" type="line"/>
       <point x="-641" y="-369" type="line"/>
     </contour>
-    <contour>
-      <point x="-575" y="0" type="move" name="_markbottom"/>
-    </contour>
-    <contour>
-      <point x="-575" y="-525" type="move" name="mkmkbottom_acc"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

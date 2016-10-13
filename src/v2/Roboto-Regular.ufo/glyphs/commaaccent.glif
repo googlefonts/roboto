@@ -4,18 +4,6 @@
   <unicode hex="F6C3"/>
   <outline>
     <contour>
-      <point x="351" y="250" type="line"/>
-      <point x="161" y="250" type="line"/>
-      <point x="161" y="168" type="line" smooth="yes"/>
-      <point x="161" y="75"/>
-      <point x="136" y="-5"/>
-      <point x="86" y="-82" type="curve"/>
-      <point x="199" y="-158" type="line"/>
-      <point x="302" y="-75"/>
-      <point x="351" y="65"/>
-      <point x="351" y="171" type="curve" smooth="yes"/>
-    </contour>
-    <contour>
       <point x="257" y="366" type="move" name="_bottom"/>
     </contour>
     <contour>
@@ -26,6 +14,18 @@
     </contour>
     <contour>
       <point x="257" y="-158" type="move" name="mkmkbottom_acc"/>
+    </contour>
+    <contour>
+      <point x="351" y="250" type="line"/>
+      <point x="161" y="250" type="line"/>
+      <point x="161" y="168" type="line" smooth="yes"/>
+      <point x="161" y="75"/>
+      <point x="136" y="-5"/>
+      <point x="86" y="-82" type="curve"/>
+      <point x="199" y="-158" type="line"/>
+      <point x="302" y="-75"/>
+      <point x="351" y="65"/>
+      <point x="351" y="171" type="curve" smooth="yes"/>
     </contour>
   </outline>
 </glyph>

@@ -4,6 +4,9 @@
   <unicode hex="1DD3"/>
   <outline>
     <contour>
+      <point x="-581" y="1170" type="move" name="_marktop"/>
+    </contour>
+    <contour>
       <point x="-658" y="1387" type="line" name="hr00"/>
       <point x="-658" y="1340"/>
       <point x="-681" y="1314"/>
@@ -35,48 +38,34 @@
       <point x="-202" y="1256"/>
       <point x="-202" y="1387" type="curve"/>
     </contour>
-    <contour>
-      <point x="-581" y="1170" type="move" name="_marktop"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>1191</real>
+      <key>com.adobe.type.autohint</key>
+      <data>
+      </data>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>1191.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
     </dict>
-  </array>
-  <key>com.adobe.type.autohint</key>
-  <data>
-  <hintSetList>
-    <hintset pointTag="hr00">
-      <hstem pos="-21" width="252" />
-      <hstem pos="22" width="-21" />
-      <hstem pos="439" width="197" />
-      <hstem pos="744" width="358" />
-      <hstem pos="833" width="269" />
-      <vstem pos="4" width="322" />
-      <vstem pos="657" width="322" />
-    </hintset>
-  </hintSetList>
-  </data>
-  </dict>
   </lib>
 </glyph>

@@ -4,6 +4,9 @@
   <unicode hex="1DE7"/>
   <outline>
     <contour>
+      <point x="-587" y="1170" type="move" name="_marktop"/>
+    </contour>
+    <contour>
       <point x="-643" y="1191" type="curve" smooth="yes"/>
       <point x="-507" y="1191"/>
       <point x="-443" y="1294"/>
@@ -54,19 +57,16 @@
       <point x="-361" y="1354" type="curve" smooth="yes"/>
       <point x="-361" y="1754" type="line"/>
     </contour>
-    <contour>
-      <point x="-587" y="1170" type="move" name="_marktop"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

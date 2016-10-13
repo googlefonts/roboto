@@ -3,6 +3,15 @@
   <advance width="0"/>
   <outline>
     <contour>
+      <point x="-542" y="1256" type="move" name="_top"/>
+    </contour>
+    <contour>
+      <point x="-542" y="1256" type="move" name="_marktop"/>
+    </contour>
+    <contour>
+      <point x="-542" y="1566" type="move" name="mkmktop"/>
+    </contour>
+    <contour>
       <point x="-1138" y="1169" type="curve"/>
       <point x="-1128" y="1240" type="line"/>
       <point x="-1170" y="1264"/>
@@ -88,25 +97,16 @@
       <point x="-178" y="1353"/>
       <point x="-178" y="1503" type="curve"/>
     </contour>
-    <contour>
-      <point x="-542" y="1256" type="move" name="_top"/>
-    </contour>
-    <contour>
-      <point x="-542" y="1256" type="move" name="_marktop"/>
-    </contour>
-    <contour>
-      <point x="-542" y="1566" type="move" name="mkmktop"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>1</real>
-    <real>0.779</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.779</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

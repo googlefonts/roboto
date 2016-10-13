@@ -4,6 +4,30 @@
   <unicode hex="006E"/>
   <outline>
     <contour>
+      <point x="577" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="577" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="-92" y="1534" type="move" name="caron"/>
+    </contour>
+    <contour>
+      <point x="1059" y="0" type="move" name="right"/>
+    </contour>
+    <contour>
+      <point x="577" y="1290" type="move" name="marktop"/>
+    </contour>
+    <contour>
+      <point x="1153" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="1153" y="-407" type="move" name="bottom_dd"/>
+    </contour>
+    <contour>
+      <point x="1153" y="1290" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="416" y="851" type="line"/>
       <point x="396" y="1082" type="line"/>
       <point x="94" y="1082" type="line"/>
@@ -28,40 +52,16 @@
       <point x="296" y="907"/>
       <point x="296" y="576" type="curve"/>
     </contour>
-    <contour>
-      <point x="577" y="1290" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="577" y="10" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="-92" y="1534" type="move" name="caron"/>
-    </contour>
-    <contour>
-      <point x="1059" y="0" type="move" name="right"/>
-    </contour>
-    <contour>
-      <point x="577" y="1290" type="move" name="marktop"/>
-    </contour>
-    <contour>
-      <point x="1153" y="1600" type="move" name="top_dd"/>
-    </contour>
-    <contour>
-      <point x="1153" y="-407" type="move" name="bottom_dd"/>
-    </contour>
-    <contour>
-      <point x="1153" y="1290" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.798</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.798</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

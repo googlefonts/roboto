@@ -3,6 +3,9 @@
   <advance width="0"/>
   <outline>
     <contour>
+      <point x="-923" y="216" type="move" name="_markparenthesses.w3"/>
+    </contour>
+    <contour>
       <point x="-1463" y="0" type="curve"/>
       <point x="-1453" y="71" type="line"/>
       <point x="-1495" y="95"/>
@@ -66,19 +69,16 @@
       <point x="-151" y="95"/>
       <point x="-193" y="71" type="curve"/>
     </contour>
-    <contour>
-      <point x="-923" y="216" type="move" name="_markparenthesses.w3"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

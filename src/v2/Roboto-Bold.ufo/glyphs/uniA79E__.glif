@@ -39,28 +39,17 @@
     </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.939</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  <key>com.adobe.type.autohint</key>
-  <data>
-  <hintSetList>
-    <hintset pointTag="hr00">
-      <hstem pos="270" width="-270" />
-      <hstem pos="880" width="-271" />
-      <hstem pos="880" width="-164" />
-      <hstem pos="1434" width="21" />
-      <vstem pos="630" width="-322" />
-      <vstem pos="1139" width="-115" />
-      <vstem pos="1346" width="-322" />
-    </hintset>
-  </hintSetList>
-  </data>
-  </dict>
+    <dict>
+      <key>com.adobe.type.autohint</key>
+      <data>
+      </data>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

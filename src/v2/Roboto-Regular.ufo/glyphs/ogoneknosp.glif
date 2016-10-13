@@ -4,6 +4,9 @@
   <unicode hex="0328"/>
   <outline>
     <contour>
+      <point x="-568" y="0" type="move" name="_markbottom"/>
+    </contour>
+    <contour>
       <point x="-553" y="60" type="line"/>
       <point x="-744" y="-25"/>
       <point x="-823" y="-135"/>
@@ -25,19 +28,16 @@
       <point x="-566" y="-63"/>
       <point x="-481" y="0" type="curve"/>
     </contour>
-    <contour>
-      <point x="-568" y="0" type="move" name="_markbottom"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

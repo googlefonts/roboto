@@ -3,6 +3,12 @@
   <advance width="0"/>
   <outline>
     <contour>
+      <point x="-565" y="0" type="move" name="_markbottom"/>
+    </contour>
+    <contour>
+      <point x="-565" y="-526" type="move" name="mkmkbottom_acc"/>
+    </contour>
+    <contour>
       <point x="-777" y="-518" type="curve"/>
       <point x="-773" y="-485" type="line"/>
       <point x="-851" y="-459"/>
@@ -51,12 +57,6 @@
       <point x="-545" y="-470"/>
       <point x="-545" y="-373" type="curve" smooth="yes"/>
       <point x="-545" y="-70" type="line"/>
-    </contour>
-    <contour>
-      <point x="-565" y="0" type="move" name="_markbottom"/>
-    </contour>
-    <contour>
-      <point x="-565" y="-526" type="move" name="mkmkbottom_acc"/>
     </contour>
   </outline>
 </glyph>

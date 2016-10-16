@@ -14,107 +14,18 @@
 
 
 import os
-
-from fontTools.misc.transform import Transform
-from robofab.objects.objectsRF import RPoint
-
-from fontbuild.Build import FontProject
-from fontbuild.italics import transformFLGlyphMembers
-from fontbuild.mix import Master
-from fontbuild.mix import Mix
+import roboto_font_project
 
 # The root of the Roboto tree
 BASEDIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), os.pardir))
 
-# Masters
-
-rg = Master("%s/src/v2/Roboto-Regular.ufo" % BASEDIR)
-bd = Master("%s/src/v2/Roboto-Bold.ufo" % BASEDIR)
-th = Master("%s/src/v2/Roboto-Thin.ufo" % BASEDIR)
-
-uncondensed = (
-    "tonos breve acute grave quotesingle quotedbl asterisk "
-    "period currency registered copyright bullet ring degree "
-    "dieresis comma bar brokenbar dotaccent dotbelow "
-    "colon semicolon uniFFFC uniFFFD uni0488 uni0489 ringbelow "
-    "estimated").split()
-
-
-def condenseFont(font, scale=.8, stemWidth=185):
-    f = font.copy()
-    for g in f:
-        if g.name in uncondensed:
-            assert len(g) > 0
-            continue
-        m = Transform(scale, 0, 0, 1, 20, 0)
-        g.transform(m)
-        transformFLGlyphMembers(g, m, transformAnchors=False)
-        if g.width != 0:
-            g.width += 40
-    return f
-
-
-proj = FontProject(rg.font, BASEDIR, "res/roboto.cfg")
-
-FAMILYNAME = "Roboto"
-
-proj.buildOTF = True
-#proj.compatible = True
-
-proj.generateFont(th.font, "%s/Thin/Regular/Th" % FAMILYNAME)
-proj.generateFont(Mix([th, rg], 0.45), "%s/Light/Regular/Lt" % FAMILYNAME)
-proj.generateFont(Mix([th, rg], RPoint(0.90, 0.92)),
-                  "%s/Regular/Regular/Rg" % FAMILYNAME)
-proj.generateFont(Mix([rg, bd], 0.35), "%s/Medium/Regular/Lt" % FAMILYNAME)
-proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
-                  "%s/Bold/Bold/Rg" % FAMILYNAME)
-proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
-                  "%s/Black/Regular/Bk" % FAMILYNAME)
-
-proj.generateFont(th.font, "%s/Thin Italic/Italic/Th" % FAMILYNAME,
-                  italic=True, stemWidth=80)
-proj.generateFont(Mix([th, rg], 0.45), "%s/Light Italic/Italic/Lt" % FAMILYNAME,
-                  italic=True, stemWidth=120)
-proj.generateFont(Mix([th, rg], RPoint(0.90, 0.92)),
-                  "%s/Italic/Italic/Rg" % FAMILYNAME,
-                  italic=True, stemWidth=185)
-proj.generateFont(Mix([rg, bd], 0.35),
-                  "%s/Medium Italic/Italic/Lt" % FAMILYNAME,
-                  italic=True, stemWidth=230)
-proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
-                  "%s/Bold Italic/Bold Italic/Rg" % FAMILYNAME,
-                  italic=True, stemWidth=290)
-proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
-                  "%s/Black Italic/Italic/Bk" % FAMILYNAME,
-                  italic=True, stemWidth=290)
-
-# unfortunately some condensed forms (*.cn) of glyphs are not compatible with
-# their original forms, so we can't convert all fonts together compatibly
-proj.generateTTFs()
-
-thcn1 = Master(condenseFont(th.font, .84, 40))
-cn1 = Master(rg.ffont.addDiff(thcn1.ffont, th.ffont))
-bdcn1 = Master(bd.ffont.addDiff(thcn1.ffont, th.ffont))
-
-proj.generateFont(Mix([thcn1, cn1], RPoint(0.45, 0.47)),
-                  "%s Condensed/Light/Regular/Lt" % FAMILYNAME,
-                  swapSuffixes=[".cn"])
-proj.generateFont(Mix([thcn1, cn1], RPoint(0.9, 0.92)),
-                  "%s Condensed/Regular/Regular/Rg" % FAMILYNAME,
-                  swapSuffixes=[".cn"])
-proj.generateFont(Mix([cn1, bdcn1], RPoint(0.75, 0.75)),
-                  "%s Condensed/Bold/Bold/Rg" % FAMILYNAME,
-                  swapSuffixes=[".cn"])
-
-proj.generateFont(Mix([thcn1, cn1], RPoint(0.45, 0.47)),
-                  "%s Condensed/Light Italic/Italic/Lt" % FAMILYNAME,
-                  italic=True, swapSuffixes=[".cn"], stemWidth=120)
-proj.generateFont(Mix([thcn1, cn1], RPoint(0.9, 0.92)),
-                  "%s Condensed/Italic/Italic/Rg" % FAMILYNAME,
-                  italic=True, swapSuffixes=[".cn"], stemWidth=185)
-proj.generateFont(Mix([cn1, bdcn1], RPoint(0.75, 0.75)),
-                  "%s Condensed/Bold Italic/Bold Italic/Rg" % FAMILYNAME,
-                  italic=True, swapSuffixes=[".cn"], stemWidth=240)
-
-proj.generateTTFs()
+project = roboto_font_project.RobotoFontProject()
+srcdir = os.path.join(BASEDIR, 'src', 'v2')
+for family in ('Roboto', 'RobotoCondensed'):
+    designspace_path = os.path.join(srcdir, '%s.designspace' % family)
+    project.run_from_designspace(
+        designspace_path, output=('ufo', 'otf', 'ttf'), interpolate=True,
+        conversion_error=0.002, use_production_names=False,
+        fea_compiler=roboto_font_project.RobotoFeatureCompiler,
+        kern_writer=roboto_font_project.RobotoKernWriter)

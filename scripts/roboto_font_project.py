@@ -22,6 +22,9 @@ from ufo2ft.makeotfParts import FeatureOTFCompiler
 
 class RobotoFontProject(FontProject):
 
+    # glyphs with inconsistent components between masters
+    decompose_pre_interpolate = set(['pipedbl', 'pipedblbar', 'uni1AB5'])
+
     def __del__(self):
         # restore masters if some exception occurs
         self._restore_masters()
@@ -38,7 +41,10 @@ class RobotoFontProject(FontProject):
             for g in f: pass
 
         # do the decomposition
-        self.decompose_glyphs(ufos)
+        def decompose_filter(glyph):
+            return ((glyph and glyph.components) or
+                    glyph.name in self.decompose_pre_interpolate)
+        self.decompose_glyphs(ufos, decompose_filter)
 
         # write masters for interpolation
         for ufo in ufos:

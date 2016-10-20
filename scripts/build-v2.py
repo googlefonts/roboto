@@ -22,10 +22,29 @@ BASEDIR = os.path.abspath(
 
 project = roboto_font_project.RobotoFontProject()
 srcdir = os.path.join(BASEDIR, 'src', 'v2')
+
+class_values = (
+    ('Roboto', 'Thin', 250),
+    ('Roboto', 'Light', 300),
+    ('Roboto', 'Regular', 400),
+    ('Roboto', 'Medium', 500),
+    ('Roboto', 'Bold', 700),
+    ('Roboto', 'Black', 900),
+    ('RobotoCondensed', 'Light', 300),
+    ('RobotoCondensed', 'Regular', 400),
+    ('RobotoCondensed', 'Bold', 700),
+)
+instance_data = {'Roboto': [], 'RobotoCondensed': []}
+for family, style, weight_class in class_values:
+    instance_data[family].append((
+        os.path.join('instance_ufo', '%s-%s.ufo' % (family, style)),
+        {'customParameters': [{'name': 'weightClass', 'value': weight_class}]}))
+
 for family in ('Roboto', 'RobotoCondensed'):
     designspace_path = os.path.join(srcdir, '%s.designspace' % family)
     project.run_from_designspace(
         designspace_path, output=('ufo', 'otf', 'ttf'), interpolate=True,
-        conversion_error=0.002, use_production_names=False,
+        instance_data=instance_data[family], conversion_error=0.002,
+        use_production_names=False,
         fea_compiler=roboto_font_project.RobotoFeatureCompiler,
         kernWriter=roboto_font_project.RobotoKernWriter)

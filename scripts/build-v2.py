@@ -20,7 +20,7 @@ import roboto_font_project
 BASEDIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), os.pardir))
 
-project = roboto_font_project.RobotoFontProject()
+project = roboto_font_project.RobotoFontProject(BASEDIR)
 srcdir = os.path.join(BASEDIR, 'src', 'v2')
 
 class_values = (

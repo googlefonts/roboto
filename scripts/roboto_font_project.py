@@ -13,17 +13,32 @@
 # limitations under the License.
 
 
+import ConfigParser
+import os
+
+from defcon import Font
 from fontmake.font_project import FontProject
 from mutatorMath.ufo.document import DesignSpaceDocumentReader
 from robofab.world import OpenFont
 from ufo2ft.kernFeatureWriter import KernFeatureWriter
 from ufo2ft.makeotfParts import FeatureOTFCompiler
 
+from fontbuild.italics import italicizeGlyph
+
 
 class RobotoFontProject(FontProject):
 
     # glyphs with inconsistent components between masters
     decompose_pre_interpolate = set(['pipedbl', 'pipedblbar', 'uni1AB5'])
+
+    def __init__(self, basedir):
+        FontProject.__init__(self)
+        config = ConfigParser.RawConfigParser()
+        config.read(os.path.join(basedir, 'res', 'roboto.cfg'))
+        self.no_italic = config.get('glyphs', 'noitalic').split()
+        self.less_italic = config.get('glyphs', 'lessitalic').split()
+        stem_widths = config.get('params', 'stem_widths').splitlines()
+        self.stem_widths = dict(l.split() for l in stem_widths if l)
 
     def __del__(self):
         # restore masters if some exception occurs
@@ -51,7 +66,7 @@ class RobotoFontProject(FontProject):
             ufo.save()
         return designspace_path
 
-    def _pre_compile(self, ufos):
+    def _pre_compile(self, ufos, ufo_paths):
         # undo pre-interpolation changes (decomposition) to UFO sources
         self._restore_masters()
 
@@ -62,13 +77,32 @@ class RobotoFontProject(FontProject):
             ufo['Omega'].unicodes = [0x03A9, 0x2126]
             ufo.save()
 
-        #TODO append italicized UFOs to list
-        return ufos
+        # generate italic instances
+        ufos.extend(self._italicize(ufo) for ufo in ufos)
+        d = os.path.dirname(ufo_paths[0])
+        ufo_paths = [os.path.join(d, self._font_name(f) + '.ufo') for f in ufos]
+        return ufos, ufo_paths
 
     def _restore_masters(self):
         if hasattr(self, 'original_ufos'):
             for ufo in self.original_ufos:
                 ufo.save()
+
+    def _italicize(self, src_ufo):
+        ufo = Font(src_ufo.path)
+        self.remove_overlaps([ufo])
+        for glyph in ufo:
+            if glyph.name == "uniFFFD":
+                continue
+            angle = 9 if glyph.name in self.less_italic else 10
+            stem_width = self.stem_widths[self._font_name(ufo)]
+            if glyph.name not in self.no_italic:
+                italicizeGlyph(ufo, glyph, angle, stem_width)
+            if glyph.width != 0:
+                glyph.width += 10
+        ufo.styleName += ' Italic'
+        ufo.info.openTypeOS2Selection.append(9)
+        return ufo
 
 
 class RobotoFeatureCompiler(FeatureOTFCompiler):

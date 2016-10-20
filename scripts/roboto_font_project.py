@@ -21,6 +21,11 @@ from ufo2ft.makeotfParts import FeatureOTFCompiler
 
 
 class RobotoFontProject(FontProject):
+
+    def __del__(self):
+        # restore masters if some exception occurs
+        self._restore_masters()
+
     def _pre_interpolate(self, designspace_path):
         reader = DesignSpaceDocumentReader(designspace_path, ufoVersion=3)
         ufos = [OpenFont(p) for p in reader.getSourcePaths()]
@@ -35,10 +40,15 @@ class RobotoFontProject(FontProject):
 
     def _pre_compile(self, ufos):
         # undo pre-interpolation changes (decomposition) to UFO sources
-        for ufo in self.original_ufos:
-            ufo.save()
+        self._restore_masters()
+
         #TODO append italicized UFOs to list
         return ufos
+
+    def _restore_masters(self):
+        if hasattr(self, 'original_ufos'):
+            for ufo in self.original_ufos:
+                ufo.save()
 
 
 class RobotoFeatureCompiler(FeatureOTFCompiler):

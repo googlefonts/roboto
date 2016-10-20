@@ -55,6 +55,13 @@ class RobotoFontProject(FontProject):
         # undo pre-interpolation changes (decomposition) to UFO sources
         self._restore_masters()
 
+        # MutatorMath doesn't allow more than one glyph with same unicode value
+        #TODO fix upstream?
+        for ufo in ufos:
+            ufo['Delta'].unicodes = [0x0394, 0x2206]
+            ufo['Omega'].unicodes = [0x03A9, 0x2126]
+            ufo.save()
+
         #TODO append italicized UFOs to list
         return ufos
 

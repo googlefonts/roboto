@@ -27,13 +27,20 @@ class RobotoFontProject(FontProject):
         self._restore_masters()
 
     def _pre_interpolate(self, designspace_path):
+        # decompose glyphs with both contours and components
         reader = DesignSpaceDocumentReader(designspace_path, ufoVersion=3)
         ufos = [OpenFont(p) for p in reader.getSourcePaths()]
+
+        # first copy original UFO sources to be restored later
         self.original_ufos = [ufo.copy() for ufo in ufos]
         for f in self.original_ufos:
-            # make sure everything gets read, for re-writing later
+            # make sure everything gets read, so it will all get restored
             for g in f: pass
+
+        # do the decomposition
         self.decompose_glyphs(ufos)
+
+        # write masters for interpolation
         for ufo in ufos:
             ufo.save()
         return designspace_path

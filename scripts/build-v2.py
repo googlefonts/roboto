@@ -28,4 +28,4 @@ for family in ('Roboto', 'RobotoCondensed'):
         designspace_path, output=('ufo', 'otf', 'ttf'), interpolate=True,
         conversion_error=0.002, use_production_names=False,
         fea_compiler=roboto_font_project.RobotoFeatureCompiler,
-        kern_writer=roboto_font_project.RobotoKernWriter)
+        kernWriter=roboto_font_project.RobotoKernWriter)

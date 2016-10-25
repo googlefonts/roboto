@@ -31,12 +31,6 @@ def apply_temporary_fixes(font, is_for_cros=False):
         weight_number = 100
     font['OS/2'].usWeightClass = weight_number
 
-    # Set ascent, descent, and lineGap values to Android K values.
-    hhea = font['hhea']
-    hhea.ascent = 1900
-    hhea.descent = -500
-    hhea.lineGap = 0
-
     # Set bold bits for Black (macStyle bit 0, fsSelection bit 5)
     name_records = font_data.get_name_records(font)
     family_name = name_records[1]

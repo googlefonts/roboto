@@ -120,7 +120,8 @@ class MasterFontProject(FontProject):
                     swapContours(f, gname.replace(swap, ""), gname)
 
         setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
-                         version=self.config.get('main', 'version'))
+                         version=self.config.get('main', 'version'),
+                         master=True)
         deleteGlyphs(f, self.deleteList)
 
         print(">> Generating font files")

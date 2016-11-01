@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="glottalstopbarrev" format="1">
+  <advance width="1011.04"/>
+  <unicode hex="02A2"/>
+  <outline>
+    <contour>
+      <point x="711.01387161240382" y="1633" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="1179.5238716124038" y="1633" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="428.86076189018172" y="0" type="move" name="bottom"/>
+    </contour>
+    <component base="glottalstoprevinv"/>
+    <component base="crossbar" xOffset="57.92678887698176" yOffset="-490"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
+  </lib>
+</glyph>

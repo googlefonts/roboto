@@ -2,6 +2,8 @@
 <glyph name="Etatonos.smcp" format="1">
   <advance width="1145"/>
   <outline>
+    <component base="H.smcp" xOffset="50"/>
+    <component base="tonos" xOffset="-220" yOffset="-292"/>
     <contour>
       <point x="537" y="1320" type="move" name="parent_top"/>
     </contour>
@@ -20,7 +22,5 @@
     <contour>
       <point x="537" y="1320" type="move" name="top"/>
     </contour>
-    <component base="H.smcp" xOffset="50"/>
-    <component base="tonos" xOffset="-220" yOffset="-292"/>
   </outline>
 </glyph>

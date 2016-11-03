@@ -27,13 +27,6 @@ FONTS = font_tests.load_fonts(
     expected_count=18)
 
 
-class TestRobotoRegressions(run_general_tests.TestRobotoRegressions):
-    loaded_fonts = FONTS
-
-    # this bug is present in the hinted binaries and not fixed by the web target
-    test_upsilontonos_narrow = False
-
-
 class TestItalicAngle(run_general_tests.TestItalicAngle):
     loaded_fonts = FONTS
 
@@ -111,6 +104,15 @@ class TestLigatures(run_general_tests.TestLigatures):
 
 class TestFeatures(run_general_tests.TestFeatures):
     loaded_fonts = FONTS
+
+
+class TestGlyphBounds(run_general_tests.TestGlyphBounds):
+    loaded_fonts = FONTS
+
+    # a bug in which monotonic and polytonic glyphs extend too far left is
+    # fixed in the unhinted output, but still present in the hinted binaries and
+    # not fixed by the web target
+    should_not_exceed = ()
 
 
 class TestHints(font_tests.TestHints):

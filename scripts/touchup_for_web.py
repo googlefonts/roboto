@@ -26,14 +26,22 @@ import temporary_touchups
 
 def apply_web_specific_fixes(font, unhinted, family_name):
     """Apply fixes needed for web fonts."""
-    # Set OS/2 table values to old values
+
+    # set vertical metrics to old values
+    hhea = font['hhea']
+    hhea.ascent = 1900
+    hhea.descent = -500
+
     os2 = font['OS/2']
     os2.sTypoAscender = 1536
     os2.sTypoDescender = -512
     os2.sTypoLineGap = 102
     os2.usWinAscent = 1946
     os2.usWinDescent = 512
+
+    # correct anything else needed for both web and Chrome OS
     apply_web_cros_common_fixes(font, unhinted, family_name)
+
 
 def apply_web_cros_common_fixes(font, unhinted, family_name):
     """Apply fixes needed for web and CrOS targets"""

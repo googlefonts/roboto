@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="gravecomb" format="1">
-  <advance width="0.0"/>
+  <advance width="0"/>
   <unicode hex="0300"/>
   <outline>
+    <contour>
+      <point x="-453.99450132106546" y="1535.9839275831812" type="line"/>
+      <point x="-673.7925398224343" y="1535.9106985566561" type="line"/>
+      <point x="-467.7817136302026" y="1240.1108411220596" type="line"/>
+      <point x="-316.9228499746836" y="1240.0132251149375" type="line"/>
+    </contour>
     <contour>
       <point x="-392.94037617370896" y="1290" type="move" name="_top"/>
     </contour>
@@ -10,20 +16,116 @@
       <point x="-392.94037617370896" y="1290" type="move" name="_marktop"/>
     </contour>
     <contour>
-      <point x="-330.73883330781803" y="1650" type="move" name="mkmktop"/>
+      <point x="-330.738833307818" y="1650" type="move" name="mkmktop"/>
     </contour>
     <contour>
       <point x="-496.28773394910525" y="1388" type="move" name="parent_top"/>
     </contour>
-    <contour>
-      <point x="-453.99450132106546" y="1535.9839275831812" type="line"/>
-      <point x="-673.79253982243426" y="1535.9106985566561" type="line"/>
-      <point x="-467.7817136302026" y="1240.1108411220596" type="line"/>
-      <point x="-316.92284997468357" y="1240.0132251149375" type="line"/>
-    </contour>
   </outline>
   <lib>
     <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_top</string>
+              <key>x</key>
+              <real>-392.94037617370896</real>
+              <key>y</key>
+              <integer>1290</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_marktop</string>
+              <key>x</key>
+              <real>-392.94037617370896</real>
+              <key>y</key>
+              <integer>1290</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>mkmktop</string>
+              <key>x</key>
+              <real>-330.738833307818</real>
+              <key>y</key>
+              <integer>1650</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>parent_top</string>
+              <key>x</key>
+              <real>-496.28773394910525</real>
+              <key>y</key>
+              <integer>1388</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-453.99450132106546</real>
+                  <key>y</key>
+                  <real>1535.9839275831812</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-673.7925398224343</real>
+                  <key>y</key>
+                  <real>1535.9106985566561</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-467.7817136302026</real>
+                  <key>y</key>
+                  <real>1240.1108411220596</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-316.9228499746836</real>
+                  <key>y</key>
+                  <real>1240.0132251149375</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>gravecomb</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>0</integer>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.798</real>

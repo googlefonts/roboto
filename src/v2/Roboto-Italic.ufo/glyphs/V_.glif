@@ -4,33 +4,33 @@
   <unicode hex="0056"/>
   <outline>
     <contour>
-      <point x="797.86993317227825" y="1612" type="move" name="top"/>
+      <point x="561.714731053871" y="235.83301982653396" type="line"/>
+      <point x="473.4397868424443" y="0.0" type="line"/>
+      <point x="636.4258845696447" y="0.0" type="line"/>
+      <point x="1387.0211239655791" y="1455.7350926598529" type="line"/>
+      <point x="1158.882621411926" y="1455.7972977471466" type="line"/>
     </contour>
     <contour>
-      <point x="548.27780575924476" y="10" type="move" name="bottom"/>
+      <point x="377.3067166464305" y="1455.9990914483685" type="line"/>
+      <point x="164.27692948028982" y="1456.025642189848" type="line"/>
+      <point x="458.67844820638595" y="0.0" type="line"/>
+      <point x="608.7179210023795" y="0.0" type="line"/>
+      <point x="592.8521055249147" y="218.5335668298849" type="line"/>
     </contour>
     <contour>
-      <point x="1429.4103292216189" y="1600" type="move" name="top_dd"/>
+      <point x="797.8699331722783" y="1612" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="548.2778057592448" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1429.410329221619" y="1600" type="move" name="top_dd"/>
     </contour>
     <contour>
       <point x="1116.7190684738298" y="-407" type="move" name="bottom_dd"/>
     </contour>
     <contour>
       <point x="1431.2799331722783" y="1612" type="move" name="top0315"/>
-    </contour>
-    <contour>
-      <point x="561.71473105387099" y="235.83301982653396" type="line"/>
-      <point x="473.43978684244428" y="0.0" type="line"/>
-      <point x="636.42588456964472" y="0.0" type="line"/>
-      <point x="1387.0211239655791" y="1455.7350926598529" type="line"/>
-      <point x="1158.882621411926" y="1455.7972977471466" type="line"/>
-    </contour>
-    <contour>
-      <point x="377.30671664643052" y="1455.9990914483685" type="line"/>
-      <point x="164.27692948028982" y="1456.025642189848" type="line"/>
-      <point x="458.67844820638595" y="0.0" type="line"/>
-      <point x="608.71792100237951" y="0.0" type="line"/>
-      <point x="592.85210552491469" y="218.5335668298849" type="line"/>
     </contour>
   </outline>
   <lib>
@@ -62,6 +62,181 @@
           <real>555.0</real>
         </dict>
       </array>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>top</string>
+              <key>x</key>
+              <real>797.8699331722783</real>
+              <key>y</key>
+              <integer>1612</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>bottom</string>
+              <key>x</key>
+              <real>548.2778057592448</real>
+              <key>y</key>
+              <integer>10</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>top_dd</string>
+              <key>x</key>
+              <real>1429.410329221619</real>
+              <key>y</key>
+              <integer>1600</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>bottom_dd</string>
+              <key>x</key>
+              <real>1116.7190684738298</real>
+              <key>y</key>
+              <integer>-407</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>top0315</string>
+              <key>x</key>
+              <real>1431.2799331722783</real>
+              <key>y</key>
+              <integer>1612</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>561.714731053871</real>
+                  <key>y</key>
+                  <real>235.83301982653396</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>473.4397868424443</real>
+                  <key>y</key>
+                  <real>0.0</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>636.4258845696447</real>
+                  <key>y</key>
+                  <real>0.0</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>1387.0211239655791</real>
+                  <key>y</key>
+                  <real>1455.7350926598529</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>1158.882621411926</real>
+                  <key>y</key>
+                  <real>1455.7972977471466</real>
+                </dict>
+              </array>
+            </dict>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>377.3067166464305</real>
+                  <key>y</key>
+                  <real>1455.9990914483685</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>164.27692948028982</real>
+                  <key>y</key>
+                  <real>1456.025642189848</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>458.67844820638595</real>
+                  <key>y</key>
+                  <real>0.0</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>608.7179210023795</real>
+                  <key>y</key>
+                  <real>0.0</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>592.8521055249147</real>
+                  <key>y</key>
+                  <real>218.5335668298849</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>V</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <real>1273.61</real>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.6</real>

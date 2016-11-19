@@ -1,21 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="macronsubnosp" format="1">
-  <advance width="0.0"/>
+  <advance width="0"/>
   <unicode hex="0331"/>
   <outline>
-    <contour>
-      <point x="-648.80923810981824" y="0" type="move" name="_bottom"/>
-    </contour>
-    <contour>
-      <point x="-647.83923810981821" y="0" type="move" name="_markbottom"/>
-    </contour>
-    <contour>
-      <point x="-681.87730462254183" y="-197" type="move" name="mkmkbottom_acc"/>
-    </contour>
     <component base="macron" xOffset="-1215.411301626182" yOffset="-1600"/>
+    <contour>
+      <point x="-648.8092381098182" y="0" type="move" name="_bottom"/>
+    </contour>
+    <contour>
+      <point x="-647.8392381098182" y="0" type="move" name="_markbottom"/>
+    </contour>
+    <contour>
+      <point x="-681.8773046225418" y="-197" type="move" name="mkmkbottom_acc"/>
+    </contour>
   </outline>
   <lib>
     <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_bottom</string>
+              <key>x</key>
+              <real>-648.8092381098182</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_markbottom</string>
+              <key>x</key>
+              <real>-647.8392381098182</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>mkmkbottom_acc</string>
+              <key>x</key>
+              <real>-681.8773046225418</real>
+              <key>y</key>
+              <integer>-197</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-406.8152305327036</real>
+                  <key>y</key>
+                  <real>-164.20263022360723</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-958.2265542862699</real>
+                  <key>y</key>
+                  <real>-164.20069622269398</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-964.7278485934214</real>
+                  <key>y</key>
+                  <real>-216.7973697763939</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-413.316524839855</real>
+                  <key>y</key>
+                  <real>-216.79930377730852</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>macronsubnosp</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>0</integer>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.798</real>

@@ -4,18 +4,6 @@
   <unicode hex="F6C3"/>
   <outline>
     <contour>
-      <point x="227" y="215" type="move" name="_bottom"/>
-    </contour>
-    <contour>
-      <point x="170" y="116" type="move" name="_caron"/>
-    </contour>
-    <contour>
-      <point x="205" y="78" type="move" name="_right"/>
-    </contour>
-    <contour>
-      <point x="227" y="-203" type="move" name="mkmkbottom_acc"/>
-    </contour>
-    <contour>
       <point x="250" y="116" type="line"/>
       <point x="205" y="116" type="line"/>
       <point x="205" y="37" type="line" smooth="yes"/>
@@ -27,5 +15,175 @@
       <point x="250" y="-66"/>
       <point x="250" y="39" type="curve" smooth="yes"/>
     </contour>
+    <contour>
+      <point x="227" y="215" type="move" name="_bottom"/>
+    </contour>
+    <contour>
+      <point x="170" y="116" type="move" name="_caron"/>
+    </contour>
+    <contour>
+      <point x="205" y="78" type="move" name="_right"/>
+    </contour>
+    <contour>
+      <point x="227" y="-203" type="move" name="mkmkbottom_acc"/>
+    </contour>
   </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_bottom</string>
+              <key>x</key>
+              <integer>227</integer>
+              <key>y</key>
+              <integer>215</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_caron</string>
+              <key>x</key>
+              <integer>170</integer>
+              <key>y</key>
+              <integer>116</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_right</string>
+              <key>x</key>
+              <integer>205</integer>
+              <key>y</key>
+              <integer>78</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>mkmkbottom_acc</string>
+              <key>x</key>
+              <integer>227</integer>
+              <key>y</key>
+              <integer>-203</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>250</integer>
+                  <key>y</key>
+                  <integer>116</integer>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>205</integer>
+                  <key>y</key>
+                  <integer>116</integer>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <true/>
+                  <key>x</key>
+                  <integer>205</integer>
+                  <key>y</key>
+                  <integer>37</integer>
+                </dict>
+                <dict>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>205</integer>
+                  <key>y</key>
+                  <integer>-50</integer>
+                </dict>
+                <dict>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>186</integer>
+                  <key>y</key>
+                  <integer>-105</integer>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>curve</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>147</integer>
+                  <key>y</key>
+                  <integer>-171</integer>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>178</integer>
+                  <key>y</key>
+                  <integer>-203</integer>
+                </dict>
+                <dict>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>221</integer>
+                  <key>y</key>
+                  <integer>-146</integer>
+                </dict>
+                <dict>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <integer>250</integer>
+                  <key>y</key>
+                  <integer>-66</integer>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>curve</string>
+                  <key>smooth</key>
+                  <true/>
+                  <key>x</key>
+                  <integer>250</integer>
+                  <key>y</key>
+                  <integer>39</integer>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>commaaccent</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>426</integer>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
 </glyph>

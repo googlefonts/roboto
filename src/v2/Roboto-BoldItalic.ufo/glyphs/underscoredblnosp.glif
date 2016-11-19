@@ -1,29 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="underscoredblnosp" format="1">
-  <advance width="0.0"/>
+  <advance width="0"/>
   <unicode hex="0333"/>
   <outline>
     <contour>
-      <point x="-663.35923810981819" y="0" type="move" name="_markbottom"/>
-    </contour>
-    <contour>
-      <point x="-758.73493717085103" y="-552" type="move" name="mkmkbottom_acc"/>
-    </contour>
-    <contour>
-      <point x="-235.68451985865448" y="-82.099730652125217" type="line"/>
-      <point x="-1116.8206378993812" y="-82.083571525520611" type="line"/>
+      <point x="-235.68451985865448" y="-82.09973065212522" type="line"/>
+      <point x="-1116.8206378993812" y="-82.08357152552061" type="line"/>
       <point x="-1150.9428282365536" y="-274.90024006503967" type="line"/>
-      <point x="-269.80671019583099" y="-274.91639919164612" type="line"/>
+      <point x="-269.806710195831" y="-274.9163991916461" type="line"/>
     </contour>
     <contour>
-      <point x="-283.67516453422968" y="-359.09970793127422" type="line"/>
-      <point x="-1164.8112825749599" y="-359.08354880466567" type="line"/>
+      <point x="-283.6751645342297" y="-359.0997079312742" type="line"/>
+      <point x="-1164.81128257496" y="-359.08354880466567" type="line"/>
       <point x="-1198.9334729121383" y="-551.900217344206" type="line"/>
-      <point x="-317.79735487140204" y="-551.91637647077891" type="line"/>
+      <point x="-317.79735487140204" y="-551.9163764707789" type="line"/>
+    </contour>
+    <contour>
+      <point x="-663.3592381098182" y="0" type="move" name="_markbottom"/>
+    </contour>
+    <contour>
+      <point x="-758.734937170851" y="-552" type="move" name="mkmkbottom_acc"/>
     </contour>
   </outline>
   <lib>
     <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_markbottom</string>
+              <key>x</key>
+              <real>-663.3592381098182</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>mkmkbottom_acc</string>
+              <key>x</key>
+              <real>-758.734937170851</real>
+              <key>y</key>
+              <integer>-552</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-235.68451985865448</real>
+                  <key>y</key>
+                  <real>-82.09973065212522</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-1116.8206378993812</real>
+                  <key>y</key>
+                  <real>-82.08357152552061</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-1150.9428282365536</real>
+                  <key>y</key>
+                  <real>-274.90024006503967</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-269.806710195831</real>
+                  <key>y</key>
+                  <real>-274.9163991916461</real>
+                </dict>
+              </array>
+            </dict>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-283.6751645342297</real>
+                  <key>y</key>
+                  <real>-359.0997079312742</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-1164.81128257496</real>
+                  <key>y</key>
+                  <real>-359.08354880466567</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-1198.9334729121383</real>
+                  <key>y</key>
+                  <real>-551.900217344206</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-317.79735487140204</real>
+                  <key>y</key>
+                  <real>-551.9163764707789</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>underscoredblnosp</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>0</integer>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.798</real>

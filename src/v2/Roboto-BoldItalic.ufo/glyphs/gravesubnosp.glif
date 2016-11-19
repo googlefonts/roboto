@@ -1,18 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="gravesubnosp" format="1">
-  <advance width="0.0"/>
+  <advance width="0"/>
   <unicode hex="0316"/>
   <outline>
-    <contour>
-      <point x="-736.56424288120013" y="-390" type="move" name="mkmkbottom_acc"/>
-    </contour>
-    <contour>
-      <point x="-669.17923810981824" y="0" type="move" name="_markbottom"/>
-    </contour>
     <component base="grave" xOffset="-1169.9546863883784" yOffset="-1612"/>
+    <contour>
+      <point x="-736.5642428812001" y="-390" type="move" name="mkmkbottom_acc"/>
+    </contour>
+    <contour>
+      <point x="-669.1792381098182" y="0" type="move" name="_markbottom"/>
+    </contour>
   </outline>
   <lib>
     <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>mkmkbottom_acc</string>
+              <key>x</key>
+              <real>-736.5642428812001</real>
+              <key>y</key>
+              <integer>-390</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_markbottom</string>
+              <key>x</key>
+              <real>-669.1792381098182</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-647.8183676938017</real>
+                  <key>y</key>
+                  <real>-76.37289152790845</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-965.319589505749</real>
+                  <key>y</key>
+                  <real>-77.78256104828279</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-737.5125523413564</real>
+                  <key>y</key>
+                  <real>-389.8749905537002</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-499.241215661493</real>
+                  <key>y</key>
+                  <real>-388.5147792760599</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>gravesubnosp</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>0</integer>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.798</real>

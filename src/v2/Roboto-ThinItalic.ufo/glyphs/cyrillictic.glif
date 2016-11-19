@@ -3,7 +3,13 @@
   <advance width="395.76"/>
   <outline>
     <contour>
-      <point x="72.870761890181726" y="0" type="move" name="_right"/>
+      <point x="141.70440651988793" y="94.71319814373255" type="line"/>
+      <point x="87.88703246177455" y="94.71190618563973" type="line"/>
+      <point x="11.891391870828883" y="-351.71319814373214" type="line"/>
+      <point x="65.70876592894238" y="-351.7119061856394" type="line"/>
+    </contour>
+    <contour>
+      <point x="72.87076189018173" y="0" type="move" name="_right"/>
     </contour>
     <contour>
       <point x="125.25076189018172" y="0" type="move" name="_left"/>
@@ -11,11 +17,103 @@
     <contour>
       <point x="111.15550633632718" y="70" type="move" name="_bottom"/>
     </contour>
-    <contour>
-      <point x="141.70440651988793" y="94.713198143732555" type="line"/>
-      <point x="87.887032461774552" y="94.711906185639734" type="line"/>
-      <point x="11.891391870828883" y="-351.71319814373214" type="line"/>
-      <point x="65.708765928942384" y="-351.71190618563941" type="line"/>
-    </contour>
   </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_right</string>
+              <key>x</key>
+              <real>72.87076189018173</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_left</string>
+              <key>x</key>
+              <real>125.25076189018172</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_bottom</string>
+              <key>x</key>
+              <real>111.15550633632718</real>
+              <key>y</key>
+              <integer>70</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>141.70440651988793</real>
+                  <key>y</key>
+                  <real>94.71319814373255</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>87.88703246177455</real>
+                  <key>y</key>
+                  <real>94.71190618563973</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>11.891391870828883</real>
+                  <key>y</key>
+                  <real>-351.71319814373214</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>65.70876592894238</real>
+                  <key>y</key>
+                  <real>-351.7119061856394</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>cyrillictic</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <real>395.76</real>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
 </glyph>

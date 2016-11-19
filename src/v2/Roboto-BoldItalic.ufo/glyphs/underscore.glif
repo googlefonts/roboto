@@ -4,13 +4,95 @@
   <unicode hex="005F"/>
   <outline>
     <contour>
-      <point x="341.08799427434178" y="132" type="move" name="_bottom"/>
-    </contour>
-    <contour>
       <point x="776.5723507721367" y="0.0" type="line"/>
       <point x="-104.55201029187369" y="0.0" type="line"/>
       <point x="-148.57729860220627" y="-250.90690637471198" type="line"/>
-      <point x="732.54706246180228" y="-250.92498328651703" type="line"/>
+      <point x="732.5470624618023" y="-250.92498328651703" type="line"/>
+    </contour>
+    <contour>
+      <point x="341.0879942743418" y="132" type="move" name="_bottom"/>
     </contour>
   </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_bottom</string>
+              <key>x</key>
+              <real>341.0879942743418</real>
+              <key>y</key>
+              <integer>132</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>776.5723507721367</real>
+                  <key>y</key>
+                  <real>0.0</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-104.55201029187369</real>
+                  <key>y</key>
+                  <real>0.0</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-148.57729860220627</real>
+                  <key>y</key>
+                  <real>-250.90690637471198</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>732.5470624618023</real>
+                  <key>y</key>
+                  <real>-250.92498328651703</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>underscore</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <real>880.76</real>
+        </dict>
+      </dict>
+    </dict>
+  </lib>
 </glyph>

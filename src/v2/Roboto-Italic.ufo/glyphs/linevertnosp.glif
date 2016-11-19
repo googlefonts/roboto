@@ -1,21 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="linevertnosp" format="1">
-  <advance width="0.0"/>
+  <advance width="0"/>
   <unicode hex="030D"/>
   <outline>
+    <component base="linevert" xOffset="-691.61"/>
     <contour>
       <point x="-468.31249284292716" y="1185" type="move" name="_marktop"/>
     </contour>
     <contour>
-      <point x="-439.90954204514537" y="1355" type="move" name="parent_top"/>
+      <point x="-439.9095420451454" y="1355" type="move" name="parent_top"/>
     </contour>
     <contour>
-      <point x="-392.39447457814532" y="1630" type="move" name="mkmktop"/>
+      <point x="-392.3944745781453" y="1630" type="move" name="mkmktop"/>
     </contour>
-    <component base="linevert" xOffset="-691.61000000000001"/>
   </outline>
   <lib>
     <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_marktop</string>
+              <key>x</key>
+              <real>-468.31249284292716</real>
+              <key>y</key>
+              <integer>1185</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>parent_top</string>
+              <key>x</key>
+              <real>-439.9095420451454</real>
+              <key>y</key>
+              <integer>1355</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>mkmktop</string>
+              <key>x</key>
+              <real>-392.3944745781453</real>
+              <key>y</key>
+              <integer>1630</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-330.1190494299995</real>
+                  <key>y</key>
+                  <real>1558.9345233321515</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-477.05931471922236</real>
+                  <key>y</key>
+                  <real>1558.9432512454587</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-548.4267130763847</real>
+                  <key>y</key>
+                  <real>1151.0644549484612</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-401.4864477871616</real>
+                  <key>y</key>
+                  <real>1151.0557270351546</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>linevertnosp</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>0</integer>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.967</real>

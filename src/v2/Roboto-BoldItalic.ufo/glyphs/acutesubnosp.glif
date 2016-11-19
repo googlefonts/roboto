@@ -1,18 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="acutesubnosp" format="1">
-  <advance width="0.0"/>
+  <advance width="0"/>
   <unicode hex="0317"/>
   <outline>
-    <contour>
-      <point x="-765.66424288120015" y="-390" type="move" name="mkmkbottom_acc"/>
-    </contour>
-    <contour>
-      <point x="-698.27923810981827" y="0" type="move" name="_markbottom"/>
-    </contour>
     <component base="acute" xOffset="-1200.0246863883783" yOffset="-1612"/>
+    <contour>
+      <point x="-765.6642428812002" y="-390" type="move" name="mkmkbottom_acc"/>
+    </contour>
+    <contour>
+      <point x="-698.2792381098183" y="0" type="move" name="_markbottom"/>
+    </contour>
   </outline>
   <lib>
     <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>mkmkbottom_acc</string>
+              <key>x</key>
+              <real>-765.6642428812002</real>
+              <key>y</key>
+              <integer>-390</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>_markbottom</string>
+              <key>x</key>
+              <real>-698.2792381098183</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-1022.0992819580534</real>
+                  <key>y</key>
+                  <real>-389.55740323867985</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-744.8446679967228</real>
+                  <key>y</key>
+                  <real>-389.6164051593421</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-425.696412189631</real>
+                  <key>y</key>
+                  <real>-76.4876494335142</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-781.8977755519638</real>
+                  <key>y</key>
+                  <real>-76.39465685890582</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>acutesubnosp</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>0</integer>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.798</real>

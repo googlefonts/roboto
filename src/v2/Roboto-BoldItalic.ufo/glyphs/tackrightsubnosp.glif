@@ -1,29 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glyph name="tackrightsubnosp" format="1">
-  <advance width="0.0"/>
+  <advance width="0"/>
   <unicode hex="0319"/>
   <outline>
     <contour>
-      <point x="-688.57923810981822" y="0" type="move" name="_markbottom"/>
+      <point x="-926.5380839430386" y="-66.07086987838382" type="line"/>
+      <point x="-733.8766784846047" y="-66.05763319780128" type="line"/>
+      <point x="-815.1549096302768" y="-531.9288966581853" type="line"/>
+      <point x="-1007.816315088713" y="-531.9421333387869" type="line"/>
     </contour>
     <contour>
-      <point x="-780.49929590052375" y="-532" type="move" name="mkmkbottom_acc"/>
+      <point x="-446.3437776221309" y="-204.07970434384467" type="line"/>
+      <point x="-479.9369245986082" y="-393.90387486534786" type="line"/>
+      <point x="-965.5492455815587" y="-393.92006219271553" type="line"/>
+      <point x="-931.9560986050774" y="-204.09589167122127" type="line"/>
     </contour>
     <contour>
-      <point x="-926.5380839430386" y="-66.070869878383817" type="line"/>
-      <point x="-733.87667848460467" y="-66.05763319780128" type="line"/>
-      <point x="-815.15490963027685" y="-531.92889665818529" type="line"/>
-      <point x="-1007.8163150887131" y="-531.9421333387869" type="line"/>
+      <point x="-688.5792381098182" y="0" type="move" name="_markbottom"/>
     </contour>
     <contour>
-      <point x="-446.34377762213092" y="-204.07970434384467" type="line"/>
-      <point x="-479.93692459860819" y="-393.90387486534786" type="line"/>
-      <point x="-965.54924558155869" y="-393.92006219271553" type="line"/>
-      <point x="-931.95609860507739" y="-204.09589167122127" type="line"/>
+      <point x="-780.4992959005237" y="-532" type="move" name="mkmkbottom_acc"/>
     </contour>
   </outline>
   <lib>
     <dict>
+      <key>com.typemytype.robofont.layerData</key>
+      <dict>
+        <key>mask</key>
+        <dict>
+          <key>anchors</key>
+          <array>
+            <dict>
+              <key>name</key>
+              <string>_markbottom</string>
+              <key>x</key>
+              <real>-688.5792381098182</real>
+              <key>y</key>
+              <integer>0</integer>
+            </dict>
+            <dict>
+              <key>name</key>
+              <string>mkmkbottom_acc</string>
+              <key>x</key>
+              <real>-780.4992959005237</real>
+              <key>y</key>
+              <integer>-532</integer>
+            </dict>
+          </array>
+          <key>components</key>
+          <array>
+          </array>
+          <key>contours</key>
+          <array>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-926.5380839430386</real>
+                  <key>y</key>
+                  <real>-66.07086987838382</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-733.8766784846047</real>
+                  <key>y</key>
+                  <real>-66.05763319780128</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-815.1549096302768</real>
+                  <key>y</key>
+                  <real>-531.9288966581853</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-1007.816315088713</real>
+                  <key>y</key>
+                  <real>-531.9421333387869</real>
+                </dict>
+              </array>
+            </dict>
+            <dict>
+              <key>points</key>
+              <array>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-446.3437776221309</real>
+                  <key>y</key>
+                  <real>-204.07970434384467</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-479.9369245986082</real>
+                  <key>y</key>
+                  <real>-393.90387486534786</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-965.5492455815587</real>
+                  <key>y</key>
+                  <real>-393.92006219271553</real>
+                </dict>
+                <dict>
+                  <key>segmentType</key>
+                  <string>line</string>
+                  <key>smooth</key>
+                  <false/>
+                  <key>x</key>
+                  <real>-931.9560986050774</real>
+                  <key>y</key>
+                  <real>-204.09589167122127</real>
+                </dict>
+              </array>
+            </dict>
+          </array>
+          <key>lib</key>
+          <dict>
+          </dict>
+          <key>name</key>
+          <string>tackrightsubnosp</string>
+          <key>unicodes</key>
+          <array>
+          </array>
+          <key>width</key>
+          <integer>0</integer>
+        </dict>
+      </dict>
       <key>com.typemytype.robofont.mark</key>
       <array>
         <real>0.798</real>

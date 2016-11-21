@@ -9,24 +9,7 @@
       <point x="37" y="1028" type="line"/>
       <point x="1156" y="1028" type="line"/>
     </contour>
-    <contour>
-      <point x="999" y="776" type="line"/>
-      <point x="176" y="776" type="line"/>
-      <point x="176" y="722" type="line"/>
-      <point x="999" y="722" type="line"/>
-    </contour>
-    <contour>
-      <point x="199" y="1456" type="line"/>
-      <point x="154" y="1456" type="line"/>
-      <point x="154" y="0" type="line"/>
-      <point x="199" y="0" type="line"/>
-    </contour>
-    <contour>
-      <point x="1025" y="1456" type="line"/>
-      <point x="980" y="1456" type="line"/>
-      <point x="980" y="0" type="line"/>
-      <point x="1025" y="0" type="line"/>
-    </contour>
+    <component base="H" xOffset="-35"/>
     <contour>
       <point x="596" y="1612" type="move" name="top"/>
     </contour>
@@ -49,25 +32,25 @@
               <key>name</key>
               <string>top</string>
               <key>x</key>
-              <integer>596</integer>
+              <real>596.0</real>
               <key>y</key>
-              <integer>1612</integer>
+              <real>1612.0</real>
             </dict>
             <dict>
               <key>name</key>
               <string>bottom</string>
               <key>x</key>
-              <integer>596</integer>
+              <real>596.0</real>
               <key>y</key>
-              <integer>10</integer>
+              <real>10.0</real>
             </dict>
             <dict>
               <key>name</key>
               <string>top0315</string>
               <key>x</key>
-              <integer>1187</integer>
+              <real>1187.0</real>
               <key>y</key>
-              <integer>1612</integer>
+              <real>1612.0</real>
             </dict>
           </array>
           <key>components</key>

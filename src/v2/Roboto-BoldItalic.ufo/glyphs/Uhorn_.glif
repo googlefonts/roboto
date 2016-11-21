@@ -13,26 +13,7 @@
       <point x="1719.170591429182" y="1228.2545480760964"/>
       <point x="1735.505420212033" y="1539.780032232941" type="curve"/>
     </contour>
-    <contour>
-      <point x="1031.3151611685" y="1455.947116582763" type="line"/>
-      <point x="869.4065085822637" y="504.5338447697714" type="line" smooth="yes"/>
-      <point x="845.3382843017715" y="351.2491927995256"/>
-      <point x="755.7625371282685" y="242.84582045575587"/>
-      <point x="591.7866945558288" y="248.95511914040426" type="curve" smooth="yes"/>
-      <point x="437.5267496155892" y="254.70242962183087"/>
-      <point x="402.8568808093874" y="366.3554128149076"/>
-      <point x="419.86932266261397" y="503.84188059511985" type="curve" smooth="yes"/>
-      <point x="581.5680526208159" y="1455.926926817712" type="line"/>
-      <point x="253.37535809201995" y="1455.9474486444335" type="line"/>
-      <point x="91.80714605337495" y="504.76647153280334" type="line"/>
-      <point x="55.45743700893958" y="185.9119322366808"/>
-      <point x="263.56505290104303" y="-16.14468814586128"/>
-      <point x="575.2422099420203" y="-21.094576306887397" type="curve" smooth="yes"/>
-      <point x="912.474918213888" y="-26.450323920968167"/>
-      <point x="1148.930156913873" y="173.4078363227212"/>
-      <point x="1196.2512784942762" y="506.5422668268298" type="curve" smooth="yes"/>
-      <point x="1358.7464397016915" y="1455.947852403238" type="line"/>
-    </contour>
+    <component base="U"/>
     <contour>
       <point x="876.16544827856" y="1612" type="move" name="top"/>
     </contour>
@@ -57,7 +38,7 @@
               <key>x</key>
               <real>876.16544827856</real>
               <key>y</key>
-              <integer>1612</integer>
+              <real>1612.0</real>
             </dict>
             <dict>
               <key>name</key>
@@ -65,7 +46,7 @@
               <key>x</key>
               <real>595.912941255018</real>
               <key>y</key>
-              <integer>-10</integer>
+              <real>-10.0</real>
             </dict>
             <dict>
               <key>name</key>
@@ -73,7 +54,7 @@
               <key>x</key>
               <real>1600.75544827856</real>
               <key>y</key>
-              <integer>1612</integer>
+              <real>1612.0</real>
             </dict>
           </array>
           <key>components</key>
@@ -340,6 +321,13 @@
           <real>1425.8999999999999</real>
         </dict>
       </dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.1703</real>
+        <real>0.1669</real>
+        <real>0.8287</real>
+      </array>
     </dict>
   </lib>
 </glyph>

@@ -21,36 +21,8 @@
       <point x="821" y="-89" type="curve" smooth="yes"/>
       <point x="821" y="414" type="line"/>
     </contour>
-    <contour>
-      <point x="210" y="1536" type="line"/>
-      <point x="164" y="1536" type="line"/>
-      <point x="164" y="0" type="line"/>
-      <point x="210" y="0" type="line"/>
-    </contour>
-    <contour>
-      <point x="202" y="634" type="line"/>
-      <point x="210" y="763"/>
-      <point x="301" y="1049"/>
-      <point x="530" y="1049" type="curve" smooth="yes"/>
-      <point x="674" y="1049"/>
-      <point x="776" y="975"/>
-      <point x="776" y="700" type="curve" smooth="yes"/>
-      <point x="776" y="0" type="line"/>
-      <point x="821" y="0" type="line"/>
-      <point x="821" y="700" type="line" smooth="yes"/>
-      <point x="821" y="987"/>
-      <point x="716" y="1102"/>
-      <point x="532" y="1102" type="curve" smooth="yes"/>
-      <point x="335" y="1102"/>
-      <point x="201" y="904"/>
-      <point x="178" y="691" type="curve"/>
-    </contour>
-    <contour>
-      <point x="489" y="1315" type="line"/>
-      <point x="-4" y="1315" type="line"/>
-      <point x="-4" y="1261" type="line"/>
-      <point x="489" y="1261" type="line"/>
-    </contour>
+    <component base="h"/>
+    <component base="crossbar" xOffset="-114" yOffset="540"/>
   </outline>
   <lib>
     <dict>

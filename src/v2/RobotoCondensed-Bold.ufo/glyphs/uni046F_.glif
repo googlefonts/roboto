@@ -55,17 +55,7 @@
       <point x="640" y="578"/>
       <point x="350" y="578" type="curve" smooth="yes"/>
     </contour>
-    <contour>
-      <point x="307" y="1525" type="line"/>
-      <point x="40" y="1525" type="line"/>
-      <point x="40" y="1516" type="line"/>
-      <point x="325" y="1231" type="line"/>
-      <point x="521" y="1231" type="line"/>
-      <point x="804" y="1514" type="line"/>
-      <point x="804" y="1525" type="line"/>
-      <point x="539" y="1525" type="line"/>
-      <point x="423" y="1391" type="line"/>
-    </contour>
+    <component base="caron" xOffset="-20" yOffset="-11"/>
     <contour>
       <point x="420" y="1740" type="move" name="top"/>
     </contour>
@@ -85,17 +75,17 @@
               <key>name</key>
               <string>top</string>
               <key>x</key>
-              <integer>420</integer>
+              <real>420.0</real>
               <key>y</key>
-              <integer>1740</integer>
+              <real>1740.0</real>
             </dict>
             <dict>
               <key>name</key>
               <string>top0315</string>
               <key>x</key>
-              <integer>910</integer>
+              <real>910.0</real>
               <key>y</key>
-              <integer>1740</integer>
+              <real>1740.0</real>
             </dict>
           </array>
           <key>components</key>

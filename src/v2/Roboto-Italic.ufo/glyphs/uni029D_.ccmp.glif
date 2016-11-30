@@ -18,10 +18,10 @@
       <point x="555.4867237555289" y="111.38602098821306"/>
       <point x="559.9155044189202" y="228.4598953274657" type="curve"/>
       <point x="495.2412321519431" y="225.90510359615322"/>
-      <point x="430.0206268623053" y="224.55519998054564"/>
-      <point x="365.3050777195822" y="225.74596438557072" type="curve"/>
+      <point x="435" y="225"/>
+      <point x="370" y="226" type="curve"/>
       <point x="305.1257961677613" y="-166.80071933202905" type="line" smooth="yes"/>
-      <point x="292.33531340581095" y="-232.83516604986988"/>
+      <point x="294" y="-233"/>
       <point x="242.03533455076524" y="-282.21423079743585"/>
       <point x="171.62749640288854" y="-279.92670142043846" type="curve" smooth="yes"/>
       <point x="115.35746195184832" y="-278.0985050116656"/>
@@ -34,20 +34,15 @@
       <point x="705.377946139663" y="-11.913354730686308"/>
       <point x="715.6386886746265" y="41.96660672877149"/>
     </contour>
+    <component base="dotlessi" xOffset="287"/>
     <contour>
-      <point x="714.287315327108" y="1081.9363025137268" type="line"/>
-      <point x="518.8472268491726" y="1081.9458927551545" type="line"/>
-      <point x="330.89310774697384" y="0.0" type="line"/>
-      <point x="526.333196224819" y="0.0" type="line"/>
+      <point x="655.629623826291" y="1290.0" type="move" name="top"/>
     </contour>
     <contour>
-      <point x="655.629623826291" y="1290" type="move" name="top"/>
+      <point x="349.55379473617074" y="-459.0" type="move" name="bottom"/>
     </contour>
     <contour>
-      <point x="349.55379473617074" y="-459" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="949.5396238262911" y="1290" type="move" name="top0315"/>
+      <point x="949.5396238262911" y="1290.0" type="move" name="top0315"/>
     </contour>
   </outline>
   <lib>
@@ -64,7 +59,7 @@
               <key>x</key>
               <real>655.629623826291</real>
               <key>y</key>
-              <integer>1290</integer>
+              <real>1290.0</real>
             </dict>
             <dict>
               <key>name</key>
@@ -72,7 +67,7 @@
               <key>x</key>
               <real>349.55379473617074</real>
               <key>y</key>
-              <integer>-459</integer>
+              <real>-459.0</real>
             </dict>
             <dict>
               <key>name</key>
@@ -80,7 +75,7 @@
               <key>x</key>
               <real>949.5396238262911</real>
               <key>y</key>
-              <integer>1290</integer>
+              <real>1290.0</real>
             </dict>
           </array>
           <key>components</key>

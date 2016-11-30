@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Gsmallcaphook" format="2">
+  <advance width="1272"/>
+  <unicode hex="029B"/>
+  <anchor x="605" y="1290" name="top"/>
+  <anchor x="605" y="0" name="bottom"/>
+  <anchor x="1272" y="1290" name="top0315"/>
+  <outline>
+    <contour>
+      <point x="1069" y="739" type="line"/>
+      <point x="1069" y="850" type="line" smooth="yes"/>
+      <point x="1069" y="972"/>
+      <point x="1125" y="1017"/>
+      <point x="1223" y="1017" type="curve" smooth="yes"/>
+      <point x="1240" y="1017"/>
+      <point x="1265" y="1015"/>
+      <point x="1282" y="1010" type="curve"/>
+      <point x="1284" y="1137" type="line"/>
+      <point x="1255" y="1146"/>
+      <point x="1213" y="1152"/>
+      <point x="1183" y="1152" type="curve" smooth="yes"/>
+      <point x="1018" y="1152"/>
+      <point x="940" y="1045"/>
+      <point x="940" y="850" type="curve" smooth="yes"/>
+      <point x="940" y="739" type="line"/>
+    </contour>
+    <component base="Gsmallcap" xOffset="-22"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
+  </lib>
+</glyph>

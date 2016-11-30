@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="hturn" format="2">
+  <advance width="1126"/>
+  <unicode hex="0265"/>
+  <anchor x="559" y="1292" name="top"/>
+  <anchor x="559" y="-447" name="bottom"/>
+  <anchor x="1126" y="1292" name="top0315"/>
+  <outline>
+    <contour>
+      <point x="848" y="-416" type="line"/>
+      <point x="968" y="-416" type="line"/>
+      <point x="969" y="1082" type="line"/>
+      <point x="850" y="1082" type="line"/>
+    </contour>
+    <contour>
+      <point x="876" y="473" type="line"/>
+      <point x="871" y="312"/>
+      <point x="755" y="83"/>
+      <point x="526" y="84" type="curve"/>
+      <point x="370" y="84"/>
+      <point x="272" y="154"/>
+      <point x="272" y="377" type="curve" smooth="yes"/>
+      <point x="273" y="1082" type="line"/>
+      <point x="153" y="1082" type="line"/>
+      <point x="152" y="378" type="line" smooth="yes"/>
+      <point x="152" y="93"/>
+      <point x="281" y="-19"/>
+      <point x="498" y="-19" type="curve" smooth="yes"/>
+      <point x="746" y="-19"/>
+      <point x="914" y="189"/>
+      <point x="929" y="443" type="curve"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
+  </lib>
+</glyph>

@@ -4,11 +4,13 @@
   <unicode hex="00C6"/>
   <outline>
     <contour>
-      <point x="1062.214816202921" y="1287.7060744464957" type="line"/>
-      <point x="1107.267767173181" y="1455.8792448604152" type="line"/>
-      <point x="975.1382287417205" y="1455.649497532118" type="line"/>
-      <point x="-132.34391955323306" y="0.0" type="line"/>
-      <point x="119.18567028162455" y="0.0" type="line"/>
+      <point x="1062.0" y="1288.0" type="line"/>
+      <point x="1107.0" y="1456.0" type="line"/>
+      <point x="975.0" y="1456.0" type="line"/>
+      <point x="-132.0" y="0.0" type="line"/>
+      <point x="119.0" y="0.0" type="line"/>
+      <point x="439.0" y="437.0" type="line"/>
+      <point x="444.0" y="443.0" type="line"/>
     </contour>
     <contour>
       <point x="1082.739426697475" y="531.9080537649088" type="line"/>
@@ -41,13 +43,24 @@
       <point x="1896.3472238048973" y="1296.082110563136" type="line"/>
     </contour>
     <contour>
-      <point x="1081.80544827856" y="1612" type="move" name="top"/>
+      <point x="1081.80544827856" y="1612.0" type="move" name="top"/>
     </contour>
     <contour>
-      <point x="2040.032063516364" y="1600" type="move" name="top_dd"/>
+      <point x="2040.032063516364" y="1600.0" type="move" name="top_dd"/>
     </contour>
     <contour>
-      <point x="2042.1054482785603" y="1612" type="move" name="top0315"/>
+      <point x="2042.1054482785603" y="1612.0" type="move" name="top0315"/>
     </contour>
   </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.5163</real>
+        <real>0.5163</real>
+        <real>0.5163</real>
+        <real>1.0</real>
+      </array>
+    </dict>
+  </lib>
 </glyph>

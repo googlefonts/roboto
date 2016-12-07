@@ -4,11 +4,11 @@
   <unicode hex="03B5"/>
   <outline>
     <contour>
-      <point x="524.4050025296898" y="572.0272697837802" type="line" smooth="yes"/>
-      <point x="329.91302704393536" y="570.0790078198258"/>
-      <point x="93.18233103278118" y="515.4938455305845"/>
+      <point x="521" y="572" type="line" smooth="yes"/>
+      <point x="327" y="572"/>
+      <point x="93" y="511"/>
       <point x="58.04825513971447" y="290.1606183806807" type="curve" smooth="yes"/>
-      <point x="23.36037281371334" y="67.68906423183779"/>
+      <point x="23" y="68"/>
       <point x="246.87553302593702" y="-19.777429180148854"/>
       <point x="431.38026251300437" y="-19.881111800818122" type="curve" smooth="yes"/>
       <point x="639.990311269044" y="-19.99834043020394"/>
@@ -45,11 +45,11 @@
       <point x="797.2231854682345" y="1101.6714223841018"/>
       <point x="615.7415508469687" y="1101.8975237421207" type="curve" smooth="yes"/>
       <point x="420.7218427658904" y="1102.1404916927324"/>
-      <point x="198.19339670684545" y="1019.1539559602334"/>
+      <point x="201" y="1019"/>
       <point x="165.26252473930685" y="802.1669734785163" type="curve" smooth="yes"/>
-      <point x="134.11809285383592" y="596.9511412771307"/>
-      <point x="367.57802848470726" y="533.2895131204273"/>
-      <point x="526.3595532098312" y="531.1308319832041" type="curve" smooth="yes"/>
+      <point x="134" y="612"/>
+      <point x="350" y="531"/>
+      <point x="508" y="531" type="curve" smooth="yes"/>
     </contour>
     <contour>
       <point x="653.5168417627747" y="1289" type="move" name="top"/>
@@ -86,6 +86,13 @@
           <key>y</key>
           <real>444.0</real>
         </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.5163</real>
+        <real>0.5163</real>
+        <real>0.5163</real>
+        <real>1.0</real>
       </array>
     </dict>
   </lib>

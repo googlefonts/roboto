@@ -4,24 +4,56 @@
   <unicode hex="01AF"/>
   <outline>
     <contour>
-      <point x="1523.1013827027575" y="1536.6927095064189" type="line"/>
-      <point x="1495.5196763353276" y="1351.5774132648241"/>
-      <point x="1416.4966692693683" y="1241.8327854784802"/>
-      <point x="1218.6003749086365" y="1239.083900012708" type="curve"/>
-      <point x="1204.1349110870194" y="1097.2260081212667" type="line"/>
-      <point x="1498.550110652231" y="1101.8868213268456"/>
-      <point x="1656.0124123748296" y="1244.392377982101"/>
-      <point x="1684.2920255504544" y="1537.6788725687802" type="curve"/>
-    </contour>
-    <component base="U"/>
-    <contour>
-      <point x="850.9454482785602" y="1612" type="move" name="top"/>
+      <point x="1523" y="1537" type="line"/>
+      <point x="1496" y="1352"/>
+      <point x="1416" y="1236"/>
+      <point x="1219" y="1239" type="curve"/>
+      <point x="1204" y="1097" type="line"/>
+      <point x="1499" y="1102"/>
+      <point x="1657" y="1245"/>
+      <point x="1684" y="1538" type="curve"/>
     </contour>
     <contour>
-      <point x="570.6929412550181" y="-10" type="move" name="bottom"/>
+      <point x="1106.0" y="1456.0" type="line"/>
+      <point x="938.0" y="471.0" type="line" smooth="yes"/>
+      <point x="907.0" y="270.0"/>
+      <point x="770.0" y="140.0"/>
+      <point x="562.0" y="146.0" type="curve" smooth="yes"/>
+      <point x="367.0" y="152.0"/>
+      <point x="291.0" y="287.0"/>
+      <point x="313.0" y="470.0" type="curve" smooth="yes"/>
+      <point x="480.0" y="1456.0" type="line"/>
+      <point x="279.0" y="1456.0" type="line"/>
+      <point x="112.0" y="471.0" type="line"/>
+      <point x="78.0" y="178.0"/>
+      <point x="264.0" y="-15.0"/>
+      <point x="553.0" y="-21.0" type="curve" smooth="yes"/>
+      <point x="859.0" y="-27.0"/>
+      <point x="1098.0" y="168.0"/>
+      <point x="1142.0" y="472.0" type="curve" smooth="yes"/>
+      <point x="1260.0" y="1165.0" type="line"/>
+      <point x="1264.0" y="1188.0" type="line"/>
+      <point x="1310.0" y="1456.0" type="line"/>
     </contour>
     <contour>
-      <point x="1562.92544827856" y="1612" type="move" name="top0315"/>
+      <point x="850.9454482785602" y="1612.0" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="570.6929412550181" y="-10.0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1562.92544827856" y="1612.0" type="move" name="top0315"/>
     </contour>
   </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.5163</real>
+        <real>0.5163</real>
+        <real>0.5163</real>
+        <real>1.0</real>
+      </array>
+    </dict>
+  </lib>
 </glyph>

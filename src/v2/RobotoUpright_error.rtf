@@ -1,0 +1,30 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf0 \CocoaLigature0 (env) Erins-MBP:v2 erinmclaughlin$ fontmake -m RobotoUpright.designspace -o variable;\
+INFO:fontmake:Building interpolation-compatible TTFs\
+INFO:fontmake:Converting curves compatibly\
+Traceback (most recent call last):\
+  File "/Users/erinmclaughlin/env/bin/fontmake", line 11, in <module>\
+    load_entry_point('fontmake', 'console_scripts', 'fontmake')()\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/__main__.py", line 116, in main\
+    project.run_from_designspace(designspace_path, **args)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 371, in run_from_designspace\
+    interpolate_layout_from=interpolate_layout_from, **kwargs)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 436, in run_from_ufos\
+    **kwargs)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 189, in build_interpolatable_ttfs\
+    conversion_error=conversion_error)\
+  File "/Users/erinmclaughlin/env/lib/python2.7/site-packages/fontTools/misc/loggingTools.py", line 372, in wrapper\
+    return func(*args, **kwds)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 149, in convert_curves\
+    reverse_direction=reverse_direction, dump_stats=True)\
+  File "/Users/erinmclaughlin/env/lib/python2.7/site-packages/cu2qu/ufo.py", line 195, in fonts_to_quadratic\
+    _fonts_to_quadratic(fonts, max_errors, reverse_direction, stats)\
+  File "/Users/erinmclaughlin/env/lib/python2.7/site-packages/cu2qu/ufo.py", line 155, in _fonts_to_quadratic\
+    'Incompatible glyphs "%s"' % name)\
+AssertionError: Incompatible glyphs "uniAB56"\
+(env) Erins-MBP:v2 erinmclaughlin$ }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="bbar" format="1">
+  <advance width="1072"/>
+  <unicode hex="0180"/>
+  <outline>
+    <contour>
+      <point x="501" y="-10" type="move" name="markbottom"/>
+    </contour>
+    <contour>
+      <point x="731" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="441" y="1302" type="move" name="parenthesses.w2"/>
+    </contour>
+    <contour>
+      <point x="1189" y="1600" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="501" y="-10" type="move" name="bottom"/>
+    </contour>
+    <component base="b" xOffset="79"/>
+    <component base="crossbar" xOffset="-26" yOffset="555"/>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.798</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
+  </lib>
+</glyph>

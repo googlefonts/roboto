@@ -23,6 +23,24 @@
                 <dimension name="weight" xvalue="200.0" yvalue="200.0" />
             </location>
         </source>
+        <source familyname="Roboto Condensed" filename="RobotoCondensed-ThinItalic.ufo" name="Roboto Condensed Thin Italic" stylename="Thin Italic">
+            <location>
+                <dimension name="width" xvalue="84.0" />
+                <dimension name="weight" xvalue="0.0" yvalue="0.0" />
+            </location>
+        </source>
+        <source familyname="Roboto Condensed" filename="RobotoCondensed-Italic.ufo" name="Roboto Condensed Italic" stylename="Italic">
+            <location>
+                <dimension name="width" xvalue="84.0" />
+                <dimension name="weight" xvalue="100.0" yvalue="100.0" />
+            </location>
+        </source>
+        <source familyname="Roboto Condensed" filename="RobotoCondensed-BoldItalic.ufo" name="Roboto Condensed Bold Italic" stylename="Bold Italic">
+            <location>
+                <dimension name="width" xvalue="84.0" />
+                <dimension name="weight" xvalue="200.0" yvalue="200.0" />
+            </location>
+        </source>
     </sources>
     <instances>
         <instance familyname="Roboto" filename="../../instance_ufo/Roboto-ThinItalic.ufo" name="Roboto Thin Italic" stylename="Thin Italic">
@@ -69,6 +87,30 @@
             <location>
                 <dimension name="width" xvalue="100.0" />
                 <dimension name="weight" xvalue="212.5" yvalue="200.0" />
+            </location>
+            <info />
+            <kerning />
+        </instance>
+        <instance familyname="Roboto Condensed" filename="../../instance_ufo/RobotoCondensed-LightItalic.ufo" name="Roboto Condensed Light Italic" stylename="Light Italic">
+            <location>
+                <dimension name="width" xvalue="84.0" />
+                <dimension name="weight" xvalue="45.0" yvalue="47.0" />
+            </location>
+            <info />
+            <kerning />
+        </instance>
+        <instance familyname="Roboto Condensed" filename="../../instance_ufo/RobotoCondensed-Italic.ufo" name="Roboto Condensed Italic" stylename="Italic">
+            <location>
+                <dimension name="width" xvalue="84.0" />
+                <dimension name="weight" xvalue="90.0" yvalue="92.0" />
+            </location>
+            <info />
+            <kerning />
+        </instance>
+        <instance familyname="Roboto Condensed" filename="../../instance_ufo/RobotoCondensed-BoldItalic.ufo" name="Roboto Condensed Bold Italic" stylename="Bold Italic">
+            <location>
+                <dimension name="width" xvalue="84.0" />
+                <dimension name="weight" xvalue="175.0" yvalue="175.0" />
             </location>
             <info />
             <kerning />

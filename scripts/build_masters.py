@@ -62,7 +62,7 @@ def generateCondensedMasters(proj):
     bdcn1 = Master(bd.ffont.addDiff(thcn1.ffont, th.ffont))
 
     proj.generateFont(Mix([thcn1, cn1], 0),
-                      "%s Condensed/Light/Regular/Lt" % FAMILYNAME,
+                      "%s Condensed/Thin/Regular/Th" % FAMILYNAME,
                       swapSuffixes=[".cn"])
     proj.generateFont(Mix([thcn1, cn1], 1),
                       "%s Condensed/Regular/Regular/Rg" % FAMILYNAME,
@@ -81,6 +81,43 @@ def generateItalicMasters(proj):
                       italic=True, stemWidth=200)
     proj.generateFont(bd.font, "%s/Bold Italic/Bold Italic/Rg" % FAMILYNAME,
                       italic=True, stemWidth=320)
+
+
+def generateCondensedItalicFromItalic():
+    rg = Master("%s/src/v2/Roboto-Italic.ufo" % BASEDIR)
+    bd = Master("%s/src/v2/Roboto-BoldItalic.ufo" % BASEDIR)
+    th = Master("%s/src/v2/Roboto-ThinItalic.ufo" % BASEDIR)
+    proj = MasterFontProject(rg.font, BASEDIR, "res/roboto.cfg")
+
+    thcn1 = Master(condenseFont(th.font, .84, 40))
+    cn1 = Master(rg.ffont.addDiff(thcn1.ffont, th.ffont))
+    bdcn1 = Master(bd.ffont.addDiff(thcn1.ffont, th.ffont))
+
+    proj.generateFont(Mix([thcn1, cn1], 0),
+                      "%s Condensed/Thin Italic/Italic/Th" % FAMILYNAME,
+                      swapSuffixes=[".cn"])
+    proj.generateFont(Mix([thcn1, cn1], 1),
+                      "%s Condensed/Italic/Italic/Rg" % FAMILYNAME,
+                      swapSuffixes=[".cn"])
+    proj.generateFont(Mix([cn1, bdcn1], 1),
+                      "%s Condensed/Bold Italic/Bold Italic/Rg" % FAMILYNAME,
+                      swapSuffixes=[".cn"])
+
+
+def generateCondensedItalicFromCondensed(proj):
+    thcn1 = Master(condenseFont(th.font, .84, 40))
+    cn1 = Master(rg.ffont.addDiff(thcn1.ffont, th.ffont))
+    bdcn1 = Master(bd.ffont.addDiff(thcn1.ffont, th.ffont))
+
+    proj.generateFont(Mix([thcn1, cn1], 0),
+                      "%s Condensed/Thin Italic/Italic/Th" % FAMILYNAME,
+                      italic=True, swapSuffixes=[".cn"], stemWidth=80)
+    proj.generateFont(Mix([thcn1, cn1], 1),
+                      "%s Condensed/Italic/Italic/Rg" % FAMILYNAME,
+                      italic=True, swapSuffixes=[".cn"], stemWidth=200)
+    proj.generateFont(Mix([cn1, bdcn1], 1),
+                      "%s Condensed/Bold Italic/Bold Italic/Rg" % FAMILYNAME,
+                      italic=True, swapSuffixes=[".cn"], stemWidth=260)
 
 
 class MasterFontProject(FontProject):
@@ -140,5 +177,9 @@ if __name__ == '__main__':
         generateCondensedMasters(proj)
     elif cmd == 'masters-italic':
         generateItalicMasters(proj)
+    elif cmd == 'masters-condenseditalic-fromitalic':
+        generateCondensedItalicFromItalic()
+    elif cmd == 'masters-condenseditalic-fromcondensed':
+        generateCondensedItalicFromCondensed(proj)
     else:
         print 'Unrecognized command "%s"' % cmd

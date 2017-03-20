@@ -102,10 +102,6 @@ class TestLigatures(run_general_tests.TestLigatures):
     loaded_fonts = FONTS
 
 
-class TestFeatures(run_general_tests.TestFeatures):
-    loaded_fonts = FONTS
-
-
 class TestGlyphBounds(run_general_tests.TestGlyphBounds):
     loaded_fonts = FONTS
 

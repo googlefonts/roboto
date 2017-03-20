@@ -64,9 +64,11 @@ web:
 			src/hinted/Roboto-*) unhinted=out/RobotoTTF/$$basename ;; \
 			*) unhinted=out/RobotoCondensedTTF/$$basename ;; \
 		esac; \
-		final=out/web/$$basename; \
-		python scripts/touchup_for_web.py $$source $$unhinted $$final Roboto; \
-		if [[ $$? -ne 0 ]]; then exit 1; fi; \
+		touched=$$(mktemp); \
+		final=out/web/$$(basename $$source); \
+		python scripts/touchup_for_web.py $$source $$unhinted $$touched Roboto && \
+		python scripts/subset_for_web.py $$touched $$final && \
+		rm $$touched; \
 	done
 
 chromeos:

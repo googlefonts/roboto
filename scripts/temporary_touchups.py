@@ -20,7 +20,7 @@ from nototools import noto_fonts
 
 import roboto_data
 
-def apply_temporary_fixes(font, is_for_cros=False):
+def apply_temporary_fixes(font, is_for_cros=False, is_for_web=False):
     """Apply some temporary fixes."""
     # Fix usWeight:
     font_name = font_data.font_name(font)
@@ -32,12 +32,13 @@ def apply_temporary_fixes(font, is_for_cros=False):
     font['OS/2'].usWeightClass = weight_number
 
     # Set bold bits for Black (macStyle bit 0, fsSelection bit 5)
-    name_records = font_data.get_name_records(font)
-    family_name = name_records[1]
-    if family_name.endswith('Black'):
-        font['head'].macStyle |= (1 << 0)
-        font['OS/2'].fsSelection |= (1 << 5)
-        font['OS/2'].fsSelection &= ~(1 << 6)
+    if is_for_web is False:
+        name_records = font_data.get_name_records(font)
+        family_name = name_records[1]
+        if family_name.endswith('Black'):
+            font['head'].macStyle |= (1 << 0)
+            font['OS/2'].fsSelection |= (1 << 5)
+            font['OS/2'].fsSelection &= ~(1 << 6)
 
 def update_version_and_revision(font):
     """Update version and revision numbers."""

@@ -123,7 +123,7 @@ def correct_font(source_name, unhinted_name, target_font_name, family_name):
     # apply web-specific fixes before shared, so that sub/family names are
     # correct for black weights and their bold bits will be set
     apply_web_specific_fixes(font, unhinted, family_name)
-    temporary_touchups.apply_temporary_fixes(font)
+    temporary_touchups.apply_temporary_fixes(font, is_for_web=True)
     temporary_touchups.update_version_and_revision(font)
     font.save(target_font_name)
 

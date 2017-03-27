@@ -93,9 +93,7 @@ def apply_web_cros_common_fixes(font, unhinted, family_name):
     # hotpatch glyphs by swapping
     # https://github.com/google/roboto/issues/18
     glyf = font['glyf']
-    tmp = glyf['chi']
-    glyf['chi'] = glyf['chi.alt']
-    glyf['chi.alt'] = tmp
+    glyf['chi'], glyf['chi.alt'] = glyf['chi.alt'], glyf['chi']
 
     # make glyph orders consistent for feature copying
     # https://github.com/google/roboto/issues/71

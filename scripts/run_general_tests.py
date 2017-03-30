@@ -26,7 +26,7 @@ import roboto_data
 
 FONTS = font_tests.load_fonts(
     ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
-    expected_count=18)
+    expected_count=20)
 
 UFO_MASTERS = font_tests.load_fonts(
     ['src/v2/*.ufo'],

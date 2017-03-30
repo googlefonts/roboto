@@ -33,7 +33,7 @@ class TestItalicAngle(run_general_tests.TestItalicAngle):
 
 class TestMetaInfo(font_tests.TestMetaInfo):
     loaded_fonts = FONTS
-    mark_heavier_as_bold = True
+    mark_heavier_as_bold = False
 
     # Since different font files are hinted at different times, the actual
     # outlines differ slightly. So we are keeping the version numbers as a hint.

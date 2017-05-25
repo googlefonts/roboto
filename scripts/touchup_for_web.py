@@ -93,9 +93,7 @@ def apply_web_cros_common_fixes(font, unhinted, family_name):
     # hotpatch glyphs by swapping
     # https://github.com/google/roboto/issues/18
     glyf = font['glyf']
-    tmp = glyf['chi']
-    glyf['chi'] = glyf['chi.alt']
-    glyf['chi.alt'] = tmp
+    glyf['chi'], glyf['chi.alt'] = glyf['chi.alt'], glyf['chi']
 
     # make glyph orders consistent for feature copying
     # https://github.com/google/roboto/issues/71
@@ -125,7 +123,7 @@ def correct_font(source_name, unhinted_name, target_font_name, family_name):
     # apply web-specific fixes before shared, so that sub/family names are
     # correct for black weights and their bold bits will be set
     apply_web_specific_fixes(font, unhinted, family_name)
-    temporary_touchups.apply_temporary_fixes(font)
+    temporary_touchups.apply_temporary_fixes(font, is_for_web=True)
     temporary_touchups.update_version_and_revision(font)
     font.save(target_font_name)
 

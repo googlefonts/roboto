@@ -169,10 +169,10 @@ class FontProject:
         # fewer control points and look noticeably different
         max_err = 0.002
         if self.compatible:
-            fonts_to_quadratic(fonts, max_err_em=max_err, dump_stats=True)
+            fonts_to_quadratic(fonts, max_err_em=max_err, dump_stats=True, reverse_direction=True)
         else:
             for font in fonts:
-                fonts_to_quadratic([font], max_err_em=max_err, dump_stats=True)
+                fonts_to_quadratic([font], max_err_em=max_err, dump_stats=True, reverse_direction=True)
 
         log(">> Generating TTF files")
         for font in fonts:
@@ -271,10 +271,12 @@ def saveOTF(font, destFile, glyphOrder, truetype=False):
     """Save a RoboFab font as an OTF binary using ufo2fdk."""
 
     if truetype:
-        compiler = compileTTF
+        otf = compileTTF(font, featureCompilerClass=RobotoFeatureCompiler,
+                   kernWriter=RobotoKernWriter, glyphOrder=glyphOrder,
+                   convertCubics=False,
+                   useProductionNames=False)
     else:
-        compiler = compileOTF
-    otf = compiler(font, featureCompilerClass=RobotoFeatureCompiler,
+        otf = compileOTF(font, featureCompilerClass=RobotoFeatureCompiler,
                    kernWriter=RobotoKernWriter, glyphOrder=glyphOrder,
                    useProductionNames=False)
     otf.save(destFile)

@@ -24,7 +24,7 @@ import run_general_tests
 
 FONTS = font_tests.load_fonts(
     ['out/android/*.ttf'],
-    expected_count=18)
+    expected_count=20)
 
 
 class TestItalicAngle(run_general_tests.TestItalicAngle):

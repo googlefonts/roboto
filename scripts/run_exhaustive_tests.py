@@ -21,7 +21,7 @@ from nototools.unittests import font_tests
 
 FONTS = font_tests.load_fonts(
     ['out/RobotoTTF/*.ttf', 'out/RobotoCondensedTTF/*.ttf'],
-    expected_count=18)
+    expected_count=20)
 
 
 class TestSpacingMarks(font_tests.TestSpacingMarks):

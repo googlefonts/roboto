@@ -4,6 +4,12 @@
   <unicode hex="1FDF"/>
   <outline>
     <contour>
+      <point x="634" y="1455" type="move" name="_tonos"/>
+    </contour>
+    <contour>
+      <point x="420" y="1182" type="move" name="_top"/>
+    </contour>
+    <contour>
       <point x="340" y="1349" type="line"/>
       <point x="340" y="1246"/>
       <point x="405" y="1170"/>
@@ -37,37 +43,31 @@
       <point x="701" y="1569"/>
       <point x="701" y="1665" type="curve"/>
     </contour>
-    <contour>
-      <point x="634" y="1455" type="move" name="_tonos"/>
-    </contour>
-    <contour>
-      <point x="420" y="1182" type="move" name="_top"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>90</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>409</real>
-      <key>y</key>
-      <real>0</real>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>90.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>409.0</real>
+          <key>y</key>
+          <real>0.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
     </dict>
-  </array>
-  </dict>
   </lib>
 </glyph>

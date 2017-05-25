@@ -3,6 +3,21 @@
   <advance width="1158"/>
   <outline>
     <contour>
+      <point x="598" y="1320" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="593" y="5" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1158" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="1158" y="-407" type="move" name="bottom_dd"/>
+    </contour>
+    <contour>
+      <point x="1158" y="1320" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="793" y="407" type="line"/>
       <point x="793" y="290"/>
       <point x="716" y="243"/>
@@ -32,70 +47,55 @@
       <point x="1104" y="149"/>
       <point x="1115" y="407" type="curve"/>
     </contour>
-    <contour>
-      <point x="598" y="1320" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="593" y="5" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="1158" y="1600" type="move" name="top_dd"/>
-    </contour>
-    <contour>
-      <point x="1158" y="-407" type="move" name="bottom_dd"/>
-    </contour>
-    <contour>
-      <point x="1158" y="1320" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>1</real>
-    <real>0.6</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>721</real>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>721.0</real>
+        </dict>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>444.0</real>
+        </dict>
+        <dict>
+          <key>angle</key>
+          <real>90.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>791.0</real>
+          <key>y</key>
+          <real>0.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
     </dict>
-    <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>444</real>
-    </dict>
-    <dict>
-      <key>angle</key>
-      <real>90</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>791</real>
-      <key>y</key>
-      <real>0</real>
-    </dict>
-  </array>
-  </dict>
   </lib>
 </glyph>

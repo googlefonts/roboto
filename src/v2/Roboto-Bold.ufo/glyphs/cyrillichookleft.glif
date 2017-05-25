@@ -3,6 +3,15 @@
   <advance width="636"/>
   <outline>
     <contour>
+      <point x="437" y="0" type="move" name="_left"/>
+    </contour>
+    <contour>
+      <point x="114" y="0" type="move" name="_right"/>
+    </contour>
+    <contour>
+      <point x="284" y="0" type="move" name="_bottom"/>
+    </contour>
+    <contour>
       <point x="160" y="0" type="line"/>
       <point x="205" y="-51"/>
       <point x="248" y="-94"/>
@@ -24,33 +33,24 @@
       <point x="433" y="-13"/>
       <point x="312" y="60" type="curve"/>
     </contour>
-    <contour>
-      <point x="437" y="0" type="move" name="_left"/>
-    </contour>
-    <contour>
-      <point x="114" y="0" type="move" name="_right"/>
-    </contour>
-    <contour>
-      <point x="284" y="0" type="move" name="_bottom"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>2049</real>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>2049.0</real>
+        </dict>
+      </array>
     </dict>
-  </array>
-  </dict>
   </lib>
 </glyph>

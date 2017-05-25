@@ -4,6 +4,12 @@
   <unicode hex="035B"/>
   <outline>
     <contour>
+      <point x="-562" y="1206" type="move" name="_marktop"/>
+    </contour>
+    <contour>
+      <point x="-562" y="1741" type="move" name="mkmktop"/>
+    </contour>
+    <contour>
       <point x="-625" y="1661" type="curve"/>
       <point x="-625" y="1661"/>
       <point x="-714" y="1395"/>
@@ -29,22 +35,16 @@
       <point x="-565" y="1661"/>
       <point x="-625" y="1661"/>
     </contour>
-    <contour>
-      <point x="-562" y="1206" type="move" name="_marktop"/>
-    </contour>
-    <contour>
-      <point x="-562" y="1741" type="move" name="mkmktop"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

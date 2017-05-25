@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Thorn" format="1">
+  <advance width="1064"/>
+  <unicode hex="00DE"/>
+  <outline>
+    <contour>
+      <point x="188" y="1456" type="line"/>
+      <point x="188" y="0" type="line"/>
+      <point x="233" y="0" type="line"/>
+      <point x="233" y="1456" type="line"/>
+    </contour>
+    <contour>
+      <point x="203" y="1143" type="line"/>
+      <point x="215" y="1089" type="line"/>
+      <point x="545" y="1089" type="line" smooth="yes"/>
+      <point x="781" y="1089"/>
+      <point x="878" y="909"/>
+      <point x="878" y="736" type="curve" smooth="yes"/>
+      <point x="878" y="571"/>
+      <point x="781" y="388"/>
+      <point x="545" y="388" type="curve" smooth="yes"/>
+      <point x="199" y="388" type="line"/>
+      <point x="199" y="334" type="line"/>
+      <point x="545" y="334" type="line" smooth="yes"/>
+      <point x="789" y="334"/>
+      <point x="923" y="505"/>
+      <point x="923" y="738" type="curve" smooth="yes"/>
+      <point x="923" y="970"/>
+      <point x="789" y="1143"/>
+      <point x="545" y="1143" type="curve" smooth="yes"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>901.0</real>
+        </dict>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>555.0</real>
+        </dict>
+      </array>
+    </dict>
+  </lib>
+</glyph>

@@ -4,6 +4,15 @@
   <unicode hex="0506"/>
   <outline>
     <contour>
+      <point x="269" y="1612" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="269" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1237" y="1612" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="465" y="558" type="line" name="hr00"/>
       <point x="524" y="558"/>
       <point x="498" y="574"/>
@@ -48,33 +57,13 @@
       <point x="832" y="719"/>
       <point x="479" y="719" type="curve"/>
     </contour>
-    <contour>
-      <point x="269" y="1612" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="269" y="10" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="1237" y="1612" type="move" name="top0315"/>
-    </contour>
     <component base="comma" xOffset="781" yOffset="8"/>
   </outline>
   <lib>
-  <dict>
-  <key>com.adobe.type.autohint</key>
-  <data>
-  <hintSetList>
-    <hintset pointTag="hr00">
-      <hstem pos="22" width="-21" />
-      <hstem pos="576" width="164" />
-      <hstem pos="576" width="271" />
-      <hstem pos="1186" width="270" />
-      <vstem pos="155" width="322" />
-      <vstem pos="362" width="115" />
-      <vstem pos="871" width="322" />
-    </hintset>
-  </hintSetList>
-  </data>
-  </dict>
+    <dict>
+      <key>com.adobe.type.autohint</key>
+      <data>
+      </data>
+    </dict>
   </lib>
 </glyph>

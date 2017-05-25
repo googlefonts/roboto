@@ -4,6 +4,15 @@
   <unicode hex="00E6"/>
   <outline>
     <contour>
+      <point x="863" y="1291" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="1730" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="1730" y="1291" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="720" y="183" type="line"/>
       <point x="1032" y="218" type="line"/>
       <point x="1032" y="699" type="line"/>
@@ -79,59 +88,34 @@
       <point x="720" y="191"/>
       <point x="905" y="-20"/>
     </contour>
-    <contour>
-      <point x="863" y="1291" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="1730" y="1600" type="move" name="top_dd"/>
-    </contour>
-    <contour>
-      <point x="1730" y="1291" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>1</real>
-    <real>0.6</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>834</real>
+      <key>com.adobe.type.autohint</key>
+      <data>
+      </data>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>834.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
     </dict>
-  </array>
-  <key>com.adobe.type.autohint</key>
-  <data>
-  <hintSetList>
-    <hintset pointTag="hr01">
-      <hstem pos="-21" width="271" />
-      <hstem pos="447" width="214" />
-      <hstem pos="832" width="270" />
-      <vstem pos="871" width="196" />
-      <vstem pos="1432" width="322" />
-    </hintset>
-    <hintset pointTag="hr02">
-      <hstem pos="-21" width="271" />
-      <hstem pos="447" width="214" />
-      <hstem pos="832" width="270" />
-      <vstem pos="744" width="323" />
-      <vstem pos="1432" width="322" />
-    </hintset>
-  </hintSetList>
-  </data>
-  </dict>
   </lib>
 </glyph>

@@ -3,6 +3,9 @@
   <advance width="1186"/>
   <outline>
     <contour>
+      <point x="585" y="768" type="move" name="cross"/>
+    </contour>
+    <contour>
       <point x="685" y="1536" type="line"/>
       <point x="485" y="1536" type="line"/>
       <point x="485" y="0" type="line"/>
@@ -62,19 +65,16 @@
       <point x="1030" y="645"/>
       <point x="988" y="621" type="curve"/>
     </contour>
-    <contour>
-      <point x="585" y="768" type="move" name="cross"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.798</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.798</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

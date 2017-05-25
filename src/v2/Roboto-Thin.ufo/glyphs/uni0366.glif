@@ -4,6 +4,12 @@
   <unicode hex="0366"/>
   <outline>
     <contour>
+      <point x="-563" y="1170" type="move" name="_marktop"/>
+    </contour>
+    <contour>
+      <point x="-563" y="1818" type="move" name="_mkmktop"/>
+    </contour>
+    <contour>
       <point x="-563" y="1192" type="curve" smooth="yes" name="hr00"/>
       <point x="-413" y="1192"/>
       <point x="-322" y="1297"/>
@@ -35,30 +41,19 @@
       <point x="-362" y="1333"/>
       <point x="-424" y="1232"/>
     </contour>
-    <contour>
-      <point x="-563" y="1170" type="move" name="_marktop"/>
-    </contour>
-    <contour>
-      <point x="-563" y="1818" type="move" name="_mkmktop"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.967</real>
-    <real>0.6</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  <key>com.adobe.type.autohint</key>
-  <data>
-  <hintSetList>
-    <hintset pointTag="hr00">
-      <vstem pos="-805" width="242" />
-    </hintset>
-  </hintSetList>
-  </data>
-  </dict>
+    <dict>
+      <key>com.adobe.type.autohint</key>
+      <data>
+      </data>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.967</real>
+        <real>0.6</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

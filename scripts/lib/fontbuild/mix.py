@@ -46,27 +46,11 @@ class FFont:
         self.vstems = [s for s in f.info.postscriptStemSnapV]
         self.kerning = f.kerning.asDict()
 
-
-    def copyToFont(self, f):
-        for g in f:
-            try:
-                gF = self.glyphs[g.name]
-                gF.copyToGlyph(g)
-            except:
-                print "Copy to glyph failed for" + g.name
-        f.info.postscriptStemSnapH = self.hstems
-        f.info.postscriptStemSnapV = self.vstems
-        for pair in self.kerning:
-            f.kerning[pair] = self.kerning[pair]
-
     def getGlyph(self, gname):
         try:
             return self.glyphs[gname]
         except:
             return None
-        
-    def setGlyph(self, gname, glyph):
-        self.glyphs[gname] = glyph
     
     def addDiff(self,b,c):
         newFont = FFont(self)
@@ -164,21 +148,6 @@ class FGlyph:
         newGlyph = self.copy()
         newGlyph.dataX = self.dataX * scalar
         newGlyph.dataY = self.dataY * scalar
-        return newGlyph
-    
-    def scaleX(self,scalar):
-        newGlyph = self.copy()
-        if len(self.dataX) > 0:
-            newGlyph.dataX = self.dataX * scalar
-            for i in range(len(newGlyph.components)):
-                newGlyph.dataX[newGlyph.components[i][0]] = self.dataX[newGlyph.components[i][0]]
-        return newGlyph
-        
-    def shift(self,ammount):
-        newGlyph = self.copy()
-        newGlyph.dataX = self.dataX + ammount
-        for i in range(len(newGlyph.components)):
-            newGlyph.dataX[newGlyph.components[i][0]] = self.dataX[newGlyph.components[i][0]]
         return newGlyph
     
     def interp(self, g, v):
@@ -286,7 +255,6 @@ class Mix:
     
     def generateFont(self, baseFont):
         newFont = baseFont.copy()
-        #self.mixStems(newFont)  todo _ fix stems code
         for g in newFont:
             gF = self.mixGlyphs(g.name)
             if gF == None:
@@ -317,17 +285,6 @@ class Mix:
         return interpolateKerns(kA, kB, self.v)
 
 
-def narrowFLGlyph(g, gThin, factor=.75):
-    gF = FGlyph(g)
-    if not isinstance(gThin,FGlyph):
-        gThin = FGlyph(gThin)
-    gCondensed = gThin.scaleX(factor)
-    try:
-        gNarrow = gF + (gCondensed - gThin)
-        gNarrow.copyToGlyph(g)
-    except:
-        print "No dice for: " + g.name
-            
 def interpolate(a,b,v,e=0):
     if e == 0:
         return a+(b-a)*v

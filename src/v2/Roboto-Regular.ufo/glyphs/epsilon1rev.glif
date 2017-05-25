@@ -4,6 +4,18 @@
   <unicode hex="025C"/>
   <outline>
     <contour>
+      <point x="914" y="779" type="move" name="rhotichook"/>
+    </contour>
+    <contour>
+      <point x="550" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="550" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1103" y="1290" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="355" y="588" type="line"/>
       <point x="355" y="475" type="line"/>
       <point x="565" y="475" type="line" smooth="yes"/>
@@ -51,28 +63,16 @@
       <point x="355" y="630" type="line"/>
       <point x="355" y="516" type="line"/>
     </contour>
-    <contour>
-      <point x="914" y="779" type="move" name="rhotichook"/>
-    </contour>
-    <contour>
-      <point x="550" y="1290" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="550" y="0" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="1103" y="1290" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.939</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

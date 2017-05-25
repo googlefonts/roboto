@@ -3,6 +3,12 @@
   <advance width="1158"/>
   <outline>
     <contour>
+      <point x="575" y="1320" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="1158" y="1320" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="846" y="453" type="line"/>
       <point x="846" y="713" type="line"/>
       <point x="483" y="713" type="line"/>
@@ -38,22 +44,16 @@
       <point x="442" y="243"/>
       <point x="365" y="290"/>
     </contour>
-    <contour>
-      <point x="575" y="1320" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="1158" y="1320" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.939</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

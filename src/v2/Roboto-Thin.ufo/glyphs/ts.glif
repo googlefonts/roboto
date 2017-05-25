@@ -4,6 +4,15 @@
   <unicode hex="02A6"/>
   <outline>
     <contour>
+      <point x="820" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="820" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1335" y="1600" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="238" y="1374" type="line"/>
       <point x="238" y="300" type="line" smooth="yes"/>
       <point x="238" y="83"/>
@@ -59,25 +68,16 @@
       <point x="38" y="1027" type="line"/>
       <point x="666" y="1027" type="line"/>
     </contour>
-    <contour>
-      <point x="820" y="1600" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="820" y="0" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="1335" y="1600" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.939</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

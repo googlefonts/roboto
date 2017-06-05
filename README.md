@@ -35,7 +35,7 @@ virtualenv roboto-env
 source roboto-env/bin/activate
 ```
 
-Download and install the dependencies:
+Download and install the dependencies (currently requires Python 2, not 3):
 
 ```bash
 cd roboto

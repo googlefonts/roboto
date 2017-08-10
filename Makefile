@@ -71,6 +71,18 @@ web:
 		rm $$touched; \
 	done
 
+hinted:
+	mkdir -p out/hinted
+	for source in src/hinted/*.ttf; do \
+		basename=$$(basename $$source); \
+		case $$source in \
+			src/hinted/Roboto-*) unhinted=out/RobotoTTF/$$basename ;; \
+			*) unhinted=out/RobotoCondensedTTF/$$basename ;; \
+		esac; \
+		final=out/hinted/$$(basename $$source); \
+		python scripts/touchup_for_web.py $$source $$unhinted $$final Roboto; \
+	done
+
 chromeos:
 	mkdir -p out/chromeos
 	for source in src/hinted/*.ttf; do \

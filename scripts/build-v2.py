@@ -88,11 +88,11 @@ proj.generateFont(th.font, "%s/Thin/Regular/Th" % FAMILYNAME)
 proj.generateFont(Mix([th, rg], 0.45), "%s/Light/Regular/Lt" % FAMILYNAME)
 proj.generateFont(Mix([th, rg], RPoint(0.90, 0.92)),
                   "%s/Regular/Regular/Rg" % FAMILYNAME)
-proj.generateFont(Mix([rg, bd], 0.35), "%s/Medium/Regular/Lt" % FAMILYNAME)
+proj.generateFont(Mix([rg, bd], 0.35), "%s/Medium/Regular/Md" % FAMILYNAME)
 proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
-                  "%s/Bold/Bold/Rg" % FAMILYNAME)
+                  "%s/Bold/Bold/Bd" % FAMILYNAME)
 proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
-                  "%s/Black/Regular/Bk" % FAMILYNAME)
+                  "%s/Black/Regular/Blk" % FAMILYNAME)
 
 proj.generateFont(th.font, "%s/Thin Italic/Italic/Th" % FAMILYNAME,
                   italic=True, stemWidth=80)
@@ -102,13 +102,13 @@ proj.generateFont(Mix([th, rg], RPoint(0.90, 0.92)),
                   "%s/Italic/Italic/Rg" % FAMILYNAME,
                   italic=True, stemWidth=185)
 proj.generateFont(Mix([rg, bd], 0.35),
-                  "%s/Medium Italic/Italic/Lt" % FAMILYNAME,
+                  "%s/Medium Italic/Italic/Md" % FAMILYNAME,
                   italic=True, stemWidth=230)
 proj.generateFont(Mix([rg, bd], RPoint(0.73, 0.73)),
-                  "%s/Bold Italic/Bold Italic/Rg" % FAMILYNAME,
+                  "%s/Bold Italic/Bold Italic/Bd" % FAMILYNAME,
                   italic=True, stemWidth=290)
 proj.generateFont(Mix([rg, bd], RPoint(1.125, 1.0)),
-                  "%s/Black Italic/Italic/Bk" % FAMILYNAME,
+                  "%s/Black Italic/Italic/Blk" % FAMILYNAME,
                   italic=True, stemWidth=290)
 
 # unfortunately some condensed forms (*.cn) of glyphs are not compatible with
@@ -120,29 +120,29 @@ cn1 = Master(rg.ffont.addDiff(thcn1.ffont, th.ffont))
 bdcn1 = Master(bd.ffont.addDiff(thcn1.ffont, th.ffont))
 
 proj.generateFont(Mix([thcn1, cn1], RPoint(0.45, 0.47)),
-                  "%s Condensed/Light/Regular/Lt" % FAMILYNAME,
+                  "%s/Condensed Light/Regular/Lt" % FAMILYNAME,
                   swapSuffixes=[".cn"])
 proj.generateFont(Mix([thcn1, cn1], RPoint(0.9, 0.92)),
-                  "%s Condensed/Regular/Regular/Rg" % FAMILYNAME,
+                  "%s/Condensed Regular/Regular/Rg" % FAMILYNAME,
                   swapSuffixes=[".cn"])
 proj.generateFont(Mix([cn1, bdcn1], 0.4),
-                  "%s Condensed/Medium/Regular/Lt"%FAMILYNAME,
+                  "%s/Condensed Medium/Regular/Md"%FAMILYNAME,
                   swapSuffixes=[".cn"])
 proj.generateFont(Mix([cn1, bdcn1], RPoint(0.75, 0.75)),
-                  "%s Condensed/Bold/Bold/Rg" % FAMILYNAME,
+                  "%s/Condensed Bold/Bold/Bd" % FAMILYNAME,
                   swapSuffixes=[".cn"])
 
 proj.generateFont(Mix([thcn1, cn1], RPoint(0.45, 0.47)),
-                  "%s Condensed/Light Italic/Italic/Lt" % FAMILYNAME,
+                  "%s/Condensed Light Italic/Italic/Lt" % FAMILYNAME,
                   italic=True, swapSuffixes=[".cn"], stemWidth=120)
 proj.generateFont(Mix([thcn1, cn1], RPoint(0.9, 0.92)),
-                  "%s Condensed/Italic/Italic/Rg" % FAMILYNAME,
+                  "%s/Condensed Italic/Italic/Rg" % FAMILYNAME,
                   italic=True, swapSuffixes=[".cn"], stemWidth=185)
 proj.generateFont(Mix([cn1, bdcn1], 0.4),
-                  "%s Condensed/Medium Italic/Italic/Lt"%FAMILYNAME,
+                  "%s/Condensed Medium Italic/Italic/Md"%FAMILYNAME,
                   italic=True, swapSuffixes=[".cn"], stemWidth=230)
 proj.generateFont(Mix([cn1, bdcn1], RPoint(0.75, 0.75)),
-                  "%s Condensed/Bold Italic/Bold Italic/Rg" % FAMILYNAME,
+                  "%s/Condensed Bold Italic/Bold Italic/Bd" % FAMILYNAME,
                   italic=True, swapSuffixes=[".cn"], stemWidth=240)
 
 proj.generateTTFs()

@@ -75,6 +75,7 @@ class InstanceNames:
             f.info.openTypeNamePreferredFamilyName = self.longfamily 
             f.info.openTypeNamePreferredSubfamilyName = self.longstyle 
         
+        f.info.openTypeOS2WidthClass = self._getWidthCode(self.width)
         f.info.openTypeOS2WeightClass = self._getWeightCode(self.weight)
         f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
         f.info.postscriptFontName = f.info.macintoshFONDName.replace(" ", "-")
@@ -196,6 +197,14 @@ class InstanceNames:
             return 900
 
         return 400
+
+    def _getWidthCode(self,width):
+        if width == "Condensed":
+            return 3
+        if width == "Normal":
+            return 5
+
+        return 5
         
 def setNames(f,names,foundry="",version="1.0",build="0000"):
     InstanceNames.foundry = foundry

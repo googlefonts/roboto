@@ -79,7 +79,7 @@ hinted:
 			src/hinted/Roboto-*) unhinted=out/RobotoTTF/$$basename ;; \
 			*) unhinted=out/RobotoCondensedTTF/$$basename ;; \
 		esac; \
-		final=out/hinted/$$(basename $$source); \
+		final=out/hinted/$$basename; \
 		python scripts/touchup_for_web.py $$source $$unhinted $$final Roboto; \
 	done
 

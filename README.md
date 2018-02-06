@@ -10,7 +10,7 @@ be published in Unicode 8.0.
 
 The fonts are currently available in eighteen different styles.
 
-[A subset of an earlier version of Roboto](https://www.google.com/fonts/specimen/Roboto) is available from Google Fonts, and can be used as a web font.
+[Subsetted webfonts](https://fonts.google.com/specimen/Roboto) are also available from Google Fonts.
 
 ## Setup
 

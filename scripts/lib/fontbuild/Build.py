@@ -29,8 +29,7 @@ from fontbuild.generateGlyph import generateGlyph
 from fontbuild.instanceNames import setNamesRF
 from fontbuild.italics import italicizeGlyph
 from fontbuild.markFeature import RobotoFeatureCompiler, RobotoKernWriter
-from fontbuild.mitreGlyph import mitreGlyph
-from fontbuild.mix import Mix,Master,narrowFLGlyph
+from fontbuild.mix import Mix,Master
 
 
 class FontProject:
@@ -142,7 +141,9 @@ class FontProject:
         setNamesRF(f, n, foundry=self.config.get('main', 'foundry'),
                          version=self.config.get('main', 'version'))
         if not self.compatible:
-            cleanCurves(f)
+            log(">> Removing overlaps")
+            for g in f:
+                removeGlyphOverlap(g)
         deleteGlyphs(f, self.deleteList)
 
         log(">> Generating font files")
@@ -184,27 +185,6 @@ class FontProject:
                 truetype=True)
 
 
-def transformGlyphMembers(g, m):
-    g.width = int(g.width * m.a)
-    g.Transform(m)
-    for a in g.anchors:
-        p = Point(a.p)
-        p.Transform(m)
-        a.p = p
-    for c in g.components:
-        # Assumes that components have also been individually transformed
-        p = Point(0,0)
-        d = Point(c.deltas[0])
-        d.Transform(m)
-        p.Transform(m)
-        d1 = d - p
-        c.deltas[0].x = d1.x
-        c.deltas[0].y = d1.y
-        s = Point(c.scale)
-        s.Transform(m)
-        #c.scale = s
-
-
 def swapContours(f,gName1,gName2):
     try:
         g1 = f[gName1]
@@ -237,19 +217,6 @@ def generateGlyphs(f, glyphNames, glyphList={}):
 
     for glyphName in glyphNames:
         generateGlyph(f, glyphName, glyphList)
-
-def cleanCurves(f):
-    log(">> Removing overlaps")
-    for g in f:
-        removeGlyphOverlap(g)
-
-    # log(">> Mitring sharp corners")
-    # for g in f:
-    #     mitreGlyph(g, 3., .7)
-
-    # log(">> Converting curves to quadratic")
-    # for g in f:
-    #     glyphCurvesToQuadratic(g)
 
 
 def deleteGlyphs(f, deleteList):

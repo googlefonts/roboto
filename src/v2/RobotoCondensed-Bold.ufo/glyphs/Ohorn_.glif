@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Ohorn" format="1">
+  <advance width="1257"/>
+  <unicode hex="01A0"/>
+  <outline>
+    <contour>
+      <point x="1073" y="1556" type="line"/>
+      <point x="1073" y="1374"/>
+      <point x="1048" y="1265"/>
+      <point x="947" y="1265" type="curve"/>
+      <point x="947" y="1101" type="line"/>
+      <point x="1168" y="1101"/>
+      <point x="1266" y="1267"/>
+      <point x="1266" y="1556" type="curve"/>
+    </contour>
+    <component base="O" xOffset="-5"/>
+    <contour>
+      <point x="612" y="1607" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="589" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1237" y="1607" type="move" name="top0315"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.1703</real>
+        <real>0.1669</real>
+        <real>0.8287</real>
+      </array>
+    </dict>
+  </lib>
+</glyph>

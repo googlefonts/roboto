@@ -4,6 +4,15 @@
   <unicode hex="1D95"/>
   <outline>
     <contour>
+      <point x="544" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="544" y="-447" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1513" y="1290" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="1025" y="646" type="line"/>
       <point x="1025" y="436" type="line"/>
       <point x="1111" y="436" type="line"/>
@@ -57,44 +66,19 @@
       <point x="1068" y="861"/>
       <point x="865" y="1102"/>
     </contour>
-    <contour>
-      <point x="544" y="1290" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="544" y="-447" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="1513" y="1290" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.939</real>
-    <real>1</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  <key>com.adobe.type.autohint</key>
-  <data>
-  <hintSetList>
-    <hintset pointTag="hr01">
-      <hstem pos="250" width="-270" />
-      <hstem pos="635" width="-214" />
-      <hstem pos="1103" width="-271" />
-      <vstem pos="366" width="-322" />
-      <vstem pos="927" width="-196" />
-    </hintset>
-    <hintset pointTag="hr02">
-      <hstem pos="250" width="-270" />
-      <hstem pos="635" width="-214" />
-      <hstem pos="1103" width="-271" />
-      <vstem pos="366" width="-322" />
-      <vstem pos="1053" width="-322" />
-    </hintset>
-  </hintSetList>
-  </data>
-  </dict>
+    <dict>
+      <key>com.adobe.type.autohint</key>
+      <data>
+      </data>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

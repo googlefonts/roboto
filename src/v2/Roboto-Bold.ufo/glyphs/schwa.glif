@@ -4,6 +4,21 @@
   <unicode hex="0259"/>
   <outline>
     <contour>
+      <point x="542" y="1291" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="575" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="981" y="33" type="move" name="right"/>
+    </contour>
+    <contour>
+      <point x="889" y="654" type="move" name="rhotichook"/>
+    </contour>
+    <contour>
+      <point x="1084" y="1291" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="512" y="1103" type="curve"/>
       <point x="327" y="1103"/>
       <point x="175" y="1045"/>
@@ -37,65 +52,34 @@
       <point x="1033" y="871"/>
       <point x="835" y="1103"/>
     </contour>
-    <contour>
-      <point x="542" y="1291" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="575" y="0" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="981" y="33" type="move" name="right"/>
-    </contour>
-    <contour>
-      <point x="889" y="654" type="move" name="rhotichook"/>
-    </contour>
-    <contour>
-      <point x="1084" y="1291" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>1</real>
-    <real>0.6</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>90</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>772</real>
-      <key>y</key>
-      <real>0</real>
+      <key>com.adobe.type.autohint</key>
+      <data>
+      </data>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>90.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>772.0</real>
+          <key>y</key>
+          <real>0.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
     </dict>
-  </array>
-  <key>com.adobe.type.autohint</key>
-  <data>
-  <hintSetList>
-    <hintset pointTag="hr01">
-      <hstem pos="-21" width="271" />
-      <hstem pos="447" width="214" />
-      <hstem pos="832" width="270" />
-      <vstem pos="211" width="196" />
-      <vstem pos="772" width="322" />
-    </hintset>
-    <hintset pointTag="hr02">
-      <hstem pos="-21" width="271" />
-      <hstem pos="447" width="214" />
-      <hstem pos="832" width="270" />
-      <vstem pos="85" width="322" />
-      <vstem pos="772" width="322" />
-    </hintset>
-  </hintSetList>
-  </data>
-  </dict>
   </lib>
 </glyph>

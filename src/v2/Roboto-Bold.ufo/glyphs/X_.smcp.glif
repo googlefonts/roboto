@@ -3,20 +3,6 @@
   <advance width="1128"/>
   <outline>
     <contour>
-      <point x="368" y="1165" type="line"/>
-      <point x="1" y="1165" type="line"/>
-      <point x="347" y="587" type="line"/>
-      <point x="-9" y="0" type="line"/>
-      <point x="361" y="0" type="line"/>
-      <point x="550" y="363" type="line"/>
-      <point x="749" y="0" type="line"/>
-      <point x="1130" y="0" type="line"/>
-      <point x="751" y="587" type="line"/>
-      <point x="1096" y="1165" type="line"/>
-      <point x="727" y="1165" type="line"/>
-      <point x="546" y="809" type="line"/>
-    </contour>
-    <contour>
       <point x="547" y="1320" type="move" name="top"/>
     </contour>
     <contour>
@@ -37,16 +23,30 @@
     <contour>
       <point x="1128" y="1320" type="move" name="top0315"/>
     </contour>
+    <contour>
+      <point x="368" y="1165" type="line"/>
+      <point x="1" y="1165" type="line"/>
+      <point x="347" y="587" type="line"/>
+      <point x="-9" y="0" type="line"/>
+      <point x="361" y="0" type="line"/>
+      <point x="550" y="363" type="line"/>
+      <point x="749" y="0" type="line"/>
+      <point x="1130" y="0" type="line"/>
+      <point x="751" y="587" type="line"/>
+      <point x="1096" y="1165" type="line"/>
+      <point x="727" y="1165" type="line"/>
+      <point x="546" y="809" type="line"/>
+    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>1</real>
-    <real>0.6</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

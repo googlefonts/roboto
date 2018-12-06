@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="Emacron" format="1">
+  <advance width="1001"/>
+  <unicode hex="0112"/>
+  <outline>
+    <component base="E"/>
+    <component base="macron" xOffset="85" yOffset="304"/>
+    <contour>
+      <point x="562" y="1600" type="move" name="parent_top"/>
+    </contour>
+    <contour>
+      <point x="566" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="981" y="1600" type="move" name="top_dd"/>
+    </contour>
+    <contour>
+      <point x="981" y="-407" type="move" name="bottom_dd"/>
+    </contour>
+    <contour>
+      <point x="981" y="1600" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="562" y="1914" type="move" name="top"/>
+    </contour>
+  </outline>
+</glyph>

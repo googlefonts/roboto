@@ -49,35 +49,36 @@ class InstanceNames:
         else:
             self.shortfamily = self.longfamily
     
-    def setRFNames(self,f, version=1, versionMinor=0):
+    def setRFNames(self,f, version=1, versionMinor=0, master=False):
         f.info.familyName = self.longfamily
         f.info.styleName = self.longstyle
-        f.info.styleMapFamilyName = self.shortfamily
-        f.info.styleMapStyleName = self.shortstyle.lower()
         f.info.versionMajor = version
         f.info.versionMinor = versionMinor
         f.info.year = self.year
         #f.info.copyright = "Font data copyright %s %s" %(self.foundry, self.year)
         f.info.trademark = "%s is a trademark of %s." %(self.longfamily, self.foundry)
-        
-        f.info.openTypeNameDesigner = "Christian Robertson"
-        f.info.openTypeNameDesignerURL = self.foundry + ".com"
-        f.info.openTypeNameManufacturer = self.foundry
-        f.info.openTypeNameManufacturerURL = self.foundry + ".com"
-        f.info.openTypeNameLicense = self.license
-        f.info.openTypeNameLicenseURL = self.licenseURL
-        f.info.openTypeNameVersion = "Version %i.%i" %(version,versionMinor)
-        f.info.openTypeNameUniqueID = "%s:%s:%s" %(self.foundry, self.fullname, self.year)
         # f.info.openTypeNameDescription = ""        
         # f.info.openTypeNameCompatibleFullName = "" 
         # f.info.openTypeNameSampleText = ""
-        if (self.subfamilyAbbrev != "Rg"):
-            f.info.openTypeNamePreferredFamilyName = self.longfamily 
-            f.info.openTypeNamePreferredSubfamilyName = self.longstyle 
-        
         f.info.openTypeOS2WeightClass = self._getWeightCode(self.weight)
-        f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
-        f.info.postscriptFontName = f.info.macintoshFONDName.replace(" ", "-")
+
+        if not master:
+            f.info.styleMapFamilyName = self.shortfamily
+            f.info.styleMapStyleName = self.shortstyle.lower()
+            f.info.openTypeNameDesigner = "Christian Robertson"
+            f.info.openTypeNameDesignerURL = self.foundry + ".com"
+            f.info.openTypeNameManufacturer = self.foundry
+            f.info.openTypeNameManufacturerURL = self.foundry + ".com"
+            f.info.openTypeNameLicense = self.license
+            f.info.openTypeNameLicenseURL = self.licenseURL
+            f.info.openTypeNameVersion = "Version %i.%i" %(version,versionMinor)
+            f.info.openTypeNameUniqueID = "%s:%s:%s" %(self.foundry, self.fullname, self.year)
+            if self.subfamilyAbbrev != "Rg":
+                f.info.openTypeNamePreferredFamilyName = self.longfamily
+                f.info.openTypeNamePreferredSubfamilyName = self.longstyle
+            f.info.macintoshFONDName = re.sub(' ','',self.longfamily) + " " + re.sub(' ','',self.longstyle)
+            f.info.postscriptFontName = f.info.macintoshFONDName.replace(" ", "-")
+
         if self.italic:
             f.info.italicAngle = -12.0
         
@@ -205,8 +206,8 @@ def setNames(f,names,foundry="",version="1.0",build="0000"):
     i.setFLNames(f)
 
 
-def setNamesRF(f, names, foundry="", version="1.0"):
+def setNamesRF(f, names, foundry="", version="1.0", master=False):
     InstanceNames.foundry = foundry
     i = InstanceNames(names)
     version, versionMinor = [int(num) for num in version.split(".")]
-    i.setRFNames(f, version=version, versionMinor=versionMinor)
+    i.setRFNames(f, version=version, versionMinor=versionMinor, master=master)

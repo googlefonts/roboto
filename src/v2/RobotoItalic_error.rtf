@@ -1,0 +1,31 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf0 \CocoaLigature0 (env) Erins-MBP:v2 erinmclaughlin$ fontmake -m RobotoItalic.designspace -o variable\
+INFO:fontmake:Building interpolation-compatible TTFs\
+INFO:fontmake:Converting curves compatibly\
+Traceback (most recent call last):\
+  File "/Users/erinmclaughlin/env/bin/fontmake", line 11, in <module>\
+    load_entry_point('fontmake', 'console_scripts', 'fontmake')()\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/__main__.py", line 116, in main\
+    project.run_from_designspace(designspace_path, **args)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 371, in run_from_designspace\
+    interpolate_layout_from=interpolate_layout_from, **kwargs)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 436, in run_from_ufos\
+    **kwargs)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 189, in build_interpolatable_ttfs\
+    conversion_error=conversion_error)\
+  File "/Users/erinmclaughlin/env/lib/python2.7/site-packages/fontTools/misc/loggingTools.py", line 372, in wrapper\
+    return func(*args, **kwds)\
+  File "/Users/erinmclaughlin/Desktop/JOBS/fontmake/Lib/fontmake/font_project.py", line 149, in convert_curves\
+    reverse_direction=reverse_direction, dump_stats=True)\
+  File "/Users/erinmclaughlin/env/lib/python2.7/site-packages/cu2qu/ufo.py", line 195, in fonts_to_quadratic\
+    _fonts_to_quadratic(fonts, max_errors, reverse_direction, stats)\
+  File "/Users/erinmclaughlin/env/lib/python2.7/site-packages/cu2qu/ufo.py", line 147, in _fonts_to_quadratic\
+    segments_by_location = zip(*[_get_segments(g) for g in glyphs])\
+  File "/Users/erinmclaughlin/env/lib/python2.7/site-packages/cu2qu/ufo.py", line 47, in zip\
+    raise ValueError(msg + ' '.join(str(a) for a in args))\
+ValueError: Args to zip in cu2qu should have equal lengths: [('move', ((62.25209193408433, 0.0),)), ('line', ((116.06349857260737, 0.0),)), ('line', ((316.36773582195286, 1164.7275754522411),)), ('line', ((262.55632918342997, 1164.7244591272024),)), ('close', ()), ('move', ((201.64976660319417, 536.8275138757951),)), ('curve', ((201.64976660319417, 536.8275138757951), (304.2168411900537, 601.5671710948395), (442.06996046714585, 634.8291557806457), (562.4404422346961, 635.7826829945624))), ('curve', ((562.4404422346961, 635.7826829945624), (804.7863489605506, 637.7024511457828), (899.7996673763657, 522.9076998358106), (859.6484159107504, 284.0069679557487))), ('line', ((810.9939308116549, 0.0),)), ('line', ((864.8565550511935, 0.0),)), ('line', ((913.3946524512702, 283.98835149967044),)), ('curve', ((913.3946524512702, 283.98835149967044), (957.5234896890798, 560.3981089011883), (838.1965455783281, 691.4733052608844), (561.8516244921504, 689.889420778743))), ('curve', ((561.8516244921504, 689.889420778743), (440.37578658795314, 689.1931760500346), (314.6108441708999, 657.3238339447948), (209.75983780659215, 595.3278999653176))), ('close', ())] [('move', ((26.0, 0.0),)), ('line', ((222.0, 0.0),)), ('line', ((340, 653),)), ('line', ((337, 698),)), ('line', ((424.0, 1165.0),)), ('line', ((229.0, 1165.0),)), ('close', ()), ('move', ((250.19273062869155, 540.1330396081856),)), ('curve', ((250.19273062869155, 540.1330396081856), (373.2819168661846, 578.113814353631), (497.5391776287572, 611.7833165107035), (627.641239448665, 607.6705344805367))), ('curve', ((627.641239448665, 607.6705344805367), (779.4499975286751, 602.8715610936457), (822.431997880255, 504.7925126507547), (805.6123639989778, 364.2512604101877))), ('line', ((746.3442135166807, 0.0),)), ('line', ((941.6836029351739, 0.0),)), ('line', ((1000.5341423454743, 363.188450243397),)), ('curve', ((1000.5341423454743, 363.188450243397), (1027.0393978660325, 613.787327007042), (880.2277405238772, 764.5158676171612), (633.086503401405, 769.0934467367694))), ('curve', ((633.086503401405, 769.0934467367694), (505.2897253548407, 771.4605137206141), (380, 742), (261, 697))), ('close', ())] [('move', ((-21.0, 0.0),)), ('line', ((295.0, 0.0),)), ('line', ((410, 611),)), ('line', ((404, 692),)), ('line', ((497.0, 1165.0),)), ('line', ((182.0, 1165.0),)), ('close', ()), ('move', ((266.0, 475.0),)), ('curve', ((266.0, 475.0), (367.0, 507.0), (473.0, 531.0), (579.0, 528.0))), ('curve', ((579.0, 528.0), (713.0, 525.0), (761.0, 471.0), (743.0, 337.0))), ('line', ((688.0, 0.0),)), ('line', ((1003.0, 0.0),)), ('line', ((1057.0, 337.0),)), ('curve', ((1057.0, 337.0), (1091.0, 657.0), (885.0, 789.0), (589.0, 789.0))), ('curve', ((589.0, 789.0), (494.0, 790.0), (368.0, 754.0), (284.0, 705.0))), ('line', ((274.0, 582.0),)), ('close', ())]}

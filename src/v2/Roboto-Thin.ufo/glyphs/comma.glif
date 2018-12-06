@@ -4,6 +4,12 @@
   <unicode hex="002C"/>
   <outline>
     <contour>
+      <point x="209" y="214" type="move" name="_bottom"/>
+    </contour>
+    <contour>
+      <point x="182" y="25" type="move" name="_right"/>
+    </contour>
+    <contour>
       <point x="235" y="159" type="line"/>
       <point x="181" y="159" type="line"/>
       <point x="181" y="25" type="line"/>
@@ -15,42 +21,36 @@
       <point x="235" y="-96"/>
       <point x="235" y="27" type="curve"/>
     </contour>
-    <contour>
-      <point x="209" y="214" type="move" name="_bottom"/>
-    </contour>
-    <contour>
-      <point x="182" y="25" type="move" name="_right"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>901</real>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>901.0</real>
+        </dict>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>555.0</real>
+        </dict>
+      </array>
     </dict>
-    <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>555</real>
-    </dict>
-  </array>
-  </dict>
   </lib>
 </glyph>

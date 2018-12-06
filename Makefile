@@ -17,6 +17,9 @@ all: v2
 v2:
 	PYTHONPATH=$(PYTHONPATH):$(CURDIR)/scripts/lib python scripts/build-v2.py
 
+masters-%:
+	PYTHONPATH=$(PYTHONPATH):$(CURDIR)/scripts/lib python scripts/build_masters.py $@
+
 crunch:
 	mkdir -p out/crunched
 	cd third_party/fontcrunch && \

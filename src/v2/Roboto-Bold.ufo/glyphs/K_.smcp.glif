@@ -3,26 +3,6 @@
   <advance width="1130"/>
   <outline>
     <contour>
-      <point x="410" y="1165" type="line"/>
-      <point x="87" y="1165" type="line"/>
-      <point x="87" y="0" type="line"/>
-      <point x="410" y="0" type="line"/>
-    </contour>
-    <contour>
-      <point x="1147" y="1165" type="line"/>
-      <point x="742" y="1165" type="line"/>
-      <point x="499" y="830" type="line"/>
-      <point x="323" y="577" type="line"/>
-      <point x="408" y="287" type="line"/>
-      <point x="677" y="550" type="line"/>
-    </contour>
-    <contour>
-      <point x="771" y="0" type="line"/>
-      <point x="1151" y="0" type="line"/>
-      <point x="723" y="682" type="line"/>
-      <point x="469" y="505" type="line"/>
-    </contour>
-    <contour>
       <point x="499" y="9" type="move" name="bottom"/>
     </contour>
     <contour>
@@ -43,16 +23,36 @@
     <contour>
       <point x="1130" y="1320" type="move" name="top0315"/>
     </contour>
+    <contour>
+      <point x="410" y="1165" type="line"/>
+      <point x="87" y="1165" type="line"/>
+      <point x="87" y="0" type="line"/>
+      <point x="410" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="1147" y="1165" type="line"/>
+      <point x="742" y="1165" type="line"/>
+      <point x="499" y="830" type="line"/>
+      <point x="323" y="577" type="line"/>
+      <point x="408" y="287" type="line"/>
+      <point x="677" y="550" type="line"/>
+    </contour>
+    <contour>
+      <point x="771" y="0" type="line"/>
+      <point x="1151" y="0" type="line"/>
+      <point x="723" y="682" type="line"/>
+      <point x="469" y="505" type="line"/>
+    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>1</real>
-    <real>0.6</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  </dict>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
   </lib>
 </glyph>

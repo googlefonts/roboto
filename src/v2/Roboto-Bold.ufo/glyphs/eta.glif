@@ -4,6 +4,15 @@
   <unicode hex="03B7"/>
   <outline>
     <contour>
+      <point x="577" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="257" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1153" y="1290" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="418" y="851" type="line"/>
       <point x="398" y="1082" type="line"/>
       <point x="96" y="1082" type="line"/>
@@ -28,52 +37,43 @@
       <point x="298" y="880"/>
       <point x="298" y="576" type="curve"/>
     </contour>
-    <contour>
-      <point x="577" y="1290" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="257" y="10" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="1153" y="1290" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>1</real>
-    <real>0.6</real>
-    <real>0.6</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>901</real>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>901.0</real>
+        </dict>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>555.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
     </dict>
-    <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>555</real>
-    </dict>
-  </array>
-  </dict>
   </lib>
 </glyph>

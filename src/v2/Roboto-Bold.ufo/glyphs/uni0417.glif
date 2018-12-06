@@ -4,6 +4,15 @@
   <unicode hex="0417"/>
   <outline>
     <contour>
+      <point x="624" y="1600" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="634" y="-10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="1281" y="1600" type="move" name="top0315"/>
+    </contour>
+    <contour>
       <point x="692" y="697" type="line"/>
       <point x="975" y="697"/>
       <point x="1164" y="861"/>
@@ -51,52 +60,43 @@
       <point x="1005" y="786"/>
       <point x="692" y="786" type="curve" smooth="yes"/>
     </contour>
-    <contour>
-      <point x="624" y="1600" type="move" name="top"/>
-    </contour>
-    <contour>
-      <point x="634" y="-10" type="move" name="bottom"/>
-    </contour>
-    <contour>
-      <point x="1281" y="1600" type="move" name="top0315"/>
-    </contour>
   </outline>
   <lib>
-  <dict>
-  <key>com.typemytype.robofont.mark</key>
-  <array>
-    <real>0.6</real>
-    <real>0.609</real>
-    <real>1</real>
-    <real>1</real>
-  </array>
-  <key>com.typemytype.robofont.guides</key>
-  <array>
     <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>1658</real>
+      <key>com.typemytype.robofont.guides</key>
+      <array>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>1658.0</real>
+        </dict>
+        <dict>
+          <key>angle</key>
+          <real>0.0</real>
+          <key>isGlobal</key>
+          <false/>
+          <key>magnetic</key>
+          <integer>5</integer>
+          <key>x</key>
+          <real>0.0</real>
+          <key>y</key>
+          <real>555.0</real>
+        </dict>
+      </array>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.6</real>
+        <real>0.609</real>
+        <real>1.0</real>
+        <real>1.0</real>
+      </array>
     </dict>
-    <dict>
-      <key>angle</key>
-      <real>0</real>
-      <key>isGlobal</key>
-      <false/>
-      <key>magnetic</key>
-      <integer>5</integer>
-      <key>x</key>
-      <real>0</real>
-      <key>y</key>
-      <real>555</real>
-    </dict>
-  </array>
-  </dict>
   </lib>
 </glyph>

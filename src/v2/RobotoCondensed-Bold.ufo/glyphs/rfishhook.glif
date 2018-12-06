@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="rfishhook" format="1">
+  <advance width="650"/>
+  <unicode hex="027E"/>
+  <outline>
+    <contour>
+      <point x="409" y="0" type="line"/>
+      <point x="409" y="743" type="line" smooth="yes"/>
+      <point x="409" y="853"/>
+      <point x="498" y="878"/>
+      <point x="550" y="878" type="curve" smooth="yes"/>
+      <point x="572" y="878"/>
+      <point x="590" y="875"/>
+      <point x="614" y="871" type="curve"/>
+      <point x="612" y="1087" type="line"/>
+      <point x="572" y="1097"/>
+      <point x="525" y="1102"/>
+      <point x="458" y="1102" type="curve" smooth="yes"/>
+      <point x="313" y="1102"/>
+      <point x="94" y="1065"/>
+      <point x="94" y="743" type="curve" smooth="yes"/>
+      <point x="94" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="255" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="255" y="0" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="630" y="1290" type="move" name="top0315"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>0.939</real>
+        <real>1.0</real>
+        <real>0.6</real>
+        <real>1.0</real>
+      </array>
+    </dict>
+  </lib>
+</glyph>

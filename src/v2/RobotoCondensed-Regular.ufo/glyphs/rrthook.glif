@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="rrthook" format="1">
+  <advance width="625"/>
+  <unicode hex="027D"/>
+  <outline>
+    <contour>
+      <point x="129" y="344" type="line"/>
+      <point x="129" y="-139" type="line" smooth="yes"/>
+      <point x="129" y="-331"/>
+      <point x="261" y="-437"/>
+      <point x="396" y="-437" type="curve" smooth="yes"/>
+      <point x="422" y="-437"/>
+      <point x="458" y="-432"/>
+      <point x="477" y="-425" type="curve"/>
+      <point x="479" y="-291" type="line"/>
+      <point x="468" y="-295"/>
+      <point x="449" y="-297"/>
+      <point x="440" y="-297" type="curve" smooth="yes"/>
+      <point x="372" y="-297"/>
+      <point x="321" y="-255"/>
+      <point x="321" y="-139" type="curve" smooth="yes"/>
+      <point x="321" y="344" type="line"/>
+    </contour>
+    <component base="r"/>
+    <contour>
+      <point x="304" y="-309" type="move" name="parenthesses.w1"/>
+    </contour>
+    <contour>
+      <point x="418" y="1290" type="move" name="top"/>
+    </contour>
+    <contour>
+      <point x="418" y="-447" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="605" y="1290" type="move" name="top0315"/>
+    </contour>
+  </outline>
+  <lib>
+    <dict>
+      <key>com.typemytype.robofont.mark</key>
+      <array>
+        <real>1.0</real>
+        <real>0.1703</real>
+        <real>0.1669</real>
+        <real>0.8287</real>
+      </array>
+    </dict>
+  </lib>
+</glyph>

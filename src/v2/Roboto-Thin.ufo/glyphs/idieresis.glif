@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="idieresis" format="1">
+  <advance width="406"/>
+  <unicode hex="00EF"/>
+  <outline>
+    <contour>
+      <point x="209" y="1269" type="move" name="parent_top"/>
+    </contour>
+    <contour>
+      <point x="210" y="10" type="move" name="bottom"/>
+    </contour>
+    <contour>
+      <point x="406" y="1269" type="move" name="top0315"/>
+    </contour>
+    <contour>
+      <point x="210" y="1516" type="move" name="top"/>
+    </contour>
+    <component base="dotlessi"/>
+    <component base="dieresis" xOffset="-241" yOffset="-24"/>
+  </outline>
+</glyph>
